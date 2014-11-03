@@ -9,7 +9,7 @@ body {
 }
 
 html{
-        background-image: url(http://127.0.0.1:8080/skyquality/www/images/mway_yellow.jpg);
+        background-image: url(http://127.0.0.1:8080/www/images/mway_yellow.jpg);
 }
 
 #ajax-spinner {
