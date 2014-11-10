@@ -1,0 +1,10 @@
+parameters:
+
+
+nette:
+        database:
+                dsn: 'mysql:host=wm73.wedos.net;dbname=d82437_skyqual'
+                user: 'a82437_skyqual'
+                password: 'kmvcKDA4'
+                options:
+                  lazy: yes

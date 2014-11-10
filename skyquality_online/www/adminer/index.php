@@ -1,6 +1,6 @@
 <?php
 
-if (false and isset($_SERVER['HTTP_X_FORWARDED_FOR']) || !isset($_SERVER['REMOTE_ADDR']) ||
+if (isset($_SERVER['HTTP_X_FORWARDED_FOR']) || !isset($_SERVER['REMOTE_ADDR']) ||
 	!in_array($_SERVER['REMOTE_ADDR'], array('127.0.0.1', '::1')))
 {
 	header('HTTP/1.1 403 Forbidden');

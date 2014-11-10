@@ -1,0 +1,26 @@
+{block content}
+<div class="page">
+<a n:href="Post:create" n:if="$user->loggedIn" class="add">Přidat měření</a>
+
+<h3>Naposledy přidaná měření</h3>
+    <table class="" width="80%" cellspacing="0">
+    <thead class="column" align="left">
+        <tr><th>Datum měření</th>
+            <th>Lokalita</th>
+            <th>Prům. jas oblohy</th>
+            <th>Pozorovatel</th>
+            <th>&nbsp;</th></tr>
+    </thead>
+    <tbody>
+        <div n:foreach="$posts as $post">
+            <tr class="clickable" onclick="{link Post:show $post->date}">
+            <td>{$post->date}</td>
+            <td>{$post->locality}</td>
+            <td>{$post->radiancy}</td>
+            <td>{$post->observer}</td>
+            <td><a href="{link Post:show $post->id}" class="ruzova">detail</a></td>
+            </tr>
+        </div>
+    </tbody>
+</table>
+</div>

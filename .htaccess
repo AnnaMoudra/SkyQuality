@@ -1,0 +1,34 @@
+RewriteEngine On
+
+# cele domeny (aliasy)
+RewriteCond %{REQUEST_URI} !^domains/
+RewriteCond %{REQUEST_URI} !^/domains/
+RewriteCond %{HTTP_HOST} ^(www.)?(.*)$
+RewriteCond %{DOCUMENT_ROOT}/domains/%2 -d
+RewriteRule (.*) domains/%2/$1 [DPI]
+
+# subdomeny (s nebo bez www na zacatku)
+RewriteCond %{REQUEST_URI} !^subdom/
+RewriteCond %{REQUEST_URI} !^/subdom/
+RewriteCond %{HTTP_HOST} ^(www.)?(.*)\.([^.]*)\.([^.]*)$
+RewriteCond %{DOCUMENT_ROOT}/subdom/%2 -d
+RewriteRule (.*) subdom/%2/$1 [DPI]
+
+# aliasy - spravne presmerovani pri chybejicim /
+RewriteCond %{REQUEST_FILENAME} -d
+RewriteRule ^domains/[^/]+/(.+[^/])$ /$1/ [R]
+
+# subdomeny - spravne presmerovani pri chybejicim /
+RewriteCond %{REQUEST_FILENAME} -d
+RewriteRule ^subdom/[^/]+/(.+[^/])$ /$1/ [R]
+
+# Nette Framework
+RewriteCond %{HTTP_HOST} ^(www.)?(.*).([^.]*).([^.]*)$
+RewriteCond %{DOCUMENT_ROOT}/domains/%2.%3.%4 !-d
+RewriteCond %{DOCUMENT_ROOT}/subdom/%2 !-d
+RewriteCond %{HTTP_HOST} ^(www.)?([^.]*).([^.]*){2,4}$
+RewriteCond %{REQUEST_URI} !^www/
+RewriteCond %{REQUEST_URI} !^/www/
+RewriteCond %{DOCUMENT_ROOT}/www -d
+RewriteRule (.*) www/$1 [DPI]
+# Nette Framework

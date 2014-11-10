@@ -1,0 +1,10 @@
+{* Latte template *}
+
+{block content}
+<div class="page">
+    <div n:foreach="$info as $a">
+        <h3>{$a->title}</h3><br>
+        {$a->content}</div>
+</div>
+
+   
