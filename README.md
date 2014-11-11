@@ -14,9 +14,12 @@ rešerš překladů: řešení přes proměnnou lang v mezidobí celkem nic
 problém s konfigurací config.product.neon (připojení databáze, což ale pro ted není důležité)
 problém s routováním ? - snad vyřeším 3.11.
 
-8.10.
+8.11.
  - vyřešen problém v config.product.neon
  
-9.10.
+9.11.
  - vyřešen problém s routováním
+11.11.
+ - zřízena 2. db na wedosu
+ - návrh nové db
  
