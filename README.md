@@ -19,6 +19,7 @@ problém s routováním ? - snad vyřeším 3.11.
  
 9.11.
  - vyřešen problém s routováním
+ 
 11.11.
  - zřízena 2. db na wedosu
  - návrh nové db
