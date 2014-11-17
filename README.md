@@ -24,3 +24,7 @@ problém s routováním ? - snad vyřeším 3.11.
  - zřízena 2. db na wedosu
  - návrh nové db
  
+17.11.
+ - nahrání starých dat do nové DB (80%)
+ 
+ 
