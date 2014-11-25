@@ -25,6 +25,10 @@ problém s routováním ? - snad vyřeším 3.11.
  - návrh nové db
  
 17.11.
- - nahrání starých dat do nové DB (80%)
+ - nahrání starých dat do nové DB
+ 
+do 24.11.
+ - nic
  
  
+
