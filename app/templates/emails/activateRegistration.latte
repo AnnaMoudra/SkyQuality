@@ -16,10 +16,12 @@
                 <strong>Email:</strong> {$values['email']}
             </li>
             <li>
-                <strong>Zpráva:</strong> {
-		"Pro aktivaci vašeho účtu na SkyQuality.cz klikněte na následující odkaz."
-		a href=skyquality.cz/Activation
-		}
+                <strong>Zpráva:</strong>
+		<h3>"Pro aktivaci vašeho účtu na SkyQuality.cz klikněte na následující odkaz."<br>
+		<a href="skyquality.cz/sign/activate&user="{$linkhash}>Aktivovat účet</a><br>
+		"Pokud jste se na stránce SkyQuality.cz neregistrovali, na link neklikejte. 
+		Váš email bude z databáze vymazán."
+		</h3>
             </li>
         </ul>
 
