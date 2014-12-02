@@ -21,7 +21,7 @@ class DatabasePresenter extends BasePresenter
 	
 	public function renderDefault()
 	{
-		$this->template->posts = $this->database->table('posts')
+		$this->template->observations = $this->database->table('observations')
 			->order('created_at DESC');
 	}
 

@@ -1,0 +1,27 @@
+{* Latte template *}
+
+{block content}
+
+<html>
+    <head>
+        <title>{$title}</title>
+    </head>
+
+    <body>
+        <ul>
+            <li>
+                <strong>Jméno:</strong> {$values['username']}
+            </li>
+            <li>
+                <strong>Email:</strong> {$values['email']}
+            </li>
+            <li>
+                <strong>Zpráva:</strong> {
+		"Pro aktivaci vašeho účtu na SkyQuality.cz klikněte na následující odkaz."
+		a href=skyquality.cz/Activation
+		}
+            </li>
+        </ul>
+
+    </body>
+</html>

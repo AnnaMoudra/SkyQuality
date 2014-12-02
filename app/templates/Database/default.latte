@@ -14,13 +14,13 @@
             <th>&nbsp;</th></tr>
     </thead>
     <tbody>
-        <div n:foreach="$posts as $post">
-            <tr class="clickable" onclick="{link Post:show $post->date}">
-            <td>{$post->date}</td>
-            <td>{$post->locality}</td>
-            <td>{$post->radiancy}</td>
-            <td>{$post->observer}</td>
-            <td><a href="{link Post:show $post->id}" class="ruzova">detail</a></td>
+        <div n:foreach="$observations as $observation">
+            <tr class="clickable" onclick="{link Post:show $observation->date}">
+            <td>{$observation->date}</td>
+            <td>{$observationt->locality}</td>
+            <td>{$observation->radiancy}</td>
+            <td>{$observation->observer}</td>
+            <td><a href="{link Post:show $observation->id}" class="ruzova">detail</a></td>
             </tr>
         </div>
     </tbody>

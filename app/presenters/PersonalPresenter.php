@@ -23,8 +23,8 @@ class PersonalPresenter extends BasePresenter
                 
 	public function renderDefault()
 	{
-            $this->template->posts = $this->database->table('posts')
-                    ->where('user_id', $this->user->id) // vytáhne userovy post z tabulky posts
+            $this->template->observations = $this->database->table('observations')
+                    ->where('user_id', $this->user->id) // vytáhne userovy post z tabulky observations
                     ->order('created_at DESC');
             $this->template->personal = $this->database->table('users')
                     ->where('id', $this->user->id);

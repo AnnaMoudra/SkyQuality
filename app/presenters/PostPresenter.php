@@ -19,13 +19,13 @@ class PostPresenter extends BasePresenter
 
    public function renderShow($postId)
     {
-        $post = $this->database->table('posts')->get($postId);
-        if (!$post) {
+        $observation = $this->database->table('observations')->get($postId);
+        if (!$observation) {
             $this->error('Stránka nebyla nalezena');
         }
 
-        $this->template->post = $post;
-        $this->template->comments = $post->related('comment')->order('created_at');
+        $this->template->observation = $observation;
+        $this->template->comments = $observation->related('comment')->order('created_at');
     }
     
     protected function createComponentCommentForm()
@@ -53,7 +53,7 @@ class PostPresenter extends BasePresenter
         $postId = $this->getParameter('postId');
 
         $this->database->table('comments')->insert(array(
-            'post_id' => $postId,
+            'observation_id' => $postId,
             'name' => $values->name,
             'email' => $values->email,
             'content' => $values->content,
@@ -95,10 +95,10 @@ class PostPresenter extends BasePresenter
     
         $values = $form->getValues();
         $values['user_id'] = $this->user->id;
-        $post = $this->database->table('posts')->insert($values);
+        $observation = $this->database->table('observations')->insert($values);
         
         $this->flashMessage("Příspěvek byl úspěšně vložen.", 'success');
-        $this->redirect('show', $post->id);
+        $this->redirect('show', $observation->id);
     }
     
     public function actionCreate()
@@ -115,8 +115,8 @@ class PostPresenter extends BasePresenter
         }
         else{
             
-            $post = $this->database->table('posts')
-                    ->where('user_id', $this->user->id)  // id_user v posts odpovida id v userovi
+            $post = $this->database->table('observations')
+                    ->where('user_id', $this->user->id)  // id_user v observations odpovida id v userovi
                     ->get($postId);
             
             if (!$post) { 
@@ -124,7 +124,7 @@ class PostPresenter extends BasePresenter
                 $this->redirect('Post:show?postId='.$postId);
             }
                 
-            $this->database->table('posts')->where('id', $postId)->delete();
+            $this->database->table('observations')->where('id', $postId)->delete();
             
             $this->flashMessage("Měření bylo smazáno.", 'success');
             $this->redirect('Personal:');
@@ -140,17 +140,17 @@ class PostPresenter extends BasePresenter
         } 
         else{
            
-            $post = $this->database->table('posts')
-                    ->where('user_id', $this->user->id)  // id_user v posts odpovida id v userovi
+            $observation = $this->database->table('observations')
+                    ->where('user_id', $this->user->id)  // id_user v observations odpovida id v userovi
                     ->get($postId);
             
-            if (!$post) { 
+            if (!$observation) { 
                 $this->flashMessage('Nemáte oprávnění k editaci toho příspěvku.');
-                $this->redirect('Post:show?postId='.$postId);// existuje takovy post?
+                $this->redirect('Post:show?postId='.$postId);// existuje takove mereni?
             }
-            if ($this->user->id == $post->user_id) // druha kontrola
+            if ($this->user->id == $observation->user_id) // druha kontrola
             {
-                $this['postForm']->setDefaults($post->toArray());
+                $this['postForm']->setDefaults($observation->toArray());
             }
         }
     }
