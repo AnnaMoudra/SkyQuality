@@ -9,9 +9,9 @@
 <a n:href="Post:create" n:if="$user->loggedIn" class="add">Přidat měření</a>
 
 <h4>Vámi spravovaná měření</h4>
-<div n:foreach="$posts as $post">
-        přidáno: {$post->created_at|date:'F j, Y'} |  {$post->locality} |{$post->date}|
-        | {$post->radiancy}| {$post->observer} <a href="{link Post:show $post->id}" class="ruzova">detail</a>{sep}<hr>{/sep}</div>
+<div n:foreach="$observations as $observation">
+        přidáno: {$observation->created_at|date:'F j, Y'} |  {$observation->locality} |{$observation->date}|
+        | {$observation->radiancy}| {$observation->observer} <a href="{link Post:show $observation->id}" class="ruzova">detail</a>{sep}<hr>{/sep}</div>
 
 </div>
    

@@ -20,7 +20,8 @@ class UserManager extends Nette\Object implements Nette\Security\IAuthenticator
 		COLUMN_EMAIL = 'email',
 		COLUMN_LINKHASH = 'linkhash',
 		COLUMN_ACTIVE = 'active',
-		COLUMN_ROLE = 'role'; /** musí být zaškrtnutý null ?????
+		COLUMN_ROLE = 'role',
+		COLUMN_NEWPASSWORD = 'newpass';
 
 
 	/** @var Nette\Database\Context */

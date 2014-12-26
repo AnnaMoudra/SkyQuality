@@ -13,6 +13,7 @@ use Nette,
     
 use Nette\Utils\Validators;
 use Nette\Mail\Message;
+use Nette\Mail\SendmailMailer;
 use Nette\Utils\Strings;
 /**
  * Register presenter.
@@ -28,7 +29,6 @@ class UserPresenter extends BasePresenter
     
     protected function createComponentRegisterForm()
     {
-	$linkhash = Strings::random(10);
         $form = new Nette\Application\UI\Form;
         $form->addText('username', 'Uživatelské jméno:')
             ->setRequired('Zadejte vaše uživatelské jméno.');
@@ -39,10 +39,10 @@ class UserPresenter extends BasePresenter
         $form->addPassword('password2', 'Potvrďte heslo:')
             ->setRequired('Potvrďte heslo.');
 
-	$form->addPassword('email', 'Email:')
+	$form->addText('email', 'Email:')
             ->setRequired('Zadejte platnou emailovou adresu.');
 	
-	$form->addHidden('linkhash',$linkhash);
+	$form->addHidden('linkhash', Strings::random(10));
 
         $form->addSubmit('send', 'Registrovat');
 	
@@ -50,24 +50,14 @@ class UserPresenter extends BasePresenter
 
         //call method registerFormSucceeded() on success
         $form->onSuccess[] = $this->registerFormSucceeded;
+
         return $form;
     }   
-            
+         
     public function registerFormSucceeded($form) {
         $values = $form->getValues();
-        
-        if($values->password1 !== $values->password2){		//validace hesla
-	    $this->flashMessage('Vaše hesla se neshodují.');
-	    
-	} else if(Validators::IsEmail($values->email)==true){	//validace emailové adresy
-	    
-            $this->userManager->add($values->username, $values->password1, $values->email, $values->linkhash);
-	    
-        } else {
-            $this->flashMessage('Zadaná emailová adresa není platná.');
-        }
 	
-	$message = new Message;		    //odešle aktivační email
+	$message = new Message;		    //vytvoreni emailu
 	$message->setFrom('SkyQuality <admin@skyquality.cz>') //od
 		->addTo($values->email)	// adds recipient
 		->addBcc('anna.moudra@gmail.com'); //pro testovaci ucely
@@ -76,13 +66,26 @@ class UserPresenter extends BasePresenter
 	$template->setFile(__DIR__ . '/../templates/emails/activateRegistration.latte'); //prislusna sablona
 	$template->title = 'Aktivace účtu na SkyQuality.cz'; // predmet zpravy
 	$template->values = $values; //jmeno, email a linkhash
-
 	
-	$message->setHtmlBody($template)
-        ->send();
+	$message->setHtmlBody($template);
+        
+	if($values->password1 !== $values->password2){		//validace hesla
+	    $this->flashMessage('Vaše hesla se neshodují.');
+	    return false;
+	    }
+	    else if(Validators::IsEmail($values->email)!=true){
+	    $this->flashMessage('Zadaná emailová adresa není platná.');
+	    return false;
+	    }
+	    else{
+		
+	    $this->userManager->add($values->username, $values->password1, $values->email, $values->linkhash);
+	    $mailer = new SendmailMailer;
+	    $mailer->send($message);
 
-        $this->flashMessage('Byli jste úspěšně zaregistrováni. Na zadanou emailovou adresu vám přijde link k aktivaci vašeho účtu.', 'success');
-        $this->redirect('Homepage:');
+	    $this->flashMessage('Byli jste úspěšně zaregistrováni. Na zadanou emailovou adresu vám přijde link k aktivaci vašeho účtu.', 'success');
+	    $this->redirect('Homepage:');
+	}
     }
 }
         
