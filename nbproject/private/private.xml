@@ -3,11 +3,13 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-            <file>file:/D:/xampp/htdocs/skyquality2/app/presenters/SignPresenter.php</file>
-            <file>file:/D:/xampp/htdocs/skyquality2/app/presenters/DatabasePresenter.php</file>
-            <file>file:/D:/xampp/htdocs/skyquality2/app/config/config.product.neon</file>
-            <file>file:/D:/xampp/htdocs/skyquality2/app/presenters/PostPresenter.php</file>
-            <file>file:/D:/xampp/htdocs/skyquality2/app/config/config.local.neon</file>
+            <file>file:/D:/xampp/htdocs/localSQ/app/presenters/SignPresenter.php</file>
+            <file>file:/D:/xampp/htdocs/localSQ/app/templates/Sign/activate.latte</file>
+            <file>file:/D:/xampp/htdocs/localSQ/app/templates/emails/activateRegistration.latte</file>
+            <file>file:/D:/xampp/htdocs/localSQ/app/model/UserManager.php</file>
+            <file>file:/D:/xampp/htdocs/localSQ/app/presenters/InfoPresenter.php</file>
+            <file>file:/D:/xampp/htdocs/localSQ/app/presenters/UserPresenter.php</file>
+            <file>file:/D:/xampp/htdocs/localSQ/app/presenters/BasePresenter.php</file>
         </group>
     </open-files>
 </project-private>

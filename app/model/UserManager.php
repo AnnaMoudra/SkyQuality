@@ -17,6 +17,9 @@ class UserManager extends Nette\Object implements Nette\Security\IAuthenticator
 		COLUMN_ID = 'id',
 		COLUMN_NAME = 'username',
 		COLUMN_PASSWORD_HASH = 'password',
+		COLUMN_EMAIL = 'email',
+		COLUMN_LINKHASH = 'linkhash',
+		COLUMN_ACTIVE = 'active',
 		COLUMN_ROLE = 'role'; /** musí být zaškrtnutý null ?????
 
 
@@ -65,12 +68,28 @@ class UserManager extends Nette\Object implements Nette\Security\IAuthenticator
 	 * @param  string
 	 * @return void
 	 */
-	public function add($username, $password)
+	public function add($username, $password, $email, $linkhash)
 	{
 		$this->database->table(self::TABLE_NAME)->insert(array(
 			self::COLUMN_NAME => $username,
 			self::COLUMN_PASSWORD_HASH => Passwords::hash($password),
+			self::COLUMN_EMAIL => $email,
+			self::COLUMN_LINKHASH => $linkhash
 		));
+	}
+	
+	public function validate($linkhash){
+	    
+	    $row = $this->database->table(self::TABLE_NAME)->where(self::COLUMN_LINKHASH, $linkhash)->fetch();
+	    
+	    if(!$row)
+	    {
+		throw new Nette\Security\AuthenticationException('Sych a user was not found in the database', self::IDENTITY_NOT_FOUND);
+	    }
+	    
+	    $arr = $row->toArray();
+	    $arr[self::COLUMN_ACTIVE]= TRUE;
+	    
 	}
 
 }

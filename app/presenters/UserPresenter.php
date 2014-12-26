@@ -13,6 +13,7 @@ use Nette,
     
 use Nette\Utils\Validators;
 use Nette\Mail\Message;
+use Nette\Utils\Strings;
 /**
  * Register presenter.
  */
@@ -27,6 +28,7 @@ class UserPresenter extends BasePresenter
     
     protected function createComponentRegisterForm()
     {
+	$linkhash = Strings::random(10);
         $form = new Nette\Application\UI\Form;
         $form->addText('username', 'Uživatelské jméno:')
             ->setRequired('Zadejte vaše uživatelské jméno.');
@@ -39,8 +41,12 @@ class UserPresenter extends BasePresenter
 
 	$form->addPassword('email', 'Email:')
             ->setRequired('Zadejte platnou emailovou adresu.');
+	
+	$form->addHidden('linkhash',$linkhash);
 
         $form->addSubmit('send', 'Registrovat');
+	
+	
 
         //call method registerFormSucceeded() on success
         $form->onSuccess[] = $this->registerFormSucceeded;
@@ -50,30 +56,28 @@ class UserPresenter extends BasePresenter
     public function registerFormSucceeded($form) {
         $values = $form->getValues();
         
-        if($values->password1 == $values->password2){		//validace hesla
-            $this->userManager->add($values->username, $values->password1);
-        } else {
-            $this->flashMessage('Vaše hesla se neshodují.');
-        }
-	
-	if(Validators::IsEmail($values->email)==true){		//validace emailové adresy
-            $this->userManager->add($values->username, $values->password1,$values->email);
+        if($values->password1 !== $values->password2){		//validace hesla
+	    $this->flashMessage('Vaše hesla se neshodují.');
+	    
+	} else if(Validators::IsEmail($values->email)==true){	//validace emailové adresy
+	    
+            $this->userManager->add($values->username, $values->password1, $values->email, $values->linkhash);
+	    
         } else {
             $this->flashMessage('Zadaná emailová adresa není platná.');
         }
 	
-	
 	$message = new Message;		    //odešle aktivační email
-	$message->addTo('test@gmail.com')
-	    ->setFrom($values['email']);
+	$message->setFrom('SkyQuality <admin@skyquality.cz>') //od
+		->addTo($values->email)	// adds recipient
+		->addBcc('anna.moudra@gmail.com'); //pro testovaci ucely
 	
 	$template = $this->createTemplate();
-	$template->setFile(__DIR__ . '/../templates/emails/activateRegistration.latte');
-	$template->title = 'Aktivace účtu na SkyQuality.cz';
-	$template->values = $values;
-	$template->linkhash = hash($algo, $values);
-	
+	$template->setFile(__DIR__ . '/../templates/emails/activateRegistration.latte'); //prislusna sablona
+	$template->title = 'Aktivace účtu na SkyQuality.cz'; // predmet zpravy
+	$template->values = $values; //jmeno, email a linkhash
 
+	
 	$message->setHtmlBody($template)
         ->send();
 
