@@ -10,20 +10,20 @@
     <body>
         <ul>
             <li>
-                <strong>Jméno:</strong> {$values['username']}
+                <strong>Username:</strong> {$values['username']}
             </li>
             <li>
                 <strong>Email:</strong> {$values['email']}
             </li>
             <li>
                 <strong>Zpráva:</strong>
-		<h3>"Pro aktivaci vašeho účtu na SkyQuality.cz klikněte na následující odkaz."<br>
+		<h4>Pro aktivaci vašeho účtu na SkyQuality.cz klikněte na následující odkaz.<br>
 		    
-		<a href="{link //Sign:activate, $values['linkhash']}">Zde klikněte pro ověření emailové adresy</a>
+		    <a href="{link //Sign:activate 'hash'=>$values['linkhash']}">Zde klikněte pro ověření emailové adresy</a>
 		
-		"Pokud jste se na stránce SkyQuality.cz neregistrovali, na link neklikejte. 
-		Váš email bude z databáze vymazán."
-		</h3>
+		Pokud jste se na stránce SkyQuality.cz neregistrovali, na link neklikejte. 
+		Váš email bude z databáze vymazán.
+		</h4>
             </li>
         </ul>
 

@@ -6,10 +6,12 @@
             <file>file:/D:/xampp/htdocs/localSQ/app/presenters/SignPresenter.php</file>
             <file>file:/D:/xampp/htdocs/localSQ/app/templates/Sign/activate.latte</file>
             <file>file:/D:/xampp/htdocs/localSQ/app/templates/emails/activateRegistration.latte</file>
+            <file>file:/D:/xampp/htdocs/localSQ/app/presenters/DatabasePresenter.php</file>
             <file>file:/D:/xampp/htdocs/localSQ/app/model/UserManager.php</file>
-            <file>file:/D:/xampp/htdocs/localSQ/app/presenters/InfoPresenter.php</file>
             <file>file:/D:/xampp/htdocs/localSQ/app/presenters/UserPresenter.php</file>
-            <file>file:/D:/xampp/htdocs/localSQ/app/presenters/BasePresenter.php</file>
+            <file>file:/D:/xampp/htdocs/localSQ/app/config/config.local.neon</file>
+            <file>file:/D:/xampp/htdocs/localSQ/app/presenters/PersonalPresenter.php</file>
+            <file>file:/D:/xampp/htdocs/localSQ/app/templates/Personal/default.latte</file>
         </group>
     </open-files>
 </project-private>

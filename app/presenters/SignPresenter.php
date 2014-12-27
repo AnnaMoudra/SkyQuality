@@ -62,14 +62,17 @@ class SignPresenter extends BasePresenter
 		$this->flashMessage('Byli jste odhlášeni.');
 		$this->redirect('in');
 	}
-	
-	public function activate()
+
+
+	public function actionActivate()
 	{
-	    $linkhash= $this->getHttpRequest()->getUrl()->query;	// ziska linkhash z url
-		    
-	    $this->validate($linkhash);
-	    $this->flashMessage('Váš účet byl aktivován. Nyní se můžete přihlásit');
-	    $this->redirect('in');
+	    $linkhash= $this->getHttpRequest()->getUrl()->getQueryParameter("hash");// ziska linkhash z url
+
+
+		$this->userManager->validate($linkhash);
+		$this->flashMessage('Váš účet byl aktivován. Nyní se můžete přihlásit');
+		$this->redirect('in');
+	    
 	
 	}
 	    

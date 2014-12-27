@@ -69,7 +69,7 @@ class UserPresenter extends BasePresenter
 	
 	$message->setHtmlBody($template);
         
-	if($values->password1 !== $values->password2){		//validace hesla
+	if($values->password1 !== $values->password2){		//validace hesla a emailu
 	    $this->flashMessage('Vaše hesla se neshodují.');
 	    return false;
 	    }
@@ -79,16 +79,16 @@ class UserPresenter extends BasePresenter
 	    }
 	    else{
 		
-	    $this->userManager->add($values->username, $values->password1, $values->email, $values->linkhash);
+	    $this->userManager->add($values->username, $values->password1, $values->email, $values->linkhash);//zada udaje do db
 	    $mailer = new SendmailMailer;
 	    $mailer->send($message);
 
 	    $this->flashMessage('Byli jste úspěšně zaregistrováni. Na zadanou emailovou adresu vám přijde link k aktivaci vašeho účtu.', 'success');
 	    $this->redirect('Homepage:');
-	}
+	    }
     }
 }
-        
-        
+   
 
-
+        
+    

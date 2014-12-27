@@ -87,9 +87,10 @@ class UserManager extends Nette\Object implements Nette\Security\IAuthenticator
 	    {
 		throw new Nette\Security\AuthenticationException('Sych a user was not found in the database', self::IDENTITY_NOT_FOUND);
 	    }
-	    
-	    $arr = $row->toArray();
-	    $arr[self::COLUMN_ACTIVE]= TRUE;
+
+	    $row->update(array(self::COLUMN_ACTIVE => true));
+
+
 	    
 	}
 
