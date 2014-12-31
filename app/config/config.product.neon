@@ -3,7 +3,7 @@ parameters:
 
 nette:
         database:
-                dsn: 'mysql:host=localhost;dbname=localdev'
+                dsn: 'mysql:host=localhost;dbname=nova'
                 user: 'root'
                 password:
                 options:

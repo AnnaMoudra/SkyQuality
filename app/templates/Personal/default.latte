@@ -6,7 +6,7 @@
     Uživatel: {$a->username}
 </div>
 <br>
-<a n:href="Post:create" n:if="$user->loggedIn" class="add">Přidat měření</a>
+<a n:href="Observation:create" n:if="$user->loggedIn" class="add">Přidat měření</a>
 
 <h4>Vámi spravovaná měření</h4>
 <div n:foreach="$observations as $observation">

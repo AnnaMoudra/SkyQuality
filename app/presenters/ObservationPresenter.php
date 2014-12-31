@@ -4,10 +4,11 @@ namespace App\Presenters;
 use Nette,
         Nette\Database\Table\Selection;
 use Exception;
+use Nette\Security\Permission;
 
 
 
-class PostPresenter extends BasePresenter
+class ObservationPresenter extends BasePresenter
 {
     /** @var Nette\Database\Context */
     private $database;
@@ -17,9 +18,9 @@ class PostPresenter extends BasePresenter
         $this->database = $database;
     }
 
-   public function renderShow($postId)
+   public function renderShow($observationId)
     {
-        $observation = $this->database->table('observations')->get($postId);
+        $observation = $this->database->table('observations')->get($observationId);
         if (!$observation) {
             $this->error('Stránka nebyla nalezena');
         }
@@ -34,26 +35,22 @@ class PostPresenter extends BasePresenter
 
         $form->addText('name', 'Jméno:')
             ->setRequired();
-
         $form->addText('email', 'Email:');
-
         $form->addTextArea('content', 'Komentář:')
             ->setRequired();
-
         $form->addSubmit('send', 'Publikovat komentář');
-        
+   
         $form->onSuccess[] = $this->commentFormSucceeded;
-
         return $form;
     }
     
     public function commentFormSucceeded($form)
     {
         $values = $form->getValues();
-        $postId = $this->getParameter('postId');
+        $observationId = $this->getParameter('observationId');
 
         $this->database->table('comments')->insert(array(
-            'observation_id' => $postId,
+            'observation_id' => $observationId,
             'name' => $values->name,
             'email' => $values->email,
             'content' => $values->content,
@@ -63,38 +60,46 @@ class PostPresenter extends BasePresenter
         $this->redirect('this');
     }
     
-    protected function createComponentPostForm()
+    protected function createComponentObservationForm()
     {
          if (!$this->user->isLoggedIn()) {
             $this->error('Pro vytvoření, nebo editování příspěvku se musíte přihlásit.');
         }
+	if ($this->database->table('users')->where('user_id', $this->user->id)->where('active',1)!==true){
+	    $this->flashMessage('Nejprve aktivujte svůj účet.');
+	}
         
         $form = new Nette\Application\UI\Form;
         $form->addText('date', 'Datum měření:')
             ->setRequired();
-        $form->addText('locality', 'Lokalita:')
-            ->setRequired();
-        $form->addText('radiancy', 'Průměrný jas oblohy:')
-            ->setRequired();
-        $form->addText('observer', 'Pozorovatel:')
-            ->setRequired();
-        $form->addTextArea('notes', 'Poznámky:')
-            ->setRequired();
+        $form->addText('sqm1', 'SQM:')
+             ->setRequired();
+        $form->addText('sqm2', 'SQM:');
+            //->setRequired();
+        $form->addText('sqm3', 'SQM:');
+            //->setRequired();
+        $form->addText('sqm4', 'SQM:');
+            //->setRequired();
+	$form->addText('observer', 'Pozorovatel')
+		->setRequired();
 
         $form->addSubmit('send', 'Vložit do databáze');
-        $form->onSuccess[] = $this->postFormSucceeded;
+        $form->onSuccess[] = $this->observationFormSucceeded;
 
         return $form;
     }
     
-    public function postFormSucceeded($form)
+    public function observationFormSucceeded($form)
     {
         if (!$this->user->isLoggedIn()) {
             $this->error('Pro vytvoření, nebo editování příspěvku se musíte přihlásit.');
         }
-    
-        $values = $form->getValues();
-        $values['user_id'] = $this->user->id;
+	//if ($this->user->isInRole('member')){}
+	if ($this->database->table('users')->where('user_id', $this->user->id)->where('active',1)!==true){
+	   $this->error('Nejprve aktivujte svůj účet.');
+	}
+	$values = $form->getValues();
+	$values['user_id'] = $this->user->id;
         $observation = $this->database->table('observations')->insert($values);
         
         $this->flashMessage("Příspěvek byl úspěšně vložen.", 'success');
@@ -106,25 +111,31 @@ class PostPresenter extends BasePresenter
         if (!$this->user->isLoggedIn()) {
             $this->redirect('Sign:in');
         }
+	//if (!$this->user->isInRole('member')){}
     }
     
-    public function actionDelete($postId)
+    public function actionDelete($observationId)
     {
         if (!$this->user->isLoggedIn()) {
             $this->redirect('Sign:in');
         }
+	if (!$this->database->table('users')->where('user_id', $this->user->id)->where('active',1)){
+	    $this->error('Nejprve aktivujte svůj účet.');
+	    $this->redirect('Homepage:default');
+	}
+	//if ($this->user->isInRole('member')){}
         else{
             
-            $post = $this->database->table('observations')
+            $observation = $this->database->table('observations')
                     ->where('user_id', $this->user->id)  // id_user v observations odpovida id v userovi
-                    ->get($postId);
+                    ->get($observationId);
             
-            if (!$post) { 
+            if (!$observation) { 
                 $this->flashMessage('Nemáte oprávnění ke smazání toho příspěvku.');
-                $this->redirect('Post:show?postId='.$postId);
+                $this->redirect('Observation:show?observationId='.$observationId);
             }
                 
-            $this->database->table('observations')->where('id', $postId)->delete();
+            $this->database->table('observations')->where('id', $observationId)->delete();
             
             $this->flashMessage("Měření bylo smazáno.", 'success');
             $this->redirect('Personal:');
@@ -132,25 +143,30 @@ class PostPresenter extends BasePresenter
         }
     }
 
-        public function actionEdit($postId)
+        public function actionEdit($observationId)
     {
         if (!$this->user->isLoggedIn()) 
         {
             $this->redirect('Sign:in');
         } 
+	//if ($this->user->isInRole('member')){}
+	else if (!$this->database->table('users')->where('user_id', $this->user->id)->where('active',1)){
+	    $this->error('Nejprve aktivujte svůj účet.');
+	    $this->redirect('Homepage:default');
+	}
         else{
            
             $observation = $this->database->table('observations')
                     ->where('user_id', $this->user->id)  // id_user v observations odpovida id v userovi
-                    ->get($postId);
+                    ->get($observationId);
             
             if (!$observation) { 
                 $this->flashMessage('Nemáte oprávnění k editaci toho příspěvku.');
-                $this->redirect('Post:show?postId='.$postId);// existuje takove mereni?
+                $this->redirect('Observation:show?observationId='.$observationId);// existuje takove mereni?
             }
             if ($this->user->id == $observation->user_id) // druha kontrola
             {
-                $this['postForm']->setDefaults($observation->toArray());
+                $this['observationForm']->setDefaults($observation->toArray());
             }
         }
     }

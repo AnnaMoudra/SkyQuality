@@ -15,7 +15,7 @@
             <th>&nbsp;</th></tr>
     </thead>
     <tbody>
-        <div n:foreach="$observations as $observation">
+        {*<div n:foreach="$observations as $observation">
             <tr class="clickable" onclick="{link Post:show $observation->date}">
             <td>{$observation->date}</td>
             <td>{$observation->locality}</td>
@@ -23,7 +23,7 @@
             <td>{$observation->observer}</td>
             <td><a href="{link Post:show $observation->id}" class="ruzova">detail</a></td>
             </tr>
-        </div>
+        </div>*}
     </tbody>
 </table>
 </div>

@@ -12,6 +12,7 @@ use Nette,
     App\Model\UserManager;
     
 use Nette\Utils\Validators;
+use Nette\Application\UI\Form;
 use Nette\Mail\Message;
 use Nette\Mail\SendmailMailer;
 use Nette\Utils\Strings;
@@ -34,13 +35,16 @@ class UserPresenter extends BasePresenter
             ->setRequired('Zadejte vaše uživatelské jméno.');
 
         $form->addPassword('password1', 'Heslo:')
-            ->setRequired('Zadejte heslo.');
+            ->setRequired('Zadejte heslo.')
+	    ->addRule(Form::MIN_LENGTH,'Heslo musi mit alespon %d znaku',6);
 
         $form->addPassword('password2', 'Potvrďte heslo:')
-            ->setRequired('Potvrďte heslo.');
-
+            ->setRequired('Potvrďte heslo.')
+	    ->addRule(Form::EQUAL, 'Hesla se neshodují.', $form['password1']);
+	
 	$form->addText('email', 'Email:')
-            ->setRequired('Zadejte platnou emailovou adresu.');
+            ->setRequired('Zadejte platnou emailovou adresu.')
+	    ->addRule(Form::EMAIL,'Zadana adresa neni platna');
 	
 	$form->addHidden('linkhash', Strings::random(10));
 
@@ -58,7 +62,7 @@ class UserPresenter extends BasePresenter
         $values = $form->getValues();
 	
 	$message = new Message;		    //vytvoreni emailu
-	$message->setFrom('SkyQuality <admin@skyquality.cz>') //od
+	$message->setFrom('SkyQuality <admin@skyquality.cz>') //od koho
 		->addTo($values->email)	// adds recipient
 		->addBcc('anna.moudra@gmail.com'); //pro testovaci ucely
 	
@@ -68,24 +72,14 @@ class UserPresenter extends BasePresenter
 	$template->values = $values; //jmeno, email a linkhash
 	
 	$message->setHtmlBody($template);
-        
-	if($values->password1 !== $values->password2){		//validace hesla a emailu
-	    $this->flashMessage('Vaše hesla se neshodují.');
-	    return false;
-	    }
-	    else if(Validators::IsEmail($values->email)!=true){
-	    $this->flashMessage('Zadaná emailová adresa není platná.');
-	    return false;
-	    }
-	    else{
-		
-	    $this->userManager->add($values->username, $values->password1, $values->email, $values->linkhash);//zada udaje do db
-	    $mailer = new SendmailMailer;
-	    $mailer->send($message);
+        	
+	$this->userManager->add($values->username, $values->password1, $values->email, $values->linkhash);//zada udaje do db
+	$mailer = new SendmailMailer;
+	$mailer->send($message);
 
-	    $this->flashMessage('Byli jste úspěšně zaregistrováni. Na zadanou emailovou adresu vám přijde link k aktivaci vašeho účtu.', 'success');
-	    $this->redirect('Homepage:');
-	    }
+	$this->flashMessage('Byli jste úspěšně zaregistrováni. Na zadanou emailovou adresu vám přijde link k aktivaci vašeho účtu.', 'success');
+	$this->redirect('Homepage:');
+
     }
 }
    
