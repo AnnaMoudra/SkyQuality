@@ -21,9 +21,9 @@ class HomepagePresenter extends BasePresenter
 	
 	public function renderDefault()
 	{
-		$this->template->observations = $this->database->table('observations')
-			->order('created_at DESC')
-			->limit(5);
+		$this->template->sqm = $this->database->table('sqm')
+			->limit(5)
+			;
 	}
 
 

@@ -5,6 +5,7 @@ use Nette,
         Nette\Database\Table\Selection;
 use Exception;
 use Nette\Security\Permission;
+use Nette\Forms\Form;
 
 
 
@@ -68,21 +69,48 @@ class ObservationPresenter extends BasePresenter
 	if ($this->database->table('users')->where('user_id', $this->user->id)->where('active',1)!==true){
 	    $this->flashMessage('Nejprve aktivujte svůj účet.');
 	}
-        
+        $locations= $this->database->table('locations')->fetchPairs('id','name');
+	$equipment = $this->database->table('equipment')->fetchPairs('id','name');
         $form = new Nette\Application\UI\Form;
-        $form->addText('date', 'Datum měření:')
+	$locationContainer = $form->addContainer('location');
+	$observationContainer = $form->addContainer('observation');
+	$equipmentContainer = $form->addContainer('equipment');
+	$sqmContainer = $form->addContainer('sqm');
+	$photosContainer = $form->addContainer('photos');
+        
+	$observationContainer->addText('date', 'Datum měření:')
             ->setRequired();
-        $form->addText('sqm1', 'SQM:')
-             ->setRequired();
-        $form->addText('sqm2', 'SQM:');
-            //->setRequired();
-        $form->addText('sqm3', 'SQM:');
-            //->setRequired();
-        $form->addText('sqm4', 'SQM:');
-            //->setRequired();
-	$form->addText('observer', 'Pozorovatel')
+	$observationContainer->addText('time','cas mereni:')
 		->setRequired();
 
+	$locationContainer->addSelect('location','Lokalita:',$locations)
+		->setPrompt('Vyberte misto mereni')
+		->setRequired();
+
+	$observationContainer->addText('observer', 'Pozorovatel')
+		->setRequired();
+	$observationContainer->addText('disturbance', 'Ruseni:')
+		->setRequired();
+	$observationContainer->addText('nelmHD','nelmHD:');
+	$observationContainer->addText('bortle','Bortle:');
+	$observationContainer->addText('bortlespec','Special bortle:');
+	$observationContainer->addText('quality','Kvalita:');
+	$observationContainer->addText('weather','Pocasi:');
+	
+	$sqmContainer->addText('value1', 'SQM:')
+             ->setRequired();
+        $sqmContainer->addText('value2', 'SQM:');
+        $sqmContainer->addText('value3', 'SQM:');
+        $sqmContainer->addText('value4', 'SQM:');
+        $sqmContainer->addText('value5','SQM:');
+	$sqmContainer->addText('azimute','Azimut:')
+		->setRequired();
+	$sqmContainer->addText('height','Vyska:');
+
+	$equipmentContainer->addSelect('equipment','Vybava',$equipment)
+		->setPrompt('Vyberte vybaveni');
+	$photosContainer->addUpload('photo','Nahraj fotografii:')
+		->addRule(Form::IMAGE, 'Format musi byt jpg, jpeg, png nebo gif');
         $form->addSubmit('send', 'Vložit do databáze');
         $form->onSuccess[] = $this->observationFormSucceeded;
 
@@ -95,13 +123,28 @@ class ObservationPresenter extends BasePresenter
             $this->error('Pro vytvoření, nebo editování příspěvku se musíte přihlásit.');
         }
 	//if ($this->user->isInRole('member')){}
-	if ($this->database->table('users')->where('user_id', $this->user->id)->where('active',1)!==true){
-	   $this->error('Nejprve aktivujte svůj účet.');
-	}
+	//if ($this->database->table('users')->where('user_id', $this->user->id)->where('active',1)!==true){
+	//   $this->error('Nejprve aktivujte svůj účet.');
+	//}
+	
 	$values = $form->getValues();
-	$values['user_id'] = $this->user->id;
-        $observation = $this->database->table('observations')->insert($values);
-        
+	$valuesObservation = $values['observation'];
+	$valuesSqm = $values['sqm'];
+	$valuesPhotos = $values['photos'];
+	$valuesObservation['user_id'] = $this->user->id;
+	$valuesObservation['location_id'] = $values['location'];
+	$valuesObservation['equipment_id'] = $values['equipment'];
+
+	$observation = $this->database->table('observations')
+		->insert($valuesObservation);
+	$valuesSqm['observation_id'] = $observation->id;
+		
+	$this->database->table('sqm')->insert($valuesSqm);
+	
+	$valuesPhotos['observation_id'] = $observation->id;
+	
+	$this->database->table('photos')->insert($valuesPhotos);
+	
         $this->flashMessage("Příspěvek byl úspěšně vložen.", 'success');
         $this->redirect('show', $observation->id);
     }

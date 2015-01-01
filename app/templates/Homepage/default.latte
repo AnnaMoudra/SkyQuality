@@ -10,20 +10,20 @@
     <thead class="column" align="left">
         <tr><th>Datum měření</th>
             <th>Lokalita</th>
-            <th>Prům. jas oblohy</th>
             <th>Pozorovatel</th>
+            <th>SQM1</th>
             <th>&nbsp;</th></tr>
     </thead>
     <tbody>
-        {*<div n:foreach="$observations as $observation">
-            <tr class="clickable" onclick="{link Post:show $observation->date}">
-            <td>{$observation->date}</td>
-            <td>{$observation->locality}</td>
-            <td>{$observation->radiancy}</td>
-            <td>{$observation->observer}</td>
-            <td><a href="{link Post:show $observation->id}" class="ruzova">detail</a></td>
+        <div n:foreach="$sqm as $sqm">
+            <tr class="clickable" onclick="{link Observationt:show $sqm->observation->date}">
+            <td>{$sqm->observation->date}</td>
+            <td>{$sqm->observation->location['name']}</td>
+	    <td>{$sqm->observation->observer}</td>
+            <td>{$sqm->value1}</td>   
+            <td><a href="{link Observation:show $sqm->observation->id}" class="ruzova">detail</a></td>
             </tr>
-        </div>*}
+        </div>
     </tbody>
 </table>
 </div>
