@@ -69,13 +69,20 @@ class ObservationPresenter extends BasePresenter
 	if ($this->database->table('users')->where('user_id', $this->user->id)->where('active',1)!==true){
 	    $this->flashMessage('Nejprve aktivujte svůj účet.');
 	}
-        $locations= $this->database->table('locations')->fetchPairs('id','name');
+        $locations= $this->database->table('location')->fetchPairs('id','name');
+	$locations[1]= 'Zadat novou lokalitu';
+	$latitude = array('N'=>'severní šířky', 'S' => 'jižní šířky');
+	$longitude= array('E' => 'východní délky', 'W' => 'západní délky');
 	$equipment = $this->database->table('equipment')->fetchPairs('id','name');
         $form = new Nette\Application\UI\Form;
 	$locationContainer = $form->addContainer('location');
 	$observationContainer = $form->addContainer('observation');
 	$equipmentContainer = $form->addContainer('equipment');
-	$sqmContainer = $form->addContainer('sqm');
+	$sqmContainer1 = $form->addContainer('sqm1');
+	$sqmContainer2 = $form->addContainer('sqm2');
+	$sqmContainer3 = $form->addContainer('sqm3');
+	$sqmContainer4 = $form->addContainer('sqm4');
+	$sqmContainer5 = $form->addContainer('sqm5');
 	$photosContainer = $form->addContainer('photos');
         
 	$observationContainer->addText('date', 'Datum měření:')
@@ -85,8 +92,43 @@ class ObservationPresenter extends BasePresenter
 
 	$locationContainer->addSelect('location','Lokalita:',$locations)
 		->setPrompt('Vyberte misto mereni')
+		->setOption(1, 'Zadat novou lokalitu')
+		->setRequired()
+		->addCondition(Form::EQUAL, 1, 'Zadat novou lokalitu')
+		->toggle('location-name')
+		->toggle('location-latituderaw')
+		->toggle('location-latitudehemisfera')
+		->toggle('location-longituderaw')
+		->toggle('location-longitudehemisfera')
+		->toggle('location-altitude')
+		->toggle('location-info')
+		->toggle('location-accessiblestand');
+	
+	$locationContainer->addText('name','Zadejte nazev lokality:' )
+		->setOption('id','location-name' )
 		->setRequired();
-
+	$locationContainer->addText('latituderaw','Zadejte zeměpisnou šířku:' )
+		->setOption('id','location-latituderaw' )
+		->setRequired();
+	$locationContainer->addSelect('latitudehemisfera','Zadejte polokouli',$latitude )
+		->setPrompt('zadejte polokouli')
+		->setOption('id', 'location-latitudehemisfera')
+		->setRequired();
+	$locationContainer->addText('longituderaw', 'Zadejte zemepisnou delku:')
+		->setOption('id','location-longituderaw' )
+		->setRequired();
+	$locationContainer->addSelect('longitudehemisfera','Zadejte polokouli', $longitude  )
+		->setPrompt('zadejte polokouli')
+		->setOption('id','location-longitudehemisfera' )
+		->setRequired();
+	$locationContainer->addText('altitude','Nadmořská výška:' )
+		->setOption('id','location-altitude' )
+		->setRequired();
+	$locationContainer->addText('info','Popis lokality:' )
+		->setOption('id', 'location-info');
+	$locationContainer->addCheckbox( 'accessiblestand', 'Lokalita je volně přístupná.' )
+		->setOption('id', 'location-accessiblestand' );
+	
 	$observationContainer->addText('observer', 'Pozorovatel')
 		->setRequired();
 	$observationContainer->addText('disturbance', 'Ruseni:')
@@ -97,19 +139,20 @@ class ObservationPresenter extends BasePresenter
 	$observationContainer->addText('quality','Kvalita:');
 	$observationContainer->addText('weather','Pocasi:');
 	
-	$sqmContainer->addText('value1', 'SQM:')
+	$form->addSelect();
+	$sqmContainer1->addText('value1', 'SQM:')
              ->setRequired();
-        $sqmContainer->addText('value2', 'SQM:');
-        $sqmContainer->addText('value3', 'SQM:');
-        $sqmContainer->addText('value4', 'SQM:');
-        $sqmContainer->addText('value5','SQM:');
-	$sqmContainer->addText('azimute','Azimut:')
+        $sqmContainer1->addText('value2', 'SQM:');
+        $sqmContainer1->addText('value3', 'SQM:');
+        $sqmContainer1->addText('value4', 'SQM:');
+        $sqmContainer1->addText('value5','SQM:');
+	$sqmContainer1->addText('azimute','Azimut:')
 		->setRequired();
-	$sqmContainer->addText('height','Vyska:');
+	$sqmContainer1->addText('height','Vyska:');
 
 	$equipmentContainer->addSelect('equipment','Vybava',$equipment)
 		->setPrompt('Vyberte vybaveni');
-	$photosContainer->addUpload('photo','Nahraj fotografii:')
+	$photosContainer->addUpload('photo','Nahraj fotografii:', TRUE)
 		->addRule(Form::IMAGE, 'Format musi byt jpg, jpeg, png nebo gif');
         $form->addSubmit('send', 'Vložit do databáze');
         $form->onSuccess[] = $this->observationFormSucceeded;
@@ -121,12 +164,7 @@ class ObservationPresenter extends BasePresenter
     {
         if (!$this->user->isLoggedIn()) {
             $this->error('Pro vytvoření, nebo editování příspěvku se musíte přihlásit.');
-        }
-	//if ($this->user->isInRole('member')){}
-	//if ($this->database->table('users')->where('user_id', $this->user->id)->where('active',1)!==true){
-	//   $this->error('Nejprve aktivujte svůj účet.');
-	//}
-	
+        }	
 	$values = $form->getValues();
 	$valuesObservation = $values['observation'];
 	$valuesSqm = $values['sqm'];
@@ -154,7 +192,6 @@ class ObservationPresenter extends BasePresenter
         if (!$this->user->isLoggedIn()) {
             $this->redirect('Sign:in');
         }
-	//if (!$this->user->isInRole('member')){}
     }
     
     public function actionDelete($observationId)
@@ -165,9 +202,7 @@ class ObservationPresenter extends BasePresenter
 	if (!$this->database->table('users')->where('user_id', $this->user->id)->where('active',1)){
 	    $this->error('Nejprve aktivujte svůj účet.');
 	    $this->redirect('Homepage:default');
-	}
-	//if ($this->user->isInRole('member')){}
-        else{
+	}else{
             
             $observation = $this->database->table('observations')
                     ->where('user_id', $this->user->id)  // id_user v observations odpovida id v userovi
@@ -192,11 +227,6 @@ class ObservationPresenter extends BasePresenter
         {
             $this->redirect('Sign:in');
         } 
-	//if ($this->user->isInRole('member')){}
-	else if (!$this->database->table('users')->where('user_id', $this->user->id)->where('active',1)){
-	    $this->error('Nejprve aktivujte svůj účet.');
-	    $this->redirect('Homepage:default');
-	}
         else{
            
             $observation = $this->database->table('observations')

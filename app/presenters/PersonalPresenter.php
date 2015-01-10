@@ -28,9 +28,10 @@ class PersonalPresenter extends BasePresenter
                     ->order('created_at DESC');
             $this->template->personal = $this->database->table('users')
                     ->where('id', $this->user->id);
-	    //if (!$this->user->isInRole('member')){}
-	    if($this->database->table('users')->where('id',  $this->user->id)->where('active', 1)!==true){
-		$this->flashMessage('Váš účet nebyl aktualizován. Nemuzete tak pridavat a editovat mereni');
-	    }
+	    $this->template->locations = $this->database->table('location')
+		    ->where('user_id',$this->user->id);
+
+	    
 	}
+
 }

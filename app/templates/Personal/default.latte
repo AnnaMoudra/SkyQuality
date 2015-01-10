@@ -3,15 +3,23 @@
 {block content}
 <div class="page">
 <div n:foreach="$personal as $a">
-    Uživatel: {$a->username}
+    Uživatel: {$a->username}<br>
+    Email: {$a->email}
 </div>
 <br>
 <a n:href="Observation:create" n:if="$user->loggedIn" class="add">Přidat měření</a>
 
 <h4>Vámi spravovaná měření</h4>
 <div n:foreach="$observations as $observation">
-        přidáno: {$observation->created_at|date:'F j, Y'} |  {$observation->locality} |{$observation->date}|
-        | {$observation->radiancy}| {$observation->observer} <a href="{link Post:show $observation->id}" class="ruzova">detail</a>{sep}<hr>{/sep}</div>
+        přidáno: {$observation->created_at|date:'F j, Y'} |  {$observation->location} |{$observation->date}|
+        {$observation->observer} <a href="{link Post:show $observation->id}" class="ruzova">detail</a>{sep}<hr>{/sep}</div>
 
+</div>
+<h4>Vámi spravované lokality</h4>
+<div n:foreach="$locations as $location">
+    přidáno: {$location->created_at|date:'F j, Y'} |  {$location->name} |{$location->accesiblestand}|
+    <a href="{link Location:show $location->id}" class="ruzova">detail</a>{sep}<hr>{/sep}</div>
+
+    
 </div>
    

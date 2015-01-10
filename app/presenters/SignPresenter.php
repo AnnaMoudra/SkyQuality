@@ -44,14 +44,21 @@ class SignPresenter extends BasePresenter
     public function signInFormSucceeded($form)
     {
         $values = $form->values;
+	$active = $this->userManager->isActive($values->username);
+	
+	if($active === FALSE){
+	    $form->addError('Nejprve si aktivujte účet pomocí emailu.');
+	}
+	else{
+	    try {
+	    $this->getUser()->login($values->username, $values->password); //$this->userManager->authenticate()
+	    $this->redirect('Homepage:');
 
-        try {
-            $this->getUser()->login($values->username, $values->password); //$this->userManager->authenticate()
-            $this->redirect('Homepage:');
-
-        } catch (Nette\Security\AuthenticationException $e) {
-            $form->addError('Nesprávné přihlašovací jméno nebo heslo.'); //nebude nutne pri pouziti userManager
-        }
+	    } catch (Nette\Security\AuthenticationException $e) {
+		$form->addError('Nesprávné přihlašovací jméno nebo heslo.'); //nebude nutne pri pouziti userManager
+	    }
+	}
+	
     }
     
 
@@ -75,6 +82,10 @@ class SignPresenter extends BasePresenter
 	    
 	
 	}
+
+	
+	
+	
 	    
 	
 

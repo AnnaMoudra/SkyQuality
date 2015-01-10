@@ -21,8 +21,8 @@ class InfoPresenter extends BasePresenter
 	
 	public function renderDefault()
 	{
-		$this->template->info = $this->database->table('info')
-			->order('order DESC');
+		//$this->template->info = $this->database->table('info')
+			//->order('order DESC');
 	}
 
 
