@@ -10,7 +10,7 @@
         
 <div class="post">Datum měření: {$observation->date}<br>
 {*Lokalita: {$observation->locality}<br>
-Průměrný jas oblohy: {$observation->radiancy}<br>
+Průměrný jas oblohy: {$observation->sqmavg}<br>
 Pozorovatel: {$observation->observer}<br>
 Poznámky: {$observationo->notes}<br>*}
 <span class="date">Přidáno: {$post->created_at|date:'F j, Y'}</span></div>
@@ -18,12 +18,12 @@ Poznámky: {$observationo->notes}<br>*}
 <div class="comments">
 <h3>Vložte komentář</h3>
 
-{*{control commentForm}
+{control commentForm}
 
     {foreach $comments as $comment}
         <p><b><a href="mailto:{$comment->email}" n:tag-if="$comment->email">{$comment->name}</a></b> napsal:</p>
         <div>{$comment->content}</div>
     {/foreach}
-  *}
+
 </div>
 </div>

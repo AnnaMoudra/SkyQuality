@@ -7,8 +7,6 @@ use Exception;
 use Nette\Security\Permission;
 use Nette\Forms\Form;
 
-
-
 class ObservationPresenter extends BasePresenter
 {
     /** @var Nette\Database\Context */
@@ -30,37 +28,6 @@ class ObservationPresenter extends BasePresenter
         $this->template->comments = $observation->related('comment')->order('created_at');
     }
     
-    protected function createComponentCommentForm()
-    {
-        $form = new Nette\Application\UI\Form;
-
-        $form->addText('name', 'Jméno:')
-            ->setRequired();
-        $form->addText('email', 'Email:');
-        $form->addTextArea('content', 'Komentář:')
-            ->setRequired();
-        $form->addSubmit('send', 'Publikovat komentář');
-   
-        $form->onSuccess[] = $this->commentFormSucceeded;
-        return $form;
-    }
-    
-    public function commentFormSucceeded($form)
-    {
-        $values = $form->getValues();
-        $observationId = $this->getParameter('observationId');
-
-        $this->database->table('comments')->insert(array(
-            'observation_id' => $observationId,
-            'name' => $values->name,
-            'email' => $values->email,
-            'content' => $values->content,
-        ));
-
-        $this->flashMessage('Děkuji za komentář', 'success');
-        $this->redirect('this');
-    }
-    
     protected function createComponentObservationForm()
     {
          if (!$this->user->isLoggedIn()) {
@@ -79,10 +46,10 @@ class ObservationPresenter extends BasePresenter
 	$observationContainer = $form->addContainer('observation');
 	$equipmentContainer = $form->addContainer('equipment');
 	$sqmContainer1 = $form->addContainer('sqm1');
-	$sqmContainer2 = $form->addContainer('sqm2');
-	$sqmContainer3 = $form->addContainer('sqm3');
-	$sqmContainer4 = $form->addContainer('sqm4');
-	$sqmContainer5 = $form->addContainer('sqm5');
+	//$sqmContainer2 = $form->addContainer('sqm2');
+	//$sqmContainer3 = $form->addContainer('sqm3');
+	//$sqmContainer4 = $form->addContainer('sqm4');
+	//$sqmContainer5 = $form->addContainer('sqm5');
 	$photosContainer = $form->addContainer('photos');
         
 	$observationContainer->addText('date', 'Datum měření:')
@@ -95,7 +62,7 @@ class ObservationPresenter extends BasePresenter
 		->setOption(1, 'Zadat novou lokalitu')
 		->setRequired()
 		->addCondition(Form::EQUAL, 1, 'Zadat novou lokalitu')
-		->toggle('location-name')
+		->toggle('location-name')	    //id containeru ?
 		->toggle('location-latituderaw')
 		->toggle('location-latitudehemisfera')
 		->toggle('location-longituderaw')
@@ -139,21 +106,42 @@ class ObservationPresenter extends BasePresenter
 	$observationContainer->addText('quality','Kvalita:');
 	$observationContainer->addText('weather','Pocasi:');
 	
-	$form->addSelect();
-	$sqmContainer1->addText('value1', 'SQM:')
-             ->setRequired();
+	$sqmContainer1->addText('value1', 'SQM:')->setRequired();
         $sqmContainer1->addText('value2', 'SQM:');
         $sqmContainer1->addText('value3', 'SQM:');
         $sqmContainer1->addText('value4', 'SQM:');
         $sqmContainer1->addText('value5','SQM:');
-	$sqmContainer1->addText('azimute','Azimut:')
-		->setRequired();
+	$sqmContainer1->addText('azimute','Azimut:')->setRequired();
 	$sqmContainer1->addText('height','Vyska:');
-
+	$sqmContainer1->addCheckbox('addanother','Zapsat dalsi mereni:')
+		->addCondition(Form::EQUAL, TRUE)
+		->toggle('sqm2');
+	
 	$equipmentContainer->addSelect('equipment','Vybava',$equipment)
 		->setPrompt('Vyberte vybaveni');
-	$photosContainer->addUpload('photo','Nahraj fotografii:', TRUE)
-		->addRule(Form::IMAGE, 'Format musi byt jpg, jpeg, png nebo gif');
+	$form->addCheckbox('addphotos','Pridat fotografie')
+		->addCondition(Form::EQUAL,TRUE)
+		->toggle('photo1')
+		->toggle('photo2')
+		->toggle('photo3')
+		->toggle('photo4')
+		->toggle('photo5');
+		
+	$photosContainer->addUpload('photo1','Nahraj fotografii:')
+		->addRule(Form::IMAGE, 'Format musi byt jpg, jpeg, png nebo gif')
+		->setOption('id', 'photo1');
+	$photosContainer->addUpload('photo2','Nahraj fotografii:')
+		->addRule(Form::IMAGE, 'Format musi byt jpg, jpeg, png nebo gif')
+		->setOption('id', 'photo2');
+	$photosContainer->addUpload('photo3','Nahraj fotografii:')
+		->addRule(Form::IMAGE, 'Format musi byt jpg, jpeg, png nebo gif')
+		->setOption('id', 'photo3');
+	$photosContainer->addUpload('photo4','Nahraj fotografii:')
+		->addRule(Form::IMAGE, 'Format musi byt jpg, jpeg, png nebo gif')
+		->setOption('id', 'photo4');
+	$photosContainer->addUpload('photo5','Nahraj fotografii')
+		->addRule(Form::IMAGE, 'Format musi byt jpg, jpeg, png nebo gif')
+		->setOption('id', 'photo5');
         $form->addSubmit('send', 'Vložit do databáze');
         $form->onSuccess[] = $this->observationFormSucceeded;
 
@@ -170,7 +158,15 @@ class ObservationPresenter extends BasePresenter
 	$valuesSqm = $values['sqm'];
 	$valuesPhotos = $values['photos'];
 	$valuesObservation['user_id'] = $this->user->id;
+	
+	if($values['location']['location']==1){
+	    $valuesLocation= $values['location'];
+	    $valuesLocation['user_id']= $this->user->id;
+	    $this->database->table('location')->insert($valuesLocation);
+	}
+	else{
 	$valuesObservation['location_id'] = $values['location'];
+	}
 	$valuesObservation['equipment_id'] = $values['equipment'];
 
 	$observation = $this->database->table('observations')

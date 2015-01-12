@@ -145,6 +145,28 @@ class LocationPresenter extends BasePresenter
     }
 }
 
-
-
-
+class LocationContainer extends BaseContainer
+{
+    protected function configure()
+    {
+        $latitude = array('N'=>'severní šířky', 'S' => 'jižní šířky');
+	$longitude= array('E' => 'východní délky', 'W' => 'západní délky');
+	
+	$this->addText('name','Zadejte nazev lokality:' )
+		->setRequired();
+	$this->addText('latituderaw','Zadejte zeměpisnou šířku:' )
+		->setRequired();
+	$this->addSelect('latitudehemisfera','Zadejte polokouli',$latitude )
+		->setPrompt('zadejte polokouli')
+		->setRequired();
+	$this->addText('longituderaw', 'Zadejte zemepisnou delku:')
+		->setRequired();
+	$this->addSelect('longitudehemisfera','Zadejte polokouli', $longitude  )
+		->setPrompt('zadejte polokouli')
+		->setRequired();
+	$this->addText('altitude','Nadmořská výška:' )
+		->setRequired();
+	$this->addText('info','Popis lokality:' );
+	$this->addCheckbox( 'accessiblestand', 'Lokalita je volně přístupná.' );
+    }
+}
