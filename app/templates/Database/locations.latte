@@ -1,0 +1,27 @@
+{* Latte template *}
+
+{block content}
+<div class="page">
+<a n:href="Database:" class="add">Zpět na výpis měření</a>
+
+<h3>Výpis databáze lokalit </h3>
+<table class="" width="80%" cellspacing="0">
+    <thead class="column" align="left">
+        <tr><th>Název</th>
+            <th>Info</th>
+            <th>Volně přístupné</th>
+            <th>&nbsp;</th></tr>
+    </thead>
+    <tbody>
+        <div n:foreach="$location as $location">
+            <tr class="clickable" onclick="{link Location:show $location->id}">
+	    <td>{$location->name|truncate:40}</td>
+	    <td>{$location->info|truncate:20}</td>
+            <td>{$location->accessiblestand|replace:1:ano|replace:0:ne}</td>
+            <td><a href="{link Location:show $location->id}" class="ruzova">detail</a></td>
+            </tr>
+        </div>
+    </tbody>
+</table>
+     
+</div>

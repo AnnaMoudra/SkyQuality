@@ -5,6 +5,9 @@ CHANGELOG
 	aktivace úètu
 	znepøístupnìní neaktivním úètùm
 	z èásti hotové dynamické vykreslování formuláøe (ale narazila jsem na problém + postup asi není úplnì legitimní)
+
+-17.1.
+	zapomenuté heslo a jeho zmìna
 	
 
  

@@ -21,9 +21,14 @@ class DatabasePresenter extends BasePresenter
 	
 	public function renderDefault()
 	{
-		$this->template->sqm = $this->database->table('sqm')
-			//->order('created_at DESC')
-			;
+		$this->template->sqm = $this->database->table('sqm');
+		
+	}
+	
+	public function renderLocations()
+	{
+	    $this->template->location = $this->database->table('location')
+		    ->order('name');
 	}
 
 

@@ -4,6 +4,9 @@ namespace App\Presenters;
 
 use Nette,
     App\Model\UserManager;
+use Nette\Forms\Form;
+use Nette\Utils\Strings;
+
 
 
 /**
@@ -13,9 +16,11 @@ class SignPresenter extends BasePresenter
 {
         /** @var \App\Model\UserManager */
     private $userManager;
+    private $database;
     
     function __construct(\App\Model\UserManager $userManager) {
         $this->userManager = $userManager;
+	
     }
 
 	/**
@@ -82,11 +87,7 @@ class SignPresenter extends BasePresenter
 	    
 	
 	}
+	
 
-	
-	
-	
-	    
-	
 
 }

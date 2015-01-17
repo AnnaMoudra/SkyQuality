@@ -41,22 +41,22 @@ class ObservationPresenter extends BasePresenter
 	$latitude = array('N'=>'severní šířky', 'S' => 'jižní šířky');
 	$longitude= array('E' => 'východní délky', 'W' => 'západní délky');
 	$equipment = $this->database->table('equipment')->fetchPairs('id','name');
-        $form = new Nette\Application\UI\Form;
+	$equipment[1]='Zadat nové zařízení';
+        
+	$form = new Nette\Application\UI\Form;
 	$locationContainer = $form->addContainer('location');
 	$observationContainer = $form->addContainer('observation');
 	$equipmentContainer = $form->addContainer('equipment');
 	$sqmContainer1 = $form->addContainer('sqm1');
 	//$sqmContainer2 = $form->addContainer('sqm2');
-	//$sqmContainer3 = $form->addContainer('sqm3');
-	//$sqmContainer4 = $form->addContainer('sqm4');
-	//$sqmContainer5 = $form->addContainer('sqm5');
+
 	$photosContainer = $form->addContainer('photos');
         
 	$observationContainer->addText('date', 'Datum měření:')
             ->setRequired();
-	$observationContainer->addText('time','cas mereni:')
+	$observationContainer->addText('time','Čas měření:')
 		->setRequired();
-
+	
 	$locationContainer->addSelect('location','Lokalita:',$locations)
 		->setPrompt('Vyberte misto mereni')
 		->setOption(1, 'Zadat novou lokalitu')
@@ -71,40 +71,40 @@ class ObservationPresenter extends BasePresenter
 		->toggle('location-info')
 		->toggle('location-accessiblestand');
 	
-	$locationContainer->addText('name','Zadejte nazev lokality:' )
-		->setOption('id','location-name' )
-		->setRequired();
-	$locationContainer->addText('latituderaw','Zadejte zeměpisnou šířku:' )
-		->setOption('id','location-latituderaw' )
-		->setRequired();
-	$locationContainer->addSelect('latitudehemisfera','Zadejte polokouli',$latitude )
-		->setPrompt('zadejte polokouli')
-		->setOption('id', 'location-latitudehemisfera')
-		->setRequired();
-	$locationContainer->addText('longituderaw', 'Zadejte zemepisnou delku:')
-		->setOption('id','location-longituderaw' )
-		->setRequired();
-	$locationContainer->addSelect('longitudehemisfera','Zadejte polokouli', $longitude  )
-		->setPrompt('zadejte polokouli')
-		->setOption('id','location-longitudehemisfera' )
-		->setRequired();
-	$locationContainer->addText('altitude','Nadmořská výška:' )
-		->setOption('id','location-altitude' )
-		->setRequired();
-	$locationContainer->addText('info','Popis lokality:' )
-		->setOption('id', 'location-info');
-	$locationContainer->addCheckbox( 'accessiblestand', 'Lokalita je volně přístupná.' )
-		->setOption('id', 'location-accessiblestand' );
+	    $locationContainer->addText('name','Název lokality:' )
+		    ->setOption('id','location-name' )
+		    ->setRequired();
+	    $locationContainer->addText('latituderaw','Zeměpisná šířka:' )
+		    ->setOption('id','location-latituderaw' )
+		    ->setRequired();
+	    $locationContainer->addSelect('latitudehemisfera','',$latitude )
+		    ->setPrompt('zadejte polokouli')
+		    ->setOption('id', 'location-latitudehemisfera')
+		    ->setRequired();
+	    $locationContainer->addText('longituderaw', 'Zeměpisná délka:')
+		    ->setOption('id','location-longituderaw' )
+		    ->setRequired();
+	    $locationContainer->addSelect('longitudehemisfera','', $longitude  )
+		    ->setPrompt('zadejte polokouli')
+		    ->setOption('id','location-longitudehemisfera' )
+		    ->setRequired();
+	    $locationContainer->addText('altitude','Nadmořská výška:' )
+		    ->setOption('id','location-altitude' )
+		    ->setRequired();
+	    $locationContainer->addTextArea('info','Popis lokality:' )
+		    ->setOption('id', 'location-info');
+	    $locationContainer->addCheckbox( 'accessiblestand', 'Lokalita je volně přístupná.' )
+		    ->setOption('id', 'location-accessiblestand' );
 	
 	$observationContainer->addText('observer', 'Pozorovatel')
 		->setRequired();
-	$observationContainer->addText('disturbance', 'Ruseni:')
+	$observationContainer->addText('disturbance', 'Rušení:')
 		->setRequired();
-	$observationContainer->addText('nelmHD','nelmHD:');
+	$observationContainer->addText('nelmHD','NelmHD:');
 	$observationContainer->addText('bortle','Bortle:');
-	$observationContainer->addText('bortlespec','Special bortle:');
+	$observationContainer->addText('bortlespec','Specifický bortle:');
 	$observationContainer->addText('quality','Kvalita:');
-	$observationContainer->addText('weather','Pocasi:');
+	$observationContainer->addTextArea('weather','Počasí:');
 	
 	$sqmContainer1->addText('value1', 'SQM:')->setRequired();
         $sqmContainer1->addText('value2', 'SQM:');
@@ -112,14 +112,35 @@ class ObservationPresenter extends BasePresenter
         $sqmContainer1->addText('value4', 'SQM:');
         $sqmContainer1->addText('value5','SQM:');
 	$sqmContainer1->addText('azimute','Azimut:')->setRequired();
-	$sqmContainer1->addText('height','Vyska:');
-	$sqmContainer1->addCheckbox('addanother','Zapsat dalsi mereni:')
+	$sqmContainer1->addText('height','Výška:');
+	$sqmContainer1->addCheckbox('addanother','Přidat další měření:')
 		->addCondition(Form::EQUAL, TRUE)
 		->toggle('sqm2');
 	
-	$equipmentContainer->addSelect('equipment','Vybava',$equipment)
-		->setPrompt('Vyberte vybaveni');
-	$form->addCheckbox('addphotos','Pridat fotografie')
+	$equipmentContainer->addSelect('equipment','Měřící zařízení:', $equipment)
+		->setPrompt('Vyberte zařízení')
+		->setOption(1, 'Zadat nové zařízení')
+		->setRequired()
+		->addCondition(Form::EQUAL, 1, 'Zadat nové zařízení')
+		->toggle('equipment-name')	    //id containeru ?
+		->toggle('equipment-type')
+		->toggle('equipment-model')
+		->toggle('equipment-sn');
+	
+	    $equipmentContainer->addText('name', 'Název:')
+		->setOption('id', 'equipment-name')
+		->setRequired();
+	    $equipmentContainer->addSelect('type','Typ:', array('SQM','SQM-L'))
+		   ->setOption('id', 'equipment-type')
+		    ->setRequired();
+	    $equipmentContainer->addText('model', 'Model:')
+		    ->setRequired()
+		    ->setOption('id', 'equipment-model');
+	    $equipmentContainer->addText('sn', 'SN:')
+		    ->setOption('id', 'equipment-sn')
+		    ->setRequired();
+
+	$form->addCheckbox('addphotos','Přidat fotografie')
 		->addCondition(Form::EQUAL,TRUE)
 		->toggle('photo1')
 		->toggle('photo2')
@@ -128,20 +149,16 @@ class ObservationPresenter extends BasePresenter
 		->toggle('photo5');
 		
 	$photosContainer->addUpload('photo1','Nahraj fotografii:')
-		->addRule(Form::IMAGE, 'Format musi byt jpg, jpeg, png nebo gif')
-		->setOption('id', 'photo1');
+		->addRule(Form::IMAGE, 'Formát musí být jpg, jpeg, png nebo gif')->setOption('id', 'photo1');
 	$photosContainer->addUpload('photo2','Nahraj fotografii:')
-		->addRule(Form::IMAGE, 'Format musi byt jpg, jpeg, png nebo gif')
-		->setOption('id', 'photo2');
+		->addRule(Form::IMAGE, 'Formát musí být jpg, jpeg, png nebo gif')->setOption('id', 'photo2');
 	$photosContainer->addUpload('photo3','Nahraj fotografii:')
-		->addRule(Form::IMAGE, 'Format musi byt jpg, jpeg, png nebo gif')
-		->setOption('id', 'photo3');
+		->addRule(Form::IMAGE, 'Formát musí být jpg, jpeg, png nebo gif')->setOption('id', 'photo3');
 	$photosContainer->addUpload('photo4','Nahraj fotografii:')
-		->addRule(Form::IMAGE, 'Format musi byt jpg, jpeg, png nebo gif')
-		->setOption('id', 'photo4');
+		->addRule(Form::IMAGE, 'Formát musí být jpg, jpeg, png nebo gif')->setOption('id', 'photo4');
 	$photosContainer->addUpload('photo5','Nahraj fotografii')
-		->addRule(Form::IMAGE, 'Format musi byt jpg, jpeg, png nebo gif')
-		->setOption('id', 'photo5');
+		->addRule(Form::IMAGE, 'Formát musí být jpg, jpeg, png nebo gif')->setOption('id', 'photo5');
+	
         $form->addSubmit('send', 'Vložit do databáze');
         $form->onSuccess[] = $this->observationFormSucceeded;
 
@@ -165,8 +182,9 @@ class ObservationPresenter extends BasePresenter
 	    $this->database->table('location')->insert($valuesLocation);
 	}
 	else{
-	$valuesObservation['location_id'] = $values['location'];
+	    $valuesObservation['location_id'] = $values['location'];
 	}
+	
 	$valuesObservation['equipment_id'] = $values['equipment'];
 
 	$observation = $this->database->table('observations')
@@ -238,6 +256,32 @@ class ObservationPresenter extends BasePresenter
                 $this['observationForm']->setDefaults($observation->toArray());
             }
         }
+    }
+    
+       
+    protected function createComponentCommentForm()
+    {
+        $form = (new \CommentFormFactory())->create();
+
+	$form->onSuccess[] = array($this, 'commentFormSucceeded'); // a přidat událost po odeslání
+
+	return $form;
+    }
+    
+    public function commentFormSucceeded($form)
+    {
+        $values = $form->getValues();
+        $observationId = $this->getParameter('observationId');
+
+        $this->database->table('comments')->insert(array(
+            'observation_id' => $observationId,
+            'name' => $values->name,
+            'email' => $values->email,
+            'content' => $values->content,
+        ));
+
+        $this->flashMessage('Děkuji za komentář', 'success');
+        $this->redirect('this');
     }
 }
 

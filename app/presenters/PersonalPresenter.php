@@ -29,7 +29,8 @@ class PersonalPresenter extends BasePresenter
             $this->template->personal = $this->database->table('users')
                     ->where('id', $this->user->id);
 	    $this->template->locations = $this->database->table('location')
-		    ->where('user_id',$this->user->id);
+		    ->where('user_id',$this->user->id)
+		    ->order('name');
 
 	    
 	}

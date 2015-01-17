@@ -4,7 +4,7 @@
 <div class="page">
 <div n:foreach="$personal as $a">
     Uživatel: {$a->username}<br>
-    Email: {$a->email}
+    Email: {$a->email} <a href="Personal:edit" class="add"> změnit</a>
 </div>
 <br>
 <a n:href="Observation:create" n:if="$user->loggedIn" class="add">Přidat měření</a>
@@ -17,9 +17,8 @@
 </div>
 <h4>Vámi spravované lokality</h4>
 <div n:foreach="$locations as $location">
-    přidáno: {$location->created_at|date:'F j, Y'} |  {$location->name} |{$location->accesiblestand}|
+    {$location->name} |{$location->accesiblestand}|
     <a href="{link Location:show $location->id}" class="ruzova">detail</a>{sep}<hr>{/sep}</div>
-
-    
+  
 </div>
    

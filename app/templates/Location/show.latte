@@ -1,0 +1,21 @@
+{* Latte template *}
+
+{block content}
+<div class="page">
+<p><a n:href="Database:locations" class="ruzova">← zpět na výpis databáze</a></p>
+{if $user->loggedIn && $user->id === $location->user_id}<a n:href="edit $location->id" class="ruzova">Editovat lokalitu</a> &#9733;{/if}
+
+        
+
+<div class="comments">
+<h3>Vložte komentář</h3>
+
+{control commentForm}
+
+    {foreach $comments as $comment}
+        <p><b><a href="mailto:{$comment->email}" n:tag-if="$comment->email">{$comment->name}</a></b> napsal:</p>
+        <div>{$comment->content}</div>
+    {/foreach}
+
+</div>
+</div>

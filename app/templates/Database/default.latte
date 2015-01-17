@@ -3,8 +3,11 @@
 {block content}
 <div class="page">
 <a n:href="Post:create" n:if="$user->loggedIn" class="add">Přidat měření</a>
+<br>
+<a n:href="Database:locations" class="add">Výpis databáze lokalit</a>
 
-<h3>Výpis databáze </h3>
+
+<h3>Výpis databáze měření </h3>
 <table class="" width="80%" cellspacing="0">
     <thead class="column" align="left">
         <tr><th>Datum měření</th>

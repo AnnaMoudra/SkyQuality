@@ -22,7 +22,7 @@ class LocationPresenter extends BasePresenter
 
    public function renderShow($locationId)
     {
-        $observation = $this->database->table('location')->get($locationId);
+        $location = $this->database->table('location')->get($locationId);
         if (!$location) {
             $this->error('Stránka nebyla nalezena');
         }
@@ -31,19 +31,35 @@ class LocationPresenter extends BasePresenter
         $this->template->comments = $location->related('comment')->order('created_at');
     }
     
-    protected function createComponentCommentForm()
+        public function actionEdit($locationId)
     {
-        $form = new Nette\Application\UI\Form;
+        if (!$this->user->isLoggedIn()) 
+        {
+            $this->redirect('Sign:in');
+        } else{
+           
+            $location = $this->database->table('location')
+                    ->where('user_id', $this->user->id)  // id_user v observations odpovida id v userovi
+                    ->get($locationId);
+            
+            if (!$location) { 
+                $this->flashMessage('Nemáte oprávnění k editaci toho příspěvku.');
+                $this->redirect('Location:show?locationId='.$locationId);// existuje takova lokalita
+            }
+            if ($this->user->id == $location->user_id) // druha kontrola
+            {
+                $this['locationForm']->setDefaults($location->toArray()); //neexistuje takovy Form!!!
+            }
+        }
+    }
+    
+      protected function createComponentCommentForm()
+    {
+        $form = (new \CommentFormFactory())->create();
 
-        $form->addText('name', 'Jméno:')
-            ->setRequired();
-        $form->addText('email', 'Email:');
-        $form->addTextArea('content', 'Komentář:')
-            ->setRequired();
-        $form->addSubmit('send', 'Publikovat komentář');
-   
-        $form->onSuccess[] = $this->commentFormSucceeded;
-        return $form;
+	$form->onSuccess[] = array($this, 'commentFormSucceeded'); // a přidat událost po odeslání
+
+	return $form;
     }
     
     public function commentFormSucceeded($form)
@@ -60,113 +76,5 @@ class LocationPresenter extends BasePresenter
 
         $this->flashMessage('Děkuji za komentář', 'success');
         $this->redirect('this');
-    }
-    
-    protected function createComponentLocationForm()
-    {
-        
-    }
-    
-    public function observationFormSucceeded($form)
-    {
-        if (!$this->user->isLoggedIn()) {
-            $this->error('Pro vytvoření, nebo editování příspěvku se musíte přihlásit.');
-        }
-	//if ($this->user->isInRole('member')){}
-	//if ($this->database->table('users')->where('user_id', $this->user->id)->where('active',1)!==true){
-	//   $this->error('Nejprve aktivujte svůj účet.');
-	//}
-
-    }
-    
-    public function actionCreate()
-    {
-        if (!$this->user->isLoggedIn()) {
-            $this->redirect('Sign:in');
-        }
-	//if (!$this->user->isInRole('member')){}
-    }
-    
-    public function actionDelete($locationId)
-    {
-        if (!$this->user->isLoggedIn()) {
-            $this->redirect('Sign:in');
-        }
-	if (!$this->database->table('users')->where('user_id', $this->user->id)->where('active',1)){
-	    $this->error('Nejprve aktivujte svůj účet.');
-	    $this->redirect('Homepage:default');
-	}
-	//if ($this->user->isInRole('member')){}
-        else{
-            
-            $location = $this->database->table('location')
-                    ->where('user_id', $this->user->id)  // id_user v observations odpovida id v userovi
-                    ->get($locationId);
-            
-            if (!$location) { 
-                $this->flashMessage('Nemáte oprávnění ke smazání toho příspěvku.');
-                $this->redirect('Location:show?locationId='.$locationId);
-            }
-                
-            $this->database->table('location')->where('id', $locationId)->delete();
-            
-            $this->flashMessage("Lokalita byla smazána.", 'success');
-            $this->redirect('Personal:');
-            
-        }
-    }
-
-        public function actionEdit($locationId)
-    {
-        if (!$this->user->isLoggedIn()) 
-        {
-            $this->redirect('Sign:in');
-        } 
-	//if ($this->user->isInRole('member')){}
-	else if (!$this->database->table('users')->where('user_id', $this->user->id)->where('active',1)){
-	    $this->error('Nejprve aktivujte svůj účet.');
-	    $this->redirect('Homepage:default');
-	}
-        else{
-           
-            $location = $this->database->table('location')
-                    ->where('user_id', $this->user->id)  // id_user v observations odpovida id v userovi
-                    ->get($locationId);
-            
-            if (!$location) { 
-                $this->flashMessage('Nemáte oprávnění k editaci toho příspěvku.');
-                $this->redirect('Location:show?locationId='.$locationId);// existuje takova lokalita
-            }
-            if ($this->user->id == $location->user_id) // druha kontrola
-            {
-                $this['locationForm']->setDefaults($location->toArray());
-            }
-        }
-    }
-}
-
-class LocationContainer extends BaseContainer
-{
-    protected function configure()
-    {
-        $latitude = array('N'=>'severní šířky', 'S' => 'jižní šířky');
-	$longitude= array('E' => 'východní délky', 'W' => 'západní délky');
-	
-	$this->addText('name','Zadejte nazev lokality:' )
-		->setRequired();
-	$this->addText('latituderaw','Zadejte zeměpisnou šířku:' )
-		->setRequired();
-	$this->addSelect('latitudehemisfera','Zadejte polokouli',$latitude )
-		->setPrompt('zadejte polokouli')
-		->setRequired();
-	$this->addText('longituderaw', 'Zadejte zemepisnou delku:')
-		->setRequired();
-	$this->addSelect('longitudehemisfera','Zadejte polokouli', $longitude  )
-		->setPrompt('zadejte polokouli')
-		->setRequired();
-	$this->addText('altitude','Nadmořská výška:' )
-		->setRequired();
-	$this->addText('info','Popis lokality:' );
-	$this->addCheckbox( 'accessiblestand', 'Lokalita je volně přístupná.' );
     }
 }

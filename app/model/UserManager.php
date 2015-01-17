@@ -94,6 +94,8 @@ class UserManager extends Nette\Object implements Nette\Security\IAuthenticator
 	    
 	}
 	
+
+	
 	public function isActive($username){
 	    $row = $this->database->table(self::TABLE_NAME)->where(self::COLUMN_NAME, $username)->fetch();
 	    if(!$row)
