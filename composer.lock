@@ -1,9 +1,10 @@
 {
     "_readme": [
         "This file locks the dependencies of your project to a known state",
-        "Read more about it at http://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file"
+        "Read more about it at http://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
+        "This file is @generated automatically"
     ],
-    "hash": "1624f13bc3219ba64e850611964e5e02",
+    "hash": "45a19e1b8ca87fa926a6ce75df142fb6",
     "packages": [
         {
             "name": "dg/adminer-custom",
@@ -23,6 +24,84 @@
             "notification-url": "https://packagist.org/downloads/",
             "description": "Customization for the best database management tool written in PHP, Adminer",
             "time": "2014-04-18 22:01:23"
+        },
+        {
+            "name": "kdyby/forms-replicator",
+            "version": "dev-master",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/Kdyby/Replicator.git",
+                "reference": "d10ec08a02bd5016690d69bd26e6d1cee59c291b"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/Kdyby/Replicator/zipball/d10ec08a02bd5016690d69bd26e6d1cee59c291b",
+                "reference": "d10ec08a02bd5016690d69bd26e6d1cee59c291b",
+                "shasum": ""
+            },
+            "require": {
+                "nette/forms": "~2.2@dev"
+            },
+            "require-dev": {
+                "jakub-onderka/php-parallel-lint": "~0.7",
+                "latte/latte": "~2.2@dev",
+                "nette/application": "~2.2@dev",
+                "nette/bootstrap": "~2.2@dev",
+                "nette/caching": "~2.2@dev",
+                "nette/component-model": "~2.2@dev",
+                "nette/database": "~2.2@dev",
+                "nette/deprecated": "~2.2@dev",
+                "nette/di": "~2.2@dev",
+                "nette/finder": "~2.2@dev",
+                "nette/forms": "~2.2@dev",
+                "nette/http": "~2.2@dev",
+                "nette/mail": "~2.2@dev",
+                "nette/neon": "~2.2@dev",
+                "nette/nette": "~2.2@dev",
+                "nette/php-generator": "~2.2@dev",
+                "nette/reflection": "~2.2@dev",
+                "nette/robot-loader": "~2.2@dev",
+                "nette/safe-stream": "~2.2@dev",
+                "nette/security": "~2.2@dev",
+                "nette/tester": "@dev",
+                "nette/tokenizer": "~2.2@dev",
+                "nette/utils": "~2.2@dev",
+                "tracy/tracy": "~2.2@dev"
+            },
+            "type": "library",
+            "extra": {
+                "branch-alias": {
+                    "dev-master": "1.2-dev"
+                }
+            },
+            "autoload": {
+                "psr-0": {
+                    "Kdyby\\Replicator\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "BSD-3-Clause",
+                "GPL-2.0",
+                "GPL-3.0"
+            ],
+            "authors": [
+                {
+                    "name": "Filip Procházka",
+                    "email": "filip@prochazka.su",
+                    "homepage": "http://filip-prochazka.com"
+                }
+            ],
+            "description": "Nette forms container replicator aka addDynamic",
+            "homepage": "http://kdyby.org",
+            "keywords": [
+                "Forms",
+                "addDynamic",
+                "kdyby",
+                "nette",
+                "replicator"
+            ],
+            "time": "2014-12-05 18:57:19"
         },
         {
             "name": "latte/latte",
@@ -1161,17 +1240,15 @@
             "time": "2014-04-02 13:27:38"
         }
     ],
-    "aliases": [
-
-    ],
+    "aliases": [],
     "minimum-stability": "stable",
-    "stability-flags": [
-
-    ],
+    "stability-flags": {
+        "kdyby/forms-replicator": 20
+    },
+    "prefer-stable": false,
+    "prefer-lowest": false,
     "platform": {
         "php": ">= 5.3.7"
     },
-    "platform-dev": [
-
-    ]
+    "platform-dev": []
 }

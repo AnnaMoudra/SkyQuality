@@ -22,7 +22,6 @@ nette:
                 expiration: 14 days
 
 
-
 services:
         - App\Model\UserManager
         - App\RouterFactory
