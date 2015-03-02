@@ -2,10 +2,10 @@
 
 /* Základní layout pro celý web */
 body {
-	font: 14px/1.5 Georgia, Verdana, Arial;
+	font: 14px/1.5 Arial;
 	margin: 2% auto 2% auto;
-  padding: 1% 3% 1% 3%;
-	width: 70%;
+  padding: 1% 2.5%;
+	width: 75%;
   max-width: 1200px;
 	color: #333;
 	background-color: #fff;
@@ -67,7 +67,7 @@ h2 {
 }
 
 h3, h4 {
-    margin-top: 30px;
+    margin-top: 1em;
     font: "Trebuchet MS"
 }
 
@@ -102,6 +102,12 @@ h3, h4 {
 .logo {
     float: left;
     margin-top: 2%;
+}
+
+.logo img {
+    width: 60%;
+    height: auto;
+    max-width: 260px;
 }
 
 .sitedescr {
@@ -150,7 +156,7 @@ h3, h4 {
 }
 
 .navig li a {
-    font: 20px "Trebuchet MS";
+    font: 1.4em "Trebuchet MS";
     font-weight: 900;
     color: #444;
 }
@@ -164,7 +170,7 @@ h3, h4 {
 
 
 
-/* Layout pro formulář vložit měření */
+/* Layout pro formuláře */
 .form {
     text-align: center;
 }
@@ -187,24 +193,15 @@ form .error {
 	font-weight: bold;
 }
 
-.post {
-	background: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAPEAAAAUCAMAAABrnCsKAAAAGXRFWHRTb2Z0d2FyZQBBZG9iZSBJbWFnZVJlYWR5ccllPAAAAQ5QTFRFr66tsK+usLCusbCvtLOytbSzubi2ubm3urm3urq4vLu6vb27v769wL+9wL++w8LAxMPBxcTCxcXDxsbEx8bEx8fFyMfFyMjGysnIzMvLzMzLzMzMzc3Lzs7Mz87Mz8/N0M/N0tHQ09PS1NPR1NTS1NTT1dTS1dXT1tXU1tbU19bU19bV19fV2NfV2NfW2djW2dnW2dnX2dnY2tnX2trX29rY29vY29vZ3NzZ3dza3t3b3t7c39/d4N/d4ODd4ODf4eDe4eHh4uLg4+Lg4+Lh4+Pg4+Ph5OPh5OTi5eXj5eXk5ubj5+bm6Ofl6enm6unn6+ro8vHx9fT09fX19vX19/f3+Pj3+vr6/f39////uLBi1QAAAM5JREFUWMNjiBxpgGHUx6M+HvXxqI/JAGKRIi6RgiPHx5qRIgpmGoKikSFhI8THwkIy/v5O3iq8PCMjjsO9IgUCnK1t3Fy5R0qqFuA38LS0MDd3V+NkjxgoH0vTFKDbKOhvY2FuYmBlI4sqLk0XQP84VuTR8rMyMzbQtXBSYA0fGSWXkbmdob6uvpO8o33wiPCxD4eyr62psYM6B/MIKbmUIvX49N08dNhCJaVGSpuLJYiLU06VQWLEtLkCwyMZI5m0I8VHexKjPh71MZUAAOANSHaOv55SAAAAAElFTkSuQmCC) no-repeat center bottom;
-	padding-bottom:2em;
-	margin-bottom:2em;
-        margin-top:15px;
+.button {
+  border: solid 1px black;
+  background-image: none;
+  background-color: #fff;
+  padding: .4em;
 }
 
-.comment {
-	padding-bottom: 2em;
-}
-
-.comments {
-	font-size: .9em;
-}
-
-.page {
-  width: 100%;
-  margin: 2em 0;
+form table .required td {
+    border: solid 2px red;
 }
 
 
@@ -242,13 +239,13 @@ form .error {
 /* Hlavni cast Homepage */
 
 .wpage {
-    margin-top: 4%;
-    padding: 1%;
+    margin-top: 3%;
+
 }
 
-.hpage {
-  float: left;
-  width: 68%;
+.tpage {
+    float: left;
+    width: 68%; 
 }
 
 .news {
@@ -259,10 +256,33 @@ form .error {
 
 .hptable {
     width: 100%;
+    border: solid 1px #eee;
+    border-spacing: 2px;
 }
 
 .hptablehead {
     font-size: .85em;
+}
+
+.hptablehead th {
+     background-color: #FAFAFA;
+     padding: .6em 1.2em;
+     vertical-align: middle:
+}
+
+
+.hptablebody tr:hover{
+    background-color: #787878;
+    cursor: pointer;
+    color: #fff;
+}
+
+.hptablebody td {
+    padding: .6em 1.2em;
+}
+
+.clickable {
+    vertical-align:top;
 }
 
 .smallnote {
@@ -272,7 +292,7 @@ form .error {
     margin: 0;
 }
 
-.hpageb {
+.tpageb {
     background-color: #ddd;
     height: 140px;
     margin: 1.5em 0;
@@ -294,3 +314,27 @@ form .error {
 }
 
 
+
+
+/* Ruzne */
+
+
+.post {
+	background: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAPEAAAAUCAMAAABrnCsKAAAAGXRFWHRTb2Z0d2FyZQBBZG9iZSBJbWFnZVJlYWR5ccllPAAAAQ5QTFRFr66tsK+usLCusbCvtLOytbSzubi2ubm3urm3urq4vLu6vb27v769wL+9wL++w8LAxMPBxcTCxcXDxsbEx8bEx8fFyMfFyMjGysnIzMvLzMzLzMzMzc3Lzs7Mz87Mz8/N0M/N0tHQ09PS1NPR1NTS1NTT1dTS1dXT1tXU1tbU19bU19bV19fV2NfV2NfW2djW2dnW2dnX2dnY2tnX2trX29rY29vY29vZ3NzZ3dza3t3b3t7c39/d4N/d4ODd4ODf4eDe4eHh4uLg4+Lg4+Lh4+Pg4+Ph5OPh5OTi5eXj5eXk5ubj5+bm6Ofl6enm6unn6+ro8vHx9fT09fX19vX19/f3+Pj3+vr6/f39////uLBi1QAAAM5JREFUWMNjiBxpgGHUx6M+HvXxqI/JAGKRIi6RgiPHx5qRIgpmGoKikSFhI8THwkIy/v5O3iq8PCMjjsO9IgUCnK1t3Fy5R0qqFuA38LS0MDd3V+NkjxgoH0vTFKDbKOhvY2FuYmBlI4sqLk0XQP84VuTR8rMyMzbQtXBSYA0fGSWXkbmdob6uvpO8o33wiPCxD4eyr62psYM6B/MIKbmUIvX49N08dNhCJaVGSpuLJYiLU06VQWLEtLkCwyMZI5m0I8VHexKjPh71MZUAAOANSHaOv55SAAAAAElFTkSuQmCC) no-repeat center bottom;
+	padding-bottom:2em;
+	margin-bottom:2em;
+        margin-top:15px;
+}
+
+.comment {
+	padding-bottom: 2em;
+}
+
+.comments {
+	font-size: .9em;
+}
+
+.page {
+  width: 100%;
+  margin: 2em 0;
+}

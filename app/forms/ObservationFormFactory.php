@@ -138,37 +138,56 @@ class ObservationFormFactory extends \Nette\Application\UI\Form
 		->addConditionOn($form['equipmentid'], Form::EQUAL, 1, 'Zadat nové zařízení')
 		    ->setRequired();
 	    
-	$photosContainer = $form->addContainer('photos');  
-	$form->addCheckbox('addphotos','Přidat fotografie')
+	$photosContainer = $form->addContainer('photos');
+	$photo1C= $photosContainer->addContainer('photo1');
+	$photo2C= $photosContainer->addContainer('photo2');
+	$photo3C= $photosContainer->addContainer('photo3');
+	$photo4C= $photosContainer->addContainer('photo4');
+	
+	$photosContainer->addCheckbox('addphotos','Přidat fotografie')
 		->addCondition(Form::EQUAL,TRUE)
 		->toggle('photo1')
 		->toggle('photo2')
 		->toggle('photo3')
 		->toggle('photo4');
-		
-	    $photosContainer->addUpload('photo1','Nahraj fotografii:')
+	
+	$photo1C->addUpload('photo','Nahraj fotografii:')
 		->setOption('id', 'photo1')
-		->addConditionOn($form['addphotos'], Form::EQUAL, TRUE)
+		->addConditionOn($photosContainer['addphotos'], Form::EQUAL, TRUE)
 		    ->addRule(Form::FILLED, 'Nahrajte soubor')
-		    ->addRule(Form::IMAGE, 'Formát musí být jpg, jpeg, png nebo gif');
-	    $photosContainer->addUpload('photo2','Nahraj fotografii:')
+		    ->addRule(Form::IMAGE, 'Formát musí být jpg, jpeg, png nebo gif')
+		    ->addCondition(Form::FILLED)
+			->toggle('info1');
+	    $photo1C->addText('info','Popisek fotky:')
+		->setOption('id', 'info1');
+	$photo2C->addUpload('photo','Nahraj fotografii:')
 		->setOption('id', 'photo2')
-		->setDefaultValue(NULL)
-		->addConditionOn($form['addphotos'], Form::EQUAL, TRUE)
+		->addConditionOn($photosContainer['addphotos'], Form::EQUAL, TRUE)
 		    ->addCondition(Form::FILLED)
-			->addRule(Form::IMAGE, 'Formát musí být jpg, jpeg, png nebo gif');
-	    $photosContainer->addUpload('photo3','Nahraj fotografii:')
+			->addRule(Form::IMAGE, 'Formát musí být jpg, jpeg, png nebo gif')
+			->addCondition(Form::FILLED)
+			->toggle('info2');
+	    $photo2C->addText('info','Popisek fotky:')
+		->setOption('id', 'info2');
+	$photo3C->addUpload('photo','Nahraj fotografii:')
 		->setOption('id', 'photo3')
-		->setDefaultValue(NULL)
-		->addConditionOn($form['addphotos'], Form::EQUAL, TRUE)
+		->addConditionOn($photosContainer['addphotos'], Form::EQUAL, TRUE)
 		    ->addCondition(Form::FILLED)
-			->addRule(Form::IMAGE, 'Formát musí být jpg, jpeg, png nebo gif');
-	    $photosContainer->addUpload('photo4','Nahraj fotografii:')
+			->addRule(Form::IMAGE, 'Formát musí být jpg, jpeg, png nebo gif')
+			->addCondition(Form::FILLED)
+			    ->toggle('info3');
+	    $photo3C->addText('info','Popisek fotky:')
+		->setOption('id', 'info3');
+	$photo4C->addUpload('photo','Nahraj fotografii:')
 		->setOption('id', 'photo4')
-		->addConditionOn($form['addphotos'], Form::EQUAL, TRUE)
+		->addConditionOn($photosContainer['addphotos'], Form::EQUAL, TRUE)
 		    ->addCondition(Form::FILLED)
-			->addRule(Form::IMAGE, 'Formát musí být jpg, jpeg, png nebo gif');
-
+			->addRule(Form::IMAGE, 'Formát musí být jpg, jpeg, png nebo gif')
+			->addCondition(Form::FILLED, TRUE)
+			    ->toggle('info4');
+	    $photo4C->addText('info','Popisek fotky:')
+		->setOption('id', 'info4');
+	$form->setCurrentGroup(NULL);
         $form->addSubmit('send', 'Vložit do databáze');  
 	
         return $form;

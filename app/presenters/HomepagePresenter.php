@@ -22,7 +22,7 @@ class HomepagePresenter extends BasePresenter
 	public function renderDefault()
 	{
 		$this->template->sqm = $this->database->table('sqm')
-			->limit(5)
+			->limit(10)
 			;
 	}
 

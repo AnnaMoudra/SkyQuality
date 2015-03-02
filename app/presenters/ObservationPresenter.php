@@ -8,6 +8,8 @@ use Nette\Security\Permission;
 use Nette\Forms\Form;
 use Nette\Forms\Controls\Button;
 use Nette\Forms\IControl;
+use Nette\Http\FileUpload;
+use Nette\Utils\Image;
 
 
 class ObservationPresenter extends BasePresenter
@@ -81,16 +83,25 @@ class ObservationPresenter extends BasePresenter
 	    $sqm['id_observation'] = $observation->id;
 	    $this->database->table('sqm')->insert($sqm);  
 	}
-
-	if ($values['addphotos']==TRUE){
-	    
-	    $valuesPhotos = $values['photos'];
-	    foreach ($valuesPhotos as $photo) {
+	
+	$valuesPhotos = $values['photos'];
+	if ($valuesPhotos['addphotos']==TRUE){
+	    foreach ($valuesPhotos as $key => $arraypi) {
+		if($key!=='addphotos'){
 		$photoarray = array();
+		$photo = $arraypi['photo'];
+		$photoarray['info']=$arraypi['info'];
 		$photoarray['observation_id'] = $observation->id;
-		$photoarray['photo']=$photo;
-		if($photoarray['photo']!=''){
-		$this->database->table('photos')->insert($photoarray);
+		if ($photo->isImage()){
+		$filename = $photo->getSanitizedName();
+		$photoarray['photo']= $photo->getContents(); //snad osetri kolize
+		$this->database->table('photos')->insert($photoarray); 
+		//nahraje do db
+		$path = \WWW_DIR.'/www/www/images/photos/'.$filename;
+		$photo->move($path);
+//budeme ukladat name do db a uploadovat na adresu www/images/photos
+
+		}
 		}
 	    }
 	}
