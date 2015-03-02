@@ -7,6 +7,7 @@ use Exception;
 use Nette\Security\Permission;
 use Nette\Forms\Form;
 use Nette\Forms\Controls\Button;
+use Nette\Forms\IControl;
 
 
 class ObservationPresenter extends BasePresenter
@@ -51,31 +52,48 @@ class ObservationPresenter extends BasePresenter
             $this->error('Pro vytvoření, nebo editování příspěvku se musíte přihlásit.');
         }	
 	$values = $form->getValues();
-	$valuesObservation = $values['observation'];
-	$valuesSqm = $values['sqm'];
-	$valuesPhotos = $values['photos'];
-	$valuesObservation['user_id'] = $this->user->id;
 	
-	if($values['location']['location']==1){
-	    $valuesLocation= $values['location'];
+	$valuesObservation = $values['observation']; //data pristupna pod $valuesObservation['date']
+	$valuesObservation['user_id'] = $this->user->id;
+	$valuesSqm = $values['sqm'];//jen container! data pristupna pod $valuesSqm['value1']
+	
+	if($values['locationid']===1){ //pokud se zadava nova lokalita
+	    $valuesLocation= $values['location']; // data z containeru!
 	    $valuesLocation['user_id']= $this->user->id;
 	    $this->database->table('location')->insert($valuesLocation);
 	}
 	else{
-	    $valuesObservation['location_id'] = $values['location'];
+	    $valuesObservation['location_id'] = $values['locationid'];
 	}
 	
-	$valuesObservation['equipment_id'] = $values['equipment'];
+	if($values['equipmentid']===1){ // pokud se zadava nove zarizeni
+	    $valuesEquipment= $values['equipment'];
+	    $this->database->table('equipment')->insert($valuesEquipment);
+	}
+	else{
+	    $valuesObservation['equipment_id'] = $values['equipmentid'];
+	}
 //
 	$observation = $this->database->table('observations')
 		->insert($valuesObservation);
-	$valuesSqm['observation_id'] = $observation->id;
-		
-	$this->database->table('sqm')->insert($valuesSqm);
 	
-	$valuesPhotos['observation_id'] = $observation->id;
-	
-	$this->database->table('photos')->insert($valuesPhotos);
+	foreach ($valuesSqm as $sqm) {
+	    $sqm['id_observation'] = $observation->id;
+	    $this->database->table('sqm')->insert($sqm);  
+	}
+
+	if ($values['addphotos']==TRUE){
+	    
+	    $valuesPhotos = $values['photos'];
+	    foreach ($valuesPhotos as $photo) {
+		$photoarray = array();
+		$photoarray['observation_id'] = $observation->id;
+		$photoarray['photo']=$photo;
+		if($photoarray['photo']!=''){
+		$this->database->table('photos')->insert($photoarray);
+		}
+	    }
+	}
 	
         $this->flashMessage("Příspěvek byl úspěšně vložen.", 'success');
         $this->redirect('show', $observation->id);
@@ -132,7 +150,7 @@ class ObservationPresenter extends BasePresenter
             }
             if ($this->user->id == $observation->user_id) // druha kontrola
             {
-                $this['observationForm']->setDefaults($observation->toArray());
+	    $this['observationForm']->setDefaults($observation->toArray())->setDefaults($sqm->toArray());
             }
         }
     }

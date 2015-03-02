@@ -4,14 +4,9 @@
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
             <file>file:/D:/xampp/htdocs/localSQ/app/forms/ObservationFormFactory.php</file>
-            <file>file:/D:/xampp/htdocs/localSQ/app/forms/CommentFormFactory.php</file>
-            <file>file:/D:/xampp/htdocs/localSQ/app/templates/Database/locations.latte</file>
             <file>file:/D:/xampp/htdocs/localSQ/app/templates/Database/default.latte</file>
-            <file>file:/D:/xampp/htdocs/localSQ/app/templates/components/form.latte</file>
             <file>file:/D:/xampp/htdocs/localSQ/app/presenters/ObservationPresenter.php</file>
-            <file>file:/D:/xampp/htdocs/localSQ/composer.json</file>
-            <file>file:/D:/xampp/htdocs/localSQ/app/templates/Location/show.latte</file>
-            <file>file:/D:/xampp/htdocs/localSQ/app/templates/Observation/show.latte</file>
+            <file>file:/D:/xampp/htdocs/localSQ/app/templates/Observation/create.latte</file>
         </group>
     </open-files>
 </project-private>

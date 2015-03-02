@@ -13,7 +13,7 @@
 	<meta name="description" content="">
 	<meta name="robots" content="{$robots}" n:ifset="$robots">
 
-	<title>{block title|striptags|upper}Nette Application Skeleton{/block}</title>
+	<title>{block title|striptags}SkyQuality Project{/block}</title>
 
 	<link rel="stylesheet" media="screen,projection,tv" href="{$basePath}/css/screen.css">
 	<link rel="stylesheet" media="print" href="{$basePath}/css/print.css">
@@ -24,30 +24,42 @@
 <body>
 	<script> document.documentElement.className+=' js' </script>
 
-	<div  n:foreach="$flashes as $flash" class="flash {$flash->type}">{$flash->message}</div>
-        
-        <h1 n:block="nadpis">Mapování jasu noční oblohy</h1>
-        <div>
-        <ul class="navig">
-        <li><a n:href="Homepage:">Hlavní strana</a></li>
-        <li><a n:href="Database:">Databáze</a></li>
-        <li><a n:href="Info:">Informace</a></li> 
-        
-        {if $user->loggedIn}
-            <li><a n:href="Sign:out">Odhlásit</a></li>
-            <li><a n:href="Personal:">Váš účet</a></li> 
-        {else}
-            <li><a n:href="Sign:in">Přihlásit</a></li>
-        {/if}
-        </ul>
+  <div  n:foreach="$flashes as $flash" class="flash {$flash->type}">{$flash->message}</div>
+    <a n:href="Homepage:">
+       <div class="logo">
+	     <img src="../../www/images/siteLogo.png" title="SkyQuality.com" alt="SkyQuality.com" />
+       <span class="sitedescr">projekt mapování jasu noční oblohy</span>
+      </a>
+    </div>
+    <div class="menu">
+        <div class="hpagelogin">
+            <ul>        
+                {if $user->loggedIn}
+                    <li><a n:href="Personal:">Můj účet</a></li> 
+                    <li><a n:href="Observation:create">Přidat měření</a></li>
+                    <li><a n:href="Sign:out">Odhlásit se</a></li>
+                {else}
+                    <li><a n:href="Sign:in">Přihlásit</a></li>
+                {/if}
+            </ul>
         </div>
+        <ul class="navig">
+            <li><a n:href="Database:">Databáze</a></li>
+            <li><a n:href="Info:">Metodika</a></li> 
+            <li><a n:href="Project:">O projektu</a></li>
+        </ul> 
+    </div>
+  <div class="cistichead">
+  </div>
 
 	{include content}
 
 	{block scripts}
-	<script src="{$basePath}/js/jquery.js"></script>
-	<script src="{$basePath}/js/netteForms.js"></script>
-	<script src="{$basePath}/js/main.js"></script>
+	   <script src="{$basePath}/js/jquery.js"></script>
+	   <script src="{$basePath}/js/netteForms.js"></script>
+	   <script src="{$basePath}/js/main.js"></script>
 	{/block}
+  <div class="cistic">
+  </div>
 </body>
 </html>

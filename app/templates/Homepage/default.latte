@@ -1,29 +1,65 @@
-{* This is the 
-  welcome page, you can delete it *}
-
 {block content}
-<div class="page">
-<a n:href="Observation:create" n:if="$user->loggedIn" class="add">Přidat měření</a>
-
-<h3>Naposledy přidaná měření</h3>
-    <table class="" width="80%" cellspacing="0">
-    <thead class="column" align="left">
-        <tr><th>Datum měření</th>
-            <th>Lokalita</th>
-            <th>Pozorovatel</th>
-            <th>SQM1</th>
-            <th>&nbsp;</th></tr>
-    </thead>
-    <tbody>
-        <div n:foreach="$sqm as $sqm">
-            <tr class="clickable" onclick="{link Observationt:show $sqm->observation->date}">
-            <td>{$sqm->observation->date}</td>
-            <td>{$sqm->observation->location['name']}</td>
-	    <td>{$sqm->observation->observer}</td>
-            <td>{$sqm->value1}</td>   
-            <td><a href="{link Observation:show $sqm->observation->id}" class="ruzova">detail</a></td>
+<div class="wpage">
+  <div class="hpage">
+    <p class="pblok">SkyQuality.com je projekt zaměřený na objektivní posuzování kvality noční oblohy v nejrůznějších lokalitách (s důrazem na ty, které představují vhodná stanoviště pro amatérské astronomy). Pro maximální objektivitu je základní používanou metrikou jas oblohy v magnitudách na čtvereční úhlovou vteřinu, doplňkovou pak Bortle ohodnocení a MHV.</p>
+    
+    <div class="news"> {*posledni z rady news*}
+    
+    </div>
+    
+    <h4>Nejnovější měření</h4>
+        <table class="hptable" cellspacing="0">
+          <thead class="hptablehead" align="left">
+            <tr>
+              <th>Datum měření (UTC)</th>
+              <th>Lokalita</th>
+              <th>Pozorovatel</th>
+              <th>Průměrný jas oblohy*</th>
+              <th>Flagy</th>
             </tr>
-        </div>
-    </tbody>
-</table>
-</div>
+          </thead>
+          <tbody>
+            <div n:foreach="$sqm as $sqm">
+                <tr class="clickable" onclick="{link Observationt:show $sqm->observation->date}">
+                  <td>{$sqm->observation->date}</td>
+                  <td>{$sqm->observation->location['name']}</td>
+    	            <td>{$sqm->observation->observer}</td>
+                  <td>{$sqm->value1}</td>   
+                  <td>flagy</td>
+                </tr>
+            </div>
+          </tbody>
+        </table>
+        <p class="smallnote">*hodnota v mag/arcsec²</p>
+    </div>          {*end hpage*}
+    <div class="sidebar">
+      <div align="center" class="add">
+         {if $user->loggedIn}
+            <a n:href="Observation:create">Přidat měření<br />VELKÉ TLAČÍTKO<br />vede na formulář přidání</a>    
+         {else}
+            <a n:href="Sign:in">Přidat měření<br />VELKÉ TLAČÍTKO<br />vede na přihlášení</a>
+         {/if}
+      </div>
+    
+      <h5>Statistiky</h5>
+      <div class="sidebarstats">
+      </div>
+    
+      <h5>Mapa měření</h5>
+      <div class="sidebarmap">
+      </div>
+    
+      <h5>Přispějte nám</h5>
+      <div class="sidebardonate">
+      </div>
+    
+    </div>   {*end sidebar*}
+    <div class="cistic">
+    </div>   
+    <div class="hpageb" align="center">
+    <p style="padding-top: 50px;">Tady můžou být různé odkazy na spřátelené weby, vysvětlení co je to SZ nebo tak ... </p>
+    </div
+    </div>   {*end wpage*}
+  <div class="footer">
+  <p>©SkyQuality.cz - projekt mapování jasu noční oblohy<br /><a n:href="Project:">kontakt</a></p>
+  </div>

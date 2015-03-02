@@ -2,7 +2,7 @@
 
 {block content}
 <div class="page">
-<a n:href="Post:create" n:if="$user->loggedIn" class="add">Přidat měření</a>
+<a n:href="Observation:create" n:if="$user->loggedIn" class="add">Přidat měření</a>
 <br>
 <a n:href="Database:locations" class="add">Výpis databáze lokalit</a>
 
@@ -20,10 +20,10 @@
         <div n:foreach="$sqm as $sqm">
             <tr class="clickable" onclick="{link Observation:show $sqm->observation->date}">
             <td>{$sqm->observation->date}</td>
-            <td>{$sqm->observationt->locality}</td>
+            <td>{$sqm->observation->location->name}</td>
             <td>{$sqm->value1}</td>
             <td>{$sqm->observation->observer}</td>
-            <td><a href="{link Observation:show $observation->id}" class="ruzova">detail</a></td>
+            <td><a href="{link Observation:show $sqm->observation->id}" class="ruzova">detail</a></td>
             </tr>
         </div>
     </tbody>

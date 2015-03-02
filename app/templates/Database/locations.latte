@@ -15,7 +15,7 @@
     <tbody>
         <div n:foreach="$location as $location">
             <tr class="clickable" onclick="{link Location:show $location->id}">
-	    <td>{$location->name|truncate:40}</td>
+		<td>{$location->name|truncate:40}</td>
 	    <td>{$location->info|truncate:20}</td>
             <td>{$location->accessiblestand|replace:1:ano|replace:0:ne}</td>
             <td><a href="{link Location:show $location->id}" class="ruzova">detail</a></td>
