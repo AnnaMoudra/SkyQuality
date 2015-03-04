@@ -20,7 +20,7 @@
           </thead>
           <tbody class="hptablebody">
             <div n:foreach="$sqm as $sqm">
-                <tr class="clickable" onclick="{link Observation:show $observation->id}">
+                <tr class="clickable" onclick="{link Observation:show $sqm->observation->id}">
                   <td>{$sqm->observation->date}</td>
                   <td>{$sqm->observation->location['name']}</td>
                   <td align="center">{$sqm->value1}</td>                   

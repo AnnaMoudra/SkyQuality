@@ -3,7 +3,23 @@
 
 {block content}
 <div class="page">
-<h3>Nový příspěvek</h3>
-
+<h3>Nové měření</h3>
 {control observationForm}
+
+{*
+{form observationForm}
+  <table>
+    <tr class="required">
+      <th>NEcoNeco</th>
+      <td>
+        {formContainer observation}
+       <ul>
+            <li>{input date} {label date /}</li>
+        </ul>
+        {/formContainer}
+      </td>            
+    </tr>
+  </table>
+{/form}
+*}
 </div>

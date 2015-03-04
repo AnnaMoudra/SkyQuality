@@ -4,6 +4,7 @@ namespace App\Presenters;
 
 use Nette,
 	App\Model;
+use Nette\Database\Table\Selection;
 
 
 /**
@@ -20,17 +21,29 @@ class DatabasePresenter extends BasePresenter
 	}
 	
 	public function renderDefault()
-	{
+	{                                  
 		$this->template->sqm = $this->database->table('sqm');
 		
 	}
 	
 	public function renderLocations()
-	{
-	    $this->template->location = $this->database->table('location')
-		    ->order('name');
-	}
+  {                        
+    $selection = $this->database->table('location')
+               ->group('location.id')         
+               ->having('COUNT(:observations.id) > 0')
+               ->order(':observations.id DESC');
 
-
+    $this->template->selection = $selection;
+    $this->template->location = $this->database->table('location');
+	  $this->template->observation = $this->database->table('observations');
+    $this->template->sqm = $this->database->table('sqm'); 
+    $this->template->photos = $this->database->table('photos'); 
+          
+      
+  }
 }
+
+
+
+
 

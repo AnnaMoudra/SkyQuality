@@ -35,7 +35,7 @@ class ObservationFormFactory extends \Nette\Application\UI\Form
 	$observationContainer = $form->addContainer('observation');
 	$equipmentContainer = $form->addContainer('equipment');
 	
-	$observationContainer->addText('date', 'Datum měření:')
+	$observationContainer->addDatePicker('date', 'Datum měření:',10,10)
             ->setRequired();
 	$observationContainer->addText('time','Čas měření:')
 	    ->setRequired();

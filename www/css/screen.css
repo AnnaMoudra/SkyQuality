@@ -266,8 +266,8 @@ form table .required td {
 
 .hptablehead th {
      background-color: #FAFAFA;
-     padding: .6em 1.2em;
-     vertical-align: middle:
+     padding: .7em 1.2em .4em 1.2em;
+     vertical-align: middle;
 }
 
 
@@ -286,10 +286,10 @@ form table .required td {
 }
 
 .smallnote {
-    font-size: .7em;
+    font-size: .8em;
     color: #ccc;
     padding: 0;
-    margin: 0;
+    margin: 10px 0 0 0;
 }
 
 .tpageb {
@@ -312,6 +312,43 @@ form table .required td {
   margin: .8em 0 0 0;
   padding: 0;
 }
+
+/* Database */
+
+
+.dtable {
+    width: 100%;
+    border: solid 1px #eee;
+    border-spacing: 2px;
+}
+
+.dtablehead {
+    font-size: .85em;
+}
+
+.dtablehead th {
+     background-color: #FAFAFA;
+     padding: .7em 1.2em .4em 1.2em;
+     vertical-align: middle;
+}
+
+
+.dtablebody tr:hover{
+    background-color: #787878;
+    cursor: pointer;
+    color: #fff;
+}
+
+.dtablebody td {
+    padding: .6em 1.2em;
+}
+
+.search {
+    height: 50px;
+    background-color: #ccc;
+    margin-bottom: 2%;
+}
+
 
 
 

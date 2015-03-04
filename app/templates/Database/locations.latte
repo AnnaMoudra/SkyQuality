@@ -1,27 +1,43 @@
 {* Latte template *}
 
 {block content}
-<div class="page">
-<a n:href="Database:" class="add">Zpět na výpis měření</a>
 
-<h3>Výpis databáze lokalit </h3>
-<table class="" width="80%" cellspacing="0">
-    <thead class="column" align="left">
-        <tr><th>Název</th>
-            <th>Info</th>
-            <th>Volně přístupné</th>
-            <th>&nbsp;</th></tr>
-    </thead>
-    <tbody>
-        <div n:foreach="$location as $location">
-            <tr class="clickable" onclick="{link Location:show $location->id}">
-		<td>{$location->name|truncate:40}</td>
-	    <td>{$location->info|truncate:20}</td>
+<div class="page">
+  <div n:if="$user->loggedIn">
+  <a n:href="Post:create" n:if="$user->loggedIn" class="add">Přidat měření</a>
+  </div>
+  
+  {*<div class="search" style="padding-top: 20px;" align="center">
+  Vyhledávání podle zadaných parametrů
+  </div>*}
+  <a n:href="Database:" class="add">přepnout do režimu jednotlivých pozorování</a>
+ 
+
+  <h3>Výpis databáze lokalit </h3>           
+  <table class="dtable" width="80%" cellspacing="0">
+      <thead class="dtablehead" align="left">
+          <tr>
+          <th>Poslední měření</th>
+          <th>Lokalita</th>
+          <th>Nadm. výška</th>                                 
+          <th>SQM</th>
+          <th>Záznamů</th>
+          <th>Foto</th>
+          <th>Volně přístupné</th></tr>
+      </thead>
+      <tbody class="dtablebody">
+        <div n:foreach="$selection as $location">
+          <tr class="clickable" onclick="window.location.href={link Location:show $location->id}">
+  		      <td>{$location->related('observations')->order('id DESC')->limit(1)->max('date')}</td>   
+  	        <td>{$location->name|truncate:20}</td>
+            <td>{$location->altitude|truncate:40}</td>
+            <td>{$location->related('observations')->max(':sqm.value1')}</td>
+            <td>{$location->related('observations')->count('*')}</td>
+            <td>{$location->related('observations')->count(':photos.id')|replace:0:' '}</td>
             <td>{$location->accessiblestand|replace:1:ano|replace:0:ne}</td>
-            <td><a href="{link Location:show $location->id}" class="ruzova">detail</a></td>
-            </tr>
+           </tr>
         </div>
-    </tbody>
-</table>
+      </tbody>
+  </table>
      
 </div>
