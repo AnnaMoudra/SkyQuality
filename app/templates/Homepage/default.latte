@@ -19,12 +19,12 @@
             </tr>
           </thead>
           <tbody class="hptablebody">
-            <div n:foreach="$sqm as $sqm">
-                <tr class="clickable" onclick="{link Observation:show $sqm->observation->id}">
-                  <td>{$sqm->observation->date}</td>
-                  <td>{$sqm->observation->location['name']}</td>
-                  <td align="center">{$sqm->value1}</td>                   
-    	            <td>{$sqm->observation->observer}</td>  
+            <div n:foreach="$observation as $observation">
+                <tr class="clickable" onclick="{link Observation:show $observation->id}">
+                  <td>{$observation->date}</td>
+                  <td>{$observation->location['name']}</td>
+                  <td align="center">{$observation->sqmavg|number:2}</td>                   
+    	            <td>{$observation->observer}</td>  
                   <td>flagy</td>
                 </tr>
             </div>

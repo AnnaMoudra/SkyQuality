@@ -4,7 +4,7 @@
         "Read more about it at http://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "45a19e1b8ca87fa926a6ce75df142fb6",
+    "hash": "2fe12db636551947e45e42997cdeb793",
     "packages": [
         {
             "name": "dg/adminer-custom",
@@ -152,6 +152,58 @@
                 "twig"
             ],
             "time": "2014-05-06 19:36:49"
+        },
+        {
+            "name": "mesour/datagrid",
+            "version": "v2.0.4",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/mesour/DataGrid.git",
+                "reference": "02b6d3f0a7d13dbf4ff19bb79cb74b5e130429af"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/mesour/DataGrid/zipball/02b6d3f0a7d13dbf4ff19bb79cb74b5e130429af",
+                "reference": "02b6d3f0a7d13dbf4ff19bb79cb74b5e130429af",
+                "shasum": ""
+            },
+            "require": {
+                "nette/nette": ">=2.1.0",
+                "php": ">=5.3.0"
+            },
+            "require-dev": {
+                "dibi/dibi": "~2.2.0",
+                "nette/tester": "~1.2"
+            },
+            "type": "library",
+            "autoload": {
+                "classmap": [
+                    "src/"
+                ]
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "BSD-3-Clause",
+                "GPL-3.0"
+            ],
+            "authors": [
+                {
+                    "name": "Matouš Němec",
+                    "homepage": "http://mesour.com"
+                },
+                {
+                    "name": "Jan Lorenc",
+                    "homepage": "http://www.jan-lorenc.cz/"
+                }
+            ],
+            "description": "Mesour DataGrid is datagrid for Nette with options like to dump tree, inline edit, export to csv, sort data using jQuery.ui.nestedSortable and much more.",
+            "homepage": "http://grid.mesour.com",
+            "keywords": [
+                "datagrid",
+                "grid",
+                "nette"
+            ],
+            "time": "2015-02-22 18:34:03"
         },
         {
             "name": "nette/application",
@@ -1128,6 +1180,204 @@
             "time": "2014-05-25 06:14:53"
         },
         {
+            "name": "nextras/datagrid",
+            "version": "v2.1.2",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/nextras/datagrid.git",
+                "reference": "c86b8c97e6cc1f58cfc3b4fd3d2d77f77d237d56"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/nextras/datagrid/zipball/c86b8c97e6cc1f58cfc3b4fd3d2d77f77d237d56",
+                "reference": "c86b8c97e6cc1f58cfc3b4fd3d2d77f77d237d56",
+                "shasum": ""
+            },
+            "require": {
+                "nette/application": "~2.2",
+                "nette/component-model": "~2.2",
+                "nette/utils": "~2.2",
+                "nextras/latte-macros": "~1.1.0",
+                "php": "~5.3"
+            },
+            "type": "library",
+            "extra": {
+                "branch-alias": {
+                    "dev-master": "2.1-dev"
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "Nextras\\Datagrid\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Jan Skrasek",
+                    "email": "hrach.cz@gmail.com",
+                    "homepage": "http://jan.skrasek.com"
+                }
+            ],
+            "description": "Datagrid component for Nette Framework.",
+            "keywords": [
+                "datagrid",
+                "nette",
+                "nextras"
+            ],
+            "time": "2014-07-01 20:57:37"
+        },
+        {
+            "name": "nextras/forms",
+            "version": "v1.4.1",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/nextras/forms.git",
+                "reference": "d19d5921a5e1667a6b3c1d5b7f0e42ff3faf88c6"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/nextras/forms/zipball/d19d5921a5e1667a6b3c1d5b7f0e42ff3faf88c6",
+                "reference": "d19d5921a5e1667a6b3c1d5b7f0e42ff3faf88c6",
+                "shasum": ""
+            },
+            "require": {
+                "nette/application": "~2.2",
+                "nette/component-model": "~2.2",
+                "nette/forms": "~2.2",
+                "nette/utils": "~2.2",
+                "php": "~5.4"
+            },
+            "type": "library",
+            "extra": {
+                "branch-alias": {
+                    "dev-master": "1.4-dev"
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "Nextras\\Forms\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "BSD-3-Clause",
+                "GPL-2.0",
+                "GPL-3.0"
+            ],
+            "authors": [
+                {
+                    "name": "David Grudl",
+                    "homepage": "http://davidgrudl.com"
+                },
+                {
+                    "name": "Nextras Community",
+                    "homepage": "https://github.com/nextras/forms/graphs/contributors"
+                },
+                {
+                    "name": "Jan Škrášek",
+                    "homepage": "http://jan.skrasek.com"
+                }
+            ],
+            "description": "Extra form components for Nette Framework.",
+            "keywords": [
+                "form",
+                "nette"
+            ],
+            "time": "2014-07-23 10:25:24"
+        },
+        {
+            "name": "nextras/latte-macros",
+            "version": "v1.1.1",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/nextras/latte-macros.git",
+                "reference": "f8d4c32a3ebfd8c59623abb44b29500ac9d067ec"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/nextras/latte-macros/zipball/f8d4c32a3ebfd8c59623abb44b29500ac9d067ec",
+                "reference": "f8d4c32a3ebfd8c59623abb44b29500ac9d067ec",
+                "shasum": ""
+            },
+            "require": {
+                "latte/latte": "~2.2",
+                "php": "~5.3"
+            },
+            "type": "library",
+            "extra": {
+                "branch-alias": {
+                    "dev-master": "1.1-dev"
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "Nextras\\Latte\\Macros\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Jan Skrasek",
+                    "email": "hrach.cz@gmail.com",
+                    "homepage": "http://jan.skrasek.com"
+                }
+            ],
+            "description": "Latte macros for Nette Framework.",
+            "keywords": [
+                "block-macros",
+                "latte",
+                "macros",
+                "nette",
+                "nextras"
+            ],
+            "time": "2014-07-01 19:58:38"
+        },
+        {
+            "name": "radekdostal/nette-datetimepicker",
+            "version": "2.1.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/radekdostal/Nette-DateTimePicker.git",
+                "reference": "2b1028b552cb9dfd03b1f108ae6f6f2eab8c286d"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/radekdostal/Nette-DateTimePicker/zipball/2b1028b552cb9dfd03b1f108ae6f6f2eab8c286d",
+                "reference": "2b1028b552cb9dfd03b1f108ae6f6f2eab8c286d",
+                "shasum": ""
+            },
+            "require": {
+                "nette/nette": "^2.2.0",
+                "php": ">=5.3.0"
+            },
+            "type": "library",
+            "autoload": {
+                "classmap": [
+                    "src/"
+                ]
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "LGPL-2.1",
+                "LGPL-3.0"
+            ],
+            "authors": [
+                {
+                    "name": "Radek Dostál",
+                    "email": "radek.dostal@gmail.com"
+                }
+            ],
+            "description": "DatePicker and DateTimePicker input controls for Nette Framework",
+            "time": "2015-02-06 20:46:22"
+        },
+        {
             "name": "tracy/tracy",
             "version": "v2.2.0",
             "source": {
@@ -1180,6 +1430,57 @@
                 "nette"
             ],
             "time": "2014-05-12 15:43:35"
+        },
+        {
+            "name": "twbs/bootstrap",
+            "version": "v3.3.2",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/twbs/bootstrap.git",
+                "reference": "bcf7dd38b5ab180256e2e4fb5da0369551b3f082"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/twbs/bootstrap/zipball/bcf7dd38b5ab180256e2e4fb5da0369551b3f082",
+                "reference": "bcf7dd38b5ab180256e2e4fb5da0369551b3f082",
+                "shasum": ""
+            },
+            "replace": {
+                "twitter/bootstrap": "self.version"
+            },
+            "type": "library",
+            "extra": {
+                "branch-alias": {
+                    "dev-master": "3.3.x-dev"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Jacob Thornton",
+                    "email": "jacobthornton@gmail.com"
+                },
+                {
+                    "name": "Mark Otto",
+                    "email": "markdotto@gmail.com"
+                }
+            ],
+            "description": "The most popular front-end framework for developing responsive, mobile first projects on the web.",
+            "homepage": "http://getbootstrap.com",
+            "keywords": [
+                "JS",
+                "css",
+                "framework",
+                "front-end",
+                "less",
+                "mobile-first",
+                "responsive",
+                "web"
+            ],
+            "time": "2015-01-19 17:03:09"
         }
     ],
     "packages-dev": [

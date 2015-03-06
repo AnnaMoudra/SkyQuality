@@ -199,9 +199,13 @@ form .error {
   background-color: #fff;
   padding: .4em;
 }
-
-form table .required td {
-    border: solid 2px red;
+form table {
+    border-collapse: collapse;
+    border-spacing: 0;
+    
+}
+form table .required td input{
+  background-color: #FFEBEB;
 }
 
 
@@ -375,3 +379,47 @@ form table .required td {
   width: 100%;
   margin: 2em 0;
 }
+
+
+.container {
+
+  display: table;
+  margin-top: 1em;
+  border:solid 1px #eee; 
+
+}
+
+
+.col {
+    display: table-cell; 
+    border:solid 1px #eee; 
+  }
+  
+.row {
+    display:table-row;
+  }
+  
+.otable {
+  padding: .6em .8em;
+  text-align: center;
+  font-weight: bold;
+  
+}
+
+.atable {
+  padding: .6em .8em ;
+  text-align: left;
+} 
+
+.observationform {
+    width: 60%; 
+}
+fieldset{
+    border: solid 1px #ddd;  
+}
+
+.description{
+    font-size: 0.6em;
+    color:#787878;
+}
+

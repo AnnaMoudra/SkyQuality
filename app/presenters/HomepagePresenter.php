@@ -21,9 +21,8 @@ class HomepagePresenter extends BasePresenter
 	
 	public function renderDefault()
 	{
-		$this->template->sqm = $this->database->table('sqm')
-			->limit(10)
-			;
+		$this->template->observation = $this->database->table('observations')
+			->limit(90);
 	}
 
 

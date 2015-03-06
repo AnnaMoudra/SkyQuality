@@ -26,9 +26,19 @@ class LocationPresenter extends BasePresenter
         if (!$location) {
             $this->error('Stránka nebyla nalezena');
         }
-
+      
         $this->template->location = $location;
+        $observation = $this->database->table('observations');
         $this->template->comments = $location->related('comment')->order('created_at');
+        $location_id = $location->id;
+        
+        
+        $obssel = $this->database->table('observations')->where('location.id', $location_id);
+        
+        
+        $this->template->observation = $this->database->table('observations');
+        $this->template->obssel = $obssel;
+        $this->template->users = $this->database->table('users');
     }
     
         public function actionEdit($locationId)

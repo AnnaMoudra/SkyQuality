@@ -16,9 +16,27 @@
 	<title>{block title|striptags}SkyQuality Project{/block}</title>
 
 	<link rel="stylesheet" media="screen,projection,tv" href="{$basePath}/css/screen.css">
+        <link rel="stylesheet" media="screen,projection,tv" href="{$basePath}/css/grid.css">
+         <link rel="stylesheet" media="screen,projection,tv" href="{$basePath}/css/bootstrap.min.css">
+        <link rel="stylesheet" media="screen,projection,tv" href="{$basePath}/css/grid_filter.css">
 	<link rel="stylesheet" media="print" href="{$basePath}/css/print.css">
 	<link rel="shortcut icon" href="{$basePath}/favicon.ico">
+        {block scripts}
+           <script src="{$basePath}/js/jquery.js"></script>
+	   <script src="{$basePath}/js/jquery.ui.js"></script>
+	   <script src="{$basePath}/js/jquery.nette.js"></script>
+	   <script src="{$basePath}/js/nette.ajax.js"></script>
+	   <script src="{$basePath}/js/netteForms.js"></script>
+	   <script src="{$basePath}/js/main.js"></script>
+	   <script src="{$basePath}/js/highcharts.js"></script>
+           <script src="{$basePath}/js/bootstrap.min.js"></script>
+           <script src="{$basePath}/js/bootstrap.js"></script>
+           <script src="{$basePath}/js/npm.js"></script>
+           <script src="{$basePath}/js/grid.js"></script>
+           <script src="{$basePath}/js/grid_pager.js"></script>
+	{/block}
 	{block head}{/block}
+        
 </head>
 
 <body>
@@ -51,15 +69,43 @@
     </div>
   <div class="cistichead">
   </div>
-
+        <div class="wpage">
 	{include content}
+        
+        {define sidebar}
+        <div class="sidebar">
+            
+            <div class="add">
+              {if $user->loggedIn}
+                <a n:href="Observation:create">Vložte pozorování<br /> Velké tlačítko<br />vede na vytvoreni pozorovani</a>  
+              {else}
+                <a n:href="Sign:in">Vložte pozorování<br /> Velké tlačítko<br />vede na vytvoreni pozorovani</a>
+              {/if}   
+            </div>
+            
+                <h4> Statistiky</h3>
+            <div class="sidebarstats">
+            </div>
+                    <h3> Mapa měření</h4>
+            <div class="sidebarmap">
+            </div>
+                
+            
+            
+        </div>
+        <div class="cistic">
+        </div>
+        {/define}
+        </div>
+        {block footer}
+        <div class="footer">
+          ©Skyquality <br />
+          <a n:href="Project:">kontakt</a>
+        </div>
+        {/block}
 
-	{block scripts}
-	   <script src="{$basePath}/js/jquery.js"></script>
-	   <script src="{$basePath}/js/netteForms.js"></script>
-	   <script src="{$basePath}/js/main.js"></script>
-	{/block}
-  <div class="cistic">
-  </div>
+
+
 </body>
 </html>
+

@@ -2,11 +2,78 @@
 
 {block content}
 <div class="page">
-<p><a n:href="Database:" class="ruzova">← zpět na výpis databáze</a></p>
-{if $user->loggedIn && $user->id === $location->user_id}<a n:href="edit $location->id" class="ruzova">Editovat lokalitu</a> &#9733;{/if}
+<p><a n:href="Database:locations" class="ruzova">← zpět na databázi lokalit</a></p>
 
+<div class="post">
+   <h3 style="margin-bottom: 0; font-size: 1.8em;">{$location->name}</h3>
+    
+  <div class="container">
+    <div class="row">
+      <div class="col otable">Vytvořil</div>
+      <div class="col atable"></div>
+    </div>
+    <div class="row">
+      <div class="col otable">Souřadnice</div>
+      <div class="col atable">{$location->latitude} {$location->latitudehemisfera}, {$location->longitude} {$location->longitudehemisfera}</div>
+    </div> 
+    <div class="row">
+      <div class="col otable">Nadm. výška</div>
+      <div class="col atable">{$location->altitude}</div>
+    </div>
+    <div class="row">
+      <div class="col otable">Popis</div>
+      <div class="col atable">{$location->info}</a></div>
+    </div>
+    <div class="row">
+      <div class="col otable">Přístupnost</div>
+      <div class="col atable">{$location->accessiblestand|replace:1:ano|replace:0:ne}</div>
+    </div>
+  </div>
+  
+  <h3>Průměrná kvalita oblohy</h3>
+  <div class="container">
+    <div class="row">
+      <div class="col otable">Počet pozorování</div>
+      <div class="col atable">{$location->related('observations')->count('*')}</div>
+    </div>
+    <div class="row">
+      <div class="col otable">SQM průměr</div>
+      <div class="col atable">vzorecek</div>
+    </div> 
+    <div class="row">
+      <div class="col otable">Bortle průměr</div>
+      <div class="col atable">vzorecek</div>
+    </div>
+  </div>
+  
+  <h3>Poslední pozorování</h3>
+  
+  <table class="hptable" cellspacing="0" rules="all">
+          <thead class="hptablehead" align="left">
+            <tr>
+              <th>Datum (UTC)</th>          
+              <th align="center">SQM<sup style="font-size: .7em">1</sup></th>
+              <th>Pozorovatel</th>
+              <th>Flagy</th>
+            </tr>
+          </thead>
+          <tbody class="hptablebody"> 
+            <div n:foreach="$obssel as $observation">
+                <tr class="clickable" onclick="window.location.href={link Observation:show $observation->id}">
+                  <td>{$observation->date}</td>
+                  <td align="center">{$observation->related('sqm')->max('value1')}</td>                   
+    	            <td>{$observation->observer}</td>  
+                  <td>flagy</td>
+                </tr>
+          
+            </div>
+          </tbody>
+        </table>  
         
+</div>
 
+ <div id="container" style="width:100%; height:400px;"></div>
+		  
 <div class="comments">
 <h3>Vložte komentář</h3>
 
@@ -19,3 +86,4 @@
 
 </div>
 </div>
+   

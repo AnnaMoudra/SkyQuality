@@ -409,11 +409,14 @@ Nette.parseJSON = function(s) {
  * Displays or hides HTML element.
  */
 Nette.toggle = function(id, visible) {
-	var elem = document.getElementById(id);
-	if (elem) {
-		elem.style.display = visible ? '' : 'none';
-	}
+var el = $('#' + id);
+    if (visible) {
+        el.slideDown("slow");
+    } else {
+        el.slideUp();
+    }
 };
+
 
 
 /**

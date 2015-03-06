@@ -13,7 +13,7 @@
 <h4>Vámi spravovaná měření</h4>
 <div n:foreach="$observations as $observation">
         přidáno: {$observation->created_at|date:'F j, Y'} |  {$observation->location} |{$observation->date}|
-        {$observation->observer} <a href="{link Post:show $observation->id}" class="ruzova">detail</a>{sep}<hr>{/sep}</div>
+        {$observation->observer} <a href="{link Observation:show $observation->id}" class="ruzova">detail</a>{sep}<hr>{/sep}</div>
 </div>
 </div>
 <div class="myloc">

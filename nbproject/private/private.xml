@@ -3,12 +3,14 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
+            <file>file:/D:/xampp/htdocs/localSQ/www/js/jquery.js</file>
+            <file>file:/D:/xampp/htdocs/localSQ/app/forms/ObservationFormFactory.php</file>
             <file>file:/D:/xampp/htdocs/localSQ/app/presenters/DatabasePresenter.php</file>
             <file>file:/D:/xampp/htdocs/localSQ/app/templates/Database/locations.latte</file>
+            <file>file:/D:/xampp/htdocs/localSQ/www/js/netteForms.js</file>
             <file>file:/D:/xampp/htdocs/localSQ/www/index.php</file>
-            <file>file:/D:/xampp/htdocs/localSQ/app/presenters/PersonalPresenter.php</file>
-            <file>file:/D:/xampp/htdocs/localSQ/app/presenters/ObservationPresenter.php</file>
-            <file>file:/D:/xampp/htdocs/localSQ/app/templates/Observation/show.latte</file>
+            <file>file:/D:/xampp/htdocs/localSQ/app/templates/Observation/create.latte</file>
+            <file>file:/D:/xampp/htdocs/localSQ/www/js/main.js</file>
         </group>
     </open-files>
 </project-private>
