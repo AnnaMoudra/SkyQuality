@@ -23,7 +23,8 @@
 		"nextras/forms": "~1.4",
 		"nextras/datagrid": "~2.1.2",
 		"mesour/datagrid": "~2.0.4",
-		"twbs/bootstrap": "~3.3"
+		"twbs/bootstrap": "~3.3",
+		"olicek/google-map-api": "dev-master"
 	},
 	"require-dev": {
 		"nette/tester": "~1.0"

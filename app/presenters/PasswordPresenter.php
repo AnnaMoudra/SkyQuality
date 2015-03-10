@@ -4,6 +4,7 @@ namespace App\Presenters;
 
 use Nette,
 	App\Model;
+use App\Model\UserManager;
 use Nette\Database\Table\Selection;
 use Nette\Forms\Form;
 use Nette\Utils\Strings;
@@ -19,10 +20,12 @@ class PasswordPresenter extends BasePresenter
 {
    
     private $database;
+    private $userManager;
 	
-	public function __construct(Nette\Database\Context $database)
+	public function __construct(Nette\Database\Context $database, \App\Model\UserManager $userManager)
 	{
 		$this->database = $database;
+		$this->userManager = $userManager;
 	}
 
 	protected function createComponentGetNewpassForm() {
@@ -75,7 +78,7 @@ class PasswordPresenter extends BasePresenter
 	    $form = new Nette\Application\UI\Form;
 
 	    $form->addPassword('password1', 'Heslo:')
-		->setRequired('Zadejte heslo.')
+		->setRequired('Zadejte nové heslo.')
 		->addRule(Form::MIN_LENGTH,'Heslo musí mít alespoň %d znaků',6);
 
 	    $form->addPassword('password2', 'Potvrďte heslo:')
@@ -89,29 +92,41 @@ class PasswordPresenter extends BasePresenter
 	    return $form;
 	}   
 	
-	public function changepass($newpass,$password) {
-	    
-	   $row = $this->database->table('users')->where('newpass', $newpass)->fetch();
+	//public function changepass($newpass,$password) { tato fce uz neni potreba, je v userManager
+	//    
+	//   $row = $this->database->table('users')->where('newpass', $newpass)->fetch();
+	//   
+	//   if(!$row)
+	//   {
+	//	throw new Nette\Security\AuthenticationException('Such user was not found in the database', self::IDENTITY_NOT_FOUND);
+	//   }
+	//   
+	//   $row->update(array('password' => Passwords::hash($password)));
+	//   $row->update(array('newpass' => NULL));
+	//    
+	//}
+         
+	public function changePasswordFormSucceeded($form) {
+	    $values = $form->getValues();
+	    $newpass= $this->getHttpRequest()->getUrl()->getQueryParameter('newpass');// ziska linkhash z url
+	    $user = $this->database->table('users')->where('newpass',$newpass)->get('id'); // ziska spravneho usera
+	    $usernewpass = $this->database->table('users')->where('id',$user)->get('newpass');
+	    dump($usernewpass);
+
+	    if($newpass == $usernewpass){
+	    //$this->changepass($usernewpass,$values['password1']);//zada udaje do db a vymaze newpass
+	    //$this->userManager->changepass($usernewpass,$values['password1']);
+	    $row = $this->database->table('users')->where('newpass', $newpass)->fetch();
 	   
 	   if(!$row)
 	   {
 		throw new Nette\Security\AuthenticationException('Such user was not found in the database', self::IDENTITY_NOT_FOUND);
 	   }
 	   
-	   $row->update(array('password' => Passwords::hash($password)));
-	   $row->update(array('newpass' => NULL));
+	    //$this->database->table('users')->where('newpass', $newpass)->update('password', Passwords::hash($values['password1']));
+	    $row->update('newpass', NULL);
+		
 	    
-	}
-         
-	public function changePasswordFormSucceeded($form) {
-	    $values = $form->getValues();
-	    $newpass= $this->getHttpRequest()->getUrl()->getQueryParameter("newpass");// ziska linkhash z url
-	    $user = $this->database->table('users')->where('newpass',$newpass)->get('id'); // ziska spravneho usera
-	    $usernewpass = $this->database->table('users')->where('id',$user)->get('newpass');
-
-	    if($newpass == $usernewpass){
-	    $this->changepass($usernewpass,$values->password1);//zada udaje do db a vymaze newpass
-
 	    $this->flashMessage('Vaše heslo bylo změněno. Nyní se můžete přihlásit.', 'success');
 	    $this->redirect('Sign:in');
 	    }

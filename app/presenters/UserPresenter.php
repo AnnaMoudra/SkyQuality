@@ -16,6 +16,7 @@ use Nette\Application\UI\Form;
 use Nette\Mail\Message;
 use Nette\Mail\SendmailMailer;
 use Nette\Utils\Strings;
+use Nette\Forms\IControl;
 /**
  * Register presenter.
  */
@@ -23,9 +24,11 @@ class UserPresenter extends BasePresenter
 {
     /** @var \App\Model\UserManager */
     private $userManager;
+    private $database;
     
-    function __construct(\App\Model\UserManager $userManager) {
+    function __construct(\App\Model\UserManager $userManager, Nette\Database\Context $database) {
         $this->userManager = $userManager;
+	$this->database = $database;
     }
     
     protected function createComponentRegisterForm()
@@ -45,7 +48,7 @@ class UserPresenter extends BasePresenter
 	$form->addText('email', 'Email:')
             ->setRequired('Zadejte platnou emailovou adresu.')
 	    ->addRule(Form::EMAIL,'Zadana adresa neni platna');
-	
+	    
 	$form->addHidden('linkhash', Strings::random(10));
 
         $form->addSubmit('send', 'Registrovat');
@@ -77,7 +80,7 @@ class UserPresenter extends BasePresenter
 	$mailer = new SendmailMailer;
 	$mailer->send($message);
 
-	$this->flashMessage('Byli jste úspěšně zaregistrováni. Na zadanou emailovou adresu vám přijde link k aktivaci vašeho účtu.', 'success');
+	$this->flashMessage('Byli jste úspěšně zaregistrováni. Na zadanou emailovou adresu vám přijde odkaz k aktivaci vašeho účtu.', 'success');
 	$this->redirect('Homepage:');
 
     }

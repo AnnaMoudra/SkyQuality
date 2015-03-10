@@ -88,13 +88,22 @@ class UserManager extends Nette\Object implements Nette\Security\IAuthenticator
 		throw new Nette\Security\AuthenticationException('Such user was not found in the database', self::IDENTITY_NOT_FOUND);
 	    }
 
-	    $row->update(array(self::COLUMN_ACTIVE => true));
-
-
-	    
+	    $row->update(array(self::COLUMN_ACTIVE => true));   
 	}
 	
-
+	public function changepass($newpass,$password) {
+	    
+	   $row = $this->database->table(self::TABLE_NAME)->where(self::COLUMN_NEWPASSWORD, $newpass)->fetch();
+	   
+	   if(!$row)
+	   {
+		throw new Nette\Security\AuthenticationException('Such user was not found in the database', self::IDENTITY_NOT_FOUND);
+	   }
+	   
+	   $row->update(array(self::COLUMN_PASSWORD_HASH => Passwords::hash($password)));
+	   $row->update(array(self::COLUMN_NEWPASSWORD => NULL));
+	    
+	}
 	
 	public function isActive($username){
 	    $row = $this->database->table(self::TABLE_NAME)->where(self::COLUMN_NAME, $username)->fetch();

@@ -5,8 +5,12 @@ namespace App\Presenters;
 use Nette,
 	App\Model;
 use Nette\Database\Table\Selection;
-use Mesour\DataGrid\Grid;
-use Mesour\DataGrid\NetteDbDataSource;
+use Mesour\DataGrid,
+    Mesour\DataGrid\Grid,
+    Mesour\DataGrid\Extensions\Pager;
+use Mesour\DataGrid\NetteDbDataSource,
+    Mesour\DataGrid\Components\Button,
+    Mesour\DataGrid\Components\Link;
 
 
 /**
@@ -24,21 +28,67 @@ class DatabasePresenter extends BasePresenter
 	
 	protected function createComponentBasicDataGrid($name) {
 	    $selection= $this->database->table('observations');
+	    $selection->select('observations.id, date, observer, sqmavg, ' .
+	    'location.name');
+
+	    
 	    $source = new NetteDbDataSource($selection);
-
 	    $grid = new Grid($this, $name);
-
-	    $grid->setPrimaryKey('id'); // primary key is now used always
+	    $primarykey= 'id';
+	    $grid->setPrimaryKey($primarykey); // primary key is now used always
 
 	    $grid->setDataSource($source);
 	    $grid->addDate('date','Datum')
-		    ->setFormat('j.n.Y H:i:s')
+		    ->setFormat('d.m.y - H:i')
                     ->setOrdering(TRUE);
 	    $grid->addText('observer','Pozorovatel');
-	    $grid->addNumber('sqmavg','Prumerne sqm')->setDecimals(2);
-	    $grid->addText('weather','Pocasi');
-	    $grid->enablePager();
-            $grid->enableMultiOrdering();
+	    $grid->addText('name','Lokalita');
+	    $grid->addNumber('sqmavg','Průměrné sqm')->setDecimals(2);
+	    $action = $grid->addActions('');
+	    $action->addButton()
+		    ->setType('btn-primary')
+		    ->setText('detail pozorování')
+		    ->setTitle('detail')
+		    ->setAttribute('href', new Link('Observation:show',array(
+			'observationId'=>'{'.$primarykey.'}'
+		    )));
+	    
+	    $grid->enablePager(40);
+	    $grid->enableExport($this->context->parameters['wwwDir'].'/../temp/cache');
+		  
+
+
+	    return $grid;
+	}
+	
+	protected function createComponentLocationsDataGrid($name) {
+	    $selection= $this->database->table('location');
+	    $selection->select('id, name, latitude, altitude, longitude, accessiblestand');
+
+	    
+	    $source = new NetteDbDataSource($selection);
+	    $grid = new Grid($this, $name);
+	    $primarykey= 'id';
+	    $grid->setPrimaryKey($primarykey); // primary key is now used always
+
+	    $grid->setDataSource($source);
+	    $grid->addText('name','Název');
+	    $grid->addText('altitude','Nadmořská výška [m n.m.]');
+	    $grid->addText('accessiblestand','Volně přístupné')
+		   ->setCallback(function($row){
+		       if($row['accessiblestand']===0){return 'ne';}else{return 'ano';}
+		   });
+	    $action = $grid->addActions('');
+	    $action->addButton()
+		    ->setType('btn-primary')
+		    ->setText('detail lokality')
+		    ->setTitle('detail')
+		    ->setAttribute('href', new Link('Location:show',array(
+			'locationId'=>'{'.$primarykey.'}'
+		    )));
+	    
+	    $grid->enablePager(40);
+	    $grid->enableExport($this->context->parameters['wwwDir'].'/../temp/cache');
 		  
 
 

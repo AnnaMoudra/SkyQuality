@@ -3,15 +3,15 @@
  *
  * @copyright Copyright (c) 2009, 2010 Jan Marek
  * @copyright Copyright (c) 2009, 2010 David Grudl
- * @copyright Copyright (c) 2012 Vojtěch Dobeš
+ * @copyright Copyright (c) 2012-2014 Vojtěch Dobeš
  * @license MIT
  *
- * @version 1.2.2
+ * @version 2.0.0
  */
 
 (function(window, $, undefined) {
 
-if (typeof $ != 'function') {
+if (typeof $ !== 'function') {
 	return console.error('nette.ajax.js: jQuery is missing, load it please');
 }
 
@@ -34,8 +34,8 @@ var nette = function () {
 			var result = true;
 			var args = Array.prototype.slice.call(arguments);
 			var props = args.shift();
-			var name = (typeof props == 'string') ? props : props.name;
-			var off = (typeof props == 'object') ? props.off || {} : {};
+			var name = (typeof props === 'string') ? props : props.name;
+			var off = (typeof props === 'object') ? props.off || {} : {};
 			args.push(inner.self);
 			$.each(inner.on[name], function (index, reaction) {
 				if (reaction === undefined || $.inArray(index, off) !== -1) return true;
@@ -45,7 +45,10 @@ var nette = function () {
 			return result;
 		},
 		requestHandler: function (e) {
-			if (!inner.self.ajax({}, this, e)) return;
+			var xhr = inner.self.ajax({}, this, e);
+			if (xhr && xhr._returnFalse) { // for IE 8
+				return false;
+			}
 		},
 		ext: function (callbacks, context, name) {
 			while (!name) {
@@ -83,7 +86,7 @@ var nette = function () {
 	 * @return {$.nette|object} Provides a fluent interface OR returns extensions with given name
 	 */
 	this.ext = function (name, callbacks, context) {
-		if (typeof name == 'object') {
+		if (typeof name === 'object') {
 			inner.ext(name, callbacks);
 		} else if (callbacks === undefined) {
 			return inner.contexts[name];
@@ -92,7 +95,7 @@ var nette = function () {
 				inner.on[event][name] = undefined;
 			});
 			inner.contexts[name] = undefined;
-		} else if (typeof name == 'string' && inner.contexts[name] !== undefined) {
+		} else if (typeof name === 'string' && inner.contexts[name] !== undefined) {
 			throw "Cannot override already registered nette-ajax extension '" + name + "'.";
 		} else {
 			inner.ext(callbacks, context, name);
@@ -113,12 +116,12 @@ var nette = function () {
 	this.init = function (load, loadContext) {
 		if (inner.initialized) throw 'Cannot initialize nette-ajax twice.';
 
-		if (typeof load == 'function') {
+		if (typeof load === 'function') {
 			this.ext('init', null);
 			this.ext('init', {
 				load: load
 			}, loadContext);
-		} else if (typeof load == 'object') {
+		} else if (typeof load === 'object') {
 			this.ext('init', null);
 			this.ext('init', load, loadContext);
 		} else if (load !== undefined) {
@@ -145,12 +148,15 @@ var nette = function () {
 	/**
 	 * Executes AJAX request. Attaches listeners and events.
 	 *
-	 * @param  {object} settings
+	 * @param  {object|string} settings or URL
 	 * @param  {Element|null} ussually Anchor or Form
 	 * @param  {event|null} event causing the request
 	 * @return {jqXHR|null}
 	 */
 	this.ajax = function (settings, ui, e) {
+		if ($.type(settings) === 'string') {
+			settings = {url: settings};
+		}
 		if (!settings.nette && ui && e) {
 			var $el = $(ui), xhr, originalBeforeSend;
 			var analyze = settings.nette = {
@@ -177,8 +183,22 @@ var nette = function () {
 			}
 
 			if ($el.is('[data-ajax-off]')) {
-				settings.off = $el.data('ajaxOff');
-				if (typeof settings.off == 'string') settings.off = [settings.off];
+				var rawOff = $el.attr('data-ajax-off');
+				if (rawOff.indexOf('[') === 0) {
+					settings.off = $el.data('ajaxOff');
+				} else if (rawOff.indexOf(',') !== -1) {
+					settings.off = rawOff.split(',');
+				} else if (rawOff.indexOf(' ') !== -1) {
+					settings.off = rawOff.split(' ');
+				} else {
+					settings.off = rawOff;
+				}
+				if (typeof settings.off === 'string') settings.off = [settings.off];
+				settings.off = $.grep($.each(settings.off, function (off) {
+					return $.trim(off);
+				}), function (off) {
+					return off.length;
+				});
 			}
 		}
 
@@ -192,34 +212,45 @@ var nette = function () {
 
 		originalBeforeSend = settings.beforeSend;
 		settings.beforeSend = function (xhr, settings) {
-			if (originalBeforeSend) {
-				var result = originalBeforeSend(xhr, settings);
-				if (result !== undefined && !result) return result;
-			}
-			return inner.fire({
+			var result = inner.fire({
 				name: 'before',
 				off: settings.off || {}
 			}, xhr, settings);
+			if ((result || result === undefined) && originalBeforeSend) {
+				result = originalBeforeSend(xhr, settings);
+			}
+			return result;
 		};
 
-		xhr = $.ajax(settings);
+		return this.handleXHR($.ajax(settings), settings);
+	};
+
+	/**
+	 * Binds extension callbacks to existing XHR object
+	 *
+	 * @param  {jqXHR|null}
+	 * @param  {object} settings
+	 * @return {jqXHR|null}
+	 */
+	this.handleXHR = function (xhr, settings) {
+		settings = settings || {};
 
 		if (xhr && (typeof xhr.statusText === 'undefined' || xhr.statusText !== 'canceled')) {
 			xhr.done(function (payload, status, xhr) {
 				inner.fire({
 					name: 'success',
 					off: settings.off || {}
-				}, payload, status, xhr);
+				}, payload, status, xhr, settings);
 			}).fail(function (xhr, status, error) {
 				inner.fire({
 					name: 'error',
 					off: settings.off || {}
-				}, xhr, status, error);
+				}, xhr, status, error, settings);
 			}).always(function (xhr, status) {
 				inner.fire({
 					name: 'complete',
 					off: settings.off || {}
-				}, xhr, status);
+				}, xhr, status, settings);
 			});
 			inner.fire({
 				name: 'start',
@@ -260,13 +291,13 @@ $.nette.ext('validation', {
 				keys: false,
 				url: false,
 				form: false
-			}; else if (typeof attr == 'object') return attr;
+			}; else if (typeof attr === 'object') return attr;
  		})() || {});
 
 		var passEvent = false;
 		if (analyze.el.attr('data-ajax-pass') !== undefined) {
 			passEvent = analyze.el.data('ajaxPass');
-			passEvent = typeof passEvent == 'bool' ? passEvent : true;
+			passEvent = typeof passEvent === 'bool' ? passEvent : true;
 		}
 
 		if (validate.keys) {
@@ -285,7 +316,8 @@ $.nette.ext('validation', {
 		}
 
 		if (validate.form && analyze.form && !((analyze.isSubmit || analyze.isImage) && analyze.el.attr('formnovalidate') !== undefined)) {
-			if (analyze.form.get(0).onsubmit && analyze.form.get(0).onsubmit() === false) {
+			var ie = this.ie();
+			if (analyze.form.get(0).onsubmit && analyze.form.get(0).onsubmit((typeof ie !== 'undefined' && ie < 9) ? undefined : e) === false) {
 				e.stopImmediatePropagation();
 				e.preventDefault();
 				return false;
@@ -300,11 +332,22 @@ $.nette.ext('validation', {
 		if (!passEvent) {
 			e.stopPropagation();
 			e.preventDefault();
+			xhr._returnFalse = true; // for IE 8
 		}
 		return true;
 	}
 }, {
-	explicitNoAjax: false
+	explicitNoAjax: false,
+	ie: function (undefined) { // http://james.padolsey.com/javascript/detect-ie-in-js-using-conditional-comments/
+		var v = 3;
+		var div = document.createElement('div');
+		var all = div.getElementsByTagName('i');
+		while (
+        		div.innerHTML = '<!--[if gt IE ' + (++v) + ']><i></i><![endif]-->',
+			all[0]
+		);
+		return v > 4 ? v : undefined;
+	}
 });
 
 $.nette.ext('forms', {
@@ -323,71 +366,91 @@ $.nette.ext('forms', {
 		if (!analyze || !analyze.form) return;
 		var e = analyze.e;
 		var originalData = settings.data || {};
-		var formData = {};
+		var data = {};
 
 		if (analyze.isSubmit) {
-			formData[analyze.el.attr('name')] = analyze.el.val() || '';
+			data[analyze.el.attr('name')] = analyze.el.val() || '';
 		} else if (analyze.isImage) {
 			var offset = analyze.el.offset();
 			var name = analyze.el.attr('name');
 			var dataOffset = [ Math.max(0, e.pageX - offset.left), Math.max(0, e.pageY - offset.top) ];
 
 			if (name.indexOf('[', 0) !== -1) { // inside a container
-				formData[name] = dataOffset;
+				data[name] = dataOffset;
 			} else {
-				formData[name + '.x'] = dataOffset[0];
-				formData[name + '.y'] = dataOffset[1];
+				data[name + '.x'] = dataOffset[0];
+				data[name + '.y'] = dataOffset[1];
 			}
 		}
+		
+		// https://developer.mozilla.org/en-US/docs/Web/Guide/Using_FormData_Objects#Sending_files_using_a_FormData_object
+		if (analyze.form.attr('method').toLowerCase() === 'post' && 'FormData' in window) {
+			var formData = new FormData(analyze.form[0]);
+			for (var i in data) {
+				formData.append(i, data[i]);
+			}
 
-		if (typeof originalData != 'string') {
-			originalData = $.param(originalData);
+			if (typeof originalData !== 'string') {
+				for (var i in originalData) {
+					formData.append(i, originalData[i]);
+				}
+			}
+
+			settings.data = formData;
+			settings.processData = false;
+			settings.contentType = false;
+		} else {
+			if (typeof originalData !== 'string') {
+				originalData = $.param(originalData);
+			}
+			data = $.param(data);
+			settings.data = analyze.form.serialize() + (data ? '&' + data : '') + '&' + originalData;
 		}
-		formData = $.param(formData);
-		settings.data = analyze.form.serialize() + (formData ? '&' + formData : '') + '&' + originalData;
 	}
 });
 
 // default snippet handler
 $.nette.ext('snippets', {
 	success: function (payload) {
-		var snippets = [];
 		if (payload.snippets) {
-			for (var i in payload.snippets) {
-				var $el = this.getElement(i);
-				$.each(this.beforeQueue, function (index, callback) {
-					if (typeof callback == 'function') {
-						callback($el);
-					}
-				});
-				this.updateSnippet($el, payload.snippets[i]);
-				$.each(this.afterQueue, function (index, callback) {
-					if (typeof callback == 'function') {
-						callback($el);
-					}
-				});
-			}
+			this.updateSnippets(payload.snippets);
 		}
-		this.before(snippets);
 	}
 }, {
-	beforeQueue: [],
-	afterQueue: [],
+	beforeQueue: $.Callbacks(),
+	afterQueue: $.Callbacks(),
+	completeQueue: $.Callbacks(),
 	before: function (callback) {
-		this.beforeQueue.push(callback);
+		this.beforeQueue.add(callback);
 	},
 	after: function (callback) {
-		this.afterQueue.push(callback);
+		this.afterQueue.add(callback);
+	},
+	complete: function (callback) {
+		this.completeQueue.add(callback);
+	},
+	updateSnippets: function (snippets, back) {
+		var that = this;
+		var elements = [];
+		for (var i in snippets) {
+			var $el = this.getElement(i);
+			if ($el.get(0)) {
+				elements.push($el.get(0));
+			}
+			this.updateSnippet($el, snippets[i], back);
+		}
+		$(elements).promise().done(function () {
+			that.completeQueue.fire();
+		});
 	},
 	updateSnippet: function ($el, html, back) {
-		if (typeof $el == 'string') {
-			$el = this.getElement($el);
-		}
 		// Fix for setting document title in IE
 		if ($el.is('title')) {
 			document.title = html;
 		} else {
+			this.beforeQueue.fire($el);
 			this.applySnippet($el, html, back);
+			this.afterQueue.fire($el);
 		}
 	},
 	getElement: function (id) {
@@ -396,7 +459,9 @@ $.nette.ext('snippets', {
 	applySnippet: function ($el, html, back) {
 		if (!back && $el.is('[data-ajax-append]')) {
 			$el.append(html);
-		} else {
+		} else if (!back && $el.is('[data-ajax-prepend]')) {
+			$el.prepend(html);
+		} else if ($el.html() != html) {
 			$el.html(html);
 		}
 	},
@@ -442,7 +507,7 @@ $.nette.ext('unique', {
 $.nette.ext('abort', {
 	init: function () {
 		$('body').keydown($.proxy(function (e) {
-			if (this.xhr && (e.keyCode == 27 // Esc
+			if (this.xhr && (e.keyCode.toString() === '27' // Esc
 			&& !(e.ctrlKey || e.shiftKey || e.altKey || e.metaKey))
 			) {
 				this.xhr.abort();

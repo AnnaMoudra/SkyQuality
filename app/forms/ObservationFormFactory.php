@@ -44,11 +44,10 @@ class ObservationFormFactory extends \Nette\Application\UI\Form
 	    ->setRequired();
 		$observationContainer->addText('observer', 'Pozorovatel')
 	    ->setRequired();
-	$observationContainer->addText('disturbance', 'Rušení:')
-	    ->setRequired();
-	$observationContainer->addText('nelmHD','NelmHD:');
+	$observationContainer->addText('disturbance', 'Rušení:');
+	$observationContainer->addText('nelmHD','MHV:');
 	$observationContainer->addText('bortle','Bortle:');
-	$observationContainer->addSelect('bortlespec','',array('---','lepší','horší'));
+	$observationContainer->addText('bortlespec','');
 	$observationContainer->addTextArea('weather','Počasí:');
 	$observationContainer->addTextArea('info','Poznámky:');
 	
@@ -113,13 +112,40 @@ class ObservationFormFactory extends \Nette\Application\UI\Form
 		    ->setOption('id', 'location-accessiblestand' );
 	$form->addGroup('Naměřené hodnoty');
 	$multisqm = $form->addDynamic('sqm',function(Container $sqm) {
-	    	$sqm->addText('value1', 'SQM:')->setRequired()->setOption('description','MSA');
-		$sqm->addText('value2', 'SQM:')->setRequired()->setOption('description','MSA');
-		$sqm->addText('value3', 'SQM:')->setRequired()->setOption('description','MSA');
-		$sqm->addText('value4', 'SQM:')->setRequired()->setOption('description','MSA');
-		$sqm->addText('value5','SQM:')->setRequired()->setOption('description','MSA');
-		$sqm->addText('height','Výška:')->setRequired();
-		$sqm->addText('azimute','Azimut:')->setRequired();
+	    	$sqm->addText('value1', 'SQM:')
+			->setRequired()
+			->setOption('description','[mag/arcsec²]')
+			->setOption('class','sqmvalues')
+			->addRule(Form::FLOAT,'Hodnoty musí být čísla: např 18.21 či 21.3')
+			->addRule(Form::RANGE,'Vyplňte hodnoty v rozsahu 15.00-24.00',array(15,24));
+		$sqm->addText('value2', 'SQM:')
+			->setOption('class','sqmvalues')
+			->addCondition(Form::FILLED)
+			    ->addRule(Form::FLOAT,'Hodnoty musí být čísla: např 18.21 či 21.3')
+			    ->addRule(Form::RANGE,'Vyplňte hodnoty v rozsahu 15.00-24.00',array(15,24));
+		$sqm->addText('value3', 'SQM:')
+			->setOption('class','sqmvalues')
+			->addCondition(Form::FILLED)
+			    ->addRule(Form::FLOAT,'Hodnoty musí být čísla: např 18.21 či 21.3')
+			    ->addRule(Form::RANGE,'Vyplňte hodnoty v rozsahu 15.00-24.00',array(15,24));
+		$sqm->addText('value4', 'SQM:')
+			->setOption('class','sqmvalues')
+			->addCondition(Form::FILLED)
+			    ->addRule(Form::FLOAT,'Hodnoty musí být čísla: např 18.21 či 21.3')
+			    ->addRule(Form::RANGE,'Vyplňte hodnoty v rozsahu 15.00-24.00',array(15,24));
+		$sqm->addText('value5','SQM:')
+			->setOption('class','sqmvalues')
+			->addCondition(Form::FILLED)
+			    ->addRule(Form::FLOAT,'Hodnoty musí být čísla: např 18.21 či 21.3')
+			    ->addRule(Form::RANGE,'Vyplňte hodnoty v rozsahu 15.00-24.00',array(15,24));
+		$sqm->addText('height','Výška:')->setRequired()
+			->addRule(Form::INTEGER,'Stupňě výšky musí být celé číslo.')
+			->setOption('description','°')
+			->addRule(Form::RANGE,'Vyplňte hodnoty v rozsahu 0-90',array(0,90));
+		$sqm->addText('azimute','Azimut:')->setRequired()
+			->addRule(Form::INTEGER,'Stupně azimutu musí být celé číslo.')
+			->addRule(Form::RANGE,'Vyplňte hodnoty v rozsahu 15.00-24.00',array(0,360))
+			->setOption('description','°');
 
 	    $sqm->addSubmit("removeMultisqm", "Odebrat tyto hodnoty sqm")
 		->setValidationScope(FALSE)
@@ -203,5 +229,7 @@ class ObservationFormFactory extends \Nette\Application\UI\Form
 	
         return $form;
     }
+    
+     
 }
 

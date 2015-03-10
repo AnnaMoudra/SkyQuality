@@ -3,24 +3,16 @@
 {block content}
 <div class="page">
 <div n:foreach="$personal as $a" class="personal">
-    Uživatel: {$a->username}<br>
-    Email: {$a->email} <a href="Personal:edit" class=""> změnit</a>
+    <span style="margin-right: 3em;">Uživatel: {$a->username}</span>       Email: {$a->email}<br />
+    <span class="date"> Pokud si přejete změnit e-mail či uživatelské jméno, prosím <a n:href="Project:">kontaktujte administrátora</a>.</span>
 </div>
 <br>
-<a n:href="Observation:create" n:if="$user->loggedIn" class="">Přidat měření</a>
+<a n:href="Observation:create" class="navbutton">Přidat měření</a>
 
 <div class="mydata">
 <h4>Vámi spravovaná měření</h4>
-<div n:foreach="$observations as $observation">
-        přidáno: {$observation->created_at|date:'F j, Y'} |  {$observation->location} |{$observation->date}|
-        {$observation->observer} <a href="{link Observation:show $observation->id}" class="ruzova">detail</a>{sep}<hr>{/sep}</div>
+{control myObsGrid}
 </div>
-</div>
-<div class="myloc">
-<h4>Vámi spravované lokality</h4>
-<div n:foreach="$locations as $location">
-    {$location->name} |{$location->accesiblestand}|
-    <a href="{link Location:show $location->id}" class="ruzova">detail</a>{sep}<hr>{/sep}</div>
-</div>  
+ 
 </div>
    

@@ -7,6 +7,17 @@ use Nette,
 use Exception;
 use Nette\Security\Permission;
 use Nette\Forms\Form;
+use HighRoller;
+use Nette\Image;
+
+
+use Mesour\DataGrid,
+    Mesour\DataGrid\Grid,
+    Mesour\DataGrid\Extensions\Pager,
+    Mesour\DataGrid\Components\Link,
+    Mesour\DataGrid\Components\Button,
+    Mesour\DataGrid\Render,
+    Mesour\DataGrid\NetteDbDataSource;
 
 
 
@@ -19,27 +30,122 @@ class LocationPresenter extends BasePresenter
     {
         $this->database = $database;
     }
+    
+    
 
    public function renderShow($locationId)
     {
+        $absoluteUrls = TRUE;
         $location = $this->database->table('location')->get($locationId);
         if (!$location) {
             $this->error('Stránka nebyla nalezena');
         }
+        
+        $location_id = $location->id;
       
         $this->template->location = $location;
-        $observation = $this->database->table('observations');
         $this->template->comments = $location->related('comment')->order('created_at');
-        $location_id = $location->id;
-        
-        
-        $obssel = $this->database->table('observations')->where('location.id', $location_id);
-        
-        
-        $this->template->observation = $this->database->table('observations');
+        $obssel = $this->database->table('observations')->where('location.id', $location_id)->select('observations.id, observations.user_id, observer, sqmavg'); 
+        //$this->template->observation = $this->database->table('observations');
+	$this->template->observationgraf = $this->database->table('observations');
         $this->template->obssel = $obssel;
         $this->template->users = $this->database->table('users');
+        $phosel = $this->database->table('photos')->where('location.id', $locationId); 
+    
+        $this->template->phosel = $phosel;
+                
+        $photos = $this->database->table('photos');
+        foreach ($photos as $photos) {
+        $img[] = Image::fromFile('http://skyquality.cz/www/images/photos/'.$photos->photo)->resize(250, NULL);}
+        
+        $this->template->img = $img;
+        
+        
+        
+        $this->template->observations = $this->database->table('observations');
+        
+        
+    
+        // Pro Grafy
+	$observation = $this->database->table('observations')
+                ->where('location_id',$locationId)
+                ->order('date DESC');
+	$data=[];
+        $data1=[];
+        $data2=[];
+	foreach($observation as $observation){
+	$time = strtotime($observation->date . ' GMT')*1000;
+	$data[]=[$time,$observation->sqmavg];
+	}
+	$this->template->data = $data;
+        
+        
+     //   DRUHY GRAF
+        
+        
+        
+        $observation = $this->database->table('observations')
+                ->where('location_id',$locationId)
+                ->order('date DESC');
+        foreach($observation as $observation){
+        
+        $time = strtotime($observation->date . ' GMT')*1000;    
+        $equipmentId = $observation->equipment_id;
+        $equipment = $this->database->table('equipment')->where('id', $equipmentId)->fetch('type');
+        if ($equipment->type === 'SQM' ) {
+            
+        $data1[]=[$time,$observation->sqmavg]; } 
+        else{
+        $data2[]=[$time,$observation->sqmavg];
     }
+       
+        }
+     //  $equipnorm = $this->database->table('equipment')->where('id', $equipmentId AND 'type', '%SQM%');
+     //  $equiplight = $this->database->table('equipment')->where('id', $equipmentId AND 'type', '%SQM-L%');
+     //  
+    
+    
+        
+
+       $this->template->data2 = $data1;
+       $this->template->data3 = $data2;
+
+
+    }
+    
+    protected function createComponentBasicDataGrid($name) {
+            $location_id = $this->getHttpRequest()->getUrl()->getQueryParameter('locationId');
+	    $selection= $this->database->table('observations')->where('location.id',$location_id);
+	    $selection->select('observations.id, date, observer, sqmavg, ' .
+	    'location.name');
+
+	    
+	    $source = new NetteDbDataSource($selection);
+	    $grid = new Grid($this, $name);
+	    $primarykey = 'id';
+	    $grid->setPrimaryKey($primarykey); // primary key is now used always
+
+	    $grid->setDataSource($source);
+	    $grid->addDate('date','Datum')
+		    ->setFormat('d.m.y - H:i')
+                    ->setOrdering(TRUE);
+	    $grid->addNumber('sqmavg','Průměrné sqm')->setDecimals(2);
+	    $grid->addText('observer','Pozorovatel');
+	    $grid->enablePager(10);
+	    $grid->enableExport($this->context->parameters['wwwDir'].'/../temp/cache');
+	    $actions = $grid->addActions('');
+	    $actions->addButton()
+		    ->setType('btn-primary')
+		    ->setText('detail pozorování')
+		    ->setTitle('detail')
+		    ->setAttribute('href', new Link('Observation:show',array(
+			'observationId'=>'{'.$primarykey.'}'
+		    )));
+		
+	    return $grid;
+	}
+
+  
     
         public function actionEdit($locationId)
     {
@@ -80,7 +186,6 @@ class LocationPresenter extends BasePresenter
         $this->database->table('comments')->insert(array(
             'location_id' => $locationId,
             'name' => $values->name,
-            'email' => $values->email,
             'content' => $values->content,
         ));
 

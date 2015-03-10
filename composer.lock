@@ -4,7 +4,7 @@
         "Read more about it at http://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "2fe12db636551947e45e42997cdeb793",
+    "hash": "8cecb87b58111c6a7526679fb3766d57",
     "packages": [
         {
             "name": "dg/adminer-custom",
@@ -155,20 +155,20 @@
         },
         {
             "name": "mesour/datagrid",
-            "version": "v2.0.4",
+            "version": "v2.0.5",
             "source": {
                 "type": "git",
                 "url": "https://github.com/mesour/DataGrid.git",
-                "reference": "02b6d3f0a7d13dbf4ff19bb79cb74b5e130429af"
+                "reference": "8c7ecffe0bfc4664800d24cc2156be749c8bc99c"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/mesour/DataGrid/zipball/02b6d3f0a7d13dbf4ff19bb79cb74b5e130429af",
-                "reference": "02b6d3f0a7d13dbf4ff19bb79cb74b5e130429af",
+                "url": "https://api.github.com/repos/mesour/DataGrid/zipball/8c7ecffe0bfc4664800d24cc2156be749c8bc99c",
+                "reference": "8c7ecffe0bfc4664800d24cc2156be749c8bc99c",
                 "shasum": ""
             },
             "require": {
-                "nette/nette": ">=2.1.0",
+                "nette/nette": ">=2.2.0",
                 "php": ">=5.3.0"
             },
             "require-dev": {
@@ -203,7 +203,7 @@
                 "grid",
                 "nette"
             ],
-            "time": "2015-02-22 18:34:03"
+            "time": "2015-03-07 20:31:20"
         },
         {
             "name": "nette/application",
@@ -1340,6 +1340,50 @@
             "time": "2014-07-01 19:58:38"
         },
         {
+            "name": "olicek/google-map-api",
+            "version": "dev-master",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/Olicek/GoogleMapAPI.git",
+                "reference": "7cba54d66677315d48ca9a97758f8eb9ac1e1010"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/Olicek/GoogleMapAPI/zipball/7cba54d66677315d48ca9a97758f8eb9ac1e1010",
+                "reference": "7cba54d66677315d48ca9a97758f8eb9ac1e1010",
+                "shasum": ""
+            },
+            "require": {
+                "nette/nette": ">=2.1",
+                "php": ">=5.3.0"
+            },
+            "type": "library",
+            "autoload": {
+                "classmap": [
+                    "src/"
+                ]
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "GPL-3.0"
+            ],
+            "authors": [
+                {
+                    "name": "Petr Olišar",
+                    "email": "petr.olisar@gmail.com",
+                    "homepage": "http://olisar.eu"
+                }
+            ],
+            "description": "Tool for paste google map to the page with markers",
+            "homepage": "https://github.com/Olicek/GoogleMapAPI",
+            "keywords": [
+                "google",
+                "maps",
+                "nette"
+            ],
+            "time": "2015-02-26 08:23:04"
+        },
+        {
             "name": "radekdostal/nette-datetimepicker",
             "version": "2.1.0",
             "source": {
@@ -1544,7 +1588,8 @@
     "aliases": [],
     "minimum-stability": "stable",
     "stability-flags": {
-        "kdyby/forms-replicator": 20
+        "kdyby/forms-replicator": 20,
+        "olicek/google-map-api": 20
     },
     "prefer-stable": false,
     "prefer-lowest": false,

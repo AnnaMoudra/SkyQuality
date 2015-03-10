@@ -2,12 +2,12 @@
 
 {block content}
 
-<html>
+{*<html>
     <head>
         <title>{$title}</title>
     </head>
 
-    <body>
+    <body>*}
         <ul>
             <li>
                 <strong>Username:</strong> {$values['username']}
@@ -19,7 +19,7 @@
                 <strong>Zpráva:</strong>
 		<h4>Pro aktivaci vašeho účtu na SkyQuality.cz klikněte na následující odkaz.<br>
 		    
-		    <a href="{link //Sign:activate 'hash'=>$values['linkhash']}">Zde klikněte pro ověření emailové adresy</a>
+		    <a href="{link //Sign:activate 'hash'=>$values['linkhash']}">Zde klikněte pro ověření emailové adresy.</a>
 		
 		Pokud jste se na stránce SkyQuality.cz neregistrovali, na link neklikejte. 
 		Váš email bude z databáze vymazán.
@@ -27,5 +27,5 @@
             </li>
         </ul>
 
-    </body>
-</html>
+ {*   </body>
+</html>*}

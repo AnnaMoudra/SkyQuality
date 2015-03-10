@@ -47,9 +47,15 @@ class SignPresenter extends BasePresenter
     public function signInFormSucceeded($form)
     {
         $values = $form->values;
+	try{
 	$active = $this->userManager->isActive($values->username);
+	}catch(\Nette\Security\AuthenticationException $e){
+	    $this->flashMessage('Zadané uživatelské jméno v databázi neexistuje.');
+	    $this->redirect('Sign:in');
+	}
 	
-	if($active === FALSE){
+	
+	if($active == FALSE){
 	    $form->addError('Nejprve si aktivujte účet pomocí emailu.');
 	}
 	else{

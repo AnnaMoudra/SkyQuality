@@ -25,4 +25,5 @@ nette:
 services:
         - App\Model\UserManager
         - App\RouterFactory
+        - App\Model\DemoModel
         router: @App\RouterFactory::createRouter

@@ -3,25 +3,25 @@
 <div class="tpage">
     <p class="pblok">SkyQuality.com je projekt zaměřený na objektivní posuzování kvality noční oblohy v nejrůznějších lokalitách (s důrazem na ty, které představují vhodná stanoviště pro amatérské astronomy). Pro maximální objektivitu je základní používanou metrikou jas oblohy v magnitudách na čtvereční úhlovou vteřinu, doplňkovou pak Bortle ohodnocení a MHV.</p>
     
-    <div class="news" align="center"> {*posledni z rady news*}
+    {*<div class="news" align="center">
       <p style="padding-top:15px;">Novinky</p>
-    </div>
+    </div>*}
     
     <h3>Nejnovější měření</h3>
         <table class="hptable" cellspacing="0" rules="all">
           <thead class="hptablehead" align="left">
             <tr>
-              <th width="25%">Datum(UTC)</th>
+              <th width="25%">Datum (UTC)</th>
               <th width="30%">Lokalita</th>              
-              <th width="10%" align="center">SQM<sup style="font-size: .7em">1</sup></th>
+              <th width="15%" align="center">SQM<sup style="font-size: .7em">1</sup></th>
               <th width="20%">Pozorovatel</th>
               <th width="10%">Flagy</th>
             </tr>
           </thead>
           <tbody class="hptablebody">
             <div n:foreach="$observation as $observation">
-                <tr class="clickable" onclick="{link Observation:show $observation->id}">
-                  <td>{$observation->date}</td>
+                <tr class="clickable" onclick="window.location.href={link Observation:show $observation->id}">
+                  <td>{$observation->date|date:'d.m.y - H:i'}</td>
                   <td>{$observation->location['name']}</td>
                   <td align="center">{$observation->sqmavg|number:2}</td>                   
     	            <td>{$observation->observer}</td>  
@@ -31,9 +31,11 @@
           </tbody>
         </table>
         <p class="smallnote"><sup>1</sup>hodnota v mag/arcsec²</p> 
+        
+      
 </div>
-
 {include sidebar}
+        
 <div class="tpageb" align="center">
 <p style="padding-top: 50px;">Tady můžou být různé odkazy na spřátelené weby, vysvětlení co je to SZ nebo tak ... </p>
 </div> 

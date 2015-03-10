@@ -22,8 +22,9 @@ class HomepagePresenter extends BasePresenter
 	public function renderDefault()
 	{
 		$this->template->observation = $this->database->table('observations')
-			->limit(90);
-	}
+                        ->order('id DESC')->limit(10);
+              
+              }
 
 
 }

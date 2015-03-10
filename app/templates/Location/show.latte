@@ -1,11 +1,12 @@
 {* Latte template *}
 
 {block content}
+
 <div class="page">
-<p><a n:href="Database:locations" class="ruzova">← zpět na databázi lokalit</a></p>
+<p><a n:href="Database:locations" class="navbutton">zpět na databázi lokalit</a></p>
 
 <div class="post">
-   <h3 style="margin-bottom: 0; font-size: 1.8em;">{$location->name}</h3>
+   <h3 style="margin-bottom: 1em; font-size: 1.8em;">{$location->name}</h3>
     
   <div class="container">
     <div class="row">
@@ -45,45 +46,35 @@
       <div class="col atable">vzorecek</div>
     </div>
   </div>
-  
+    
+    <h3>Fotografie</h3>
+    <div class="container phototable">
+        <table>
+           <div n:foreach="$phosel as $photos">
+               <tr>{foreach $img as $img}<th><img src="{$img|DataStream}" width="150px" /></th>{/foreach}
+                   <th>{$photos->info}</th>
+           </div>
+        </table>
+    </div>
+   <div>
+   {include 'graph.latte'}
+ </div>
   <h3>Poslední pozorování</h3>
-  
-  <table class="hptable" cellspacing="0" rules="all">
-          <thead class="hptablehead" align="left">
-            <tr>
-              <th>Datum (UTC)</th>          
-              <th align="center">SQM<sup style="font-size: .7em">1</sup></th>
-              <th>Pozorovatel</th>
-              <th>Flagy</th>
-            </tr>
-          </thead>
-          <tbody class="hptablebody"> 
-            <div n:foreach="$obssel as $observation">
-                <tr class="clickable" onclick="window.location.href={link Observation:show $observation->id}">
-                  <td>{$observation->date}</td>
-                  <td align="center">{$observation->related('sqm')->max('value1')}</td>                   
-    	            <td>{$observation->observer}</td>  
-                  <td>flagy</td>
-                </tr>
-          
-            </div>
-          </tbody>
-        </table>  
-        
+ 
+ {control basicDataGrid}
+   	
+     
 </div>
-
- <div id="container" style="width:100%; height:400px;"></div>
-		  
 <div class="comments">
 <h3>Vložte komentář</h3>
 
 {control commentForm}
 
     {foreach $comments as $comment}
-        <p><b><a href="mailto:{$comment->email}" n:tag-if="$comment->email">{$comment->name}</a></b> napsal:</p>
+        <p><b><a href="mailto:{$comment->email}" n:tag-if="$comment->email">{$comment->name}</a></b> • {$comment->created_at|date: ' d.m.y - H:i'}</p>
         <div>{$comment->content}</div>
     {/foreach}
 
 </div>
 </div>
-   
+    

@@ -67,8 +67,20 @@ h2 {
 }
 
 h3, h4 {
-    margin-top: 1em;
     font: "Trebuchet MS"
+}
+
+h3 {
+    font-size: 1.6em;
+    margin-top: 1.3em;
+    margin-bottom: .5em;
+    
+}
+
+h4 {
+    font-size: 1.2em;
+    margin-top: 1.2em;
+    
 }
 
 .date {
@@ -76,7 +88,8 @@ h3, h4 {
 }
 
 .ruzova {
-    color: #ED8383;
+    color: #850051;
+    font-weight: bolder;
 }
 
 
@@ -114,7 +127,7 @@ h3, h4 {
     font-size: .9em;
     color: #aaa;
     margin-left: -0.5em;
-    vertical-align: 53%;
+    vertical-align: bottom;
     
 }
 
@@ -165,7 +178,7 @@ h3, h4 {
     clear: both;
     height: 1px;
     border-bottom: solid 1px #eee;
-    margin: -1em 0 0 0;   
+    margin: 0 0 0 0;   
 }
 
 
@@ -182,9 +195,16 @@ form th, form td {
 
 form th {
 	text-align: right;
+        padding: .5em .1em .25em .1em; 
 }
 
-form .required label {
+label {
+	font-weight: normal;
+        vertical-align: middle;
+        margin:0;
+}
+
+.required label {
 	font-weight: bold;
 }
 
@@ -194,18 +214,64 @@ form .error {
 }
 
 .button {
-  border: solid 1px black;
+  border: solid 1px #888;
+  border-radius: 2px;
   background-image: none;
   background-color: #fff;
-  padding: .4em;
+  padding: .4em 1em .3em 1em;
+  margin-top: .2em;
+  
 }
+
+input#frm-observationForm-send.button {
+    margin-top: 1em;
+    background-color: #00010D;
+    color:#fff;
+    font-weight: 600;
+    padding: .6em 1em .3em 1em
+    
+}
+
+fieldset {
+   padding: 2em;
+   margin: 1em 0;
+   border-top: solid 1px #ddd;
+   
+}
+
+.sqmvalues td input {
+    width: 4em;
+    font-size: .95em;
+    padding: .3em;
+        
+}
+
+
 form table {
     border-collapse: collapse;
     border-spacing: 0;
     
 }
-form table .required td input{
+form table td {
+    padding: .4em .8em;
+}
+
+form table input[type=checkbox],input[type=radio] {
+    margin: .4em;
+}
+
+form table input[type=text] {
+    margin-right: .4em;
+}
+
+form table .required td textarea {
   background-color: #FFEBEB;
+ 
+}
+
+form table .required td input {
+  background-color: #FFEBEB;
+ 
 }
 
 
@@ -215,19 +281,35 @@ form table .required td input{
 
 .sidebar {
     float: right;
-    width: 28%;
-    margin: 1% 0 1% 1%;
+    width: 25%;
+    margin: 2% 0 1% 1%;
     padding-left: 3%;
 }
 
-.add {
+.sidebaradd {
     text-align: center;
-    color: #ED8383;
+    font-size: 1.3em;
+    color: #fff;
+    font-weight: bold;
+    padding: 1em;
+    background-color: #245580;
+    border: solid 1px #245580;
+    border-radius: 2px;
+    box-shadow: #333 4px 6px 20px; 
+    margin-bottom: 2.5em;
 }
 
+
 .sidebarstats {
-    background-color: #444;
-    height: 200px;
+    border: solid 1px #FEFEFE;
+    border-radius: 2px;
+    padding: .7em 1em 1em 1em;
+    font-size: .95em;
+    background-color: #F8F9FB;
+}
+
+.sidebarstats h4 {
+    margin:0 0 .9em 0;
 }
 
 .sidebarmap {
@@ -249,7 +331,16 @@ form table .required td input{
 
 .tpage {
     float: left;
-    width: 68%; 
+    width: 71%; 
+}
+
+
+.tpage ul li{
+    margin-top: .4em; 
+}
+
+.tpage h3:first-of-type  {
+    margin-top: .7em;
 }
 
 .news {
@@ -381,7 +472,7 @@ form table .required td input{
 }
 
 
-.container {
+.containerbootstrap {
 
   display: table;
   margin-top: 1em;
@@ -392,17 +483,19 @@ form table .required td input{
 
 .col {
     display: table-cell; 
-    border:solid 1px #eee; 
+    border:solid 1px #eee;
   }
   
 .row {
     display:table-row;
+    
   }
   
 .otable {
   padding: .6em .8em;
   text-align: center;
   font-weight: bold;
+  vertical-align: text-top;
   
 }
 
@@ -414,12 +507,76 @@ form table .required td input{
 .observationform {
     width: 60%; 
 }
-fieldset{
-    border: solid 1px #ddd;  
-}
 
 .description{
     font-size: 0.6em;
     color:#787878;
 }
 
+
+.navbutton {
+    
+  border: solid 1px #272767;
+  border-radius: 5px;
+  background-image: none;
+  margin-top: .5em;
+  background-color: #272767;
+  color:#fff;
+  font-weight: 600;
+  padding: .6em 1em .5em 1em;
+  box-shadow: #999 1px 2px 5px;
+    
+}
+
+.navbutton:hover {
+    color: #fff;
+}
+
+.navbutton:active {
+    color: #fff;
+}
+
+.obsheadl {
+    margin-bottom: 0; 
+    font-size: 1.8em; 
+    font-weight: bold;
+    margin-right:.7em;
+}
+
+.qual .otable {
+    text-align: left;
+}
+
+.centroid {
+    text-align: center;
+}
+
+.sidebar a {
+    color: #000;
+}
+
+.mydata {
+    margin-top: 1.3em;
+    margin-bottom: 1em;
+}
+
+.phototable {
+    padding: .4em;
+    text-align: center;
+    
+}
+
+.photos .col {
+    border:none;
+}
+
+.photos {
+    margin-bottom: 2em;
+    margin-top: 1em;
+    text-align: center;
+}
+
+.graf {
+    margin-top: 3em;
+    margin-bottom: 1em;
+}

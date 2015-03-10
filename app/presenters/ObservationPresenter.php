@@ -32,9 +32,60 @@ class ObservationPresenter extends BasePresenter
         $this->template->observation = $observation;
         $this->template->comments = $observation->related('comment')->order('created_at');
 	$this->template->photos = $observation->related('photo')->order('photo');
+        
+    //    $sqm = $this->database->table('sqm');
+    //    $sqm_id = $sqm->id;
+    //    $sqmeach = $sqm_id->where('observation.id', $sqm_id);
+    //    
+    //     $this->template->sqm = $sqmeach;
+        
+        $this->template->sqm = $observation->related('sqm')->order('height DESC')->order('azimute ASC');
+        $phosel = $this->database->table('photos')->where('observation.id', $observationId); 
+    
+        $this->template->phosel = $phosel;
+                
+        $photos = $this->database->table('photos');
+        foreach ($photos as $photos) {
+        $img[] = Image::fromFile('http://skyquality.cz/www/images/photos/'.$photos->photo)->resize(250, NULL);}
+        
+        $this->template->img = $img;
+        
+        // Data pro Graf
+        $locationId = $observation->location_id;
+        $data3=[];
+        $data1=[];
+        $data2=[];
+        
+        $observ = $this->database->table('observations')
+                ->where('location_id', $locationId)
+                ->where('NOT (id ?)', $observationId)
+                ->order('date DESC');
+        
+        foreach($observ as $observ){
+        $time = strtotime($observ->date . ' GMT')*1000;  
+        $equipmentId = $observ->equipment_id;
+        $equipment = $this->database->table('equipment')->where('id', $equipmentId)->fetch('type');
+            if ($equipment->type === 'SQM') {
+
+            $data1[]=[$time,$observ->sqmavg]; 
+            } 
+            else {
+            $data2[]=[$time,$observ->sqmavg];
+            }
+        } 
+        
+        $thistime = strtotime($observation->date . ' GMT')*1000; 
+        $data3[]=[$thistime, $observation->sqmavg];
+
+        $this->template->data2 = $data1;
+        $this->template->data3 = $data2;
+        $this->template->data4 = $data3;
+
 
     }
+
     
+  
     protected function createComponentObservationForm()
     {
          if (!$this->user->isLoggedIn()) {
@@ -96,15 +147,14 @@ class ObservationPresenter extends BasePresenter
 			$photo = $arraypi['photo'];
 			$photoarray['info']=$arraypi['info'];
 			$photoarray['observation_id'] = $observation->id;
+			$photoarray['location_id'] = $values['locationid'];
 			if ($photo->isImage()){
 			    $filename = $photo->getSanitizedName();
 			    $photoarray['photo']= $observation->id.'_'.$filename; //snad osetri kolize
-			    $this->database->table('photos')->insert($photoarray); 
-			    //prepise fotky v db, max 4
+			    $this->database->table('photos')->insert($photoarray); //prepise fotky v db, max 4
 			    $path = $this->context->parameters['wwwDir'].'/images/photos/'.$observation->id.$filename;
 			    $fotka= $photo->toImage();
-			    $fotka->save($path);
-			    //budeme ukladat name do db a uploadovat na adresu www/images/photos
+			    $fotka->save($path);//budeme ukladat name do db a uploadovat na adresu www/images/photos
 			}
 		    }
 		}
@@ -152,6 +202,7 @@ class ObservationPresenter extends BasePresenter
 			if ($photo->isImage()){
 			    $filename = $photo->getSanitizedName();
 			    $photoarray['photo']= $observation->id.'_'.$filename; //snad osetri kolize
+			    $photoarray['location_id'] = $observation->location->id;
 			    $this->database->table('photos')->insert($photoarray); 
 			    //nahraje data do db, uklada se name, info a 2 id
 			    $path = $this->context->parameters['wwwDir'].'/images/photos/'.$observation->id.$filename;
@@ -248,7 +299,6 @@ class ObservationPresenter extends BasePresenter
         $this->database->table('comments')->insert(array(
             'observation_id' => $observationId,
             'name' => $values->name,
-            'email' => $values->email,
             'content' => $values->content,
         ));
 

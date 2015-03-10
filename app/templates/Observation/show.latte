@@ -2,17 +2,27 @@
 
 {block content}
 <div class="page">
-  <p><a n:href="Database:" class="ruzova">← zpět na databázi pozorování</a></p>
+  <div style="float:left;"><a n:href="Database:" class="navbutton">zpět na databázi pozorování</a></div>
+    
+  <div style="float:right;">
+        {if $user->id == $observation->user_id}
+            <a n:href="edit $observation->id" class="navbutton">Editovat pozorování</a> &nbsp;
+            <a n:href="delete $observation->id" class="navbutton">Smazat pozorování</a>
+        {/if}
+  </div>
+  <div class="cistic" style="margin-bottom:2em;">
+  </div>
  
                                    
           
   <div class="post">
-   <h3 style="margin-bottom: 0; font-size: 1.8em;">{$observation->date} • {$observation->location->name}</h3>
-  <span class="date">Přidáno: {$observation->created_at|date:'F j, Y'}</span> 
+      <div style="margin-bottom:2em;">
+          <span class="obsheadl">{$observation->date|date:'Y/m/d'} • {$observation->location->name}</span><span> - detail pozorování</span><br />
+        <span class="date">Přidáno: {$observation->created_at|date:'d.m.y - H:i'}</span></div>
   <div class="container">
     <div class="row">
       <div class="col otable">Datum a čas měření (UT)</div>
-      <div class="col atable">{$observation->date} {$observation->time}</div>
+      <div class="col atable">{$observation->date|date:'d.m.y - H:i'}</div>
     </div>
     <div class="row">
       <div class="col otable">Pozorovatel</div>
@@ -20,7 +30,7 @@
     </div> 
     <div class="row">
       <div class="col otable">Lokalita</div>
-      <div class="col atable"><a href={link Location:show $observation->location->id}>{$observation->location->name}</a></div>
+      <div class="col atable"><a href={link Location:show $observation->location->id} class="ruzova">{$observation->location->name}</a></div>
     </div>
   </div>
 
@@ -37,11 +47,21 @@
   </div>
   
   <h3>Kvalita oblohy</h3>
-    <div class="container">
+    <div class="container qual">
     <div class="row">
       <div class="col otable">SQM hodnota</div>
-      <div class="col atable">{$observation->related('sqm')->max('value1')}</div>
+      <div class="col atable">{$observation->sqmavg|number:2}</div>
     </div>
+    <div class="row">
+      <div class="col otable">Detaily SQM</div>
+      <div class="col atable">
+          {foreach $sqm as $sqm}
+              <div><strong>{$sqm->valueavg|number:2}</strong> • výška: {$sqm->height}°, azimut: {$sqm->azimute}° [{$sqm->value1|number:2} - {$sqm->value2|number:2}- {$sqm->value3|number:2} - {$sqm->value4|number:2} - {$sqm->value5|number:2}]
+              </div>
+
+          {/foreach}
+      </div>
+    </div> 
     <div class="row">
       <div class="col otable">Bortle</div>
       <div class="col atable">{$observation->bortle}</div>
@@ -55,20 +75,54 @@
       <div class="col atable">{$observation->disturbance}</div>
     </div>
     <div class="row">
+      <div class="col otable">Popis</div>
+      <div class="col atable">{$observation->info}</div>
+    </div>
+    <div class="row">
       <div class="col otable">Měřící zařízení</div>
       <div class="col atable">{$observation->equipment->name}</div>
     </div> 
   </div>  
-  
+    
+  {if $observation->related('photos')->count('*') > 0}
   <h3>Fotky</h3>
+  <div class="container photos" align="center">
+    {foreach $phosel as $photos}
+        <div class="row">
+            {foreach $img as $img}
+                <div class="col phototable">
+                    <img src="{$img|DataStream}" width="200px" />
+                </div>
+            {/foreach}
+        </div>
+        <div class="row">
+            {foreach $phosel as $photos}
+                <div class="col phototable">
+                    {$photos->info}
+                </div>
+            {/foreach} 
+        </div>
+        {if $user->id == $observation->user_id}  
+            <div class="row">
+            {foreach $phosel as $photos}
+                <div class="col phototable">
+                    Smazat
+                </div>
+            {/foreach}
+            </div>
+            {/if}
+    {/foreach}
+  </div>
+  {/if}
   
+
   
-  <div n:if="$user->loggedIn">
-  <a n:href="edit $observation->id" class="ruzova">Editovat pozorování</a> &#9733;
-  <a n:href="delete $observation->id" class="ruzova">Smazat pozorování</a>
+  <div class="graf">
+      {include graph.latte}
   </div>
   
   </div>
+  
   
   
   
@@ -78,8 +132,8 @@
   {control commentForm}
   
       {foreach $comments as $comment}
-          <p><b><a href="mailto:{$comment->email}" n:tag-if="$comment->email">{$comment->name}</a></b> napsal:</p>
-          <div>{$comment->content}</div>
+          <p><b>{$comment->name}</a></b>•{$comment->created_at|date:'d.m.y - H:i'}</p>
+          <div class="comment">{$comment->content}</div>
       {/foreach}
   </div>
 </div>
