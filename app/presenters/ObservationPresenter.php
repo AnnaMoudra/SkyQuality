@@ -46,7 +46,8 @@ class ObservationPresenter extends BasePresenter
                 
         $photos = $this->database->table('photos');
         foreach ($photos as $photos) {
-        $img[] = Image::fromFile('http://skyquality.cz/www/images/photos/'.$photos->photo)->resize(250, NULL);}
+        $img[] = Image::fromFile('http://skyquality.cz/www/images/photos/'.$photos->photo)->resize(600, NULL);	
+	}
         
         $this->template->img = $img;
         
@@ -281,6 +282,29 @@ class ObservationPresenter extends BasePresenter
         }
     }
     
+    public function actionErasePhoto($photoId, $observationId)
+    {
+	if (!$this->user->isLoggedIn()) {
+            $this->redirect('Sign:in');
+        }
+
+        $observation = $this->database->table('observations')
+		->where('user_id', $this->user->id)  // id_user v observations odpovida id v userovi
+                ->get($observationId);
+            
+            if (!$observation) { 
+                $this->flashMessage('Nemáte oprávnění ke smazání této fotografie.');
+                $this->redirect('Observation:show?observationId='.$observationId);
+            }
+	    else{
+		$this->database->table('photos')->where('id',$photoId)->delete();
+		$this->flashMessage('Fotografie byla vymazána.');
+                $this->redirect('Observation:show?observationId='.$observationId);
+	    }
+
+	
+	
+    }
        
     protected function createComponentCommentForm()
     {

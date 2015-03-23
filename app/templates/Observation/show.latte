@@ -84,6 +84,18 @@
     </div> 
   </div>  
     
+    {block js}
+    <script>
+    $(document).ready(function() {
+	$(".fancybox").fancybox({
+		openEffect	: 'elastic',
+		closeEffect	: 'elastic',
+		closeClick: false
+	});
+});
+    </script>
+    {/block}
+    
   {if $observation->related('photos')->count('*') > 0}
   <h3>Fotky</h3>
   <div class="container photos" align="center">
@@ -91,7 +103,7 @@
         <div class="row">
             {foreach $img as $img}
                 <div class="col phototable">
-                    <img src="{$img|DataStream}" width="200px" />
+                    <a class="fancybox" rel="gallery" src="{$img|dataStream}" ><img  src="{$img|dataStream}" width="200px" alt=""/></a>
                 </div>
             {/foreach}
         </div>
@@ -106,7 +118,8 @@
             <div class="row">
             {foreach $phosel as $photos}
                 <div class="col phototable">
-                    Smazat
+		    <a href={link Observation:erasePhoto $photos->id, $observation->id} class="ruzova">
+                    Smazat</a>
                 </div>
             {/foreach}
             </div>

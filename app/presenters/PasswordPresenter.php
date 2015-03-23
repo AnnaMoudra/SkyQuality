@@ -84,6 +84,8 @@ class PasswordPresenter extends BasePresenter
 	    $form->addPassword('password2', 'Potvrďte heslo:')
 		->setRequired('Potvrďte heslo.')
 		->addRule(Form::EQUAL, 'Hesla se neshodují.', $form['password1']);
+	    
+	    $form->addHidden('newpass', $this->getHttpRequest()->getUrl()->getQueryParameter('newpass'));
 
 	    $form->addSubmit('send', 'Změnit heslo');
 
@@ -108,27 +110,32 @@ class PasswordPresenter extends BasePresenter
          
 	public function changePasswordFormSucceeded($form) {
 	    $values = $form->getValues();
-	    $newpass= $this->getHttpRequest()->getUrl()->getQueryParameter('newpass');// ziska linkhash z url
-	    $user = $this->database->table('users')->where('newpass',$newpass)->get('id'); // ziska spravneho usera
-	    $usernewpass = $this->database->table('users')->where('id',$user)->get('newpass');
-	    dump($usernewpass);
-
-	    if($newpass == $usernewpass){
-	    //$this->changepass($usernewpass,$values['password1']);//zada udaje do db a vymaze newpass
-	    //$this->userManager->changepass($usernewpass,$values['password1']);
-	    $row = $this->database->table('users')->where('newpass', $newpass)->fetch();
-	   
-	   if(!$row)
-	   {
-		throw new Nette\Security\AuthenticationException('Such user was not found in the database', self::IDENTITY_NOT_FOUND);
-	   }
-	   
-	    //$this->database->table('users')->where('newpass', $newpass)->update('password', Passwords::hash($values['password1']));
-	    $row->update('newpass', NULL);
-		
 	    
-	    $this->flashMessage('Vaše heslo bylo změněno. Nyní se můžete přihlásit.', 'success');
-	    $this->redirect('Sign:in');
+	    $newpass = $values['newpass'];// ziska linkhash z url
+	   
+	    $user = $this->database->table('users')->where('newpass',$newpass)->fetch(); // ziska spravneho usera
+	   
+	    //$usernewpass = $this->database->table('users')->where('id',$user->id)->fetch('newpass');
+
+	    if($newpass === $user->newpass){
+		//$this->changepass($usernewpass,$values['password1']);//zada udaje do db a vymaze newpass
+		//$this->userManager->changepass($usernewpass,$values['password1']);
+		$row = $this->database->table('users')->where('newpass', $user->newpass)->fetch();
+	   
+		if(!$row)
+		{
+		     throw new Nette\Security\AuthenticationException('Such user was not found in the database', self::IDENTITY_NOT_FOUND);
+		}
+		else{
+		    $newpassword = Passwords::hash($values['password1']);
+
+		    $row->update(array('password' => $newpassword));
+		    $row->update(array('newpass' => NULL));
+
+
+		    $this->flashMessage('Vaše heslo bylo změněno. Nyní se můžete přihlásit.', 'success');
+		    $this->redirect('Sign:in');
+		}
 	    }
 	    else{
 		$this->flashMessage('Změna hesla se nezdařila. Pokuste se o změnu znovu s odkazem z dalšího emailu. V případě opětovného nezdaru, kontaktujte administrátora.');
