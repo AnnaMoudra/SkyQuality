@@ -578,3 +578,14 @@ form table .required td input {
     margin-top: 3em;
     margin-bottom: 1em;
 }
+
+
+.phototable img {
+    width: 200px;
+    
+    display:block !important;
+}
+
+.fancybox a {
+    display:block !important;
+}

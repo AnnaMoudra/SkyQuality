@@ -12,67 +12,85 @@ use Nette\Mail\Message;
 use Nette\Mail\SendmailMailer;
 use Nette\Security\Passwords;
 
-
 /**
- * Homepage presenter.
+ * @class PasswordPresenter.
+ * @author Anna Moudrá <anna.moudra@gmail.com>
+ * @description Obsluhuje Password templates.
  */
 class PasswordPresenter extends BasePresenter
 {
    
     private $database;
     private $userManager;
-	
+	/**
+	* @description Vytváří připojení k databázi a propojení se službou UserManager.
+	* @param Spojení vytvořené v config.neon
+	* @param Služba definovaná v config.neon
+	*/
 	public function __construct(Nette\Database\Context $database, \App\Model\UserManager $userManager)
 	{
 		$this->database = $database;
 		$this->userManager = $userManager;
 	}
 
+	/**
+	* @author Anna Moudrá <anna.moudra@gmail.com>
+	* @description Vytváří formulář pro zadání emailu.
+	* @memberOf PasswordPresenter 
+	* @return array getNewpassForm
+	 */
 	protected function createComponentGetNewpassForm() {
 	    $form = new Nette\Application\UI\Form;
 
 	    $form->addText('email', 'Email:')
 		->setRequired('Zadejte email:')
 		->addRule(Form::EMAIL,'Zadaná adresa není platná.');
-	    $form->addHidden('newpass', Strings::random(10));
+	    $form->addHidden('newpass', Strings::random(10)); //vytvoří náhodný string pro ověření uživatele při změně hesla
 
 	    $form->addSubmit('send', 'Odeslat link pro změnu hesla.');
-
 	    $form->onSuccess[] = $this->getNewpassFormSucceeded;
-
 	    return $form;
 	}
-	
+
+	/**
+	* @author Anna Moudrá <anna.moudra@gmail.com>
+	* @description Odesílá email s odkazem na změnu hesla.
+	* @memberOf PasswordPresenter 
+	* @param array Hodnoty formuláře getNewpassForm
+	 */
 	public function getNewpassFormSucceeded($form) {
 	    
 	    $values = $form->getValues();
 
 	    $this->database->table('users')
 		    ->where('email',$values->email)
-		    ->update(array('newpass'=>$values->newpass)); //zada newpass userovi do db
+		    ->update(array('newpass'=>$values->newpass)); //zadá řetězec uživateli do sloupce newpass
 
-	    $message = new Message;		    //vytvoreni emailu
-	    $message->setFrom('SkyQuality <admin@skyquality.cz>') //od koho
-		    ->addTo($values->email)	// adds recipient
-		    ->addBcc('anna.moudra@gmail.com'); //pro testovaci ucely
+	    $message = new Message;		    //vytvoří email
+	    $message->setFrom('SkyQuality <admin@skyquality.cz>')
+		    ->addTo($values->email);
+		    //->addBcc('anna.moudra@gmail.com');
 
 	    $template = $this->createTemplate();
-	    $template->setFile(__DIR__ . '/../templates/emails/changePassword.latte'); //prislusna sablona
-	    $template->title = 'Změna hesla k účtu na SkyQuality.cz'; // predmet zpravy
-	    $template->values = $values; //email a newpass
+	    $template->setFile(__DIR__ . '/../templates/emails/changePassword.latte'); //vytvoří zprávu z příslušné šablony v templates/emails
+	    $template->title = 'Změna hesla k účtu na SkyQuality.cz';
+	    $template->values = $values; //email a newpass řetězec
 
 	    $message->setHtmlBody($template);
-
 	    $mailer = new SendmailMailer;
 	    $mailer->send($message);
 
 	    $this->flashMessage('Na zadanou emailovou adresu vám přijde link ke změně vašeho hesla.', 'success');
 	    $this->redirect('Homepage:');
 
-
 	}
 	
-
+	/**
+	* @author Anna Moudrá <anna.moudra@gmail.com>
+	* @description Vytvoří formulář pro změnu hesla.
+	* @memberOf PasswordPresenter 
+	* @return array Hodnoty z formuláře.
+	 */
 	protected function createComponentChangePasswordForm()
 	{
 	    $form = new Nette\Application\UI\Form;
@@ -94,45 +112,26 @@ class PasswordPresenter extends BasePresenter
 	    return $form;
 	}   
 	
-	//public function changepass($newpass,$password) { tato fce uz neni potreba, je v userManager
-	//    
-	//   $row = $this->database->table('users')->where('newpass', $newpass)->fetch();
-	//   
-	//   if(!$row)
-	//   {
-	//	throw new Nette\Security\AuthenticationException('Such user was not found in the database', self::IDENTITY_NOT_FOUND);
-	//   }
-	//   
-	//   $row->update(array('password' => Passwords::hash($password)));
-	//   $row->update(array('newpass' => NULL));
-	//    
-	//}
-         
+        /**
+	* @author Anna Moudrá <anna.moudra@gmail.com>
+	* @description Vyhodnotí formulář a v případě úspěchu změní heslo.
+	* @memberOf PasswordPresenter 
+	* @param array Hodnoty formuláře changePasswordForm
+	 */ 
 	public function changePasswordFormSucceeded($form) {
-	    $values = $form->getValues();
-	    
-	    $newpass = $values['newpass'];// ziska linkhash z url
-	   
-	    $user = $this->database->table('users')->where('newpass',$newpass)->fetch(); // ziska spravneho usera
-	   
-	    //$usernewpass = $this->database->table('users')->where('id',$user->id)->fetch('newpass');
-
+	    $values = $form->getValues();    
+	    $newpass = $values['newpass'];  
+	    $user = $this->database->table('users')->where('newpass',$newpass)->fetch(); // získá správného uživatele
 	    if($newpass === $user->newpass){
-		//$this->changepass($usernewpass,$values['password1']);//zada udaje do db a vymaze newpass
-		//$this->userManager->changepass($usernewpass,$values['password1']);
 		$row = $this->database->table('users')->where('newpass', $user->newpass)->fetch();
 	   
-		if(!$row)
-		{
+		if(!$row){
 		     throw new Nette\Security\AuthenticationException('Such user was not found in the database', self::IDENTITY_NOT_FOUND);
 		}
 		else{
 		    $newpassword = Passwords::hash($values['password1']);
-
 		    $row->update(array('password' => $newpassword));
 		    $row->update(array('newpass' => NULL));
-
-
 		    $this->flashMessage('Vaše heslo bylo změněno. Nyní se můžete přihlásit.', 'success');
 		    $this->redirect('Sign:in');
 		}

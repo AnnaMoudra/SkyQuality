@@ -89,58 +89,7 @@ $(function () {
     });
 });
 </script>
- {*
  
-$(function () {
-    $('#graf').highcharts({
-        chart: {
-            type: 'spline'
-        },
-        title: {
-            text: 'Měření na této lokalitě'
-        },
-        subtitle: {
-            text: 'Průměrné hodnoty z jednoho pozorování'
-        },
-        xAxis: {
-            type: 'datetime',
-            dateTimeLabelFormats: { // don't display the dummy year
-                month: '%e. %b',
-                year: '%b'
-            },
-            title: {
-                text: 'Datum'
-            }
-        },
-        yAxis: {
-            title: {
-                text: 'SQM [MSA]'
-            },
-            min: 17
-        },
-        tooltip: {
-            headerFormat: '<b>{ series.name}</b><br>',
-            pointFormat: '{ point.x:%e. %b}: { point.y:.2f} m'
-        },
-
-        plotOptions: {
-            spline: {
-                marker: {
-                    enabled: true
-                }
-            }
-        },
-
-        series: [{
-            name: 'SQM',
-            // Define the data points. All series have a dummy year
-            // of 1970/71 in order to be compared on the same x axis. Note
-            // that in JavaScript, months start at 0 for January, 1 for February etc.
-            data: pole
-        }]
-    });
-});
- *}
 
 
 

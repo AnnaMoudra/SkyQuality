@@ -181,7 +181,7 @@
 	position: absolute;
 	top: 0;
 	left: 0;
-	overflow: hidden;
+	//overflow: hidden;
 	display: none;
 	z-index: 8010;
 	background: url('fancybox_overlay.png');

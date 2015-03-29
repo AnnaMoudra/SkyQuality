@@ -10,10 +10,6 @@
     
   <div class="container">
     <div class="row">
-      <div class="col otable">Vytvořil</div>
-      <div class="col atable"></div>
-    </div>
-    <div class="row">
       <div class="col otable">Souřadnice</div>
       <div class="col atable">{$location->latitude} {$location->latitudehemisfera}, {$location->longitude} {$location->longitudehemisfera}</div>
     </div> 
@@ -46,16 +42,39 @@
       <div class="col atable">{$bortle |number:2}</div>
     </div>
   </div>
+   
+ {block js}
+    <script>
+    $(document).ready(function() {
+	$('a.fancybox').fancybox();
+});
+    </script>
+    {/block}
     
-    <h3>Fotografie</h3>
-    <div class="container phototable">
-        <table>
-           <div n:foreach="$phosel as $photos">
-               <tr>{foreach $img as $img}<th><img src="{$img|DataStream}" width="150px" /></th>{/foreach}
-                   <th>{$photos->info}</th>
-           </div>
-        </table>
-    </div>
+  {if $phosel->count('*') > 0}
+  <h3>Fotky</h3>
+  <div class="container photos" align="center">
+    {foreach $phosel as $photos}
+        <div class="row">
+            {foreach $img as $img}
+                <div class="col phototable">
+                    <a class="fancybox" rel="group" href="{$img|dataStream}" ><img src="{$img|dataStream}" title="" /></a>
+                </div>
+            {/foreach}
+        </div>
+        <div class="row">
+            {foreach $phosel as $photos}
+                <div class="col phototable">
+                    {$photos->info}
+                </div>
+            {/foreach}
+		
+        </div>
+        
+    {/foreach}
+  </div>
+  {/if}	   
+	   
    <div>
    {include 'graph.latte'}
  </div>

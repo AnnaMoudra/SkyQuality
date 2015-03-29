@@ -78,7 +78,11 @@ class UserManager extends Nette\Object implements Nette\Security\IAuthenticator
 			self::COLUMN_LINKHASH => $linkhash
 		));
 	}
-	
+	/**
+	 * @author Anna Moudrá <anna.moudra@gmail.com>
+	 * @description Aktivuje uživatelský účet.
+	 * @param string
+	 */
 	public function validate($linkhash){
 	    
 	    $row = $this->database->table(self::TABLE_NAME)->where(self::COLUMN_LINKHASH, $linkhash)->fetch();
@@ -90,7 +94,11 @@ class UserManager extends Nette\Object implements Nette\Security\IAuthenticator
 
 	    $row->update(array(self::COLUMN_ACTIVE => true));   
 	}
-	
+	/**
+	 * @author Anna Moudrá <anna.moudra@gmail.com>
+	 * @description Změní heslo. (V současnosti se tato fce nevyužívá a změna hesla probíhá přes Presenter)
+	 * @params string,string 
+	 */
 	public function changepass($newpass,$password) {
 	    
 	   $row = $this->database->table(self::TABLE_NAME)->where(self::COLUMN_NEWPASSWORD, $newpass)->fetch();
@@ -104,7 +112,11 @@ class UserManager extends Nette\Object implements Nette\Security\IAuthenticator
 	   $row->update(array(self::COLUMN_NEWPASSWORD => NULL));
 	    
 	}
-	
+	/**
+	 * @author Anna Moudrá <anna.moudra@gmail.com>
+	 * @description Ověřuje, zda je účet aktivní.
+	 * @params string Uživatel 
+	 */
 	public function isActive($username){
 	    $row = $this->database->table(self::TABLE_NAME)->where(self::COLUMN_NAME, $username)->fetch();
 	    if(!$row)

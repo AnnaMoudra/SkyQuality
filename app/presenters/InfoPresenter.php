@@ -7,23 +7,18 @@ use Nette,
 
 
 /**
- * Homepage presenter.
+ * @class InfoPresenter.
+ * @author Anna Moudrá <anna.moudra@gmail.com>
+ * @description Obsluhuje stránku metodiky měření v Info/default.latte.
  */
+
 class InfoPresenter extends BasePresenter
-{
-   
-    private $database;
-	
-	public function __construct(Nette\Database\Context $database)
-	{
-		$this->database = $database;
-	}
-	
-	public function renderDefault()
-	{
-		//$this->template->info = $this->database->table('info')
-			//->order('order DESC');
-	}
-
-
+{	
+    /**
+    * @author Anna Moudrá <anna.moudra@gmail.com>
+    * @description Vykresluje default.latte
+    * @memberOf InfoPresenter 
+    */
+    
+    public function renderDefault(){}
 }

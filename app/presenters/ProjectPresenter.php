@@ -8,24 +8,12 @@ use Nette,
 
 
 /**
- * Homepage presenter.
- */
+* @class ProjectPresenter 
+* @author Anna Moudrá <anna.moudra@gmail.com>
+* @description Obsluhuje Project template.
+*/
 class ProjectPresenter extends BasePresenter
 {
-   
-    private $database;
-	
-	public function __construct(Nette\Database\Context $database)
-	{
-		$this->database = $database;
-	}
-	
-	public function renderDefault()
-	{
-		//$this->template->info = $this->database->table('info')
-			//->order('order DESC');
-	}
-
-
+    public function renderDefault(){}
 }
 

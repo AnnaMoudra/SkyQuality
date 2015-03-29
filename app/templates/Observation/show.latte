@@ -36,10 +36,6 @@
 
   <h3>Počasí</h3>
     <div class="container">
-   {* <div class="row">
-      <div class="col otable">Oblačnost</div>
-      <div class="col atable"></div>
-    </div> *}
     <div class="row">
       <div class="col otable">Popis počasí</div>
       <div class="col atable">{$observation->weather}</div>
@@ -87,11 +83,7 @@
     {block js}
     <script>
     $(document).ready(function() {
-	$(".fancybox").fancybox({
-		openEffect	: 'elastic',
-		closeEffect	: 'elastic',
-		closeClick: false
-	});
+	$('a.fancybox').fancybox();
 });
     </script>
     {/block}
@@ -101,9 +93,9 @@
   <div class="container photos" align="center">
     {foreach $phosel as $photos}
         <div class="row">
-            {foreach $img as $img}
+            {foreach $imgl as $key => $img}
                 <div class="col phototable">
-                    <a class="fancybox" rel="gallery" src="{$img|dataStream}" ><img  src="{$img|dataStream}" width="200px" alt=""/></a>
+                    <a class="fancybox" rel="group" href="{$img|dataStream}" ><img src="{$img|dataStream}" title="" /></a>
                 </div>
             {/foreach}
         </div>
@@ -112,27 +104,31 @@
                 <div class="col phototable">
                     {$photos->info}
                 </div>
-            {/foreach} 
+            {/foreach}
+		
         </div>
         {if $user->id == $observation->user_id}  
             <div class="row">
             {foreach $phosel as $photos}
+		
+
                 <div class="col phototable">
 		    <a href={link Observation:erasePhoto $photos->id, $observation->id} class="ruzova">
                     Smazat</a>
                 </div>
+		    
             {/foreach}
             </div>
-            {/if}
+	{/if}  
     {/foreach}
   </div>
   {/if}
   
 
   
-  <div class="graf">
-      {include graph.latte}
-  </div>
+    <div class="graf">
+	{include graph.latte}
+    </div>
   
   </div>
   

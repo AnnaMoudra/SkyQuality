@@ -8,8 +8,6 @@ use Exception;
 use Nette\Security\Permission;
 use Nette\Forms\Form;
 use Nette\Image;
-
-
 use Mesour\DataGrid,
     Mesour\DataGrid\Grid,
     Mesour\DataGrid\Extensions\Pager,
@@ -18,17 +16,32 @@ use Mesour\DataGrid,
     Mesour\DataGrid\Render,
     Mesour\DataGrid\NetteDbDataSource;
 
-
+/**
+ * @class LocationPresenter.
+ * @author Anna Moudrá <anna.moudra@gmail.com>
+ * @description Obsluhuje Location templates.
+ */
 
 class LocationPresenter extends BasePresenter
 {
     /** @var Nette\Database\Context */
     private $database;
-
+    /**
+    * @description Vytváří připojení k databázi.
+    * @param Spojení vytvořené v config.neon
+    */
     public function __construct(Nette\Database\Context $database)
     {
         $this->database = $database;
     }
+    
+    /**
+    * @author Anna Moudrá <anna.moudra@gmail.com>
+    * @description Počítá aritmetický průměr.
+    * @memberOf LocationPresenter 
+    * @param array
+    * @return float Aritmetický průměr
+    */
     
     public function numericalAverage(array $array){
 	$length = count($array);
@@ -36,7 +49,13 @@ class LocationPresenter extends BasePresenter
 	$number = $sum/$length;
 	return $number;
     }
-    
+  
+    /**
+    * @author Anna Moudrá <anna.moudra@gmail.com>
+    * @description Připravuje data pro vykreslení náhledu jednotlivých lokalit
+    * @memberOf LocationPresenter 
+    * @param int Id lokality k nahlédnutí.
+    */
 
    public function renderShow($locationId)
     {
@@ -45,30 +64,20 @@ class LocationPresenter extends BasePresenter
         if (!$location) {
             $this->error('Stránka nebyla nalezena');
         }
-        
-        $location_id = $location->id;
       
         $this->template->location = $location;
         $this->template->comments = $location->related('comment')->order('created_at');
-        $obssel = $this->database->table('observations')->where('location.id', $location_id)->select('observations.id, observations.user_id, observer, sqmavg'); 
-	$this->template->observationgraf = $this->database->table('observations');
-        $this->template->obssel = $obssel;
-        $this->template->users = $this->database->table('users');
         $phosel = $this->database->table('photos')->where('location.id', $locationId); 
-    
         $this->template->phosel = $phosel;
-                
-        $photos = $this->database->table('photos');
-        foreach ($photos as $photos) {
-        $img[] = Image::fromFile('http://skyquality.cz/www/images/photos/'.$photos->photo)->resize(250, NULL);}
-        
-        $this->template->img = $img;
-        
-        
-        
-        $this->template->observations = $this->database->table('observations');
+              	
+	if($phosel->count()>0){
+	    foreach ($phosel as $photos) {
+		$img[] = Image::fromFile('http://skyquality.cz/www/images/photos/'.$photos->photo)->resize(600, NULL);
+	    } 
+	    $this->template->img = $img;
+	}
 	
-	//VYPOCTY VZORECKU
+	//Počítá průměrné hodnoty SQM a Bortle
 	$observation = $this->database->table('observations')
                 ->where('location_id',$locationId)
                 ->order('date DESC');
@@ -78,52 +87,53 @@ class LocationPresenter extends BasePresenter
 	
 	foreach ($observation as $observation) {
 	    $sqms[] = $observation->sqmavg;
-	    $bortles[] = $observation->bortle;
+	    if($observation->bortle != 0){
+		$bortles[] = $observation->bortle;
+	    }
 	}
+	
 	$sqmavg = $this->numericalAverage($sqms);
-	$bortleavg = $this->numericalAverage($bortles);
+	if(count($bortles)!== 0){
+	    $bortleavg = $this->numericalAverage($bortles);
+	}
+	else{
+	    $bortleavg = 0;
+	}
 	$this->template->sqmavg = $sqmavg;
 	$this->template->bortle = $bortleavg;
         
 
-        // Pro Grafy
-	$observation = $this->database->table('observations')
-                ->where('location_id',$locationId)
-                ->order('date DESC');
-	$data=[];
-        $data1=[];
-        $data2=[];
-	foreach($observation as $observation){
-	$time = strtotime($observation->date . ' GMT')*1000;
-	$data[]=[$time,$observation->sqmavg];
-	}
-	$this->template->data = $data;
-        
-        
-     //   DRUHY GRAF
-          
+        //Připravuje data pro graf
         $observation = $this->database->table('observations')
                 ->where('location_id',$locationId)
                 ->order('date DESC');
-        foreach($observation as $observation){
-        
-        $time = strtotime($observation->date . ' GMT')*1000;    
-        $equipmentId = $observation->equipment_id;
-        $equipment = $this->database->table('equipment')->where('id', $equipmentId)->fetch('type');
-        if ($equipment->type === 'SQM' ) {
-            
-        $data1[]=[$time,$observation->sqmavg]; } 
-        else{
-        $data2[]=[$time,$observation->sqmavg];
-    }
-       
+	$data1 = [];
+	$data2 = [];
+		
+        foreach($observation as $observation)
+	{
+	    $time = strtotime($observation->date . ' GMT')*1000;    
+	    $equipmentId = $observation->equipment_id;
+	    $equipment = $this->database->table('equipment')->where('id', $equipmentId)->fetch('type');
+	    if ($equipment->type === 'SQM' ) {  
+		$data1[]=[$time,$observation->sqmavg]; } 
+	    else{
+		$data2[]=[$time,$observation->sqmavg];
+	    }
         }
 
        $this->template->data2 = $data1;
        $this->template->data3 = $data2;
 
-
     }
+    
+    /**
+    * @author Anna Moudrá <anna.moudra@gmail.com>
+    * @description Vytváří tabulku s pozorováními na dan0 lokalitě.
+    * @memberOf LocationPresenter 
+    * @param string Name
+    * @return grid
+    */
     
     protected function createComponentBasicDataGrid($name) {
             $location_id = $this->getHttpRequest()->getUrl()->getQueryParameter('locationId');
@@ -150,43 +160,30 @@ class LocationPresenter extends BasePresenter
 		    ->setTitle('detail')
 		    ->setAttribute('href', new Link('Observation:show',array(
 			'observationId'=>'{'.$primarykey.'}'
-		    )));
-		
+		    )));	
 	    return $grid;
 	}
-
-  
-    
-        public function actionEdit($locationId)
-    {
-        if (!$this->user->isLoggedIn()) 
-        {
-            $this->redirect('Sign:in');
-        } else{
-           
-            $location = $this->database->table('location')
-                    ->where('user_id', $this->user->id)  // id_user v observations odpovida id v userovi
-                    ->get($locationId);
-            
-            if (!$location) { 
-                $this->flashMessage('Nemáte oprávnění k editaci toho příspěvku.');
-                $this->redirect('Location:show?locationId='.$locationId);// existuje takova lokalita
-            }
-            if ($this->user->id == $location->user_id) // druha kontrola
-            {
-                $this['locationForm']->setDefaults($location->toArray()); //neexistuje takovy Form!!!
-            }
-        }
-    }
+	
+    /**
+    * @author Anna Moudrá <anna.moudra@gmail.com>
+    * @description Vytváří formulář pro komentáře.
+    * @memberOf LocationPresenter 
+    * @return form CommentForm
+    */
     
       protected function createComponentCommentForm()
     {
-        $form = (new \CommentFormFactory())->create();
-
-	$form->onSuccess[] = array($this, 'commentFormSucceeded'); // a přidat událost po odeslání
-
+        $form = (new \CommentFormFactory())->create(); //formulář je ve složce app/forms
+	$form->onSuccess[] = array($this, 'commentFormSucceeded');
 	return $form;
     }
+    
+    /**
+    * @author Anna Moudrá <anna.moudra@gmail.com>
+    * @description Ukládá data z formuláře do databáze.
+    * @memberOf LocationPresenter 
+    * @param array Data z formuláře.
+    */    
     
     public function commentFormSucceeded($form)
     {

@@ -6,22 +6,30 @@ use Nette,
 	App\Model;
 use Nette\Database\Table\Selection;
 
-
-
 /**
- * Homepage presenter.
+ * @class MapPresenter.
+ * @author Anna Moudrá <anna.moudra@gmail.com>
+ * @description Obsluhuje Map template.
  */
+
 class MapPresenter extends BasePresenter
 {
    
     private $database;
-	
+	/**
+	* @description Vytváří připojení k databázi.
+	* @param Spojení vytvořené v config.neon
+	*/
 	public function __construct(Nette\Database\Context $database)
 	{
 		$this->database = $database;
 	}
 	
-
+	/**
+	* @author Anna Moudrá <anna.moudra@gmail.com>
+	* @description Připravuje data pro zakreslení markerů do mapy.
+	* @memberOf MapPresenter 
+	*/
 	public function renderDefault()
 	{                                  
 		$this->template->sqm = $this->database->table('sqm');
@@ -37,6 +45,7 @@ class MapPresenter extends BasePresenter
 		$id[]=$location->id;
 		$info[]=$location->info;
 	    }
+	    
 	    $this->template->location= $location;
 	    $this->template->latitude = $latitude;
 	    $this->template->longitude = $longitude;
@@ -44,8 +53,6 @@ class MapPresenter extends BasePresenter
 	    $this->template->altitude = $altitude;
 	    $this->template->id = $id;
 	    $this->template->info = $info;
-	    
-    
 	}
 }
 
