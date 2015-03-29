@@ -7,7 +7,6 @@ use Nette,
 use Exception;
 use Nette\Security\Permission;
 use Nette\Forms\Form;
-use HighRoller;
 use Nette\Image;
 
 
@@ -31,6 +30,12 @@ class LocationPresenter extends BasePresenter
         $this->database = $database;
     }
     
+    public function numericalAverage(array $array){
+	$length = count($array);
+	$sum = array_sum($array);
+	$number = $sum/$length;
+	return $number;
+    }
     
 
    public function renderShow($locationId)
@@ -46,7 +51,6 @@ class LocationPresenter extends BasePresenter
         $this->template->location = $location;
         $this->template->comments = $location->related('comment')->order('created_at');
         $obssel = $this->database->table('observations')->where('location.id', $location_id)->select('observations.id, observations.user_id, observer, sqmavg'); 
-        //$this->template->observation = $this->database->table('observations');
 	$this->template->observationgraf = $this->database->table('observations');
         $this->template->obssel = $obssel;
         $this->template->users = $this->database->table('users');
@@ -63,9 +67,25 @@ class LocationPresenter extends BasePresenter
         
         
         $this->template->observations = $this->database->table('observations');
+	
+	//VYPOCTY VZORECKU
+	$observation = $this->database->table('observations')
+                ->where('location_id',$locationId)
+                ->order('date DESC');
+	
+	$sqms = [];
+	$bortles = [];
+	
+	foreach ($observation as $observation) {
+	    $sqms[] = $observation->sqmavg;
+	    $bortles[] = $observation->bortle;
+	}
+	$sqmavg = $this->numericalAverage($sqms);
+	$bortleavg = $this->numericalAverage($bortles);
+	$this->template->sqmavg = $sqmavg;
+	$this->template->bortle = $bortleavg;
         
-        
-    
+
         // Pro Grafy
 	$observation = $this->database->table('observations')
                 ->where('location_id',$locationId)
@@ -81,9 +101,7 @@ class LocationPresenter extends BasePresenter
         
         
      //   DRUHY GRAF
-        
-        
-        
+          
         $observation = $this->database->table('observations')
                 ->where('location_id',$locationId)
                 ->order('date DESC');
@@ -100,12 +118,6 @@ class LocationPresenter extends BasePresenter
     }
        
         }
-     //  $equipnorm = $this->database->table('equipment')->where('id', $equipmentId AND 'type', '%SQM%');
-     //  $equiplight = $this->database->table('equipment')->where('id', $equipmentId AND 'type', '%SQM-L%');
-     //  
-    
-    
-        
 
        $this->template->data2 = $data1;
        $this->template->data3 = $data2;
@@ -116,14 +128,12 @@ class LocationPresenter extends BasePresenter
     protected function createComponentBasicDataGrid($name) {
             $location_id = $this->getHttpRequest()->getUrl()->getQueryParameter('locationId');
 	    $selection= $this->database->table('observations')->where('location.id',$location_id);
-	    $selection->select('observations.id, date, observer, sqmavg, ' .
-	    'location.name');
+	    $selection->select('observations.id, date, observer, sqmavg, ' . 'location.name');
 
-	    
 	    $source = new NetteDbDataSource($selection);
 	    $grid = new Grid($this, $name);
 	    $primarykey = 'id';
-	    $grid->setPrimaryKey($primarykey); // primary key is now used always
+	    $grid->setPrimaryKey($primarykey);
 
 	    $grid->setDataSource($source);
 	    $grid->addDate('date','Datum')

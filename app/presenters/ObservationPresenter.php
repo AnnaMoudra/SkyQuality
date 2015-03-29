@@ -85,18 +85,34 @@ class ObservationPresenter extends BasePresenter
 
     }
 
+    public function converseToCD($a){
+	$b = 10800*pow(10,(-0.4*$a));
+	return $b;
+    }
     
+    public function numericalAverage(array $array){
+	$length = count($array);
+	$sum = array_sum($array);
+	$number = $sum/$length;
+	return $number;
+    }
+    
+    public function converseToSQM($a){
+	$log = log($a/10800, 10);
+	$b = $log/-0.4;
+	return $b;
+    }
   
     protected function createComponentObservationForm()
     {
          if (!$this->user->isLoggedIn()) {
-            $this->error('Pro vytvoření, nebo editování příspěvku se musíte přihlásit.');
+            $this->error('Pro vytvoření, nebo editování příspěvku se musíte přihlásit.'); //ověří, že je uživatel přihlášen
         }
 	
 
-	$form = (new \ObservationFormFactory($this->database))->create();
+	$form = (new \ObservationFormFactory($this->database))->create(); //vytvoří formulář
 
-	$form->onSuccess[] = array($this, 'observationFormSucceeded'); // a přidat událost po odeslání
+	$form->onSuccess[] = array($this, 'observationFormSucceeded'); // přidá událost po odeslání
 
 	return $form;
         
@@ -134,11 +150,39 @@ class ObservationPresenter extends BasePresenter
 	    }
 	    
 	    $observation->update($valuesObservation);
-	    
+	    //VYPOCET VALUEAVG V TABULCE SQM
 	    foreach ($valuesSqm as $sqm) {
 		$sqm['id_observation'] = $observation->id;
+		
+		$array = [$sqm['value1'],$sqm['value2'],$sqm['value3'],$sqm['value4'],$sqm['value5']];
+		
+		foreach ($array as $sqms) {
+		    if ($sqms > 0){
+		    $sqmlinear = $this->converseToCD($sqms);
+		    $arraylinear[] = $sqmlinear;
+		    }
+		}
+		
+		$average = $this->numericalAverage($arraylinear);
+		$sqm['valueavg'] = $this->converseToSQM($average);
+		$arraylinear = null;
+		
 		$this->database->table('sqm')->where('id_observation',$observationId)->insert($sqm);  
 	    }
+	    
+	    //VYPOCET SQMAVG V TABULCE OBSERVATION
+	    $valuesavg = $this->database->table('sqm')->where('id_observation',$observationId);
+	     
+	    $arraylinear2 = [];
+	    foreach ($valuesavg as $sqmavg) {
+		    $sqmavg = $sqmavg->valueavg;
+		    $sqmlinear = $this->converseToCD($sqmavg);
+		    $arraylinear2[] = $sqmlinear;
+		}
+		
+	    $average = $this->numericalAverage($arraylinear2);
+	    $valuesObservation['sqmavg'] = $this->converseToSQM($average);
+	    $observation->update($valuesObservation);
 	    
 	    $valuesPhotos = $values['photos'];
 	    if ($valuesPhotos['addphotos']==TRUE){
@@ -151,7 +195,7 @@ class ObservationPresenter extends BasePresenter
 			$photoarray['location_id'] = $values['locationid'];
 			if ($photo->isImage()){
 			    $filename = $photo->getSanitizedName();
-			    $photoarray['photo']= $observation->id.'_'.$filename; //snad osetri kolize
+			    $photoarray['photo']= $observation->id.$filename; //snad osetri kolize
 			    $this->database->table('photos')->insert($photoarray); //prepise fotky v db, max 4
 			    $path = $this->context->parameters['wwwDir'].'/images/photos/'.$observation->id.$filename;
 			    $fotka= $photo->toImage();
@@ -189,8 +233,35 @@ class ObservationPresenter extends BasePresenter
 
 	    foreach ($valuesSqm as $sqm) {
 		$sqm['id_observation'] = $observation->id;
-		$this->database->table('sqm')->insert($sqm);  
+		
+		$array = [$sqm['value1'],$sqm['value2'],$sqm['value3'],$sqm['value4'],$sqm['value5']];
+		
+		foreach ($array as $sqms) {
+		    if ($sqms > 0){
+		    $sqmlinear = $this->converseToCD($sqms);
+		    $arraylinear[] = $sqmlinear;
+		    }
+		}
+		
+		$average = $this->numericalAverage($arraylinear);
+		$sqm['valueavg'] = $this->converseToSQM($average);
+		$arraylinear = null;
+		
+		$this->database->table('sqm')->where('id_observation',$observationId)->insert($sqm);  
 	    }
+	    //VYPOCET SQMAVG V TABULCE OBSERVATION
+	    $valuesavg = $this->database->table('sqm')->where('id_observation',$observation->id);
+	     
+	    $arraylinear2 = [];
+	    foreach ($valuesavg as $sqmavg) {
+		    $sqmavg = $sqmavg->valueavg;
+		    $sqmlinear = $this->converseToCD($sqmavg);
+		    $arraylinear2[] = $sqmlinear;
+		}
+		
+	    $average = $this->numericalAverage($arraylinear2);
+	    $valuesObservation['sqmavg'] = $this->converseToSQM($average);
+	    $observation->update($valuesObservation);
 
 	    $valuesPhotos = $values['photos'];
 	    if ($valuesPhotos['addphotos']==TRUE){
@@ -202,7 +273,7 @@ class ObservationPresenter extends BasePresenter
 			$photoarray['observation_id'] = $observation->id;
 			if ($photo->isImage()){
 			    $filename = $photo->getSanitizedName();
-			    $photoarray['photo']= $observation->id.'_'.$filename; //snad osetri kolize
+			    $photoarray['photo']= $observation->id.$filename; //snad osetri kolize
 			    $photoarray['location_id'] = $observation->location->id;
 			    $this->database->table('photos')->insert($photoarray); 
 			    //nahraje data do db, uklada se name, info a 2 id
@@ -281,7 +352,8 @@ class ObservationPresenter extends BasePresenter
 
         }
     }
-    
+
+
     public function actionErasePhoto($photoId, $observationId)
     {
 	if (!$this->user->isLoggedIn()) {

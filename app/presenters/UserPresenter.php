@@ -24,11 +24,9 @@ class UserPresenter extends BasePresenter
 {
     /** @var \App\Model\UserManager */
     private $userManager;
-    private $database;
     
-    function __construct(\App\Model\UserManager $userManager, Nette\Database\Context $database) {
+    function __construct(\App\Model\UserManager $userManager) {
         $this->userManager = $userManager;
-	$this->database = $database;
     }
     
     protected function createComponentRegisterForm()
@@ -39,7 +37,7 @@ class UserPresenter extends BasePresenter
 
         $form->addPassword('password1', 'Heslo:')
             ->setRequired('Zadejte heslo.')
-	    ->addRule(Form::MIN_LENGTH,'Heslo musi mit alespon %d znaku',6);
+	    ->addRule(Form::MIN_LENGTH,'Heslo musi mit alespoň %d znaku',6);
 
         $form->addPassword('password2', 'Potvrďte heslo:')
             ->setRequired('Potvrďte heslo.')
@@ -47,15 +45,12 @@ class UserPresenter extends BasePresenter
 	
 	$form->addText('email', 'Email:')
             ->setRequired('Zadejte platnou emailovou adresu.')
-	    ->addRule(Form::EMAIL,'Zadana adresa neni platna');
+	    ->addRule(Form::EMAIL,'Zadaná adresa není platná');
 	    
 	$form->addHidden('linkhash', Strings::random(10));
 
         $form->addSubmit('send', 'Registrovat');
 	
-	
-
-        //call method registerFormSucceeded() on success
         $form->onSuccess[] = $this->registerFormSucceeded;
 
         return $form;

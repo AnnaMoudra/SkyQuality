@@ -53,7 +53,7 @@ class DatabasePresenter extends BasePresenter
 			'observationId'=>'{'.$primarykey.'}'
 		    )));
 	    
-	    $grid->enablePager(40);
+	    $grid->enablePager(20);
 	    $grid->enableExport($this->context->parameters['wwwDir'].'/../temp/cache');
 		  
 
@@ -87,7 +87,7 @@ class DatabasePresenter extends BasePresenter
 			'locationId'=>'{'.$primarykey.'}'
 		    )));
 	    
-	    $grid->enablePager(40);
+	    $grid->enablePager(20);
 	    $grid->enableExport($this->context->parameters['wwwDir'].'/../temp/cache');
 		  
 

@@ -5,40 +5,73 @@
 <head>
     <meta name="viewport" content="initial-scale=1.0, user-scalable=no">
     <meta charset="utf-8">
-    <title>Simple markers</title>
     <style>
-      html, body, #map-canvas {
-        height: 100%;
+      #map-canvas {
+        height: 40em;
         margin: 0px;
-        padding: 0px
+        padding: 0px;
       }
     </style>
     <script src="//maps.googleapis.com/maps/api/js?v=3.exp&signed_in=true"></script>
     <script>
 function initialize() {
     
+  var bounds = new google.maps.LatLngBounds(); 
+  var myLatlng = new google.maps.LatLng(49.5,15.3);
+  var mapOptions = {
+    zoom: 7,
+    center: myLatlng };
+//display map on the page
+  var map = new google.maps.Map(document.getElementById('map-canvas'), mapOptions);  
+    
   var latitude = {$latitude};
   var longitude = {$longitude};
-  var location = {$location};
-  var pole = [];
-{*var marker = [];*}
-  for(var i; i < location.lenght; i++){
-      pole[i] = new google.maps.LatLng(latitude[i],longitude[i]);
-      var marker = new google.maps.Marker({
-      position: pole[i],
-      map: map,
-      title: i });
-    
+  var name = {$name};
+  var altitude = {$altitude};
+  var info = {$info};
+  var id = {$id};
+  
+  //add markers
+  var markers = [];
+  var infoWindowContent = [];
+  
+  for(var i = 0; i < name.length; i++){
+      markers[i] = [name[i], latitude[i], longitude[i]];
+      infoWindowContent[i] = [
+		'<div class="info_content">' 
+		  + '<h3>'+ name[i] +'</h3>' 
+		  + '<p>Nadmořská výška: '+altitude[i]+' m n.m.</p>'
+		  + '<p>'+info[i]+'</p>'
+		  + '<p><a href="http://skyquality.cz/location/show?locationId='+id[i]+'">Odkaz na náhled lokality</a></p>'
+		  +        '</div>'
+      ];
     }
-  
-  var myLatlng = new google.maps.LatLng(51.363882,11.044922);
-  var mapOptions = {
-    zoom: 4,
-    center: myLatlng
-  }
-  
-  var map = new google.maps.Map(document.getElementById('map-canvas'), mapOptions);}
 
+    var infoWindow = new google.maps.InfoWindow(), marker, i;
+    
+    
+   //place markers on the map 
+    for(var i = 0; i < markers.length; i++ ) {
+        var position = new google.maps.LatLng(markers[i][1], markers[i][2]);
+        bounds.extend(position);
+        marker = new google.maps.Marker({
+            position: position,
+            map: map,
+            title: markers[i][0]
+        });
+	
+	google.maps.event.addListener(marker, 'click', (function(marker, i) {
+            return function() {
+                infoWindow.setContent(infoWindowContent[i][0]);
+                infoWindow.open(map, marker);
+            }
+        })(marker, i));
+    }
+    
+  map.fitBounds(49.5,15.3);
+}
+  
+  
 google.maps.event.addDomListener(window, 'load', initialize);
 
     </script>

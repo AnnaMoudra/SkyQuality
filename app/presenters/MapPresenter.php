@@ -32,25 +32,19 @@ class MapPresenter extends BasePresenter
 	    foreach($location as $location){
 		$latitude[]=$location->latitude;
 		$longitude[]=$location->longitude;
+		$name[]=$location->name;
+		$altitude[]=$location->altitude;
+		$id[]=$location->id;
+		$info[]=$location->info;
 	    }
 	    $this->template->location= $location;
 	    $this->template->latitude = $latitude;
 	    $this->template->longitude = $longitude;
-            
-	    	
-//*foreach($observation as $observation){
-//time = strtotime($observation->date . ' GMT')*1000;
-//f($observation->sqmavg>=21.30){
-//data1[]=[$time,$observation->sqmavg];}
-//lse{
-//   $data2[]=[$time,$observation->sqmavg];
-//
-//
-//
-//this->template->data1 = $data1;
-//this->template->data2 = $data2;*}
-//
-//
+	    $this->template->name = $name;
+	    $this->template->altitude = $altitude;
+	    $this->template->id = $id;
+	    $this->template->info = $info;
+	    
     
 	}
 }
