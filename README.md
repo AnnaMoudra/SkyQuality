@@ -14,7 +14,7 @@ Aplikace je intuitivní, pro lepší pochopení jejího účelu, postupu při m�
 ## Dokumentace pro programátory
 Programátorskou dokumentaci naleznete v druhé části [souboru](https://github.com/AnnaMoudra/SkyQuality/blob/master/SkyQualityDocumentation.pdf), součástí je struktura kódu a stručný popis nejdůležitějších třid a metod.
 
-## (Screenshoty)
+## Screenshoty
 Homepage
 ![Alt text](https://github.com/AnnaMoudra/SkyQuality/blob/master/scrshot2.png)
 Mapa zadaných pozorování s detailem lokality
