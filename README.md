@@ -17,6 +17,8 @@ Programátorskou dokumentaci naleznete v druhé části [souboru](https://github
 ## Screenshoty
 Homepage
 ![Alt text](https://github.com/AnnaMoudra/SkyQuality/blob/master/scrshot2.png)
+Detail pozorování
+![Alt text](https://github.com/AnnaMoudra/SkyQuality/blob/master/scrshot3.png)
 Mapa zadaných pozorování s detailem lokality
 ![Alt text](https://github.com/AnnaMoudra/SkyQuality/blob/master/scrshot1.png)
 
