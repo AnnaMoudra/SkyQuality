@@ -16,7 +16,4 @@ Programátorskou dokumentaci naleznete v druhé části [souboru](https://github
 
 ## (Changelog)
 
-## Screenshoty, obrázky
-
-
 
