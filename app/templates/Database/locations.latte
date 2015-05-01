@@ -3,18 +3,19 @@
 {block content}
 
 <div class="page">
-  <div n:if="$user->loggedIn">
-  <a n:href="Post:create" n:if="$user->loggedIn" class="add">Přidat měření</a>
-  </div>
+
+    <div style="margin-top: 1em;">
+        <a n:href="Database:" class="navbutton">přepnout na jednotlivá pozorování</a>
+    </div>
   
-  {*<div class="search" style="padding-top: 20px;" align="center">
-  Vyhledávání podle zadaných parametrů
-  </div>*}
-  <a n:href="Database:" class="add">přepnout do režimu jednotlivých pozorování</a>
+    <div n:if="$user->loggedIn" style="margin-top: 1.3em;">
+        <a n:href="Observation:create" class="navbutton">přidat měření</a>
+    </div>
  
 
-  <h3>Výpis databáze lokalit </h3>           
-  <table class="dtable" width="80%" cellspacing="0">
+  <h3>Výpis databáze lokalit </h3> 
+  {control locationsDataGrid} 
+ {* <table class="dtable" width="80%" cellspacing="0">
       <thead class="dtablehead" align="left">
           <tr>
           <th>Poslední měření</th>
@@ -39,5 +40,6 @@
         </div>
       </tbody>
   </table>
+   *}
      
 </div>

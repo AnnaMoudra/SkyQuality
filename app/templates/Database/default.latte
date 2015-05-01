@@ -2,48 +2,16 @@
 
 {block content}
 <div class="page">
-  <div n:if="$user->loggedIn">
-  <a n:href="Post:create" n:if="$user->loggedIn" class="add">Přidat měření</a>
-  </div>
+    <div style="margin-bottom:1em;">
+        <a n:href="Database:locations" class="navbutton">přepnout do režimu lokalit</a>
+    </div>
+    <div n:if="$user->loggedIn" style="margin-top:1.3em;">
+        <a n:href="Observation:create"  class="navbutton" >přidat měření</a>
+    </div>
   
-  {*<div class="search" style="padding-top: 20px;" align="center">
-  Vyhledávání podle zadaných parametrů
-  </div> *}
-  <a n:href="Database:locations" class="add">přepnout do režimu lokalit</a>
-  
-  
-  <h3>Výpis databáze měření </h3>
-  <div class="" >
-     {* <script src="{$basePath}/js/jquery.ui.js"></script>
-           <script src="{$basePath}/js/jquery.js"></script>*}
+    <h3>Výpis databáze měření </h3>
+    <div class="">
 	{control basicDataGrid}
-  </div>
-  {*<table class="dtable" cellspacing="0" rules="all">
-      <thead class="dtablehead" align="left">
-          <tr><th>Datum měření</th>
-              <th>Lokalita</th>
-              <th align="center">SQM<sup style="font-size: .7em">1</sup></th>
-              <th align="center">Bortle</th>
-              <th>Pozorovatel</th>
-              <th>Flagy</th></tr>
-      </thead>
-      <tbody class="dtablebody">
-          <div n:foreach="$observation as $observation">
-              <tr class="clickable" onclick="window.location.href={link Observation:show $observation->id}">
-              <td>{$observation->date}</td>
-              <td>{$observation->location['name']}</td>
-              <td align="center">{$observation->related('sqm')->max('valueavg')|number:2}</td>
-              <td align="center">{$observation->bortle}</td>
-              <td>{$observation->observer}</td>
-              <td>flagy</td>
-              </tr>
-          </div>
-      </tbody>
-  </table>
-  
-
-  <p class="smallnote"><sup>1</sup>hodnota v mag/arcsec²</p>   
-  <div class="pagination">
-
-  </div>*}
+    </div>
+ 
 </div>
