@@ -2,17 +2,33 @@
 
 {block content}
 <div class="page">
-<div n:foreach="$personal as $a" class="personal">
-    <span style="margin-right: 3em;">Uživatel: {$a->username}</span>       Email: {$a->email}<br />
-    <span class="date"> Pokud si přejete změnit e-mail či uživatelské jméno, prosím <a n:href="Project:">kontaktujte administrátora</a>.</span>
-</div>
-<br>
-<a n:href="Observation:create" class="navbutton">Přidat měření</a>
+    <div n:foreach="$personal as $a" class="personal">
+        <span style="margin-right: 3em;">Uživatel: {$a->username}</span>    <span style="margin-right: 3em;">Jméno: {$a->name}</span>       Email: {$a->email}<br />
+        <span class="date"> Pokud si přejete změnit e-mail či uživatelské jméno, prosím <a n:href="Project:">kontaktujte administrátora</a>.</span>
+        <br />Počet pozorování:
+        <h3>
+            {if $a->related('observations')->count('*') == 0} 0 
+            {else} {$a->related('observations')->count('*')}
+                {/if}</h3>
+        <br />SQM průměr ze všech pozorování:<h3>{if $a->related('observations')->count('*') < 2} Příliš málo pozorování
+            {else}{$sqmavg|number:2} MSA
+            {/if}
+            </h3>
+            <br />Bortle průměr ze všech pozorování:<h3>{if $a->related('observations')->count('*') < 2} Příliš málo pozorování
+            {else}{$bortle|number:2}
+            {/if}
+            </h3>
 
-<div class="mydata">
-<h4>Vámi spravovaná měření</h4>
-{control myObsGrid}
-</div>
- 
-</div>
-   
+    </div>
+    <div>
+
+        <br>
+        <a n:href="Observation:create" class="navbutton">Přidat měření</a>
+
+        <div class="mydata">
+            <h4>Vámi spravovaná měření</h4>
+            {control myObsGrid}
+        </div>
+
+    </div>
+

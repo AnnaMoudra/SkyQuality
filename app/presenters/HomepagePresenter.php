@@ -24,6 +24,7 @@ class HomepagePresenter extends BasePresenter
 	public function __construct(Nette\Database\Context $database)
 	{
 		$this->database = $database;
+                
 	}
 	
 	/**
@@ -36,5 +37,6 @@ class HomepagePresenter extends BasePresenter
 	{
 	    $this->template->observation = $this->database->table('observations')
 						->order('id DESC')->limit(10);
+        
         }
 }

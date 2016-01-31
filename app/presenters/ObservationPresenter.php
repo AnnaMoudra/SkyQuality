@@ -48,7 +48,8 @@ class ObservationPresenter extends BasePresenter
         $this->template->observation = $observation;
         $this->template->comments = $observation->related('comment')->order('created_at');
         $this->template->sqm = $observation->related('sqm')->order('height DESC')->order('azimute ASC');
-        $this->template->phosel = $phosel;     
+        $this->template->phosel = $phosel;  
+        
 
 	if($phosel->count()>0){
 	    foreach ($phosel as $photos) {    

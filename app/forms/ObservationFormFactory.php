@@ -30,7 +30,6 @@ class ObservationFormFactory extends \Nette\Application\UI\Form
     public function create()
     {
         $form = new Form;
-
         $locations = $this->database->table('location')->fetchPairs('id','name');
 	$locations[1] = 'Zadat novou lokalitu';
 	$latitude = array('N'=>'severní šířky', 'S' => 'jižní šířky');
@@ -43,6 +42,7 @@ class ObservationFormFactory extends \Nette\Application\UI\Form
 	$observationContainer->addDateTimePicker('date','Čas a datum měření:')
 	    ->setRequired();
 		$observationContainer->addText('observer', 'Pozorovatel')
+                      //  ->setDefaultValue($this->user->name)
 	    ->setRequired();
 	$observationContainer->addText('disturbance', 'Rušení:');
 	$observationContainer->addText('nelmHD','MHV:');
