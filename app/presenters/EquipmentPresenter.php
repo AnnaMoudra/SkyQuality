@@ -18,7 +18,7 @@ use Mesour\DataGrid,
  * @author Anna Moudrá <anna.moudra@gmail.com>
  * @description Obsluhuje Personal template.* 
  */
-class PersonalPresenter extends BasePresenter {
+class EquipmentPresenter extends BasePresenter {
 
     private $database;
 
@@ -29,21 +29,7 @@ class PersonalPresenter extends BasePresenter {
     public function __construct(Nette\Database\Context $database) {
         $this->database = $database;
     }
-
-    /**
-     * @author Anna Moudrá <anna.moudra@gmail.com>
-     * @description Počítá aritmetický průměr.
-     * @memberOf LocationPresenter 
-     * @param array
-     * @return float Aritmetický průměr
-     */
-    public function numericalAverage(array $array) {
-        $length = count($array);
-        $sum = array_sum($array);
-        $number = $sum / $length;
-        return $number;
-    }
-
+    
     /**
      * @author Anna Moudrá <anna.moudra@gmail.com>
      * @description Vytváří tabulku s pozorováními na dané lokalitě.
@@ -51,10 +37,11 @@ class PersonalPresenter extends BasePresenter {
      * @param string Name
      * @return grid
      */
-    protected function createComponentMyObsGrid($name) {
-        $selection = $this->database->table('observations')->where('user.id', $this->user->id);
+    protected function createComponentEquipObsGrid($name) {
+        $equipmentId = $this->getHttpRequest()->getUrl()->getQueryParameter('equipmentId');
+        $selection = $this->database->table('observations')->where('equipment.id', $equipmentId);
         $selection->select('observations.id, date, observer, sqmavg,' . 'location.name');
-
+        
         $source = new NetteDbDataSource($selection);
         $grid = new Grid($this, $name);
         $primarykey = 'id';
@@ -84,46 +71,21 @@ class PersonalPresenter extends BasePresenter {
 
     /**
      * @author Anna Moudrá <anna.moudra@gmail.com>
-     * @description Připravuje data pro default.latte.
+     * @description Připravuje data pro equipment.latte.
      * @memberOf LocationPresenter 
      */
-    public function renderDefault() {
+    public function renderDefault($equipmentId) {
         $this->template->observations = $this->database->table('observations')
-                ->where('user_id', $this->user->id) // vytáhne uživatelova pozorování z tabulky observations
+                ->where('equipment_id', $equipmentId) // vytáhne pozorování daným přístrojem z tabulky observations
                 ->order('created_at DESC');
-        $personal = $this->database->table('users')
-                ->where('id', $this->user->id);
-        $userid = $this->database->table('users')
-                        ->where('id', $this->user->id)->fetch('id');
+        $equipment = $this->database->table('equipment')
+                ->where('id', $equipmentId);
         $this->template->locations = $this->database->table('location')
                 ->where('user_id', $this->user->id)
                 ->order('name');
 
-        $this->template->personal = $personal;
-        $this->template->userid = $userid;
-        //Počítá průměrné hodnoty SQM a Bortle
-        $observation = $this->database->table('observations')
-                ->where('user_id', $userid->id)
-                ->order('date DESC');
-
-        $sqms = [];
-        $bortles = [];
-
-        foreach ($observation as $observation) {
-            $sqms[] = $observation->sqmavg;
-            if ($observation->bortle != 0) {
-                $bortles[] = $observation->bortle;
-            }
-        }
-
-        $sqmavg = $this->numericalAverage($sqms);
-        if (count($bortles) !== 0) {
-            $bortleavg = $this->numericalAverage($bortles);
-        } else {
-            $bortleavg = 0;
-        }
-        $this->template->sqmavg = $sqmavg;
-        $this->template->bortle = $bortleavg;
+        $this->template->equipment = $equipment;
+        
     }
-
+    
 }

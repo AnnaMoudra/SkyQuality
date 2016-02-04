@@ -53,7 +53,10 @@ class ObservationPresenter extends BasePresenter
 
 	if($phosel->count()>0){
 	    foreach ($phosel as $photos) {    
-		$imgl[] = Image::fromFile('http://skyquality.cz/www/images/photos/'.$photos->photo)->resize(600, NULL);	
+		$imgl[] = array(
+                    'fotky' => Image::fromFile('http://skyquality.cz/www/images/photos/' . $photos->photo)->resize(600, NULL),
+                    'popisky' => ($photos->info)
+                    );	
 	    }
 	    $this->template->imgl = $imgl;
 	}
@@ -145,10 +148,12 @@ class ObservationPresenter extends BasePresenter
         }
 	
 	$form = (new \ObservationFormFactory($this->database))->create(); //vytvoří formulář za složky app/forms
-	$form->onSuccess[] = array($this, 'observationFormSucceeded'); // přidá událost po odeslání
+	
+        $form->onSuccess[] = array($this, 'observationFormSucceeded'); // přidá událost po odeslání
 	return $form;
         
     }
+    
     
     /**
     * @author Anna Moudrá <anna.moudra@gmail.com>
@@ -162,7 +167,9 @@ class ObservationPresenter extends BasePresenter
         if (!$this->user->isLoggedIn()) {
             $this->error('Pro vytvoření, nebo editování příspěvku se musíte přihlásit.');
         }
-	
+	//$this['ObservationForm']['date']->setDefaults(date('%d.%m.%Y %H:%m'));
+        //$this['ObservationForm']['observert']->setDefaultValue($this->user->name);
+        
 	$observationId = $this->getParameter('observationId');
 	$values = $form->getValues();
 	$valuesObservation = $values['observation'];	//data pristupna pod $valuesObservation['%']
@@ -177,13 +184,13 @@ class ObservationPresenter extends BasePresenter
 	    $sqm = $this->database->table('sqm')->where('id_observation',$observationId)->delete();
 	    $updatephotos = $this->database->table('photos')->where('observation_id',$observationId)->fetchAll();
 	    
-	    if($values['locationid']===1){ // případ zadávání zcela nové lokality
+	    if($values['locationid']==='new'){ // případ zadávání zcela nové lokality
 		$valuesLocation= $values['location']; // přebírá data z containeru
 		$valuesLocation['user_id']= $this->user->id;
 		$this->database->table('location')->insert($valuesLocation);
 	    }
 	    else{$valuesObservation['location_id'] = $values['locationid'];}
-	    if($values['equipmentid']===1){ // případ zadávání zcela nového zařízení
+	    if($values['equipmentid']==='new'){ // případ zadávání zcela nového zařízení
 		$valuesEquipment= $values['equipment'];
 		$this->database->table('equipment')->insert($valuesEquipment);
 	    }
@@ -254,7 +261,7 @@ class ObservationPresenter extends BasePresenter
 	* @description Tato část vyhodnocuje přidání nového pozorování.
 	*/
 	else{
-	    if($values['locationid']===1){ //v případě zadání nové lokality
+	    if($values['locationid']==='new'){ //v případě zadání nové lokality
 		$valuesLocation= $values['location'];
 		$valuesLocation['user_id']= $this->user->id;
 		$this->database->table('location')->insert($valuesLocation);
@@ -262,7 +269,7 @@ class ObservationPresenter extends BasePresenter
 	    else{
 		$valuesObservation['location_id'] = $values['locationid'];
 	    }
-	    if($values['equipmentid']===1){ // v případě zadání nového zařízení
+	    if($values['equipmentid']==='new'){ // v případě zadání nového zařízení
 		$valuesEquipment= $values['equipment'];
 		$this->database->table('equipment')->insert($valuesEquipment);
 	    }

@@ -139,6 +139,7 @@ class DatabasePresenter extends BasePresenter
             $this->template->sqm = $this->database->table('sqm'); 
             $this->template->photos = $this->database->table('photos');    
 	}
+       
 }
 
 

@@ -28,7 +28,8 @@ $(function () {
         xAxis: {
             type: 'datetime',
             dateTimeLabelFormats: { // don't display the dummy year
-                month: '%Y'
+                month: '%m/%Y',
+                day: '%d/%m/%Y'
             },
             title: {
                 text: ''
@@ -43,14 +44,12 @@ $(function () {
             }
         },
         legend: {
-            layout: 'vertical',
-            align: 'left',
-            verticalAlign: 'top',
-            x: 100,
-            y: 70,
-            floating: true,
+            layout: 'horizontal',
+            align: 'center',
+            verticalAlign: 'bottom',
+            floating: false,
             backgroundColor: (Highcharts.theme && Highcharts.theme.legendBackgroundColor) || '#FFFFFF',
-            borderWidth: 1
+            borderWidth: 0
         },
         tooltip: {
                 formatter: function() {
@@ -66,8 +65,7 @@ $(function () {
                     symbol: 'diamond',
                     states: {
                         hover: {
-                            enabled: true,
-                            lineColor: 'rgb(100,100,100)'
+                            enabled: true
                         }
                     }
                 },
