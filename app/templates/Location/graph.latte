@@ -23,8 +23,9 @@
             },
             xAxis: {
                 type: 'datetime',
-                dateTimeLabelFormats: {// don't display the dummy year
-                    month: '%b %Y'
+                dateTimeLabelFormats: { // don't display the dummy year
+                    month: '%m/%Y',
+                    day: '%d/%m/%Y'
     },
                 title: {
                     text: ''
@@ -39,14 +40,12 @@
 
             },
             legend: {
-                layout: 'vertical',
-                align: 'left',
-                verticalAlign: 'top',
-                x: 100,
-                y: 70,
-                floating: true,
+                layout: 'horizontal',
+                align: 'center',
+                verticalAlign: 'bottom',
+                floating: false,
                 backgroundColor: (Highcharts.theme && Highcharts.theme.legendBackgroundColor) || '#FFFFFF',
-                borderWidth: 1
+                borderWidth: 0
             },
             tooltip: {
                 formatter: function() {

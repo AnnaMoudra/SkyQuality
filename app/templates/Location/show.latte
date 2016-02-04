@@ -66,43 +66,25 @@
             {if $phosel->count('*') > 0}
                 <h3 class="h3">Fotky</h3>
                 <div class="container photos" align="center">
-                    {var $pocet = 0}
-                    {foreach $phosel as $photos}
-                        {*{var $popisek = $photos->info}
-                        {first}<table>{/first}
-
-                        {if $pocet == 2}<tr>{/if} 
-                            {foreach $img as $img}
-                                <td><a class="fancybox" rel="group" href="{$img|dataStream}" title="{$popis}"><img src="{$img|dataStream}" /></a>
-                                    <br />{$popisek} </td>
-                                {var $pocet++}
-                            {/foreach}
-                        {if $pocet == 2}</tr>{/if}
-                        {last}</table>{/last}
-                        *}
-                        {foreach $phosel as $photos}
-                                    {var $popisek = $photos->info}
-                            {/foreach}
-                        <div class="row">
-                            {foreach $img as $img}
-                                <div class="col phototable">
-                                    <a class="fancybox" rel="group" href="{$img|dataStream}" title="{$popisek}"><img src="{$img|dataStream}" /></a>
-                                </div>
-                            {/foreach}
-                        </div>
-                        <div class="row">
-                            {foreach $phosel as $photos}
-                                <div class="col phototable">
-                                    {$photos->info|truncate:30}
-                                </div>
-                            {/foreach}
-                        </div> 
-                    {/foreach}
+                    {for $i = 0; $i < $phosel->count('*'); $i++}                                   
+                        {if $i%6 == 0 || $i == 0}<div class="rowphotos">{/if}
+                            <div class="colphotos">
+                                <a class="fancybox" rel="group" 
+                                   href='{$img[$i]['fotky']|dataStream}' 
+                                   title='{$img[$i]['popisky']}'>
+                                    <div class="photodiv">
+                                        <img src='{$img[$i]['fotky']|dataStream}' />
+                                    </div>
+                                </a>
+                            </div>
+                            {if $i%6 == 5 || $i == ($phosel->count('*')-1)}</div>{/if}
+                        {/for}
                 </div>
             {/if}	   
 
             <div class="grafMereniLoc">
-                <h3 class="h3">Měření z této lokality</h3>
+                <h3 class="h3" style="margin-bottom: 0.2em;">Měření z této lokality</h3>
+                <div class="date">Vybráním části grafu kurzorem lze graf přiblížit</div>
                 {include 'graph.latte'}
             </div>
             <h3 class="h3">Poslední pozorování</h3>

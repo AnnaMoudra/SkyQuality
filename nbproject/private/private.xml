@@ -3,17 +3,11 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-            <file>file:/C:/Users/Mila/Light%20Pollution/Weby/SkyQuality/app/templates/Homepage/default.latte</file>
-            <file>file:/C:/Users/Mila/Light%20Pollution/Weby/SkyQuality/app/templates/Database/default.latte</file>
             <file>file:/C:/Users/Mila/Light%20Pollution/Weby/SkyQuality/www/css/screen.css</file>
             <file>file:/C:/Users/Mila/Light%20Pollution/Weby/SkyQuality/app/templates/@layout.latte</file>
-            <file>file:/C:/Users/Mila/Light%20Pollution/Weby/SkyQuality/app/presenters/DatabasePresenter.php</file>
-            <file>file:/C:/Users/Mila/Light%20Pollution/Weby/SkyQuality/app/templates/Location/show.latte</file>
             <file>file:/C:/Users/Mila/Light%20Pollution/Weby/SkyQuality/app/templates/Observation/show.latte</file>
+            <file>file:/C:/Users/Mila/Light%20Pollution/Weby/SkyQuality/app/templates/Location/show.latte</file>
             <file>file:/C:/Users/Mila/Light%20Pollution/Weby/SkyQuality/app/presenters/LocationPresenter.php</file>
-            <file>file:/C:/Users/Mila/Light%20Pollution/Weby/SkyQuality/vendor/mesour/datagrid/src/Grid/Grid.latte</file>
-            <file>file:/C:/Users/Mila/Light%20Pollution/Weby/SkyQuality/vendor/mesour/datagrid/src/locales/cs.php</file>
-            <file>file:/C:/Users/Mila/Light%20Pollution/Weby/SkyQuality/app/presenters/ObservationPresenter.php</file>
         </group>
     </open-files>
 </project-private>

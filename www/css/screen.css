@@ -16,7 +16,7 @@ html {
     background-image: url(http://www.skyquality.cz/www/images/Earthlights_dmsp_web.jpg);  
     background-repeat: no-repeat;
     background-attachment: fixed;
-    background-color: #000F2E;
+    background-color: #FFF;
 }
 
 #ajax-spinner {
@@ -72,6 +72,11 @@ h2 {
 
 h3, h4 {
     font: "Trebuchet MS"
+}
+
+.h3 {
+    margin-bottom: 0.9em;
+    margin-top: 1.7em;
 }
 
 h3 {
@@ -563,7 +568,7 @@ form table .required td input {
 
 .col {
     display: table-cell; 
-    margin: auto;
+    margin: 0;
     border:solid 1px #eee;
     vertical-align: middle;
 
@@ -637,6 +642,11 @@ form table .required td input {
     font-weight: normal;
 }
 
+.pagination>.active>a {
+    background-color: #003380;
+    border-color: #003380;
+}
+
 .obsheadl {
     margin-bottom: 0; 
     font-size: 1.8em; 
@@ -657,7 +667,7 @@ form table .required td input {
 }
 
 .mydata {
-    margin-top: 1.3em;
+    margin-top: 3em;
     margin-bottom: 1em;
 }
 
@@ -668,24 +678,31 @@ form table .required td input {
 
 /* Fotografie */
 
+.photodiv {
+    
+    overflow: hidden;
+    height: 10em;
+    width: 10em;
+} 
 
-.phototable img {
-    width: 200px;
-    display:block !important;
+.photodiv img {
+    object-fit: cover;
+    object-position: 50% 50%;
+    height: 10em;
+    width: 10em;
 }
-.phototable {
-    padding: .4em;
-    text-align: center;
 
+.rowphotos { 
+    display: table-row;
 }
 
-.photos .row {
-    width: 20%;
-}
-
-.photos .col {
+.colphotos {
     border:none;
-    width: 20%;
+    display: inline-block;
+    float:left;
+    width: 10em;
+    margin-right: 0.2em;
+    margin-bottom: 0.2em;
 }
 
 .photos {
@@ -695,9 +712,9 @@ form table .required td input {
 }
 
 
-.fancybox a {
-    display:block !important;
-}
+//.fancybox a {
+//    display:block !important;
+//}
 
 
 .fancybox-title-float-wrap .child {

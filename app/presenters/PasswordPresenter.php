@@ -48,7 +48,7 @@ class PasswordPresenter extends BasePresenter {
        
         $form->addHidden('newpass', Strings::random(10)); //vytvoří náhodný string pro ověření uživatele při změně hesla
 
-        $form->addSubmit('send', 'Odeslat link pro změnu hesla.');
+        $form->addSubmit('send', 'Poslat odkaz pro změnu hesla.');
         $form->onSuccess[] = $this->getNewpassFormSucceeded;
         return $form;
     }
@@ -81,7 +81,7 @@ class PasswordPresenter extends BasePresenter {
         $mailer = new SendmailMailer;
         $mailer->send($message);
 
-        $this->flashMessage('Na zadanou emailovou adresu vám přijde link ke změně vašeho hesla.', 'success');
+        $this->flashMessage('Na zadanou emailovou adresu vám přijde odkaz ke změně hesla.', 'success');
         $this->redirect('Homepage:');
     }
 
@@ -134,7 +134,7 @@ class PasswordPresenter extends BasePresenter {
                 $this->redirect('Sign:in');
             }
         } else {
-            $this->flashMessage('Změna hesla se nezdařila. Pokuste se o změnu znovu s odkazem z dalšího emailu. V případě opětovného nezdaru, kontaktujte administrátora.');
+            $this->flashMessage('Změna hesla se nezdařila. Pokuste se o změnu znovu s odkazem z dalšího emailu. V případě opětovného nezdaru kontaktujte administrátora.');
             $this->redirect('Sign:in');
         }
     }

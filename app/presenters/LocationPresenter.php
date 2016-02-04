@@ -15,6 +15,7 @@ use Mesour\DataGrid,
     Mesour\DataGrid\Components\Button,
     Mesour\DataGrid\Render,
     Mesour\DataGrid\NetteDbDataSource;
+use Nette\Utils\Arrays;
 
 /**
  * @class LocationPresenter.
@@ -73,11 +74,16 @@ class LocationPresenter extends BasePresenter {
 
         if ($phosel->count() > 0) {
             foreach ($phosel as $photos) {
-                $popis = $photos->info;
-                $img[] = Image::fromFile('http://skyquality.cz/www/images/photos/' . $photos->photo)->resize(600, NULL);
+                
+                $img[] = array(
+                    'fotky' => Image::fromFile('http://skyquality.cz/www/images/photos/' . $photos->photo)->resize(600, NULL),
+                    'popisky' => ($photos->info)
+                    );
             }
             $this->template->img = $img;
-            $this->template->popis = $popis;
+            
+                    
+            //$this->template->popis = $popis;
         }
 
         //Počítá průměrné hodnoty SQM a Bortle
