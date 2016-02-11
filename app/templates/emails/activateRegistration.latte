@@ -1,31 +1,25 @@
 {* Latte template *}
 
-{block content}
-
-{*<html>
+<html>
     <head>
-        <title>{$title}</title>
+        <title>Skyquality Project - aktivace účtu</title>
     </head>
 
-    <body>*}
-        <ul>
-            <li>
-                <strong>Username:</strong> {$values['username']}
-            </li>
-            <li>
-                <strong>Email:</strong> {$values['email']}
-            </li>
-            <li>
-                <strong>Zpráva:</strong>
-		<h4>Pro aktivaci vašeho účtu na SkyQuality.cz klikněte na následující odkaz.<br>
+    <body>
+         <div width="100%" align="center">
+            <a href="http://skyquality.cz" alt=''><img src="http://skyquality.cz/images/siteLogo.png" title="SkyQuality.com" alt="SkyQuality.com" /></a>
+            projekt mapování jasu noční oblohy
+                <br />
+                <br />
+                <br />
+		Pro aktivaci vašeho účtu na SkyQuality.cz klikněte na následující odkaz.
+                <br />
 		    
-		    <a href="{link //Sign:activate 'hash'=>$values['linkhash']}">Zde klikněte pro ověření emailové adresy.</a>
+                <h3><a href="{link //Sign:activate 'hash'=>$values['linkhash']}">Ověření a aktivace</a></h3>
+		<br />
+		<p>Pokud jste se na stránce SkyQuality.cz neregistrovali, na link neklikejte. 
+		Váš email bude z databáze vymazán.</p>
+         </div>
 		
-		Pokud jste se na stránce SkyQuality.cz neregistrovali, na link neklikejte. 
-		Váš email bude z databáze vymazán.
-		</h4>
-            </li>
-        </ul>
-
- {*   </body>
-</html>*}
+   </body>
+</html>

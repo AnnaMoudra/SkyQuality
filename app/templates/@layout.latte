@@ -4,141 +4,150 @@
  * @param string   $basePath web base path
  * @param string   $robots   tell robots how to index the content of a page (optional)
  * @param array    $flashes  flash messages
- *}
+*}
 
 <!DOCTYPE html>
 <html>
-<head>
-	<meta charset="utf-8">
-	<meta name="description" content="">
-	<meta name="robots" content="{$robots}" n:ifset="$robots">
+    <head>
+        <meta charset="utf-8">
+        <meta name="description" content="">
+        <meta name="robots" content="{$robots}" n:ifset="$robots">
 
-	<title>{block title|striptags}SkyQuality Project{/block}</title>
+        <title>{block title|striptags}SkyQuality Project{/block}</title>
+
 
         <link rel="stylesheet" media="screen,projection,tv" href="{$basePath}/css/grid.css">
         <link rel="stylesheet" media="screen,projection,tv" href="{$basePath}/css/bootstrap.min.css">
         <link rel="stylesheet" media="screen,projection,tv" href="{$basePath}/css/grid_filter.css">
-	<link rel="stylesheet" media="print" href="{$basePath}/css/print.css">
-	<link rel="shortcut icon" href="{$basePath}/favicon2.ico">
-	<link rel="stylesheet" href="{$basePath}/fancybox/source/jquery.fancybox.css?v=2.1.5" media="screen" />
+        <link rel="stylesheet" media="print" href="{$basePath}/css/print.css">
+        <link rel="shortcut icon" href="{$basePath}/favicon2.ico">
+        <link rel="stylesheet" href="{$basePath}/fancybox/source/jquery.fancybox.css?v=2.1.5" media="screen" />
+        <link rel="stylesheet" type="text/css" media="screen,projection,tv" href="{$basePath}/css/screen.css">
+
         {block scripts}
-           <script src="{$basePath}/js/jquery.js"></script>
-	   <script src="{$basePath}/js/jquery.ui.js"></script>
-	   <script src="{$basePath}/js/highcharts.js"></script>
-	   <script src="{$basePath}/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
-	   <script src="{$basePath}/fancybox/lib/jquery.mousewheel-3.0.6.pack.js"></script>
+        <script src="{$basePath}/js/jquery.js"></script>
+        <script src="{$basePath}/js/jquery.ui.js"></script>
+        <script src="{$basePath}/js/highcharts.js"></script>
+        <script src="{$basePath}/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+        <script src="{$basePath}/fancybox/lib/jquery.mousewheel-3.0.6.pack.js"></script>
+        <link rel="stylesheet" href="{$basePath}/fancybox/source/helpers/jquery.fancybox-buttons.css?v=1.0.5" type="text/css" media="screen" />
+        <script type="text/javascript" src="{$basePath}/fancybox/source/helpers/jquery.fancybox-buttons.js?v=1.0.5"></script>
+        <script type="text/javascript" src="{$basePath}/fancybox/source/helpers/jquery.fancybox-media.js?v=1.0.6"></script>
 
-	{*   <script src="{$basePath}/js/nette.ajax.js"></script>
-	
-	   {*<script type="text/javascript" src="/js/themes/gray.js"></script>*}
-          {* <script src="{$basePath}/js/bootstrap.min.js"></script>*}
-           <script src="{$basePath}/js/bootstrap.js"></script>
-           {*<script src="{$basePath}/js/npm.js"></script>*}
-          {* <script src="{$basePath}/js/grid.js"></script>
-           <script src="{$basePath}/js/grid_pager.js"></script>*}
-	{/block}
+        <link rel="stylesheet" href="{$basePath}/fancybox/source/helpers/jquery.fancybox-thumbs.css?v=1.0.7" type="text/css" media="screen" />
+        <script type="text/javascript" src="{$basePath}/fancybox/source/helpers/jquery.fancybox-thumbs.js?v=1.0.7"></script>
+        {*   <script src="{$basePath}/js/nette.ajax.js"></script>
         
-       	<link rel="stylesheet" media="screen,projection,tv" href="{$basePath}/css/screen.css">
-	{block head}{/block}
-	
-	<script> document.documentElement.className+='js'; </script>
-        
-</head>
+           {*<script type="text/javascript" src="/js/themes/gray.js"></script>*}
+        {* <script src="{$basePath}/js/bootstrap.min.js"></script>*}
+        <script src="{$basePath}/js/bootstrap.js"></script>
+        {*<script src="{$basePath}/js/npm.js"></script>*}
+        {* <script src="{$basePath}/js/grid.js"></script>
+         <script src="{$basePath}/js/grid_pager.js"></script>*}
+        {/block}
 
-<body>
-    
-	
+        {block head}{/block}
 
-  <div  n:foreach="$flashes as $flash" class="flash {$flash->type}">{$flash->message}</div>
-   
-       <div class="logo">
-        <a n:href="Homepage:default">
-        <img src="{$basePath}/images/siteLogo.png" title="SkyQuality.com" alt="SkyQuality.com" />
-        <span class="sitedescr">projekt mapování jasu noční oblohy</span></a>
+        <script> document.documentElement.className += 'js';</script>
+
+    </head>
+
+    <body>
+
+
+
+        <div  n:foreach="$flashes as $flash" class="flash {$flash->type}">{$flash->message}</div>
+
+        <div class="logo">
+            <a n:href="Homepage:default">
+                <img src="{$basePath}/images/siteLogo.png" title="SkyQuality.com" alt="SkyQuality.com" />
+                <span class="sitedescr">projekt mapování jasu noční oblohy</span></a>
 
         </div>
 
-    <div class="menu">
-        <div class="hpagelogin">
-            <ul>        
-                {if $user->loggedIn}
-                    <li><a n:href="Personal:">Můj účet</a></li> 
-                    <li><a n:href="Observation:create">Přidat měření</a></li>
-                    <li><a n:href="Sign:out">Odhlásit se</a></li>
-                {else}
-                    <li><a n:href="Sign:in">Přihlásit</a></li>
-                {/if}
-            </ul>
+        <div class="menu">
+            <div class="hpagelogin">
+                <ul>        
+                    {if $user->loggedIn}
+                        <li><a n:href="Personal:">Můj účet</a></li> 
+                        <li><a n:href="Observation:create">Přidat měření</a></li>
+                        <li><a n:href="Sign:out">Odhlásit se</a></li>
+                        {else}
+                        <li><a n:href="Sign:in">Přihlásit</a></li>
+                        {/if}
+                </ul>
+            </div>
+            <ul class="navig">
+                <li><a n:href="Database:">Databáze</a></li>
+                <li><a n:href="Info:">Metodika</a></li> 
+                <li><a n:href="Project:">O projektu</a></li>
+            </ul> 
         </div>
-        <ul class="navig">
-            <li><a n:href="Database:">Databáze</a></li>
-            <li><a n:href="Info:">Metodika</a></li> 
-            <li><a n:href="Project:">O projektu</a></li>
-        </ul> 
-    </div>
-  <div class="cistichead">
-  </div>
+        <div class="cistichead">
+        </div>
         <div class="wpage">
-	{include content}
+            {include content}
         </div>
         {define sidebar}
         <div class="sidebar">
             {if $user->loggedIn}
                 <a n:href="Observation:create">
-                <div class="sidebaradd" n:href="Observation:create">
-                    Vložit pozorování
-                </div>
+                    <div class="sidebaradd" n:href="Observation:create">
+                        Vložit pozorování
+                    </div>
                 </a>
             {else}
                 <a n:href="Sign:in">
-                <div class="sidebaradd" n:href="Sign:in">
-                    Vložit pozorování
-                </div>
+                    <div class="sidebaradd" n:href="Sign:in">
+                        Vložit pozorování
+                    </div>
                 </a>
             {/if} 
-              
-            
-               
+
+
+
             <div class="sidebarstats">
                 <h4> Statistiky</h4>
-                Databáze obsahuje: 
-                <div style="margin-left: 2em; margin-top: .9em;">
-                    <a n:href="Database:default"><strong>{$location}</strong> lokalit</a><br />
-                    <a n:href="Database:locations"><strong>{$obscount}</strong> pozorování</a><br />
-                <strong>{$sqm}</strong> měření<br />
-                <strong>{$photos}</strong> fotografií<br />
+                <div class="sidebarstatsContent">
+                    Databáze obsahuje: 
+                    <div style="margin-left: 2em; margin-top: .9em;">
+                        <a n:href="Database:default"><strong>{$location}</strong> lokalit</a><br />
+                        <a n:href="Database:locations"><strong>{$obscount}</strong> pozorování</a><br />
+                        <strong>{$sqm}</strong> měření<br />
+                        <strong>{$photos}</strong> fotografií<br />
+                    </div>
                 </div>
-          
+
             </div>
-		
-                  <h4> Mapa měření</h4>
+
+            <h4> Mapa měření</h4>
             <div class="sidebarmap">
-		<a n:href="Map:"><img src="{$basePath}/images/mapa.png" width="100%"/></a>
+                <a n:href="Map:"><img src="{$basePath}/images/mapa.png" width="100%"/></a>
             </div>
-           
-            
-            
+
+
+
         </div>
-          
+
         <div class="cistic">
         </div>      
-          {/define}
-             
+        {/define}
+
         {block footer}
         <div class="footer">
-          ©Skyquality <br />
-          <a n:href="Project:">kontakt</a>
+            ©Skyquality <br />
+            <a n:href="Project:">kontakt</a>
         </div>
         {/block}
-    <!-- Placed at the end of the document so the pages load faster -->
-    <script src="{$basePath}/js/jquery.cookie.js"></script>
-     	<script src="{$basePath}/js/jquery.nette.js"></script>
-     	<script src="{$basePath}/js/netteForms.js"></script>
-     	<!-- Latest compiled and minified JavaScript -->
+        <!-- Placed at the end of the document so the pages load faster -->
+        <script src="{$basePath}/js/jquery.cookie.js"></script>
+        <script src="{$basePath}/js/jquery.nette.js"></script>
+        <script src="{$basePath}/js/netteForms.js"></script>
+        <!-- Latest compiled and minified JavaScript -->
         <script src="{$basePath}/js/bootstrap.min.js"></script>
-     	<script src="{$basePath}/js/main.js"></script>
+        <script src="{$basePath}/js/main.js"></script>
 
 
-</body>
+    </body>
 </html>
 
