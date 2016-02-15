@@ -184,7 +184,7 @@ class ObservationPresenter extends BasePresenter
 	    $sqm = $this->database->table('sqm')->where('id_observation',$observationId)->delete();
 	    $updatephotos = $this->database->table('photos')->where('observation_id',$observationId)->fetchAll();
 	    
-	    if($values['locationid']===1){ // případ zadávání zcela nové lokality
+	    if($values['locationid']==='new'){ // případ zadávání zcela nové lokality
 		$valuesLocation= $values['location']; // přebírá data z containeru
 		$valuesLocation['user_id']= $this->user->id;
 		$this->database->table('location')->insert($valuesLocation);
@@ -192,7 +192,7 @@ class ObservationPresenter extends BasePresenter
 		$valuesObservation['location_id']= $this->database->table('location')->where('name', $name)->fetch('id');
 	    }
 	    else{$valuesObservation['location_id'] = $values['locationid'];}
-	    if($values['equipmentid']===1){ // případ zadávání zcela nového zařízení
+	    if($values['equipmentid']==='new'){ // případ zadávání zcela nového zařízení
 		$valuesEquipment= $values['equipment'];
 		$this->database->table('equipment')->insert($valuesEquipment);
 		$nameE= $valuesEquipment['name'];
@@ -265,7 +265,7 @@ class ObservationPresenter extends BasePresenter
 	* @description Tato část vyhodnocuje přidání nového pozorování.
 	*/
 	else{
-	    if($values['locationid']===1){ //v případě zadání nové lokality
+	    if($values['locationid']==='new'){ //v případě zadání nové lokality
 		$valuesLocation= $values['location'];
 		$valuesLocation['user_id']= $this->user->id;
 		$this->database->table('location')->insert($valuesLocation);
@@ -275,7 +275,7 @@ class ObservationPresenter extends BasePresenter
 	    else{
 		$valuesObservation['location_id'] = $values['locationid'];
 	    }
-	    if($values['equipmentid']===1){ // v případě zadání nového zařízení
+	    if($values['equipmentid']==='new'){ // v případě zadání nového zařízení
 		$valuesEquipment= $values['equipment'];
 		$this->database->table('equipment')->insert($valuesEquipment);
 		$nameE= $valuesEquipment['name'];
