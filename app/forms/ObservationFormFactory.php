@@ -39,16 +39,16 @@ class ObservationFormFactory extends \Nette\Application\UI\Form {
 
     public function create() {
         $form = new Form;
-        $locationsarr = $this->database->table('location')->fetchPairs('id', 'name');
-        $locations = [];
-        $locations['new'] = 'Zadat novou lokalitu';
-        Arrays::insertAfter($locations, 'new', $locationsarr);
+        $locations = $this->database->table('location')->fetchPairs('id', 'name');
+       // $locations = [];
+        $locations[1] = 'Zadat novou lokalitu';
+       // Arrays::insertAfter($locations, 1, $locationsarr);
         $latitude = array('N' => 'severní šířky', 'S' => 'jižní šířky');
         $longitude = array('E' => 'východní délky', 'W' => 'západní délky');
-        $equipmentarr = $this->database->table('equipment')->fetchPairs('id', 'name');
-        $equipment = [];
-        $equipment['new'] = 'Zadat nové zařízení';
-        Arrays::insertAfter($equipment, 'new', $equipmentarr);
+        $equipment = $this->database->table('equipment')->fetchPairs('id', 'name');
+       // $equipment = [];
+        $equipment[1] = 'Zadat nové zařízení';
+       // Arrays::insertAfter($equipment, 1, $equipmentarr);
 
         $form->addGroup('Základní informace');
         $observationContainer = $form->addContainer('observation');
@@ -81,9 +81,9 @@ class ObservationFormFactory extends \Nette\Application\UI\Form {
         $locationContainer = $form->addContainer('location');
         $form->addSelect('locationid', 'Lokalita:', $locations)
                 ->setPrompt('Zvolte lokalitu')
-                ->setOption('new', 'Zadat novou lokalitu')
+                ->setOption(1, 'Zadat novou lokalitu')
                 ->setRequired()
-                ->addCondition(Form::EQUAL, 'new', 'Zadat novou lokalitu')
+                ->addCondition(Form::EQUAL, 1, 'Zadat novou lokalitu')
                 ->toggle('location-name')
                 ->toggle('location-latituderaw')
                 ->toggle('location-latitudehemisfera')
@@ -168,9 +168,9 @@ class ObservationFormFactory extends \Nette\Application\UI\Form {
         $form->addGroup('Měřící zařízení')->setOption('class', 'observationform');
         $form->addSelect('equipmentid', 'Měřící zařízení:', $equipment)
                 ->setPrompt('Vyberte zařízení')
-                ->setOption('new', 'Zadat nové zařízení')
+                ->setOption(1, 'Zadat nové zařízení')
                 ->setRequired()
-                ->addCondition(Form::EQUAL, 'new', 'Zadat nové zařízení')
+                ->addCondition(Form::EQUAL, 1, 'Zadat nové zařízení')
                 ->toggle('equipment-name')     //id containeru ?
                 ->toggle('equipment-type')->toggle('equipment-model')->toggle('equipment-sn');
 
