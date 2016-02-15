@@ -2,53 +2,17 @@
 
 {block content}
 <div class="page">
-    <div n:foreach="$personal as $a" class="personal">
-        <h3>Můj účet</h3>
-        <span style="margin-right: 3em;">Uživatel: {$a->username}</span>    <span style="margin-right: 3em;">Jméno: {$a->name}</span>       Email: {$a->email}<br />
-        <span class="date"> Pokud si přejete změnit e-mail či uživatelské jméno, prosím <a n:href="Project:">kontaktujte administrátora</a>.</span>
-        <br />
-        <br />
-        <table width="100%">
-            <tr>
-                <td>Počet pozorování:</td>
-                <td>SQM průměr ze všech pozorování:</td>
-                <td>Bortle průměr ze všech pozorování:</td>
-            </tr>
-            <tr>
-                <td>
-                    <h3>
-                        {if $a->related('observations')->count('*') == 0} 0 
-                        {else} {$a->related('observations')->count('*')}
-                        {/if}
-                    </h3>
-                </td>
-                <td> 
-                    <h3>
-                        {if $a->related('observations')->count('*') < 2} Příliš málo pozorování
-                        {else}{$sqmavg|number:2} MSA
-                        {/if}
-                    </h3>
-                </td>
-                <td>
-                    <h3>
-                        {if $a->related('observations')->count('*') < 2} Příliš málo pozorování
-                        {else}{$bortle|number:2}
-                        {/if}
-                    </h3>
-                </td>
-            </tr>
-        </table>
-    </div>
-    <div>
+<div n:foreach="$personal as $a" class="personal">
+    <span style="margin-right: 3em;">Uživatel: {$a->username}</span>       Email: {$a->email}<br />
+    <span class="date"> Pokud si přejete změnit e-mail či uživatelské jméno, prosím <a n:href="Project:">kontaktujte administrátora</a>.</span>
+</div>
+<br>
+<a n:href="Observation:create" class="navbutton">Přidat měření</a>
 
-        <br />
-        <br />
-        <a n:href="Observation:create" class="navbutton">Přidat měření</a>
-
-        <div class="mydata">
-            <h4>Vámi spravovaná měření</h4>
-            {control myObsGrid}
-        </div>
-
-    </div>
-
+<div class="mydata">
+<h4>Vámi spravovaná měření</h4>
+{control myObsGrid}
+</div>
+ 
+</div>
+   

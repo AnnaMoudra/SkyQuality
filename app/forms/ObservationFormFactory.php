@@ -27,28 +27,29 @@ class ObservationFormFactory extends \Nette\Application\UI\Form {
         parent::__construct();
         $this->database = $database;
     }
+
     /*
-    protected function attached($parent)
-{
-    parent::attached($parent);
-    if ($parent instanceof Nette\Application\UI\Presenter) {
-        $this->presenter === $parent; // TRUE
-        $user = $this->presenter->user; // ...
-    }
-}*/
+      protected function attached($parent)
+      {
+      parent::attached($parent);
+      if ($parent instanceof Nette\Application\UI\Presenter) {
+      $this->presenter === $parent; // TRUE
+      $user = $this->presenter->user; // ...
+      }
+      } */
 
     public function create() {
         $form = new Form;
         $locations = $this->database->table('location')->fetchPairs('id', 'name');
-       // $locations = [];
+        // $locations = [];
         $locations[1] = 'Zadat novou lokalitu';
-       // Arrays::insertAfter($locations, 1, $locationsarr);
+        // Arrays::insertAfter($locations, 1, $locationsarr);
         $latitude = array('N' => 'severní šířky', 'S' => 'jižní šířky');
         $longitude = array('E' => 'východní délky', 'W' => 'západní délky');
         $equipment = $this->database->table('equipment')->fetchPairs('id', 'name');
-       // $equipment = [];
+        // $equipment = [];
         $equipment[1] = 'Zadat nové zařízení';
-       // Arrays::insertAfter($equipment, 1, $equipmentarr);
+        // Arrays::insertAfter($equipment, 1, $equipmentarr);
 
         $form->addGroup('Základní informace');
         $observationContainer = $form->addContainer('observation');

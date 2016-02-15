@@ -115,8 +115,11 @@ class PersonalPresenter extends BasePresenter {
                 $bortles[] = $observation->bortle;
             }
         }
-
-        $sqmavg = $this->numericalAverage($sqms);
+	if(count($sqms) != 0){
+	    $sqmavg = $this->numericalAverage($sqms);
+	}else{
+	    $sqmavg=0;
+	}
         if (count($bortles) !== 0) {
             $bortleavg = $this->numericalAverage($bortles);
         } else {

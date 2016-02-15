@@ -14,9 +14,9 @@ use Mesour\DataGrid,
     Mesour\DataGrid\NetteDbDataSource;
 
 /**
- * @class EquipmentPresenter 
- * @author Míla Moudrá <milada.moudra@gmail.com>
- * @description Obsluhuje Equipment template.* 
+ * @class PersonalPresenter 
+ * @author Anna Moudrá <anna.moudra@gmail.com>
+ * @description Obsluhuje Personal template.* 
  */
 class EquipmentPresenter extends BasePresenter {
 
@@ -31,9 +31,9 @@ class EquipmentPresenter extends BasePresenter {
     }
     
     /**
-     * @author Míla Moudrá <milada.moudra@gmail.com>
+     * @author Anna Moudrá <anna.moudra@gmail.com>
      * @description Vytváří tabulku s pozorováními na dané lokalitě.
-     * @memberOf EquipmentPresenter 
+     * @memberOf PersonalPresenter 
      * @param string Name
      * @return grid
      */
@@ -70,9 +70,9 @@ class EquipmentPresenter extends BasePresenter {
     }
 
     /**
-     * @author Míla Moudrá <milada.moudra@gmail.com>
+     * @author Anna Moudrá <anna.moudra@gmail.com>
      * @description Připravuje data pro equipment.latte.
-     * @memberOf EquipmentPresenter 
+     * @memberOf LocationPresenter 
      */
     public function renderDefault($equipmentId) {
         $this->template->observations = $this->database->table('observations')

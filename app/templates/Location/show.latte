@@ -3,117 +3,97 @@
 {block content}
 
 <div class="page">
-    <p><a n:href="Database:locations" class="navbutton">zpět na databázi lokalit</a></p>
+<p><a n:href="Database:locations" class="navbutton">zpět na databázi lokalit</a></p>
 
-    <div class="post">
-        <h3 class="locationName">{$location->name}</h3>
-
-        <div class="container">
-            <div class="row">
-                <div class="col otable">Vytvořil/a</div>
-                <div class="col atable">{$username}</div>
-            </div> 
-            <div class="row">
-                <div class="col otable">Souřadnice</div>
-                <div class="col atable">{$location->latituderaw|replaceRE:'/(\w+);(\w+);(\w+);(\w+)/':'$1° $2′ $3″ $4'},
-                    {$location->longituderaw|replaceRE:'/(\w+);(\w+);(\w+);(\w+)/':'$1° $2′ $3″ $4'}
-                    ({$location->latitude} {$location->latitudehemisfera}, {$location->longitude} {$location->longitudehemisfera}) ― zobrazit na mapě </div>
-            </div> 
-            {* /[0-9]{2};[0-9]{2};[0-9]{2};[EN]/ *}
-            <div class="row">
-                <div class="col otable">Nadm. výška</div>
-                <div class="col atable">{$location->altitude} m. n. m.</div>
-            </div>
-            <div class="row">
-                <div class="col otable">Popis</div>
-                <div class="col atable">{$location->info}</a></div>
-            </div>
-            <div class="row">
-                <div class="col otable">Přístupnost</div>
-                <div class="col atable">{if $location->accessiblestand == '1'}
-                    <span style="color: #009900; font-weight: 400; font-style: italic;">Lokalita byla označena jako vhodné pozorovací stanoviště přístupné bez jakýchkoliv omezení</span>
-                    {/if}
-                        {if $location->accessiblestand == '0'}
-                            <span style="color: #990000; font-weight: 400; font-style: italic;">Lokalita byla označena jako nevhodné či nepřístupné pozorovací stanoviště</span>
-                        {/if}</div>
-                </div>
-            </div>
-
-            <h3 class="h3">Průměrná kvalita oblohy</h3>
-            <div class="container">
-                <div class="row">
-                    <div class="col otable">Počet pozorování</div>
-                    <div class="col atable">{$location->related('observations')->count('*')}</div>
-                </div>
-                <div class="row">
-                    <div class="col otable">SQM průměr</div>
-                    <div class="col atable"><span style="font-size: 1.4em; font-weight: bold;">{$sqmavg |number:2}</span> (ø {$sqmcount} měření)</div>
-                </div> 
-                <div class="row">
-                    <div class="col otable">Bortle průměr</div>
-                    <div class="col atable"><span style="font-size: 1.4em; font-weight: bold;">{$bortle |number:2}</span> (ø {$bortlecount} odhadů)</div>
-                </div>
-            </div>
-
-            {block js}
-            <script>
-                $(document).ready(function() {
-                    $('a.fancybox').fancybox();
-                });
-            </script>
-            {/block}
-
-            {if $phosel->count('*') > 0}
-                <h3 class="h3">Fotky</h3>
-                <div class="container photos" align="center">
-                    {for $i = 0; $i < $phosel->count('*'); $i++}                                   
-                        {if $i%6 == 0 || $i == 0}<div class="rowphotos">{/if}
-                            <div class="colphotos">
-                                <a class="fancybox" rel="group" 
-                                   href='{$img[$i]['fotky']|dataStream}' 
-                                   title='{$img[$i]['popisky']}'>
-                                    <div class="photodiv">
-                                        <img src='{$img[$i]['fotky']|dataStream}' />
-                                    </div>
-                                </a>
-                            </div>
-                            {if $i%6 == 5 || $i == ($phosel->count('*')-1)}</div>{/if}
-                        {/for}
-                </div>
-            {/if}	   
-
-            <div class="grafMereniLoc">
-                <h3 class="h3" style="margin-bottom: 0.2em;">Měření z této lokality</h3>
-                <div class="date">Vybráním části grafu kurzorem lze graf přiblížit</div>
-                {include 'graph.latte'}
-            </div>
-            <h3 class="h3">Poslední pozorování</h3>
-
-            {control basicDataGrid}
-
-
-        </div>
-        <div class="comments">
-            <h3 class="h3">Vložte komentář</h3>
-            <div class="commentForm">{control commentForm}</div>
-
-            {foreach $comments as $comment}
-                <div class="comment">
-                    <p><span class="commenter">
-                            {$comment->name}
-                        </span>
-                        •
-                        <span class="commentDate">
-                            {$comment->created_at|date:'d.m.Y — H:i'}
-                        </span>
-                        •
-                        <span class="commentObs">
-                            <a n:href="Observation:show $comment->observation->id">Pozorování z {$comment->observation->date|date:'d.m.Y'}</a>
-                        </span>
-                    </p>
-                    <div class="commentContent">{$comment->content}</div>
+<div class="post">
+   <h3 style="margin-bottom: 1em; font-size: 1.8em;">{$location->name}</h3>
+    
+  <div class="container">
+    <div class="row">
+      <div class="col otable">Souřadnice</div>
+      <div class="col atable">{$location->latitude} {$location->latitudehemisfera}, {$location->longitude} {$location->longitudehemisfera}</div>
+    </div> 
+    <div class="row">
+      <div class="col otable">Nadm. výška</div>
+      <div class="col atable">{$location->altitude}</div>
+    </div>
+    <div class="row">
+      <div class="col otable">Popis</div>
+      <div class="col atable">{$location->info}</a></div>
+    </div>
+    <div class="row">
+      <div class="col otable">Přístupnost</div>
+      <div class="col atable">{$location->accessiblestand|replace:1:ano|replace:0:ne}</div>
+    </div>
+  </div>
+  
+  <h3>Průměrná kvalita oblohy</h3>
+  <div class="container">
+    <div class="row">
+      <div class="col otable">Počet pozorování</div>
+      <div class="col atable">{$location->related('observations')->count('*')}</div>
+    </div>
+    <div class="row">
+      <div class="col otable">SQM průměr</div>
+      <div class="col atable">{$sqmavg |number:2}</div>
+    </div> 
+    <div class="row">
+      <div class="col otable">Bortle průměr</div>
+      <div class="col atable">{$bortle |number:2}</div>
+    </div>
+  </div>
+   
+ {block js}
+    <script>
+    $(document).ready(function() {
+	$('a.fancybox').fancybox();
+});
+    </script>
+    {/block}
+    
+  {if $phosel->count('*') > 0}
+  <h3>Fotky</h3>
+  <div class="container photos" align="center">
+    {foreach $phosel as $photos}
+        <div class="row">
+            {foreach $img as $img}
+                <div class="col phototable">
+                    <a class="fancybox" rel="group" href="{$img|dataStream}" ><img src="{$img|dataStream}" title="" /></a>
                 </div>
             {/foreach}
         </div>
-    </div>
+        <div class="row">
+            {foreach $phosel as $photos}
+                <div class="col phototable">
+                    {$photos->info}
+                </div>
+            {/foreach}
+		
+        </div>
+        
+    {/foreach}
+  </div>
+  {/if}	   
+	   
+   <div>
+   {include 'graph.latte'}
+ </div>
+  <h3>Poslední pozorování</h3>
+ 
+ {control basicDataGrid}
+   	
+     
+</div>
+<div class="comments">
+<h3>Vložte komentář</h3>
 
+{control commentForm}
+
+    {foreach $comments as $comment}
+        <p><b><a href="mailto:{$comment->email}" n:tag-if="$comment->email">{$comment->name}</a></b> • {$comment->created_at|date: ' d.m.y - H:i'}</p>
+        <div>{$comment->content}</div>
+    {/foreach}
+
+</div>
+</div>
+    

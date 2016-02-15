@@ -49,7 +49,7 @@ class DatabasePresenter extends BasePresenter
 	    $grid = new Grid($this, $name);
 	    $primarykey= 'id';
 	    $grid->setPrimaryKey($primarykey);
-            $grid->setLocale('cs');
+
 	    $grid->setDataSource($source);
 	    $grid->addDate('date','Datum')
 		    ->setFormat('d.m.y - H:i')
@@ -87,7 +87,7 @@ class DatabasePresenter extends BasePresenter
 	    $grid = new Grid($this, $name);
 	    $primarykey= 'id';
 	    $grid->setPrimaryKey($primarykey);
-            $grid->setLocale('cs');
+
 	    $grid->setDataSource($source);
 	    $grid->addText('name','Název');
 	    $grid->addText('altitude','Nadmořská výška [m n.m.]');
@@ -139,7 +139,6 @@ class DatabasePresenter extends BasePresenter
             $this->template->sqm = $this->database->table('sqm'); 
             $this->template->photos = $this->database->table('photos');    
 	}
-       
 }
 
 

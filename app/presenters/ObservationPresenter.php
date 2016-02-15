@@ -188,11 +188,15 @@ class ObservationPresenter extends BasePresenter
 		$valuesLocation= $values['location']; // přebírá data z containeru
 		$valuesLocation['user_id']= $this->user->id;
 		$this->database->table('location')->insert($valuesLocation);
+		$name= $valuesLocation['name'];
+		$valuesObservation['location_id']= $this->database->table('location')->where('name', $name)->fetch('id');
 	    }
 	    else{$valuesObservation['location_id'] = $values['locationid'];}
 	    if($values['equipmentid']==='new'){ // případ zadávání zcela nového zařízení
 		$valuesEquipment= $values['equipment'];
 		$this->database->table('equipment')->insert($valuesEquipment);
+		$nameE= $valuesEquipment['name'];
+		$valuesObservation['equipment_id']= $this->database->table('equipment')->where('name', $nameE)->fetch('id');
 	    }
 	    else{
 		$valuesObservation['equipment_id'] = $values['equipmentid'];
@@ -265,6 +269,8 @@ class ObservationPresenter extends BasePresenter
 		$valuesLocation= $values['location'];
 		$valuesLocation['user_id']= $this->user->id;
 		$this->database->table('location')->insert($valuesLocation);
+		$name= $valuesLocation['name'];
+		$valuesObservation['location_id']= $this->database->table('location')->where('name', $name)->fetch('id');
 	    }
 	    else{
 		$valuesObservation['location_id'] = $values['locationid'];
@@ -272,6 +278,8 @@ class ObservationPresenter extends BasePresenter
 	    if($values['equipmentid']==='new'){ // v případě zadání nového zařízení
 		$valuesEquipment= $values['equipment'];
 		$this->database->table('equipment')->insert($valuesEquipment);
+		$nameE= $valuesEquipment['name'];
+		$valuesObservation['equipment_id']= $this->database->table('equipment')->where('name', $nameE)->fetch('id');
 	    }
 	    else{
 		$valuesObservation['equipment_id'] = $values['equipmentid'];
