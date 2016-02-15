@@ -48,11 +48,15 @@ class ObservationPresenter extends BasePresenter
         $this->template->observation = $observation;
         $this->template->comments = $observation->related('comment')->order('created_at');
         $this->template->sqm = $observation->related('sqm')->order('height DESC')->order('azimute ASC');
-        $this->template->phosel = $phosel;     
+        $this->template->phosel = $phosel;  
+        
 
 	if($phosel->count()>0){
 	    foreach ($phosel as $photos) {    
-		$imgl[] = Image::fromFile('http://skyquality.cz/www/images/photos/'.$photos->photo)->resize(600, NULL);	
+		$imgl[] = array(
+                    'fotky' => Image::fromFile('http://skyquality.cz/www/images/photos/' . $photos->photo)->resize(600, NULL),
+                    'popisky' => ($photos->info)
+                    );	
 	    }
 	    $this->template->imgl = $imgl;
 	}
@@ -144,10 +148,12 @@ class ObservationPresenter extends BasePresenter
         }
 	
 	$form = (new \ObservationFormFactory($this->database))->create(); //vytvoří formulář za složky app/forms
-	$form->onSuccess[] = array($this, 'observationFormSucceeded'); // přidá událost po odeslání
+	
+        $form->onSuccess[] = array($this, 'observationFormSucceeded'); // přidá událost po odeslání
 	return $form;
         
     }
+    
     
     /**
     * @author Anna Moudrá <anna.moudra@gmail.com>
@@ -161,7 +167,9 @@ class ObservationPresenter extends BasePresenter
         if (!$this->user->isLoggedIn()) {
             $this->error('Pro vytvoření, nebo editování příspěvku se musíte přihlásit.');
         }
-	
+	//$this['ObservationForm']['date']->setDefaults(date('%d.%m.%Y %H:%m'));
+        //$this['ObservationForm']['observert']->setDefaultValue($this->user->name);
+        
 	$observationId = $this->getParameter('observationId');
 	$values = $form->getValues();
 	$valuesObservation = $values['observation'];	//data pristupna pod $valuesObservation['%']
@@ -180,11 +188,15 @@ class ObservationPresenter extends BasePresenter
 		$valuesLocation= $values['location']; // přebírá data z containeru
 		$valuesLocation['user_id']= $this->user->id;
 		$this->database->table('location')->insert($valuesLocation);
+		$name= $valuesLocation['name'];
+		$valuesObservation['location_id']= $this->database->table('location')->where('name', $name)->fetch('id');
 	    }
 	    else{$valuesObservation['location_id'] = $values['locationid'];}
 	    if($values['equipmentid']===1){ // případ zadávání zcela nového zařízení
 		$valuesEquipment= $values['equipment'];
 		$this->database->table('equipment')->insert($valuesEquipment);
+		$nameE= $valuesEquipment['name'];
+		$valuesObservation['equipment_id']= $this->database->table('equipment')->where('name', $nameE)->fetch('id');
 	    }
 	    else{
 		$valuesObservation['equipment_id'] = $values['equipmentid'];
@@ -257,6 +269,8 @@ class ObservationPresenter extends BasePresenter
 		$valuesLocation= $values['location'];
 		$valuesLocation['user_id']= $this->user->id;
 		$this->database->table('location')->insert($valuesLocation);
+		$name= $valuesLocation['name'];
+		$valuesObservation['location_id']= $this->database->table('location')->where('name', $name)->fetch('id');
 	    }
 	    else{
 		$valuesObservation['location_id'] = $values['locationid'];
@@ -264,6 +278,8 @@ class ObservationPresenter extends BasePresenter
 	    if($values['equipmentid']===1){ // v případě zadání nového zařízení
 		$valuesEquipment= $values['equipment'];
 		$this->database->table('equipment')->insert($valuesEquipment);
+		$nameE= $valuesEquipment['name'];
+		$valuesObservation['equipment_id']= $this->database->table('equipment')->where('name', $nameE)->fetch('id');
 	    }
 	    else{
 		$valuesObservation['equipment_id'] = $values['equipmentid'];
