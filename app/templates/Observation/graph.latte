@@ -20,7 +20,7 @@ $(function () {
             zoomType: 'xy'
         },
         title: {
-            text: 'Měření na této lokalitě'
+            text: ''
         },
         subtitle: {
             text: ''
@@ -28,37 +28,44 @@ $(function () {
         xAxis: {
             type: 'datetime',
             dateTimeLabelFormats: { // don't display the dummy year
-                month: '%e. %b',
-                year: '%b'
+                month: '%m/%Y',
+                day: '%d/%m/%Y'
             },
             title: {
-                text: 'Datum'
+                text: ''
             }
         },
         yAxis: {
               
             title: {
-                text: '[MSA]'
+                text: '[MSA]',
+                margin: 0,
+                offset: 55
             }
         },
         legend: {
-            layout: 'vertical',
-            align: 'left',
-            verticalAlign: 'top',
-            x: 100,
-            y: 70,
-            floating: true,
+            layout: 'horizontal',
+            align: 'center',
+            verticalAlign: 'bottom',
+            floating: false,
             backgroundColor: (Highcharts.theme && Highcharts.theme.legendBackgroundColor) || '#FFFFFF',
-            borderWidth: 1
+            borderWidth: 0
         },
+        tooltip: {
+                formatter: function() {
+                    return  '<b class="tooltipHeader">Typ: ' + this.series.name + '</b><br/>Datum: ' +
+                            Highcharts.dateFormat('<span class="tooltipDate">%d.%m.%Y',
+                                    new Date(this.x))
+                            + '</span><br />Hodnota: <span class="tooltipMSA">' + this.y + ' MSA</span></div>';
+                }},
         plotOptions: {
             scatter: {
                 marker: {
                     radius: 5,
+                    symbol: 'diamond',
                     states: {
                         hover: {
-                            enabled: true,
-                            lineColor: 'rgb(100,100,100)'
+                            enabled: true
                         }
                     }
                 },
@@ -68,31 +75,27 @@ $(function () {
                             enabled: false
                         }
                     }
-                },
-                tooltip: {
-                    headerFormat: '<b>{ series.name}</b><br>',
-                    pointFormat: '{ Datum point.x}, { point.y} MSA'
                 }
             }
         },
         series: [{
             name: 'SQM',
-            color: 'rgba(223, 83, 83, .5)',
+            color: '#6cb300',
             data: pole2
 
         },
 	{
             name: 'SQM-L',
-            color: 'rgba(119, 152, 191, .5)',
+            color: '#ffad33',
             data: pole3
 
         },
     {
             name: 'Aktuální pozorování',
-            color: 'rgba(68, 181, 62, .7)',
+            color: '#007FFF',
             data: pole4
 
-        },]
+        }]
     });
 });
 </script>

@@ -1,31 +1,56 @@
 
 
 /* Základní layout pro celý web */
+@font-face {
+font-family: 'Myriad Pro Bold';
+font-style: normal;
+font-weight: normal;
+src: local('Myriad Pro Bold'), url('../fonts/MYRIADPRO-SEMIBOLD.woff') format('woff');
+}
+
+@font-face {
+font-family: 'Open Sans';
+font-style: normal;
+font-weight: normal;
+src: local('Open Sans'), url('../fonts/OpenSans-Regular.woff') format('woff');
+} 
+
+@font-face {
+font-family: 'Myriad Pro Regular';
+font-style: normal;
+font-weight: normal;
+src: local('Myriad Pro Regular'), url('../fonts/MYRIADPRO-REGULAR.woff') format('woff');
+}
+
 body {
-	font: 14px/1.5 Arial;
-	margin: 2% auto 2% auto;
-  padding: 1% 2.5%;
-	width: 75%;
-  max-width: 1200px;
-	color: #333;
-	background-color: #fff;
-  border-radius: 2px;
+    font: 1.4em/1.5 "Open Sans";
+    margin: 2% auto 2% auto;
+    padding: 1% 2.5%;
+    width: 75%;
+    max-width: 1200px;
+    color: #333;
+    background-color: #fff;
+    border-radius: 2px;
 }
 
 html {
-  background-image: url(http://www.skyquality.cz/www/images/Earthlights_dmsp_web.jpg);  
-  background-repeat: no-repeat;
-  background-attachment: fixed;
-  background-color: #000F2E;
+    background-image: url(../images/Earthlights_dmsp_web5.jpg);  
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+    background-color: #FFF;
 }
 
 #ajax-spinner {
-	margin: 15px 0 0 15px;
-	padding: 13px;
-	background: white url('../images/spinner.gif') no-repeat 50% 50%;
-	font-size: 0;
-	z-index: 123456;
-	display: none;
+    margin: 15px 0 0 15px;
+    padding: 13px;
+    background: white url('../images/spinner.gif') no-repeat 50% 50%;
+    font-size: 0;
+    z-index: 123456;
+    display: none;
+}
+
+a {
+    color: #003380;
 }
 
 a:link, a:visited {
@@ -33,54 +58,64 @@ a:link, a:visited {
 }
 
 div.flash {
-	color: black;
-	background: #FFF9D7;
-	border: 1px solid #E2C822;
-	padding: 1em;
-	margin: 1em 0;
+    color: black;
+    background: #FFF9D7;
+    border: 1px solid #E2C822;
+    padding: 1em;
+    margin: 1em 0;
 }
 
 a[href^="error:"] {
-	background: red;
-	color: white;
+    background: red;
+    color: white;
 }
 
 html.js .jshidden {
-	display: none;
+    display: none;
 }
 
 h1, h2 {
-	color: #3484D2;
-	font-size: 1.9em;
-	text-align: center;
-	font-weight: normal;
+    color: #3484D2;
+    font-size: 1.9em;
+    text-align: center;
+    font-weight: normal;
 }
 
 h1 {
-	color: #100605;
-        font-family: Tahoma;
-        font-weight: bold;
+    color: #100605;
+    font-family: "Myriad Pro Bold";
+    font-weight: bold;
 }
 
 h2 {
-	font-size: 1.4em;
+    font-size: 1.4em;
 }
 
 h3, h4 {
-    font: "Trebuchet MS"
+    font-family: "Myriad Pro Regular"
+}
+
+.h3 {
+    margin-bottom: 0.9em;
+    margin-top: 1.7em;
 }
 
 h3 {
-    font-size: 1.6em;
-    margin-top: 1.3em;
-    margin-bottom: .5em;
-    
+    font-size: 1.3em;
+    margin-top: 2.2em;
+    margin-bottom: .7em;
+
 }
 
 h4 {
-    font-size: 1.2em;
+    font-size: 1.1em;
     margin-top: 1.2em;
-    
+
+}
+
+.container {
+    margin: 0;
+    width: 100%;
 }
 
 .date {
@@ -88,17 +123,21 @@ h4 {
 }
 
 .ruzova {
-    color: #850051;
-    font-weight: bolder;
+    font-weight: 600;
+}
+
+.zvyrazneni {
+    font-size: 1.2em;
+    font-weight: 600;
 }
 
 
 .cistic {
-   clear: both;
-   height: 1px;
-   border: none;
-   margin: -1em 0 0 0;
-   visibility: hidden;
+    clear: both;
+    height: 1px;
+    border: none;
+    margin: -1em 0 0 0;
+    visibility: hidden;
 }
 
 .pblok {
@@ -109,7 +148,7 @@ h4 {
     vertical-align: middle;
 }
 
-  
+
 /* Navigace/Menu Layout */
 
 .logo {
@@ -128,7 +167,8 @@ h4 {
     color: #aaa;
     margin-left: -0.5em;
     vertical-align: bottom;
-    
+    margin-bottom: 0.2em;
+
 }
 
 .menu {
@@ -141,7 +181,7 @@ h4 {
     margin-bottom: 1.4em;
     font-size: .9em;
     padding: 0;
-    font: bold "Trebuchet MS"
+    font-family: "Myriad Pro Regular"
 }
 
 .hpagelogin ul {
@@ -159,7 +199,8 @@ h4 {
     margin: .3em 0;
     padding: 0;
     text-align: center;
-    font: bold "Trebuchet MS";
+    font-weight: bold;
+    font-family: "Myriad Pro Bold";
 }
 
 .navig li {
@@ -169,7 +210,8 @@ h4 {
 }
 
 .navig li a {
-    font: 1.4em "Trebuchet MS";
+    font-family: "Myriad Pro Bold";
+    font-size: 1.4em;
     font-weight: 900;
     color: #444;
 }
@@ -184,43 +226,62 @@ h4 {
 
 
 /* Layout pro formuláře */
+
+.help {
+    vertical-align: middle;
+    margin-left: .1em;
+    margin-bottom: .2em;
+}
+
+
 .form {
     text-align: center;
 }
 
+
 form th, form td {
-	vertical-align: top;
-	font-weight: normal;
+    vertical-align: top;
+    font-weight: normal;
 }
 
 form th {
-	text-align: right;
-        padding: .5em .1em .25em .1em; 
+    text-align: right;
+    padding: .5em .5em .25em .1em; 
+}
+
+form tr {
+    padding-left: .5em;
 }
 
 label {
-	font-weight: normal;
-        vertical-align: middle;
-        margin:0;
+    font-weight: normal;
+    vertical-align: middle;
+    margin:0;
+}
+
+legend {
+    font-size: 1.2em;
+    margin-bottom: 0em;
+    border: none;
 }
 
 .required label {
-	font-weight: bold;
+    font-weight: bold;
 }
 
 form .error {
-	color: #D00;
-	font-weight: bold;
+    color: #D00;
+    font-weight: bold;
 }
 
 .button {
-  border: solid 1px #888;
-  border-radius: 2px;
-  background-image: none;
-  background-color: #fff;
-  padding: .4em 1em .3em 1em;
-  margin-top: .2em;
-  
+    border: solid 1px #888;
+    border-radius: 2px;
+    background-image: none;
+    background-color: #fff;
+    padding: .4em 1em .3em 1em;
+    margin-top: .2em;
+
 }
 
 input#frm-observationForm-send.button {
@@ -229,28 +290,28 @@ input#frm-observationForm-send.button {
     color:#fff;
     font-weight: 600;
     padding: .6em 1em .3em 1em
-    
+
 }
 
 fieldset {
-   padding: 2em;
-   margin: 1em 0;
-   border-top: solid 1px #ddd;
-   
+    padding: 1em 2em;
+    margin: 1em 0;
+    border-top: none;
+
 }
 
 .sqmvalues td input {
     width: 4em;
     font-size: .95em;
     padding: .3em;
-        
+
 }
 
 
 form table {
     border-collapse: collapse;
     border-spacing: 0;
-    
+
 }
 form table td {
     padding: .4em .8em;
@@ -263,16 +324,47 @@ form table input[type=checkbox],input[type=radio] {
 form table input[type=text] {
     margin-right: .4em;
 }
+form table input[type=password] {
+    margin-right: .4em;
+}
 
 form table .required td textarea {
-  background-color: #FFEBEB;
- 
+    background-color: #FFFFFF;
 }
 
 form table .required td input {
-  background-color: #FFEBEB;
- 
+    background-color: #FFFFFF;
+    border-top: 1px solid #E0E0E0;
+    border-left: 3px solid #E00000; 
+    border-bottom: 1px solid #E0E0E0; 
+    border-right: 1px solid #E0E0E0;
+    padding-left: 5px;
 }
+
+input#signincheck {
+    margin-left: 1.6em;
+}
+
+#signinsubmit {
+    margin-left: 2.75em;
+}
+
+#registersubmit {
+    margin-left: 1.8em;
+}
+
+/* Formulář pozorování */
+
+#bortle {
+    display: inline;
+}
+
+#bortlespec {
+    display: inline;
+}
+
+
+
 
 
 /* Homepage Layout */
@@ -282,7 +374,7 @@ form table .required td input {
 .sidebar {
     float: right;
     width: 25%;
-    margin: 2% 0 1% 1%;
+    margin: 1.3% 0 1% 1%;
     padding-left: 3%;
 }
 
@@ -292,8 +384,8 @@ form table .required td input {
     color: #fff;
     font-weight: bold;
     padding: 1em;
-    background-color: #245580;
-    border: solid 1px #245580;
+    background-color: #003380;
+    border: solid 1px #003380;
     border-radius: 2px;
     box-shadow: #333 4px 6px 20px; 
     margin-bottom: 2.5em;
@@ -301,19 +393,20 @@ form table .required td input {
 
 
 .sidebarstats {
-    border: solid 1px #FEFEFE;
-    border-radius: 2px;
-    padding: .7em 1em 1em 1em;
+}
+
+.sidebarstatsContent, .sidebarmap {
+    // border: solid 1px #003380;
+    // border-radius: 3px;
+    // padding: 1em 1em 1em 1em;
     font-size: .95em;
-    background-color: #F8F9FB;
+    margin-bottom: 2em;
 }
 
-.sidebarstats h4 {
-    margin:0 0 .9em 0;
+.sidebar h4 {
+    margin:.5em 0 1em 0;
 }
 
-.sidebarmap {
-}
 
 .sidebardonate {
     background-color: #555;
@@ -330,6 +423,7 @@ form table .required td input {
 .tpage {
     float: left;
     width: 71%; 
+    margin-top: 0.7em;
 }
 
 
@@ -337,19 +431,26 @@ form table .required td input {
     margin-top: .4em; 
 }
 
-.tpage h3:first-of-type  {
-    margin-top: .7em;
-}
+// .tpage h3:first-of-type  {
+//    margin-top: .7em;
+// }
 
 .news {
     height: 100px;
     background-color: #eff;
 }
 
+.newMeash3 {
+    margin-top: 1.3em;
+}
 
 .hptable {
     width: 100%;
-    border: solid 1px #eee;
+    border-bottom: 1px solid #ddd;
+    border-top: 1px solid #ddd;
+    border-collapse: collapse;
+    border-left: 1px solid #fff;
+    border-right: 1px solid #fff;
     border-spacing: 2px;
 }
 
@@ -358,20 +459,39 @@ form table .required td input {
 }
 
 .hptablehead th {
-     background-color: #FAFAFA;
-     padding: .7em 1.2em .4em 1.2em;
-     vertical-align: middle;
+    background-color: #FAFAFA;
+    padding: .7em 1.2em .4em 1.2em;
+    vertical-align: middle;
 }
 
 
 .hptablebody tr:hover{
-    background-color: #787878;
+    background-color: #666;
     cursor: pointer;
     color: #fff;
 }
 
 .hptablebody td {
     padding: .6em 1.2em;
+}
+
+.tabLegend {
+    color: #999;
+    font-size: 0.85em;
+    margin-top: 0.3em;
+}
+
+.tabLegend .flag {
+    vertical-align: 50%;
+}
+
+.spanLegend {
+    margin-left: 0.4em;
+    margin-right: 1.3em;
+}
+
+.tabspan {
+    display: inline-block;
 }
 
 .clickable {
@@ -386,24 +506,31 @@ form table .required td input {
 }
 
 .tpageb {
-    background-color: #ddd;
-    height: 140px;
     margin: 1.5em 0;
+    width: 100%;
+    float: left;
 } 
 
+.tpagebdiv {
+    width: 30%;
+    border: 1px solid #666;
+    margin: 1em 1em 1em 1em;
+    float: left;
+}
+
 .footer {
-	width: 100%;
-  clear: both;
-	border-top: 1px solid #CCC;
-	margin-top: 1em;
-	padding: .65em 0;
-	text-align: center;
-  font-size: .8em;
+    width: 100%;
+    clear: both;
+    border-top: 1px solid #CCC;
+    margin-top: 1em;
+    padding: .65em 0;
+    text-align: center;
+    font-size: .8em;
 }
 
 .footer p {
-  margin: .8em 0 0 0;
-  padding: 0;
+    margin: .8em 0 0 0;
+    padding: 0;
 }
 
 /* Database */
@@ -420,9 +547,9 @@ form table .required td input {
 }
 
 .dtablehead th {
-     background-color: #FAFAFA;
-     padding: .7em 1.2em .4em 1.2em;
-     vertical-align: middle;
+    background-color: #FAFAFA;
+    padding: .7em 1.2em .4em 1.2em;
+    vertical-align: middle;
 }
 
 
@@ -442,64 +569,122 @@ form table .required td input {
     margin-bottom: 2%;
 }
 
+/* Komentáře */
 
+.commentContent {
+
+}
+
+.comment {
+    padding-bottom: 1.5em;
+    padding-top: 1.5em;
+        
+    border-top: 1px solid #eee;
+}
+
+.comments {
+    font-size: .9em;
+}
+
+.commentForm {
+    margin-bottom: 4em;
+    margin-top: 1em;
+}
+
+.commenter {
+    font-weight: 600;
+    padding-right: 1em;
+}
+
+.commentDate {
+    font-weight: lighter;
+    padding-left: 1em;
+    padding-right: 1em;
+}
+
+.commentObs {
+    font-style: italic;
+  
+    padding-left: 1em;
+}
 
 
 
 /* Ruzne */
 
+.highcharts-tooltip {
+    text-align: center;
+}
+
+.tooltipHeader, .tooltipDate, .tooltipMSA {
+    font-weight: bold;
+}
 
 .post {
-	background: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAPEAAAAUCAMAAABrnCsKAAAAGXRFWHRTb2Z0d2FyZQBBZG9iZSBJbWFnZVJlYWR5ccllPAAAAQ5QTFRFr66tsK+usLCusbCvtLOytbSzubi2ubm3urm3urq4vLu6vb27v769wL+9wL++w8LAxMPBxcTCxcXDxsbEx8bEx8fFyMfFyMjGysnIzMvLzMzLzMzMzc3Lzs7Mz87Mz8/N0M/N0tHQ09PS1NPR1NTS1NTT1dTS1dXT1tXU1tbU19bU19bV19fV2NfV2NfW2djW2dnW2dnX2dnY2tnX2trX29rY29vY29vZ3NzZ3dza3t3b3t7c39/d4N/d4ODd4ODf4eDe4eHh4uLg4+Lg4+Lh4+Pg4+Ph5OPh5OTi5eXj5eXk5ubj5+bm6Ofl6enm6unn6+ro8vHx9fT09fX19vX19/f3+Pj3+vr6/f39////uLBi1QAAAM5JREFUWMNjiBxpgGHUx6M+HvXxqI/JAGKRIi6RgiPHx5qRIgpmGoKikSFhI8THwkIy/v5O3iq8PCMjjsO9IgUCnK1t3Fy5R0qqFuA38LS0MDd3V+NkjxgoH0vTFKDbKOhvY2FuYmBlI4sqLk0XQP84VuTR8rMyMzbQtXBSYA0fGSWXkbmdob6uvpO8o33wiPCxD4eyr62psYM6B/MIKbmUIvX49N08dNhCJaVGSpuLJYiLU06VQWLEtLkCwyMZI5m0I8VHexKjPh71MZUAAOANSHaOv55SAAAAAElFTkSuQmCC) no-repeat center bottom;
-	padding-bottom:2em;
-	margin-bottom:2em;
-        margin-top:15px;
+    background: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAPEAAAAUCAMAAABrnCsKAAAAGXRFWHRTb2Z0d2FyZQBBZG9iZSBJbWFnZVJlYWR5ccllPAAAAQ5QTFRFr66tsK+usLCusbCvtLOytbSzubi2ubm3urm3urq4vLu6vb27v769wL+9wL++w8LAxMPBxcTCxcXDxsbEx8bEx8fFyMfFyMjGysnIzMvLzMzLzMzMzc3Lzs7Mz87Mz8/N0M/N0tHQ09PS1NPR1NTS1NTT1dTS1dXT1tXU1tbU19bU19bV19fV2NfV2NfW2djW2dnW2dnX2dnY2tnX2trX29rY29vY29vZ3NzZ3dza3t3b3t7c39/d4N/d4ODd4ODf4eDe4eHh4uLg4+Lg4+Lh4+Pg4+Ph5OPh5OTi5eXj5eXk5ubj5+bm6Ofl6enm6unn6+ro8vHx9fT09fX19vX19/f3+Pj3+vr6/f39////uLBi1QAAAM5JREFUWMNjiBxpgGHUx6M+HvXxqI/JAGKRIi6RgiPHx5qRIgpmGoKikSFhI8THwkIy/v5O3iq8PCMjjsO9IgUCnK1t3Fy5R0qqFuA38LS0MDd3V+NkjxgoH0vTFKDbKOhvY2FuYmBlI4sqLk0XQP84VuTR8rMyMzbQtXBSYA0fGSWXkbmdob6uvpO8o33wiPCxD4eyr62psYM6B/MIKbmUIvX49N08dNhCJaVGSpuLJYiLU06VQWLEtLkCwyMZI5m0I8VHexKjPh71MZUAAOANSHaOv55SAAAAAElFTkSuQmCC) no-repeat center bottom;
+    padding-bottom:2em;
+    margin-bottom:2em;
+    margin-top:15px;
 }
 
-.comment {
-	padding-bottom: 2em;
+.grafMereniLoc {
+    
+    
 }
 
-.comments {
-	font-size: .9em;
+.locationName {
+    margin-bottom: 1em; 
+    font-size: 1.8em;
+    font-weight: 700;
 }
 
 .page {
-  width: 100%;
-  margin: 2em 0;
+    width: 100%;
+    margin: 2em 0;
 }
 
 
 .containerbootstrap {
 
-  display: table;
-  margin-top: 1em;
-  border:solid 1px #eee; 
+    display: table;
+    margin-top: 1em;
+    border:solid 1px #eee; 
 
 }
 
 
 .col {
     display: table-cell; 
+    margin: 0;
     border:solid 1px #eee;
-  }
-  
+    vertical-align: middle;
+
+}
+
+.col:before, .col:after, .row:before, .row:after {
+    box-sizing: content-box;
+}
+
+
+
 .row {
     display:table-row;
-    
-  }
-  
+    margin: 0;
+}
+
+
 .otable {
-  padding: .6em .8em;
-  text-align: center;
-  font-weight: bold;
-  vertical-align: text-top;
-  
+    padding: .6em .8em;
+    text-align: center;
+    font-weight: bold;
+    vertical-align: text-top;
+
 }
 
 .atable {
-  padding: .6em .8em ;
-  text-align: left;
+    padding: .6em .8em ;
+    text-align: left;
+    margin: 0;
 } 
 
 .observationform {
@@ -513,17 +698,17 @@ form table .required td input {
 
 
 .navbutton {
-    
-  border: solid 1px #272767;
-  border-radius: 5px;
-  background-image: none;
-  margin-top: .5em;
-  background-color: #272767;
-  color:#fff;
-  font-weight: 600;
-  padding: .6em 1em .5em 1em;
-  box-shadow: #999 1px 2px 5px;
-    
+
+    border: solid 1px #003380;
+    border-radius: 5px;
+    background-image: none;
+    margin-top: .5em;
+    background-color: #003380;
+    color:#fff;
+    font-weight: 600;
+    padding: .6em 1em .5em 1em;
+    box-shadow: #999 1px 2px 5px;
+
 }
 
 .navbutton:hover {
@@ -532,6 +717,21 @@ form table .required td input {
 
 .navbutton:active {
     color: #fff;
+}
+
+
+/* DataGrid */
+.btn-primary {
+    background-color: #003380;
+}
+
+.grid-header {
+    font-weight: normal;
+}
+
+.pagination>.active>a {
+    background-color: #003380;
+    border-color: #003380;
 }
 
 .obsheadl {
@@ -554,18 +754,42 @@ form table .required td input {
 }
 
 .mydata {
-    margin-top: 1.3em;
+    margin-top: 3em;
     margin-bottom: 1em;
 }
 
-.phototable {
-    padding: .4em;
-    text-align: center;
-    
+.graf {
+    margin-top: 3em;
+    margin-bottom: 1em;
 }
 
-.photos .col {
+/* Fotografie */
+
+.photodiv {
+    
+    overflow: hidden;
+    height: 10em;
+    width: 10em;
+} 
+
+.photodiv img {
+    object-fit: cover;
+    object-position: 50% 50%;
+    height: 10em;
+    width: 10em;
+}
+
+.rowphotos { 
+    display: table-row;
+}
+
+.colphotos {
     border:none;
+    display: inline-block;
+    float:left;
+    width: 10em;
+    margin-right: 0.2em;
+    margin-bottom: 0.2em;
 }
 
 .photos {
@@ -574,18 +798,84 @@ form table .required td input {
     text-align: center;
 }
 
-.graf {
-    margin-top: 3em;
-    margin-bottom: 1em;
+
+
+.fancybox-title-float-wrap .child {
+    display: block;
+    white-space: normal;
+    margin-top: 2em;
 }
 
 
-.phototable img {
-    width: 200px;
-    
-    display:block !important;
+.fancybox-title-float-wrap {
+    bottom: -4em;
 }
 
-.fancybox a {
-    display:block !important;
+/* Flagy  */
+
+.flag {
+    display: inline-block;
+    height: 10px;
+    width: 7px;
+    font-size: 0;
+    vertical-align: middle;
+    background: #ccc;
+    cursor: help;
+    padding: 0;
+    margin: 0;
 }
+
+.flag:before {
+    box-sizing: content-box;
+}
+
+.flag:after {
+    box-sizing: content-box;
+}
+
+.flag-sqmw {
+    background: #6cb300;
+}
+
+.flag-sqml {
+    background: #ffad33;
+}
+
+
+.flag-bortle {
+    background: #ff6699;
+}
+
+.flag-info {
+    background: #660066;
+}
+
+.flag-weather {
+    background: #9999ff;
+}
+
+.flag-photo {
+    background: #6600ff;
+}
+
+
+/* Map */
+
+.mapLegend {
+    color: #ACACAC;
+    margin-top: 1.5em;
+    text-align: center;
+}
+
+.mapLegend span {
+    vertical-align: middle;
+    display: inline-block;
+}
+
+.mapLegend img {
+    margin-left: 1.2em;
+    margin-right: 0.4em;
+    vertical-align: -5%;
+}
+
+

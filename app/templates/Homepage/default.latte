@@ -1,42 +1,52 @@
 {block content}
 
 <div class="tpage">
-    <p class="pblok">SkyQuality.com je projekt zaměřený na objektivní posuzování kvality noční oblohy v nejrůznějších lokalitách (s důrazem na ty, které představují vhodná stanoviště pro amatérské astronomy). Pro maximální objektivitu je základní používanou metrikou jas oblohy v magnitudách na čtvereční úhlovou vteřinu, doplňkovou pak Bortle ohodnocení a MHV.</p>
-    
+    <p class="pblok">SkyQuality.com je projekt zaměřený na objektivní posuzování kvality noční oblohy v&nbsp;nejrůznějších lokalitách (s&nbsp;důrazem na ty, které představují vhodná stanoviště pro amatérské astronomy). Pro maximální objektivitu je základní používanou metrikou jas oblohy v&nbsp;magnitudách na čtvereční úhlovou vteřinu, doplňkovou pak Bortle ohodnocení a&nbsp;MHV.</p>
     {*<div class="news" align="center">
       <p style="padding-top:15px;">Novinky</p>
     </div>*}
-    
-    <h3>Nejnovější měření</h3>
+    <div>
+        <h3 class="newMeash3">Nejnovější měření</h3>
         <table class="hptable" cellspacing="0" rules="all">
-          <thead class="hptablehead" align="left">
-            <tr>
-              <th width="25%">Datum (UTC)</th>
-              <th width="30%">Lokalita</th>              
-              <th width="15%" align="center">SQM<sup style="font-size: .7em">1</sup></th>
-              <th width="20%">Pozorovatel</th>
-              <th width="10%">Flagy</th>
-            </tr>
-          </thead>
-          <tbody class="hptablebody">
+            <thead class="hptablehead" align="left">
+                <tr>
+                    <th width="24%">Datum (UTC)</th>
+                    <th width="30%">Lokalita</th>              
+                    <th width="15%" style="text-align: center;">SQM<sup style="font-size: .7em">1</sup></th>
+                    <th width="20%">Pozorovatel</th>
+                    <th width="11%"></th>
+                </tr>
+            </thead>
+            <tbody class="hptablebody">
             <div n:foreach="$observation as $observation">
-                <tr class="clickable" onclick="window.location.href={link Observation:show $observation->id}">
-                  <td>{$observation->date|date:'d.m.y - H:i'}</td>
-                  <td>{$observation->location['name']}</td>
-                  <td align="center">{$observation->sqmavg|number:2}</td>                   
-    	            <td>{$observation->observer}</td>  
-                  <td>flagy</td>
+                <tr class="clickable" onclick="window.location.href ={link Observation:show $observation->id}">
+                    <td>{$observation->date|date:'d.m.y — H:i'}</td>
+                    <td>{$observation->location['name']}</td>
+                    <td align="center">{$observation->sqmavg|number:2}</td>                   
+                    <td>{$observation->observer}</td>  
+                    <td>
+                        {if $observation->equipment->type == 'SQM'}<span class="flag flag-sqmw" title="Obsahuje SQM-W měření"></span>{else}<span class="flag flag-sqml" title="Obsahuje SQM-L měření"></span>{/if}{if $observation->weather}<span class="flag flag-weather" title="Obsahuje popis počasí"></span>{/if}{if $observation->info}<span class="flag flag-info" title="Obsahuje podrobnější popis"></span>{/if}{if $observation->bortle}<span class="flag flag-bortle" title="Obsahuje Bortle odhad"></span>{/if}{if $observation->related('photos.observation_id')->count('*')>0}<span class="flag flag-photo" title="Obsahuje fotografie"></span>{/if} 
+                    </td>
                 </tr>
             </div>
-          </tbody>
+            </tbody>
         </table>
-        <p class="smallnote"><sup>1</sup>hodnota v mag/arcsec²</p> 
-        
-      
+    </div>
+    <p class="smallnote"><sup>1</sup>hodnota v mag/arcsec²</p>
+    <div class="tabLegend">
+        <div>Pozorování obsahuje</div>
+        <span class="tabspan"><span class="flag flag-sqmw" title="Obsahuje SQM-W měření"></span><span class="spanLegend">SQM-W měření</span></span>
+        <span class="tabspan"><span class="flag flag-sqml" title="Obsahuje SQM-L měření"></span><span class="spanLegend">SQM-L měření</span></span>
+        <span class="tabspan"><span class="flag flag-weather" title="Obsahuje popis počasí"></span><span class="spanLegend">popis počasí</span></span>
+        <span class="tabspan"><span class="flag flag-bortle" title="Obsahuje Bortle odhad"></span><span class="spanLegend">Bortle odhad</span></span>
+        <span class="tabspan"><span class="flag flag-info" title="Obsahuje podrobnější popis"></span><span class="spanLegend">podrobný popis</span></span>
+        <span class="tabspan"><span class="flag flag-photo" title="Obsahuje fotografie"></span><span class="spanLegend">fotografie</span></span>
+    </div>
 </div>
 {include sidebar}
-        
+
 <div class="tpageb" align="center">
-<p style="padding-top: 50px;">Tady můžou být různé odkazy na spřátelené weby, vysvětlení co je to SZ nebo tak ... </p>
+    <div class="tpagebdiv">Co je svetelne znecisteni</div>
+    <div class="tpagebdiv">Jak spravne svitit</div>
+    <div class="tpagebdiv">Koupit SQMko</div>
 </div> 
-  

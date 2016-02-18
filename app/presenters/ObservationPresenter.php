@@ -201,6 +201,7 @@ class ObservationPresenter extends BasePresenter
 	    else{
 		$valuesObservation['equipment_id'] = $values['equipmentid'];
 	    }
+            
 	    
 	    $observation->update($valuesObservation); //upraví data v tabulce observations
 	    

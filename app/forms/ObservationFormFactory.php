@@ -40,51 +40,38 @@ class ObservationFormFactory extends \Nette\Application\UI\Form {
 
     public function create() {
         $form = new Form;
-        $locations = $this->database->table('location')->fetchPairs('id', 'name');
-        // $locations = [];
-        $locations[1] = 'Zadat novou lokalitu';
-        // Arrays::insertAfter($locations, 1, $locationsarr);
+        // Příprava hodnot pro jednotlivá políčka
+        // lokality
+        $locationsarr = $this->database->table('location')->fetchPairs('id', 'name');
+        $locations = [];
+        $locations['new'] = 'Zadat novou lokalitu';
+        Arrays::insertAfter($locations, 'new', $locationsarr);
+        // Zařízení
+        $equipmentarr = $this->database->table('equipment')->fetchPairs('id', 'name');
+        $equipment = [];
+        $equipment['new'] = 'Zadat nové zařízení';
+        Arrays::insertAfter($equipment, 'new', $equipmentarr);
+        // Zeměpisná poloha
         $latitude = array('N' => 'severní šířky', 'S' => 'jižní šířky');
         $longitude = array('E' => 'východní délky', 'W' => 'západní délky');
-        $equipment = $this->database->table('equipment')->fetchPairs('id', 'name');
-        // $equipment = [];
-        $equipment[1] = 'Zadat nové zařízení';
-        // Arrays::insertAfter($equipment, 1, $equipmentarr);
 
+
+        // Vlastni policka formulare
+        // Zakladni info
         $form->addGroup('Základní informace');
         $observationContainer = $form->addContainer('observation');
-        $observationContainer->addDateTimePicker('date', 'Čas a datum měření:')
+        $observationContainer->addDateTimePicker('date', 'Čas a datum měření (UTC)')
                 ->setRequired();
+
         $observationContainer->addText('observer', 'Pozorovatel')
-                //->setDefaultValue($this->user->name)
                 ->setRequired();
-        $observationContainer->addText('disturbance', 'Rušení:');
-        $observationContainer->addText('nelm', 'MHV:');
-        $observationContainer->addText('bortle', 'Bortle:');
-        $observationContainer->addText('bortlespec', '');
-        $observationContainer->addTextArea('weather', 'Počasí:');
-        $observationContainer->addTextArea('info', 'Poznámky:');
 
-        $photosContainer = $form->addContainer('photos');
-        $photo1C = $photosContainer->addContainer('photo1');
-        $photo2C = $photosContainer->addContainer('photo2');
-        $photo3C = $photosContainer->addContainer('photo3');
-        $photo4C = $photosContainer->addContainer('photo4');
-
-        $photosContainer->addCheckbox('addphotos', 'Přidat fotografie')
-                ->addCondition(Form::EQUAL, TRUE)
-                ->toggle('photo1')
-                ->toggle('photo2')
-                ->toggle('photo3')
-                ->toggle('photo4');
-
-        $form->addGroup('Lokalita');
-        $locationContainer = $form->addContainer('location');
+        //Lokalita
         $form->addSelect('locationid', 'Lokalita:', $locations)
                 ->setPrompt('Zvolte lokalitu')
-                ->setOption(1, 'Zadat novou lokalitu')
+                ->setOption('new', 'Zadat novou lokalitu')
                 ->setRequired()
-                ->addCondition(Form::EQUAL, 1, 'Zadat novou lokalitu')
+                ->addCondition(Form::EQUAL, 'new', 'Zadat novou lokalitu')
                 ->toggle('location-name')
                 ->toggle('location-latituderaw')
                 ->toggle('location-latitudehemisfera')
@@ -94,36 +81,46 @@ class ObservationFormFactory extends \Nette\Application\UI\Form {
                 ->toggle('location-info')
                 ->toggle('location-accessiblestand');
 
-        $locationContainer->addText('name', 'Název lokality:')
+        // Nová lokalita
+        $observationContainer->addText('name', 'Název lokality:')
                 ->setOption('id', 'location-name')
-                ->addConditionOn($form['locationid'], Form::IS_IN, 1, 'Zadat novou lokalitu')
+                ->addConditionOn($form['locationid'], Form::IS_IN, 'new', 'Zadat novou lokalitu')
                 ->setRequired();
-        $locationContainer->addText('latituderaw', 'Zeměpisná šířka:')
+        $observationContainer->addText('latituderaw', 'Zeměpisná šířka:')
                 ->setOption('id', 'location-latituderaw')
-                ->addConditionOn($form['locationid'], Form::EQUAL, 1, 'Zadat novou lokalitu')
+                ->addConditionOn($form['locationid'], Form::EQUAL, 'new', 'Zadat novou lokalitu')
                 ->setRequired();
-        $locationContainer->addSelect('latitudehemisfera', '', $latitude)
+        $observationContainer->addSelect('latitudehemisfera', '', $latitude)
                 ->setPrompt('zadejte polokouli')
                 ->setOption('id', 'location-latitudehemisfera')
-                ->addConditionOn($form['locationid'], Form::EQUAL, 1, 'Zadat novou lokalitu')
+                ->addConditionOn($form['locationid'], Form::EQUAL, 'new', 'Zadat novou lokalitu')
                 ->setRequired();
-        $locationContainer->addText('longituderaw', 'Zeměpisná délka:')
+        $observationContainer->addText('longituderaw', 'Zeměpisná délka:')
                 ->setOption('id', 'location-longituderaw')
-                ->addConditionOn($form['locationid'], Form::EQUAL, 1, 'Zadat novou lokalitu')
+                ->addConditionOn($form['locationid'], Form::EQUAL, 'new', 'Zadat novou lokalitu')
                 ->setRequired();
-        $locationContainer->addSelect('longitudehemisfera', '', $longitude)
+        $observationContainer->addSelect('longitudehemisfera', '', $longitude)
                 ->setPrompt('zadejte polokouli')
                 ->setOption('id', 'location-longitudehemisfera')
-                ->addConditionOn($form['locationid'], Form::EQUAL, 1, 'Zadat novou lokalitu')
+                ->addConditionOn($form['locationid'], Form::EQUAL, 'new', 'Zadat novou lokalitu')
                 ->setRequired();
-        $locationContainer->addText('altitude', 'Nadmořská výška:')
+        $observationContainer->addText('altitude', 'Nadmořská výška:')
                 ->setOption('id', 'location-altitude')
-                ->addConditionOn($form['locationid'], Form::EQUAL, 1, 'Zadat novou lokalitu')
+                ->setOption('description', 'm. n. m.')
+                ->addConditionOn($form['locationid'], Form::EQUAL, 'new', 'Zadat novou lokalitu')
                 ->setRequired();
-        $locationContainer->addTextArea('info', 'Popis lokality:')
+        $observationContainer->addTextArea('info', 'Popis lokality:')
                 ->setOption('id', 'location-info');
-        $locationContainer->addCheckbox('accessiblestand', 'Lokalita je volně přístupná.')
-                ->setOption('id', 'location-accessiblestand');
+        $observationContainer->addCheckbox('accessiblestand', 'Lokalita je vhodným pozorovacím stanovištěm.')
+                ->setOption('id', 'location-accessiblestand')
+                ->setOption('description', Html::el('img')
+                        ->class('help')
+                        ->src('../www/images/help.svg')
+                        ->alt('Lokalita je dostupná, není na soukromém pozemku a podobně')
+                        ->title('Lokalita je dostupná, není na soukromém pozemku a podobně'));
+
+
+        //SQM měření
         $form->addGroup('Naměřené hodnoty');
         $multisqm = $form->addDynamic('sqm', function(Container $sqm) {
             $sqm->addText('value1', 'SQM:')
@@ -152,48 +149,160 @@ class ObservationFormFactory extends \Nette\Application\UI\Form {
                     ->addCondition(Form::FILLED)
                     ->addRule(Form::FLOAT, 'Hodnoty musí být čísla: např 18.21 či 21.3')
                     ->addRule(Form::RANGE, 'Vyplňte hodnoty v rozsahu 15.00-24.00', array(15, 24));
-            $sqm->addText('height', 'Výška:')->setRequired()
+            // Azimut 
+            $azimut = array(
+                0 => 'sever',
+                45 => 'severovýchod',
+                90 => 'východ',
+                135 => 'jihovýchod',
+                180 => 'jih',
+                225 => 'jihozápad',
+                270 => 'západ',
+                315 => 'severozápad');
+            // Výška
+            $height = array(90 => 'zenit', 60 => '60°', 'k3' => 'jiná');
+            $sqm->addSelect('height', 'Výška', $height)
+                    ->setRequired()
+                    ->setOption('id', 'height')
+                    ->addCondition(Form::EQUAL, 60, '60°')
+                    ->toggle('azimute')
+                    ->endCondition()
+                    ->addCondition(Form::EQUAL, 'k3', 'jiná')
+                    ->toggle('heightspec')
+                    ->toggle('azimute');
+            $sqm->addText('heightspec', '')
+                    ->setOption('id', 'heightspec')
                     ->addRule(Form::INTEGER, 'Stupňě výšky musí být celé číslo.')
                     ->setOption('description', '°')
-                    ->addRule(Form::RANGE, 'Vyplňte hodnoty v rozsahu 0-90', array(0, 90));
-            $sqm->addText('azimute', 'Azimut:')->setRequired()
-                    ->addRule(Form::INTEGER, 'Stupně azimutu musí být celé číslo.')
-                    ->addRule(Form::RANGE, 'Vyplňte hodnoty v rozsahu 15.00-24.00', array(0, 360))
-                    ->setOption('description', '°');
+                    ->addRule(Form::RANGE, 'Vyplňte hodnoty v rozsahu 0-90', array(0, 90))
+                    ->addConditionOn($sqm['height'], Form::EQUAL, 'k3', 'jiná')
+                    ->setRequired();
+            $sqm->addSelect('azimute', 'Azimut', $azimut)
+                    ->setOption('id', 'azimute')
+                    ->addConditionOn($sqm['height'], Form::NOT_EQUAL, 'zenit')
+                    ->setRequired();
 
             $sqm->addSubmit("removeMultisqm", "Odebrat tyto hodnoty sqm")
                     ->setValidationScope(FALSE)
                     ->addRemoveOnClick();
         }, 1);
 
+        //Přidat další SQM měření
+        $multisqm->addSubmit('add', 'Přidat další hodnoty sqm')
+                ->setValidationScope(FALSE)
+                ->addCreateOnClick()
+                ->setOption('description', 'Nejprve vyplňte všechna povinná pole.');
+
+
+        //SQM zařízení
         $form->addGroup('Měřící zařízení')->setOption('class', 'observationform');
         $form->addSelect('equipmentid', 'Měřící zařízení:', $equipment)
                 ->setPrompt('Vyberte zařízení')
-                ->setOption(1, 'Zadat nové zařízení')
+                ->setOption('new', 'Zadat nové zařízení')
                 ->setRequired()
-                ->addCondition(Form::EQUAL, 1, 'Zadat nové zařízení')
+                ->addCondition(Form::EQUAL, 'new', 'Zadat nové zařízení')
                 ->toggle('equipment-name')     //id containeru ?
-                ->toggle('equipment-type')->toggle('equipment-model')->toggle('equipment-sn');
+                ->toggle('equipment-type')
+                ->toggle('equipment-model')
+                ->toggle('equipment-sn');
 
         $equipmentContainer = $form->addContainer('equipment');
 
         $equipmentContainer->addText('name', 'Název:')
                 ->setOption('id', 'equipment-name')
-                ->addConditionOn($form['equipmentid'], Form::EQUAL, 1, 'Zadat nové zařízení')
-                ->setRequired();
+                ->addConditionOn($form['equipmentid'], Form::EQUAL, 'new', 'Zadat nové zařízení')
+                ->setRequired()
+                ->setOption('description', Html::el('img')
+                        ->class('help')
+                        ->src('../www/images/help.svg')
+                        ->alt('Lokalita je dostupná, není na soukromém pozemku a podobně')
+                        ->title('Lokalita je dostupná, není na soukromém pozemku a podobně'));
         $equipmentContainer->addSelect('type', 'Typ:', array('SQM', 'SQM-L'))
                 ->setOption('id', 'equipment-type')
-                ->addConditionOn($form['equipmentid'], Form::EQUAL, 1, 'Zadat nové zařízení')
-                ->setRequired();
+                ->addConditionOn($form['equipmentid'], Form::EQUAL, 'new', 'Zadat nové zařízení')
+                ->setRequired()
+                ->setOption('description', Html::el('img')
+                        ->class('help')
+                        ->src('../www/images/help.svg')
+                        ->alt('Lokalita je dostupná, není na soukromém pozemku a podobně')
+                        ->title('Lokalita je dostupná, není na soukromém pozemku a podobně'));
         $equipmentContainer->addText('model', 'Model:')
                 ->setOption('id', 'equipment-model')
-                ->addConditionOn($form['equipmentid'], Form::EQUAL, 1, 'Zadat nové zařízení')
-                ->setRequired();
+                ->addConditionOn($form['equipmentid'], Form::EQUAL, 'new', 'Zadat nové zařízení')
+                ->setRequired()
+                ->setOption('description', Html::el('img')
+                        ->class('help')
+                        ->src('../www/images/help.svg')
+                        ->alt('Lokalita je dostupná, není na soukromém pozemku a podobně')
+                        ->title('Lokalita je dostupná, není na soukromém pozemku a podobně'));
         $equipmentContainer->addText('sn', 'SN:')
                 ->setOption('id', 'equipment-sn')
-                ->addConditionOn($form['equipmentid'], Form::EQUAL, 1, 'Zadat nové zařízení')
-                ->setRequired();
+                ->addConditionOn($form['equipmentid'], Form::EQUAL, 'new', 'Zadat nové zařízení')
+                ->setRequired()
+                ->setOption('description', Html::el('img')
+                        ->class('help')
+                        ->src('../www/images/help.svg')
+                        ->alt('Lokalita je dostupná, není na soukromém pozemku a podobně')
+                        ->title('Lokalita je dostupná, není na soukromém pozemku a podobně'));
         $form->setCurrentGroup(Null);
+
+
+        //Doplňující informace
+        $form->addGroup('Doplňující informace');
+        $infoContainer = $form->addContainer('info');
+        $infoContainer->addText('disturbance', 'Rušení');
+        $infoContainer->addText('nelm', 'MHV')
+                ->setOption('description', Html::el('img')
+                        ->class('help')
+                        ->src('../www/images/help.svg')
+                        ->alt('Lokalita je dostupná, není na soukromém pozemku a podobně')
+                        ->title('Lokalita je dostupná, není na soukromém pozemku a podobně'));
+        $infoContainer->addText('nelmHD', 'podle HD')
+                ->setOption('description', Html::el('img')
+                        ->class('help')
+                        ->src('../www/images/help.svg')
+                        ->alt('Lokalita je dostupná, není na soukromém pozemku a podobně')
+                        ->title('Lokalita je dostupná, není na soukromém pozemku a podobně'));
+        $transparency = array('', 6, 5, 4, 3, 2, 1);
+        $bortle = array('', 9, 8, 7, 6, 5, 4, 3, 2, 1);
+        $bortlespec = array('', 'lepší', 'horší');
+        $infoContainer->addSelect('transparency', 'Průzračnost', $transparency)
+                ->setAttribute('id', 'transparency')
+                ->setOption('description', Html::el('img')
+                        ->class('help')
+                        ->src('../www/images/help.svg')
+                        ->alt('Lokalita je dostupná, není na soukromém pozemku a podobně')
+                        ->title('Lokalita je dostupná, není na soukromém pozemku a podobně'));
+        $infoContainer->addSelect('bortle', 'Bortle', $bortle)
+                ->setAttribute('id', 'bortle');
+        $infoContainer->addSelect('bortlespec', '', $bortlespec)
+                ->setAttribute('id', 'bortlespec')
+                ->setOption('description', Html::el('img')
+                        ->class('help')
+                        ->src('../www/images/help.svg')
+                        ->alt('Lokalita je dostupná, není na soukromém pozemku a podobně')
+                        ->title('Lokalita je dostupná, není na soukromém pozemku a podobně'));
+        $infoContainer->addTextArea('weather', 'Počasí')
+                ->setOption('description', Html::el('img')
+                        ->class('help')
+                        ->src('../www/images/help.svg')
+                        ->alt('Lokalita je dostupná, není na soukromém pozemku a podobně')
+                        ->title('Lokalita je dostupná, není na soukromém pozemku a podobně'));
+        $infoContainer->addTextArea('info', 'Poznámky');
+
+        // Přidávání fotografií
+        $photosContainer = $form->addContainer('photos');
+        $photo1C = $photosContainer->addContainer('photo1');
+        $photo2C = $photosContainer->addContainer('photo2');
+        $photo3C = $photosContainer->addContainer('photo3');
+        $photo4C = $photosContainer->addContainer('photo4');
+
+        $photosContainer->addCheckbox('addphotos', 'Přidat fotografie')
+                ->addCondition(Form::EQUAL, TRUE)
+                ->toggle('photo1')
+                ->toggle('photo2')
+                ->toggle('photo3')
+                ->toggle('photo4');
 
 
         $photo1C->addUpload('photo', 'Nahraj fotografii:')
@@ -235,10 +344,7 @@ class ObservationFormFactory extends \Nette\Application\UI\Form {
 
         $form->setCurrentGroup(NULL);
 
-        $multisqm->addSubmit('add', 'Přidat další hodnoty sqm')
-                ->setValidationScope(FALSE)
-                ->addCreateOnClick()
-                ->setOption('description', 'Nejprve vyplňte všechna povinná pole.');
+
         $form->addSubmit('send', 'Vložit do databáze');
 
         return $form;

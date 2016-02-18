@@ -7,89 +7,87 @@
 <script type='text/javascript' src='/../../vendor/highcharts/js/highcharts.js'></script>
 
 <script type="text/javascript">
-var pole2 = {$data2};
-var pole3 = {$data3};
-
-
-
-$(function () {
-    $('#graf2').highcharts({
-        chart: {
-            type: 'scatter',
-            zoomType: 'xy'
-        },
-        title: {
-            text: 'Měření na této lokalitě'
-        },
-        subtitle: {
-            text: ''
-        },
-        xAxis: {
-            type: 'datetime',
-            dateTimeLabelFormats: { // don't display the dummy year
-                month: '%e. %b',
-                year: '%b'
+    var pole2 = {$data2};
+    var pole3 = {$data3};
+    $(function() {
+        $('#graf2').highcharts({
+            chart: {
+                type: 'scatter',
+                zoomType: 'xy'
             },
             title: {
-                text: 'Datum'
-            }
-        },
-        yAxis: {
-              
-            title: {
-                text: '[MSA]'
-            }
-        },
-        legend: {
-            layout: 'vertical',
-            align: 'left',
-            verticalAlign: 'top',
-            x: 100,
-            y: 70,
-            floating: true,
-            backgroundColor: (Highcharts.theme && Highcharts.theme.legendBackgroundColor) || '#FFFFFF',
-            borderWidth: 1
-        },
-        plotOptions: {
-            scatter: {
-                marker: {
-                    radius: 5,
+                text: ''
+            },
+            subtitle: {
+                text: ''
+            },
+            xAxis: {
+                type: 'datetime',
+                dateTimeLabelFormats: { // don't display the dummy year
+                    month: '%m/%Y',
+                    day: '%d/%m/%Y'
+    },
+                title: {
+                    text: ''
+                }
+            },
+            yAxis: {
+                title: {
+                    text: '[MSA]',
+                    margin: 0,
+                    offset: 55
+                }
+
+            },
+            legend: {
+                layout: 'horizontal',
+                align: 'center',
+                verticalAlign: 'bottom',
+                floating: false,
+                backgroundColor: (Highcharts.theme && Highcharts.theme.legendBackgroundColor) || '#FFFFFF',
+                borderWidth: 0
+            },
+            tooltip: {
+                formatter: function() {
+                    return  '<b class="tooltipHeader">Typ: ' + this.series.name + '</b><br/>Datum: ' +
+                            Highcharts.dateFormat('<span class="tooltipDate">%d.%m.%Y',
+                                    new Date(this.x))
+                            + '</span><br />Hodnota: <span class="tooltipMSA">' + this.y + ' MSA</span></div>';
+                }},
+            plotOptions: {
+                scatter: {
+                    marker: {
+                        radius: 5,
+                        symbol: 'diamond',
+                        states: {
+                            hover: {
+                                enabled: true
+                            }
+                        }
+                    },
                     states: {
                         hover: {
-                            enabled: true,
-                            lineColor: 'rgb(100,100,100)'
+                            marker: {
+                                enabled: false
+                            }
                         }
                     }
-                },
-                states: {
-                    hover: {
-                        marker: {
-                            enabled: false
-                        }
-                    }
-                },
-                tooltip: {
-                    headerFormat: '<b>{ series.name}</b><br>',
-                    pointFormat: '{ Datum point.x}, { point.y} MSA'
                 }
-            }
-        },
-        series: [{
-            name: 'SQM',
-            color: 'rgba(223, 83, 83, .5)',
-            data: pole2
-
-        },
-	{
-            name: 'SQM-L',
-            color: 'rgba(119, 152, 191, .5)',
-            data: pole3
-
-        }]
+            },
+            series: [{
+                    name: 'SQM',
+                    color: '#6cb300',
+                    data: pole2,
+                },
+                {
+                    name: 'SQM-L',
+                    color: '#ffad33',
+                    data: pole3,
+                }]
+        });
     });
-});
 </script>
- 
+
 
 
 
