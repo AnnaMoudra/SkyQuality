@@ -3,26 +3,70 @@
 
 {block content}
 <div class="page">
-<h3>Nové měření</h3>
+    <h3>Nové měření</h3>
 
-<div class="observationform">
-{control observationForm}
-</div>
+    <div class="observationform">
+        {control observationForm}
+    </div>
 
-{*
-{form observationForm}
-  <table>
-    <tr class="required">
-      <th>NEcoNeco</th>
-      <td>
-        {formContainer observation}
-       <ul>
-            <li>{input date} {label date /}</li>
-        </ul>
-        {/formContainer}
-      </td>            
-    </tr>
-  </table>
-{/form}
-*}
+    {* Vypisování chyb, nefunguje !!
+    
+    <ul class="errors" n:if="$observationForm->hasErrors()">
+            <li n:foreach="$observationForm->errors as $error">{$error}</li>
+    </ul>
+    *}
+    <div class="observationform">
+        {form observationForm}
+            {formContainer observation}
+                <table>
+                    <tr class="required">
+                        <th>{label date /}</th>
+                        <td>{input date}</td>            
+                    </tr>
+                    <tr class="required">
+                        <th>{label observer /}</th>
+                        <td>{input observer}</td>            
+                    </tr>
+                </table>
+            {/formContainer}
+            <table>
+                <tr class="required">
+                    <th>{label locationid /}</th>
+                    <td>{input locationid}</td>            
+                </tr>
+                {if $form->locationid === 'new'}
+                {formContainer location}
+                    <tr class="required">
+                        <th>{label name /}</th>
+                        <td>{input name}</td>            
+                    </tr>
+                    <tr class="required">
+                        <th>{label latituderaw /}</th>
+                        <td>{input latituderaw}</td>            
+                    </tr>
+                    <tr class="required">
+                        <th>{label latitudehemisfera /}</th>
+                        <td>{input latitudehemisfera}</td>            
+                    </tr>
+                    <tr class="required">
+                        <th>{label longituderaw /}</th>
+                        <td>{input longituderaw}</td>            
+                    </tr>
+                    <tr class="required">
+                        <th>{label longitudehemisfera /}</th>
+                        <td>{input longitudehemisfera}</td>            
+                    </tr>
+                    <tr class="required">
+                        <th>{label altitude /}</th>
+                        <td>{input altitude}</td>            
+                    </tr>
+                    <tr class="required">
+                        <th>{label info /}</th>
+                        <td>{input info}</td>            
+                    </tr>
+                {/formContainer}
+              {/if}
+            </table> 
+        {/form}
+    </div>
 </div>

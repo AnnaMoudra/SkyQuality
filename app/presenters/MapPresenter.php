@@ -56,6 +56,7 @@ class MapPresenter extends BasePresenter {
             $info[] = $location->info;
             $locationId = $location->id;
 
+            // Vyplivuje špatné hodnoty !!!
             $observation = $this->database->table('observations')
                     ->where('location_id', $locationId)->order('date DESC');
             foreach ($observation as $observations) {
