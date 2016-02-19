@@ -692,6 +692,10 @@ input#signincheck {
     width: 60%; 
 }
 
+.observationform2 {
+    width: 100%; 
+}
+
 .description{
     font-size: 0.6em;
     color:#787878;

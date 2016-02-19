@@ -74,6 +74,7 @@ class ObservationFormFactory extends \Nette\Application\UI\Form {
                 ->setRequired()
                 ->addCondition(Form::EQUAL, 'new', 'Zadat novou lokalitu')
                 ->toggle('location-name')
+                ->toggle('newlocation')
                 ->toggle('location-latituderaw')
                 ->toggle('location-latitudehemisfera')
                 ->toggle('location-longituderaw')
@@ -197,7 +198,8 @@ class ObservationFormFactory extends \Nette\Application\UI\Form {
                 ->setPrompt('Vyberte zařízení')
                 ->setOption('new', 'Zadat nové zařízení')
                 ->setRequired()
-                ->addCondition(Form::EQUAL, 'new', 'Zadat nové zařízení')
+                ->addCondition(Form::EQUAL, 'new', 'Zadat nové zařízení')                
+                ->toggle('newequipment')
                 ->toggle('equipment-name')     //id containeru ?
                 ->toggle('equipment-type')
                 ->toggle('equipment-model')
@@ -305,7 +307,11 @@ class ObservationFormFactory extends \Nette\Application\UI\Form {
                 ->toggle('photo1')
                 ->toggle('photo2')
                 ->toggle('photo3')
-                ->toggle('photo4');
+                ->toggle('photo4')
+                ->toggle('newphoto1')
+                ->toggle('newphoto2')
+                ->toggle('newphoto3')
+                ->toggle('newphoto4');
 
 
         $photo1C->addUpload('photo', 'Nahraj fotografii:')
@@ -314,7 +320,7 @@ class ObservationFormFactory extends \Nette\Application\UI\Form {
                 ->addRule(Form::FILLED, 'Nahrajte soubor')
                 ->addRule(Form::IMAGE, 'Formát musí být jpg, jpeg, png nebo gif')
                 ->addCondition(Form::FILLED)
-                ->toggle('info1');
+                ->toggle('newinfo1');
         $photo1C->addText('info', 'Popisek fotky:')
                 ->setOption('id', 'info1');
         $photo2C->addUpload('photo', 'Nahraj fotografii:')
@@ -323,7 +329,7 @@ class ObservationFormFactory extends \Nette\Application\UI\Form {
                 ->addCondition(Form::FILLED)
                 ->addRule(Form::IMAGE, 'Formát musí být jpg, jpeg, png nebo gif')
                 ->addCondition(Form::FILLED)
-                ->toggle('info2');
+                ->toggle('newinfo2');
         $photo2C->addText('info', 'Popisek fotky:')
                 ->setOption('id', 'info2');
         $photo3C->addUpload('photo', 'Nahraj fotografii:')
@@ -332,7 +338,7 @@ class ObservationFormFactory extends \Nette\Application\UI\Form {
                 ->addCondition(Form::FILLED)
                 ->addRule(Form::IMAGE, 'Formát musí být jpg, jpeg, png nebo gif')
                 ->addCondition(Form::FILLED)
-                ->toggle('info3');
+                ->toggle('newinfo3');
         $photo3C->addText('info', 'Popisek fotky:')
                 ->setOption('id', 'info3');
         $photo4C->addUpload('photo', 'Nahraj fotografii:')
@@ -341,7 +347,7 @@ class ObservationFormFactory extends \Nette\Application\UI\Form {
                 ->addCondition(Form::FILLED)
                 ->addRule(Form::IMAGE, 'Formát musí být jpg, jpeg, png nebo gif')
                 ->addCondition(Form::FILLED, TRUE)
-                ->toggle('info4');
+                ->toggle('newinfo4');
         $photo4C->addText('info', 'Popisek fotky:')
                 ->setOption('id', 'info4');
 
