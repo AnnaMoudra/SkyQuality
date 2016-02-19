@@ -34,7 +34,8 @@
                     <th>{label locationid /}</th>
                     <td>{input locationid}</td>            
                 </tr>
-                {if $form->locationid === 'new'}
+            </table>
+                <table id="newlocation">
                 {formContainer location}
                     <tr class="required">
                         <th>{label name /}</th>
@@ -65,7 +66,6 @@
                         <td>{input info}</td>            
                     </tr>
                 {/formContainer}
-              {/if}
             </table> 
         {/form}
     </div>

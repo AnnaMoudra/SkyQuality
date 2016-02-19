@@ -74,6 +74,7 @@ class ObservationFormFactory extends \Nette\Application\UI\Form {
                 ->setRequired()
                 ->addCondition(Form::EQUAL, 'new', 'Zadat novou lokalitu')
                 ->toggle('location-name')
+                ->toggle('newlocation')
                 ->toggle('location-latituderaw')
                 ->toggle('location-latitudehemisfera')
                 ->toggle('location-longituderaw')
@@ -197,7 +198,8 @@ class ObservationFormFactory extends \Nette\Application\UI\Form {
                 ->setPrompt('Vyberte zařízení')
                 ->setOption('new', 'Zadat nové zařízení')
                 ->setRequired()
-                ->addCondition(Form::EQUAL, 'new', 'Zadat nové zařízení')
+                ->addCondition(Form::EQUAL, 'new', 'Zadat nové zařízení')                
+                ->toggle('newequipment')
                 ->toggle('equipment-name')     //id containeru ?
                 ->toggle('equipment-type')
                 ->toggle('equipment-model')
