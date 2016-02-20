@@ -159,24 +159,25 @@ class ObservationFormFactory extends \Nette\Application\UI\Form {
                 315 => 'severozápad');
             // Výška
             $height = array(90 => 'zenit', 60 => '60°', 'k3' => 'jiná');
+	    $toggleNamePreffix = sprintf(\Nette\Forms\Controls\BaseControl::$idMask, 'observationForm-sqm-');
             $sqm->addSelect('height', 'Výška', $height)
                     ->setRequired()
                     ->setOption('id', 'height')
                     ->addCondition(Form::EQUAL, 60, '60°')
-                    ->toggle('azimute')
+                    ->toggle($sqm->name . '-azimute')
                     ->endCondition()
                     ->addCondition(Form::EQUAL, 'k3', 'jiná')
-                    ->toggle('heightspec')
-                    ->toggle('azimute');
+                    ->toggle($sqm->name . '-heightspec')
+                    ->toggle($sqm->name . '-azimute');
             $sqm->addText('heightspec', '')
-                    ->setOption('id', 'heightspec')
+                    ->setOption('id', $sqm->name . '-heightspec')
                     ->setOption('description', '°')
                     ->addConditionOn($sqm['height'], Form::EQUAL, 'k3', 'jiná')
                     ->setRequired()
                     ->addRule(Form::INTEGER, 'Stupňě výšky musí být celé číslo.')
                     ->addRule(Form::RANGE, 'Vyplňte hodnoty v rozsahu 0-90', array(0, 90));
             $sqm->addSelect('azimute', 'Azimut', $azimut)
-                    ->setOption('id', 'azimute')
+                    ->setOption('id', $sqm->name . '-azimute')
                     ->addConditionOn($sqm['height'], Form::NOT_EQUAL, 'zenit')
                     ->setRequired();
 

@@ -9,7 +9,8 @@ use Nette\Utils\Arrays;
 use Mesour\DataGrid,
     Mesour\DataGrid\Grid,
     Mesour\DataGrid\Extensions\Pager;
-use Mesour\DataGrid\NetteDbDataSource,
+use Mesour\DataGrid\ArrayDataSource,
+    Mesour\DataGrid\NetteDbDataSource,
     Mesour\DataGrid\Components\Button,
     Mesour\DataGrid\Components\Link;
 
@@ -28,6 +29,19 @@ class DatabasePresenter extends BasePresenter {
      */
     public function __construct(Nette\Database\Context $database) {
         $this->database = $database;
+    }
+        /**
+     * @author Anna Moudrá <anna.moudra@gmail.com>
+     * @description Počítá aritmetický průměr.
+     * @memberOf LocationPresenter 
+     * @param array
+     * @return float Aritmetický průměr
+     */
+    public function numericalAverage(array $array) {
+        $length = count($array);
+        $sum = array_sum($array);
+        $number = $sum / $length;
+        return $number;
     }
 
     /**
@@ -77,32 +91,37 @@ class DatabasePresenter extends BasePresenter {
      */
     protected function createComponentLocationsDataGrid($name) {
         $selection = $this->database->table('location');
+	$sel_length = $this->database->table('location')->count('*');
         $selection->select('id, name, latitude, altitude, longitude, accessiblestand');
-        /*$sel_array = iterator_to_array($selection, true);
-        $sel_length = count($sel_array);
-        for ($i=0; $i < $sel_length; $i++) {
+	
+        for ($i=1; $i < $sel_length-1; $i++) {
             $observation = $this->database->table('observations')
-                    ->where('location_id', $selection['id'][$i]);
+		    ->where('location_id', $selection[$i]->id)->order('date DESC');
 
             $sqms = [];
+	    $pole[$i]=$selection[$i]->toArray();
             foreach ($observation as $observation) {
-                if (count($sqms) != 0) {
-                    $sqms[] = $observation->sqmavg;
-                }
+                $sqms[] = $observation->sqmavg;
             }
-            $sqmavg = $this->numericalAverage($sqms);
-            $selection['sqmavg'][$i] = $sqmavg;
+	    if(count($sqms)!=0){
+		$sqmavg = $this->numericalAverage($sqms);
+		$pole[$i]['sqmavg']=$sqmavg;
+	    }else{
+		$pole[$i]['sqmavg']=NULL;
+	    }	    
         }
+	
+	//$pole->select('id, name, latitude, altitude, longitude, accessiblestand, sqmavg');
 
-*/
-        $source = new NetteDbDataSource($selection);
+
+        $source = new ArrayDataSource($pole);
         $grid = new Grid($this, $name);
         $primarykey = 'id';
         $grid->setPrimaryKey($primarykey);
         $grid->setLocale('cs');
         $grid->setDataSource($source);
         $grid->addText('name', 'Název');
-        $grid->addText('altitude', 'Výška m. n. m.');
+        $grid->addNumber('sqmavg', 'Průměrný jas [MSA]')->setDecimals(2);
         $grid->addText('accessiblestand', 'Volně přístupné')
                 ->setCallback(function($row) {
                     if ($row['accessiblestand'] === 0) {
