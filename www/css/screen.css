@@ -231,6 +231,7 @@ h4 {
     vertical-align: middle;
     margin-left: .1em;
     margin-bottom: .2em;
+    margin-right: .2em;
 }
 
 
@@ -265,32 +266,10 @@ legend {
     border: none;
 }
 
-.required label {
-    font-weight: bold;
-}
 
 form .error {
     color: #D00;
     font-weight: bold;
-}
-
-.button {
-    border: solid 1px #888;
-    border-radius: 2px;
-    background-image: none;
-    background-color: #fff;
-    padding: .4em 1em .3em 1em;
-    margin-top: .2em;
-
-}
-
-input#frm-observationForm-send.button {
-    margin-top: 1em;
-    background-color: #00010D;
-    color:#fff;
-    font-weight: 600;
-    padding: .6em 1em .3em 1em
-
 }
 
 fieldset {
@@ -299,14 +278,6 @@ fieldset {
     border-top: none;
 
 }
-
-.sqmvalues td input {
-    width: 4em;
-    font-size: .95em;
-    padding: .3em;
-
-}
-
 
 form table {
     border-collapse: collapse;
@@ -341,7 +312,6 @@ form table .required td input {
     padding-left: 5px;
 }
 
-
 input#signincheck {
     margin-left: 1.6em;
 }
@@ -364,9 +334,137 @@ input#signincheck {
     display: inline;
 }
 
+.observationform2 {
+    width: 100%; 
+}
+
+.observationform2 table th {
+    vertical-align: middle;
+    text-align: left;
+    width: 10em;
+}
+
+.observationform2 td {
+    vertical-align: middle;
+    text-align: left;
+}
+
+.obsform_loc table, .obsform_equip table, obsform_photos table {
+    border-left: 1px solid #CCC; 
+    margin-top: .8em;
+    margin-bottom: .8em;
+}
+
+.obsform_loc table th, .obsform_equip table th {
+    padding-left: 1.1em;
+}
+
+.obsform_equip {
+    margin-top: 0.4em;
+}
+
+.obsform_info label,.obsform_info input,.obsform_info select {
+    margin: 0.3em 1em 0.2em 0;
+}
+
+.obsform_photos label,.obsform_photos select,.obsform_photos input {
+    margin: 0.3em 1em 0.2em 0;
+}
+
+.observationform2 .obsform_photos input[type=file]{
+    padding: 0;
+    border: none;
+}
+
+.sqmvalues input[type=text] {
+    width: 3.5em;
+    font-size: .95em;
+    padding: .1em;
+    background-color: #FFFFFF;
+    border: 1px solid #E0E0E0;
+    margin-right: .2em;
+}
+
+.observationform2 input {
+    background-color: #FFFFFF;
+    border: 1px solid #E0E0E0;
+}
+
+.observationform2 label {
+    vertical-align: middle;
+}
+
+.observationform2 h3 {
+    margin-bottom: 1em;
+}
+
+.height {
+    margin-top: .8em;
+    margin-bottom: .6em;
+}
+
+.sqmMeasurement {
+    margin-bottom: 1em;
+    padding: .3em 0 .3em 1.8em;
+    border-left: 1px solid #CCC;
+}
+
+#azimute {
+    margin-left: 1.2em;
+}
+
+.obsform_sqm label {
+    margin-right: 1.3em;
+}
+
+#removeSqm {
+    margin-left: 3em;
+}
+
+.observationform2 p {
+    font-size: .9em;
+}
+
+.required input[type=text] {
+    background-color: #FFFFFF;
+    border-top: 1px solid #E0E0E0;
+    border-left: 3px solid #E00000; 
+    border-bottom: 1px solid #E0E0E0; 
+    border-right: 1px solid #E0E0E0;
+    padding-left: 5px;
+}
+
+.required textarea {
+    background-color: #FFFFFF;
+    border-top: 1px solid #E0E0E0;
+    border-left: 3px solid #E00000; 
+    border-bottom: 1px solid #E0E0E0; 
+    border-right: 1px solid #E0E0E0;
+    padding-left: 5px;
+}
+
+.button {
+    border: solid 1px #888;
+    border-radius: 2px;
+    background-image: none;
+    background-color: #fff;
+    padding: .4em 1em .3em 1em;
+    margin-top: .2em;
+}
+
+input#frm-observationForm-send.sendbutton {
+    border: solid 1px #E00000;
+    border-radius: 2px;
+    background-image: none;
+    background-color: #fff;
+    padding: .4em 1em .3em 1em;
+    margin-top: 2em;
+}
 
 
-
+.required label {
+    font-weight: bold;
+}
 
 /* Homepage Layout */
 
@@ -688,13 +786,6 @@ input#signincheck {
     margin: 0;
 } 
 
-.observationform {
-    width: 60%; 
-}
-
-.observationform2 {
-    width: 100%; 
-}
 
 .description{
     font-size: 0.6em;
