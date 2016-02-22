@@ -65,9 +65,7 @@ class PersonalPresenter extends BasePresenter {
                 ->setFormat('d.m.y - H:i')
                 ->setOrdering(TRUE);
         $grid->addText('name', 'Lokalita');
-        $grid->addNumber('sqmavg', 'Průměrné sqm')->setDecimals(2);
-        $grid->addText('observer', 'Pozorovatel');
-        $grid->addText('name', 'Lokalita');
+        $grid->addNumber('sqmavg', 'Průměrný jas [MSA]')->setDecimals(2);
         $action = $grid->addActions('');
         $action->addButton()
                 ->setType('btn-primary')

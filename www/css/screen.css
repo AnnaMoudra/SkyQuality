@@ -229,9 +229,9 @@ h4 {
 
 .help {
     vertical-align: middle;
-    margin-left: .1em;
+    margin-left: .2em;
     margin-bottom: .2em;
-    margin-right: .2em;
+    margin-right: 1.2em;
 }
 
 
@@ -256,7 +256,7 @@ form tr {
 
 label {
     font-weight: normal;
-    vertical-align: middle;
+    vertical-align: top;
     margin:0;
 }
 
@@ -338,8 +338,15 @@ input#signincheck {
     width: 100%; 
 }
 
+.observationform2 h2 {
+    font-size: 2em;
+    color: #222;
+    text-align: left;
+    font-weight: 400;
+}
+
 .observationform2 table th {
-    vertical-align: middle;
+    vertical-align: top;
     text-align: left;
     width: 10em;
 }
@@ -363,8 +370,21 @@ input#signincheck {
     margin-top: 0.4em;
 }
 
-.obsform_info label,.obsform_info input,.obsform_info select {
-    margin: 0.3em 1em 0.2em 0;
+.obsform_equip select {
+    margin-right: .4em;
+}
+
+.obsform_info label,.obsform_info input {
+    margin: 0.3em .4em 0.2em 0;
+}
+
+#bortle .help, #transparency .help {
+    margin-left: .5em;
+}
+
+input#frm-observationForm-observation-nelm {
+    margin-left: .6em;
+    margin-right: 1em;
 }
 
 .obsform_photos label,.obsform_photos select,.obsform_photos input {
@@ -376,6 +396,45 @@ input#signincheck {
     border: none;
 }
 
+.observationform2 input[type=datetime-local]{
+    line-height: normal;
+    padding: .1em .2em;
+    width: 12em;
+}
+
+.observationform2 select {
+    padding: .1em .2em;
+    border: 1px solid #E0E0E0;
+}
+
+th #locinfo {
+    vertical-align:top;
+}
+
+#locinfo textarea {
+    width: 23em;
+    height: 10em;
+}
+
+.observationform2 input[type="checkbox"] {
+    display: none;
+}
+
+
+.observationform2 input[type="checkbox"] + label span {
+    display:inline-block;
+    width: 15px;
+    height: 15px;
+    margin: .2em .4em .6em 0;
+    vertical-align: middle;
+    border: 1px solid #E0E0E0;
+    background:url(../images/lite_blue_check.png) left top no-repeat;
+    cursor:pointer;
+}
+.observationform2 input[type="checkbox"]:checked + label span {
+    background:url(../images/lite_blue_check.png) -15px top no-repeat;
+}
+
 .sqmvalues input[type=text] {
     width: 3.5em;
     font-size: .95em;
@@ -385,9 +444,10 @@ input#signincheck {
     margin-right: .2em;
 }
 
-.observationform2 input {
+.observationform2 input[type=text],.observationform2 textarea {
     background-color: #FFFFFF;
     border: 1px solid #E0E0E0;
+    padding: .1em .2em;
 }
 
 .observationform2 label {
@@ -421,20 +481,54 @@ input#signincheck {
     margin-left: 3em;
 }
 
+.azimute {
+    margin-left: 2em;
+}
+
+#weather input {
+    width: 30em;
+}
+
+#disturbance input {
+    width: 24.9em;
+}
+
+#frm-observationForm-observation-nelm {
+    width: 3em;
+}
+
+#frm-observationForm-observation-nelmHD {
+    width: 5em;
+}
+
+#info textarea {
+    width: 46.1em;
+    height: 10em;
+}
+
+#obsspec, bortle {
+    margin-top: .4em;
+    margin-bottom: .2em;
+}
+
+#transparency label {
+   margin-left: .65em;
+}
+
+#info {
+    margin-top: 1em;
+}
 .observationform2 p {
     font-size: .9em;
+    text-align: justify;
+    margin-bottom: 1.5em;
 }
 
-.required input[type=text] {
-    background-color: #FFFFFF;
-    border-top: 1px solid #E0E0E0;
-    border-left: 3px solid #E00000; 
-    border-bottom: 1px solid #E0E0E0; 
-    border-right: 1px solid #E0E0E0;
-    padding-left: 5px;
+.obsform_photos input[type=checkbox] label {
+    margin: .2em .4em;
 }
 
-.required textarea {
+.required input[type=text],.required select, .required textarea {
     background-color: #FFFFFF;
     border-top: 1px solid #E0E0E0;
     border-left: 3px solid #E00000; 
@@ -529,10 +623,6 @@ input#frm-observationForm-send.sendbutton {
 .tpage ul li{
     margin-top: .4em; 
 }
-
-// .tpage h3:first-of-type  {
-//    margin-top: .7em;
-// }
 
 .news {
     height: 100px;
@@ -677,7 +767,6 @@ input#frm-observationForm-send.sendbutton {
 .comment {
     padding-bottom: 1.5em;
     padding-top: 1.5em;
-        
     border-top: 1px solid #eee;
 }
 
@@ -688,6 +777,11 @@ input#frm-observationForm-send.sendbutton {
 .commentForm {
     margin-bottom: 4em;
     margin-top: 1em;
+}
+
+.commentForm textarea {
+    width: 30em;
+    height: 10em;
 }
 
 .commenter {
@@ -710,6 +804,21 @@ input#frm-observationForm-send.sendbutton {
 
 
 /* Ruzne */
+
+#personaltable {
+    width: 40em;
+}
+
+#personaltable td {
+    font-weight: 400;
+    font-size: larger;
+    padding-top: 1em; 
+    text-align: center;
+}
+
+#personaltable th {
+    text-align: center;
+}
 
 .highcharts-tooltip {
     text-align: center;
