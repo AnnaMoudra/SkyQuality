@@ -110,8 +110,6 @@ class DatabasePresenter extends BasePresenter {
 		$pole[$i]['sqmavg']=NULL;
 	    }	    
         }
-	
-	//$pole->select('id, name, latitude, altitude, longitude, accessiblestand, sqmavg');
 
 
         $source = new ArrayDataSource($pole);

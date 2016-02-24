@@ -399,7 +399,11 @@ input#frm-observationForm-observation-nelm {
 .observationform2 input[type=datetime-local]{
     line-height: normal;
     padding: .1em .2em;
-    width: 12em;
+    width: 15em;
+}
+
+input#frm-observationForm-observation-observer {
+    width: 15em;
 }
 
 .observationform2 select {

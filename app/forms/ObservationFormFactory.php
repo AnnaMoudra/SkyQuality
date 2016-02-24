@@ -156,9 +156,8 @@ class ObservationFormFactory extends \Nette\Application\UI\Form {
                 270 => 'západ',
                 315 => 'severozápad');
             // Výška
-            $height = array(90 => 'zenit', 60 => '60°', 'k3' => 'jiná');
-	    $toggleNamePreffix = sprintf(\Nette\Forms\Controls\BaseControl::$idMask, 'observationForm-sqm-');
-            $sqm->addSelect('height', 'Výška', $height)
+            $heightarr = array(90 => 'zenit', 60 => '60°', 'k3' => 'jiná');
+            $sqm->addSelect('height', 'Výška', $heightarr)
                     ->setRequired()
                     ->setOption('id', 'height')
                     ->addCondition(Form::EQUAL, 60, '60°')

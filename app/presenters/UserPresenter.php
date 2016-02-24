@@ -107,7 +107,7 @@ class UserPresenter extends BasePresenter {
 
         $message->setHtmlBody($template);
 
-        $this->userManager->add($values->username, $values->name, $values->password1, $values->email, $values->linkhash); //zadá údaje do databáze
+        $this->userManager->add($values->username, $values->password1, $values->email, $values->name, $values->linkhash); //zadá údaje do databáze
         $mailer = new SendmailMailer;
         $mailer->send($message);
 

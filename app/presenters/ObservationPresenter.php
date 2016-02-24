@@ -11,6 +11,7 @@ use Nette\Forms\Controls\Button;
 use Nette\Forms\IControl;
 use Nette\Http\FileUpload;
 use Nette\Utils\Image;
+use Nette\Utils\Arrays;
 
 /**
  * @class ObservationPresenter.
@@ -138,8 +139,11 @@ class ObservationPresenter extends BasePresenter {
         if (!$this->user->isLoggedIn()) {
             $this->error('Pro vytvoření, nebo editování příspěvku se musíte přihlásit.'); //ověří, zda je uživatel přihlášen
         }
-
+        //$userid=$this->user->id;
+        
         $form = (new \ObservationFormFactory($this->database))->create(); //vytvoří formulář za složky app/forms
+        //$observer = $this->database->table('users')->where('id', $userid)->get('username');
+        //$form['observation']['observer']->setValue($observer);
 
         $form->onSuccess[] = array($this, 'observationFormSucceeded'); // přidá událost po odeslání
         return $form;
@@ -189,7 +193,6 @@ class ObservationPresenter extends BasePresenter {
             } else {
                 $valuesObservation['equipment_id'] = $values['equipmentid'];
             }
-
             $observation->update($valuesObservation); //upraví data v tabulce observations
 
             /**
@@ -197,6 +200,23 @@ class ObservationPresenter extends BasePresenter {
              */
             foreach ($valuesSqm as $sqm) {
                 $sqm['id_observation'] = $observation->id;
+                if ($sqm['value1'] == 0) {
+                    $sqm['value1'] = NULL;
+                }
+                if ($sqm['value2'] == 0) {
+                    $sqm['value2'] = NULL;
+                }
+                if ($sqm['value3'] == 0) {
+                    $sqm['value3'] = NULL;
+                }
+                if ($sqm['value4'] == 0) {
+                    $sqm['value4'] = NULL;
+                }
+                if ($sqm['value5'] == 0) {
+                    $sqm['value5'] = NULL;
+                }
+
+
                 $array = [$sqm['value1'], $sqm['value2'], $sqm['value3'], $sqm['value4'], $sqm['value5']];
                 foreach ($array as $sqms) {
                     if ($sqms > 0) {
@@ -418,13 +438,38 @@ class ObservationPresenter extends BasePresenter {
 
             $location = $observation['location_id'];
             $equipment = $observation['equipment_id'];
-            $sqm = $observation->related('sqm')->order('id');
+            $sqm = $observation->related('sqm')->order('id'); //->select('id, id_observation, value1, value2, value3, value4, value5, valueavg, height, azimute');
+
+            $pole = [];
+            foreach ($sqm as $id => $sqm) {
+                $pole[$id] = $sqm->toArray();
+                if ($pole[$id]['height'] === 90 || $pole[$id]['height'] === 60) {
+                    
+                } else {
+                    $pole[$id]['heightspec'] = $pole[$id]['height'];
+                    $pole[$id]['height'] = 'k3';
+                }
+
+                if ($pole[$id]['value2'] == 'NULL') {
+                    $pole[$id]['value2'] = '';
+                }
+                if ($pole[$id]['value3'] == 'NULL') {
+                    $pole[$id]['value3'] = '';
+                }
+                if ($pole[$id]['value4'] == 'NULL') {
+                    $pole[$id]['value4'] = '';
+                }
+                if ($pole[$id]['value5'] == 'NULL') {
+                    $pole[$id]['value5'] = '';
+                }
+            }
+
 
             $this['observationForm']['observation']->setDefaults($observation);
             $this['observationForm']['locationid']->setValue($location);
-            $this['observationForm']['sqm']->setDefaults($observation);
+            // $this['observationForm']['sqm']->setDefaults($observation);
             $this['observationForm']['equipmentid']->setValue($equipment);
-            $this['observationForm']['sqm']->setDefaults($sqm);
+            $this['observationForm']['sqm']->setDefaults($pole);
         }
     }
 
