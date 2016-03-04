@@ -43,7 +43,7 @@ class ObservationFormFactory extends \Nette\Application\UI\Form {
         $form = new Form;
         // Příprava hodnot pro jednotlivá políčka
         // lokality
-        $locationsarr = $this->database->table('location')->fetchPairs('id', 'name');
+        $locationsarr = $this->database->table('location')->group('location.id')->having('COUNT(:observation.id) > 0')->fetchPairs('id', 'name');
         $locations = [];
         $locations['new'] = 'Zadat novou lokalitu';
         Arrays::insertAfter($locations, 'new', $locationsarr);

@@ -153,7 +153,7 @@ class LocationPresenter extends BasePresenter {
         $grid->setLocale('cs');
         $grid->setDataSource($source);
         $grid->addDate('date', 'Datum')
-                ->setFormat('d.m.y - H:i')
+                ->setFormat('d.m.Y - H:i')
                 ->setOrdering(TRUE);
         $grid->addNumber('sqmavg', 'Průměrné sqm')->setDecimals(2)->setAttribute('class', 'sqmGrid');
         $grid->addText('observer', 'Pozorovatel');

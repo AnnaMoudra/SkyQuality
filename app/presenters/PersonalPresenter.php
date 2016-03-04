@@ -61,13 +61,13 @@ class PersonalPresenter extends BasePresenter {
         $grid->setPrimaryKey($primarykey);
         $grid->setLocale('cs');
         $grid->setDataSource($source);
-        $grid->setDefaultOrder('date', 'DESC');
         $grid->addDate('date', 'Datum')
-                ->setFormat('d.m.y - H:i')
+                ->setFormat('d.m.Y - H:i')
                 ->setOrdering(TRUE);
         $grid->addText('name', 'Lokalita');
         $grid->addNumber('sqmavg', 'Průměrný jas [MSA]')->setDecimals(2)->setAttribute('class', 'sqmGrid');
         $action = $grid->addActions('');
+        $grid->setDefaultOrder('date', 'DESC');
         $action->addButton()
                 ->setType('btn-primary')
                 ->setText('detail pozorování')

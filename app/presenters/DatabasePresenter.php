@@ -65,7 +65,7 @@ class DatabasePresenter extends BasePresenter {
         $grid->setDataSource($source);
         $grid->setDefaultOrder('date', 'DESC');
         $grid->addDate('date', 'Datum')
-                ->setFormat('d.m.y - H:i')
+                ->setFormat('d.m.Y - H:i')
                 ->setOrdering(TRUE);
         $grid->addText('observer', 'Pozorovatel');
         $grid->addText('name', 'Lokalita');

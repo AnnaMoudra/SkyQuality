@@ -10,9 +10,9 @@
         <table class="hptable" cellspacing="0" rules="all">
             <thead class="hptablehead" align="left">
                 <tr>
-                    <th width="24%">Datum (UTC)</th>
+                    <th width="26%">Datum (UTC)</th>
                     <th width="30%">Lokalita</th>              
-                    <th width="15%" style="text-align: center;">SQM<sup style="font-size: .7em">1</sup></th>
+                    <th width="13%" style="text-align: center;">SQM<sup style="font-size: .7em">1</sup></th>
                     <th width="20%">Pozorovatel</th>
                     <th width="11%"></th>
                 </tr>
@@ -20,7 +20,7 @@
             <tbody class="hptablebody">
             <div n:foreach="$observation as $observation">
                 <tr class="clickable" onclick="window.location.href ={link Observation:show $observation->id}">
-                    <td>{$observation->date|date:'d.m.y — H:i'}</td>
+                    <td>{$observation->date|date:'d.m.Y — H:i'}</td>
                     <td>{$observation->location['name']}</td>
                     <td align="center">{$observation->sqmavg|number:2}</td>                   
                     <td>{$observation->observer}</td>  
