@@ -17,7 +17,7 @@
 
     <div class="post">
         <div style="margin-bottom:2em;">
-            <span class="obsheadl">{$observation->date|date:'Y/m/d'} • {$observation->location->name}</span><span> - detail pozorování</span><br />
+            <span class="obsheadl">{$observation->date|date:'Y/m/d'} • {$observation->location->name}</span><span> &mdash; detail pozorování</span><br />
             <span class="date">Přidáno: {$observation->created_at|date:'d.m.y — H:i'}</span></div>
         <div class="container">
             <div class="row">
@@ -124,18 +124,20 @@
                                     <img src='{$imgl[$i]['fotky']|dataStream}' />
                                 </div>
                             </a>
+                            {if $user->id == $observation->user_id} 
+                                <a href="{link Observation:erasePhoto $imgl[$i]['id'], $observation->id}" class="ruzova">Smazat</a>
+                            {/if}
                         </div>
                         {if $i%6 == 5 || $i == ($phosel->count('*')-1)}</div>{/if}
                     {/for}
             </div>
         {/if}
 
-
         <div class="grafMereniLoc">
             <h3  class="h3" style="margin-bottom: 0.2em">Měření na této lokalitě</h3>
             <div class="date">Vybráním části grafu kurzorem lze graf přiblížit</div>
             <div>
-            {include graph.latte}
+                {include graph.latte}
             </div>
         </div>
 

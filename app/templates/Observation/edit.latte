@@ -36,12 +36,12 @@
                             <td>{input name}</td>            
                         </tr>
                         <tr class="required">
-                            <th>{label latituderaw /}</th>
-                            <td>{input latituderaw}{input latitudehemisfera}</td>            
+                            <th>{label latitude /}</th>
+                            <td>{input latitude}{input latitudehemisfera}{$form['location']['latitude']->getOption('description')}</td>            
                         </tr>
                         <tr class="required">
-                            <th>{label longituderaw /}</th>
-                            <td>{input longituderaw}{input longitudehemisfera}</td>            
+                            <th>{label longitude /}</th>
+                            <td>{input longitude}{input longitudehemisfera}{$form['location']['longitude']->getOption('description')}</td>            
                         </tr>
                         <tr class="required">
                             <th>{label altitude /}</th>
@@ -110,7 +110,7 @@
                         <div class="required" id="weather">{label weather /}{input weather}</div>
                         <div id="disturbance">{label disturbance /}{input disturbance}</div>
                         <div id="obsspec"><span id="mhv">{label nelm /}{input nelm}{label nelmHD /}{input nelmHD}{$form['observation']['nelmHD']->getOption('description')}</span><span id="transparency">{label transparency /}<span class="select">{input transparency}</span>{$form['observation']['transparency']->getOption('description')}</span></div>
-                        <div id="bortle">{label bortle /}{input bortle}{input bortlespec}{$form['observation']['bortle']->getOption('description')}</div>    
+                        <div id="bortle">{label bortle /}{input bortle}{input bortlespec}{$form['observation']['bortle']->getOption('description')}<span style="vertical-align: middle;"><a n:href="Info:scales" target="_blank">popis Bortleovy stupnice a průzračnosti</a></span></div>    
                         <div id="info">{label info /}<br />{input info}</div>
                         {/formContainer}
                 </div>

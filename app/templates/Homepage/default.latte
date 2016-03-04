@@ -25,7 +25,7 @@
                     <td align="center">{$observation->sqmavg|number:2}</td>                   
                     <td>{$observation->observer}</td>  
                     <td>
-                        {if $observation->equipment->type == 'SQM'}<span class="flag flag-sqmw" title="Obsahuje SQM-W měření"></span>{else}<span class="flag flag-sqml" title="Obsahuje SQM-L měření"></span>{/if}{if $observation->weather}<span class="flag flag-weather" title="Obsahuje popis počasí"></span>{/if}{if $observation->info}<span class="flag flag-info" title="Obsahuje podrobnější popis"></span>{/if}{if $observation->bortle}<span class="flag flag-bortle" title="Obsahuje Bortle odhad"></span>{/if}{if $observation->related('photos.observation_id')->count('*')>0}<span class="flag flag-photo" title="Obsahuje fotografie"></span>{/if} 
+                        {if $observation->equipment->type == 'SQM'}<span class="flag flag-sqmw" title="Obsahuje SQM-W měření"></span>{else}<span class="flag flag-sqml" title="Obsahuje SQM-L měření"></span>{/if}{if $observation->bortle}<span class="flag flag-bortle" title="Obsahuje Bortle odhad"></span>{/if}{if $observation->transparency}<span class="flag flag-transparency" title="Obsahuje popis průzračnosti"></span>{/if}{if $observation->info}<span class="flag flag-info" title="Obsahuje podrobnější popis"></span>{/if}{if $observation->related('photos.observation_id')->count('*')>0}<span class="flag flag-photo" title="Obsahuje fotografie"></span>{/if} 
                     </td>
                 </tr>
             </div>
@@ -37,8 +37,8 @@
         <div>Pozorování obsahuje</div>
         <span class="tabspan"><span class="flag flag-sqmw" title="Obsahuje SQM-W měření"></span><span class="spanLegend">SQM-W měření</span></span>
         <span class="tabspan"><span class="flag flag-sqml" title="Obsahuje SQM-L měření"></span><span class="spanLegend">SQM-L měření</span></span>
-        <span class="tabspan"><span class="flag flag-weather" title="Obsahuje popis počasí"></span><span class="spanLegend">popis počasí</span></span>
         <span class="tabspan"><span class="flag flag-bortle" title="Obsahuje Bortle odhad"></span><span class="spanLegend">Bortle odhad</span></span>
+        <span class="tabspan"><span class="flag flag-transparency" title="Obsahuje popis průzračnosti"></span><span class="spanLegend">průzračnost</span></span>
         <span class="tabspan"><span class="flag flag-info" title="Obsahuje podrobnější popis"></span><span class="spanLegend">podrobný popis</span></span>
         <span class="tabspan"><span class="flag flag-photo" title="Obsahuje fotografie"></span><span class="spanLegend">fotografie</span></span>
     </div>
@@ -46,7 +46,7 @@
 {include sidebar}
 
 <div class="tpageb" align="center">
-    <div class="tpagebdiv">Co je svetelne znecisteni</div>
-    <div class="tpagebdiv">Jak spravne svitit</div>
-    <div class="tpagebdiv">Koupit SQMko</div>
+    <div class="tpagebdiv"><div class="tpagebtext">Pojem <strong>světelné znečištění</strong> označuje nežádoucí jevy provázející umělé venkovní osvětlení. Dopady světelného znečištění jsou rozmanité a postihují téměř všechny obyvatele vyspělého světa. Světelné znečištění představuje <strong>riziko bezpečnostní, zdravotní i&nbsp;ekologické,</strong> ochuzuje nás o&nbsp;pohled na hvězdnou oblohu a&nbsp;stojí mnoho peněz i&nbsp;energie<strong><a href="http://www.svetelneznecisteni.cz"> ... více na www.svetelneznecisteni.cz</a></strong></div><div class="tpagebimgdiv"> </div><div class="tpagebimg"><img src="./images/light.jpg" width="100%" /></div></div>
+    <div class="tpagebdiv"><div class="tpagebtext"><strong>Je možné světelné znečištění omezit?</strong> Ano! Na rozdíl od jiných způsobů, kterými lidé zatěžují životní prostředí, je možné nežádoucí důsledky umělého osvětlování poměrně snadno omezit dodržováním zásady: "<strong>Sviťme jen tehdy, kdy je potřeba, pouze tolik, kolik je potřeba a&nbsp;jen tam, kam je potřeba.</strong> Sviťme na zem, ne do nebe a&nbsp;ostatním do očí." Podívejte se na náš <strong><a href="http://svetelneznecisteni.cz/svitme-spravne/">průvodce správným svícením</a></strong>.</div><div class="tpagebimgdiv"> </div><div class="tpagebimg"><img src="./images/verejne.jpg" width="100%" /></div></div>
+    <div class="tpagebdiv tpagediv-last"><div class="tpagebtext">Chcete se také <strong>zapojit do monitorování stavu nočního životního prostředí?</strong> Je to jednoduché&nbsp;–&nbsp;stačí vám přístroj na měření jasu oblohy, tzv. <strong><a href="http://www.supra-dalekohledy.cz/ostatni-pristroje/jasomery/">Sky Quality Meter</a></strong> (SQM), se kterým budete měřit podle <strong><a n:href="Info:">metodiky</a></strong>. Pokud přístroj nemáte, můžete se s&nbsp;námi <strong>domluvit na jeho <a n:href="Project:">zapůjčení</a></strong>. Poskytujeme také komplexnější mapování vybraných lokalit pomocí celooblohového snímání.</div><div class="tpagebimgdiv"> </div><div class="tpagebimg"><img src="./images/allsky2.jpg" width="100%" /></div></div>
 </div> 

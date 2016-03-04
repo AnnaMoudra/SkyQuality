@@ -17,7 +17,7 @@
                 <div class="col otable">Souřadnice</div>
                 <div class="col atable">{$location->latituderaw|replaceRE:'/(\w+);(\w+);(\w+);(\w+)/':'$1° $2′ $3″ $4'},
                     {$location->longituderaw|replaceRE:'/(\w+);(\w+);(\w+);(\w+)/':'$1° $2′ $3″ $4'}
-                    ({$location->latitude} {$location->latitudehemisfera}, {$location->longitude} {$location->longitudehemisfera}) ― zobrazit na mapě </div>
+                    ({$location->latitude} {$location->latitudehemisfera}, {$location->longitude} {$location->longitudehemisfera}) ― <a href="http://www.mapy.cz/?query={if $location->latitudehemisfera==S}-{/if}{$location->latitude},{if $location->longitudehemisfera==W}-{/if}{$location->longitude}" target="_blank" title="zobrazit lokalitu na mapy.cz">zobrazit na Mapy.cz</a> / <a href="https://www.google.com/maps/place/{if $location->latitudehemisfera==S}-{/if}{$location->latitude},{if $location->longitudehemisfera==W}-{/if}{$location->longitude}" target="_blank" title="zobrazit lokalitu na maps.google.com">Google Mapách</a> </div>
             </div> 
             {* /[0-9]{2};[0-9]{2};[0-9]{2};[EN]/ *}
             <div class="row">

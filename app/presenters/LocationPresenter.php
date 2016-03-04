@@ -149,14 +149,17 @@ class LocationPresenter extends BasePresenter {
         $grid = new Grid($this, $name);
         $primarykey = 'id';
         $grid->setPrimaryKey($primarykey);
+        $grid->setDefaultOrder('date', 'DESC');
         $grid->setLocale('cs');
         $grid->setDataSource($source);
         $grid->addDate('date', 'Datum')
                 ->setFormat('d.m.y - H:i')
                 ->setOrdering(TRUE);
-        $grid->addNumber('sqmavg', 'Průměrné sqm')->setDecimals(2);
+        $grid->addNumber('sqmavg', 'Průměrné sqm')->setDecimals(2)->setAttribute('class', 'sqmGrid');
         $grid->addText('observer', 'Pozorovatel');
-        $grid->enablePager(10);
+        if ($selection->count('*') > 10) {
+            $grid->enablePager(10);
+        }
         $grid->enableExport($this->context->parameters['wwwDir'] . '/../temp/cache');
         $actions = $grid->addActions('');
         $actions->addButton()

@@ -2,24 +2,24 @@
 
 /* Základní layout pro celý web */
 @font-face {
-font-family: 'Myriad Pro Bold';
-font-style: normal;
-font-weight: normal;
-src: local('Myriad Pro Bold'), url('../fonts/MYRIADPRO-SEMIBOLD.woff') format('woff');
+    font-family: 'Myriad Pro Bold';
+    font-style: normal;
+    font-weight: normal;
+    src: local('Myriad Pro Bold'), url('../fonts/MYRIADPRO-SEMIBOLD.woff') format('woff');
 }
 
 @font-face {
-font-family: 'Open Sans';
-font-style: normal;
-font-weight: normal;
-src: local('Open Sans'), url('../fonts/OpenSans-Regular.woff') format('woff');
+    font-family: 'Open Sans';
+    font-style: normal;
+    font-weight: normal;
+    src: local('Open Sans'), url('../fonts/OpenSans-Regular.woff') format('woff');
 } 
 
 @font-face {
-font-family: 'Myriad Pro Regular';
-font-style: normal;
-font-weight: normal;
-src: local('Myriad Pro Regular'), url('../fonts/MYRIADPRO-REGULAR.woff') format('woff');
+    font-family: 'Myriad Pro Regular';
+    font-style: normal;
+    font-weight: normal;
+    src: local('Myriad Pro Regular'), url('../fonts/MYRIADPRO-REGULAR.woff') format('woff');
 }
 
 body {
@@ -306,7 +306,7 @@ form table .required td textarea {
 form table .required td input {
     background-color: #FFFFFF;
     border-top: 1px solid #E0E0E0;
-    border-left: 3px solid #E00000; 
+    border-left: 3px solid #bc0012; 
     border-bottom: 1px solid #E0E0E0; 
     border-right: 1px solid #E0E0E0;
     padding-left: 5px;
@@ -516,7 +516,7 @@ th #locinfo {
 }
 
 #transparency label {
-   margin-left: .65em;
+    margin-left: .65em;
 }
 
 #info {
@@ -535,7 +535,7 @@ th #locinfo {
 .required input[type=text],.required select, .required textarea {
     background-color: #FFFFFF;
     border-top: 1px solid #E0E0E0;
-    border-left: 3px solid #E00000; 
+    border-left: 3px solid #bc0012; 
     border-bottom: 1px solid #E0E0E0; 
     border-right: 1px solid #E0E0E0;
     padding-left: 5px;
@@ -551,8 +551,9 @@ th #locinfo {
 }
 
 input#frm-observationForm-send.sendbutton {
-    border: solid 1px #E00000;
-    border-radius: 2px;
+    border: solid 3px #bc0012;
+    font-weight: bold;
+    border-radius: 3px;
     background-image: none;
     background-color: #fff;
     padding: .4em 1em .3em 1em;
@@ -659,9 +660,10 @@ input#frm-observationForm-send.sendbutton {
 
 
 .hptablebody tr:hover{
-    background-color: #666;
+    background-color: #FAFAFA;
     cursor: pointer;
-    color: #fff;
+    color: #222;
+    font-weight: bold;
 }
 
 .hptablebody td {
@@ -699,16 +701,50 @@ input#frm-observationForm-send.sendbutton {
 }
 
 .tpageb {
-    margin: 1.5em 0;
+    margin-top: 3em;
+    margin-bottom: 1.5em;
+    padding-top: 1.5em;
     width: 100%;
     float: left;
+    border-top: 1px solid #CCC;
 } 
 
 .tpagebdiv {
     width: 30%;
-    border: 1px solid #666;
-    margin: 1em 1em 1em 1em;
+    margin: 1em 3em 1em 0em;
     float: left;
+    text-align: justify;
+    color: #333;
+    font-size: .9em;
+}
+
+.tpagediv-last {
+    margin: 1em 0;
+}
+
+.tpagebtext {
+    z-index: 100;
+    position: relative;
+}
+
+.tpagebimg {
+    width: 100%;
+    z-index: 0;
+    margin-top: -10em;
+    position: relative;
+}
+
+.tpagebimgdiv {
+    width: 100%;
+    position: relative;
+    height: 10em;
+    z-index: 50; 
+    margin-top: -0.1em;
+   /* Permalink - use to edit and share this gradient: http://colorzilla.com/gradient-editor/#ffffff+4,ffffff+99&1+4,1+4,0+99 */
+background: -moz-linear-gradient(top,  rgba(255,255,255,1) 4%, rgba(255,255,255,0) 99%); /* FF3.6-15 */
+background: -webkit-linear-gradient(top,  rgba(255,255,255,1) 4%,rgba(255,255,255,0) 99%); /* Chrome10-25,Safari5.1-6 */
+background: linear-gradient(to bottom,  rgba(255,255,255,1) 4%,rgba(255,255,255,0) 99%); /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
+filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#ffffff', endColorstr='#00ffffff',GradientType=0 ); /* IE6-9 */
 }
 
 .footer {
@@ -801,7 +837,7 @@ input#frm-observationForm-send.sendbutton {
 
 .commentObs {
     font-style: italic;
-  
+
     padding-left: 1em;
 }
 
@@ -840,8 +876,8 @@ input#frm-observationForm-send.sendbutton {
 }
 
 .grafMereniLoc {
-    
-    
+
+
 }
 
 .locationName {
@@ -943,6 +979,11 @@ input#frm-observationForm-send.sendbutton {
     border-color: #003380;
 }
 
+.sqmGrid, .accstandGrid, .grid-column-accessiblestand, .grid-column-sqmavg {
+    text-align: center;
+}
+
+
 .obsheadl {
     margin-bottom: 0; 
     font-size: 1.8em; 
@@ -975,7 +1016,7 @@ input#frm-observationForm-send.sendbutton {
 /* Fotografie */
 
 .photodiv {
-    
+
     overflow: hidden;
     height: 10em;
     width: 10em;
@@ -1052,19 +1093,19 @@ input#frm-observationForm-send.sendbutton {
 
 
 .flag-bortle {
-    background: #ff6699;
+    background: #007acc;
 }
 
 .flag-info {
-    background: #660066;
+    background: #cc0066;
 }
 
-.flag-weather {
-    background: #9999ff;
+.flag-transparency {
+    background: #8585ad;
 }
 
 .flag-photo {
-    background: #6600ff;
+    background: #ccff33;
 }
 
 
@@ -1086,5 +1127,17 @@ input#frm-observationForm-send.sendbutton {
     margin-right: 0.4em;
     vertical-align: -5%;
 }
+
+
+
+.h2 {
+    font-size: 2em;
+    color: #222;
+    text-align: left;
+    font-weight: 400;
+    margin-top: 0;
+}
+
+
 
 

@@ -30,7 +30,8 @@ class DatabasePresenter extends BasePresenter {
     public function __construct(Nette\Database\Context $database) {
         $this->database = $database;
     }
-        /**
+
+    /**
      * @author Anna Moudrá <anna.moudra@gmail.com>
      * @description Počítá aritmetický průměr.
      * @memberOf LocationPresenter 
@@ -62,12 +63,13 @@ class DatabasePresenter extends BasePresenter {
         $grid->setPrimaryKey($primarykey);
         $grid->setLocale('cs');
         $grid->setDataSource($source);
+        $grid->setDefaultOrder('date', 'DESC');
         $grid->addDate('date', 'Datum')
                 ->setFormat('d.m.y - H:i')
                 ->setOrdering(TRUE);
         $grid->addText('observer', 'Pozorovatel');
         $grid->addText('name', 'Lokalita');
-        $grid->addNumber('sqmavg', 'Průměrný jas [MSA]')->setDecimals(2);
+        $grid->addNumber('sqmavg', 'Průměrný jas [MSA]')->setDecimals(2)->setAttribute('class', 'sqmGrid');
         $action = $grid->addActions('');
         $action->addButton()
                 ->setType('btn-primary')
@@ -91,25 +93,29 @@ class DatabasePresenter extends BasePresenter {
      */
     protected function createComponentLocationsDataGrid($name) {
         $selection = $this->database->table('location');
-	$sel_length = $this->database->table('location')->count('*');
+        $sel_length = $this->database->table('location')->count('*');
         $selection->select('id, name, latitude, altitude, longitude, accessiblestand');
-	
-        for ($i=1; $i < $sel_length-1; $i++) {
-            $observation = $this->database->table('observations')
-		    ->where('location_id', $selection[$i]->id)->order('date DESC');
 
-            $sqms = [];
-	    $pole[$i]=$selection[$i]->toArray();
-            foreach ($observation as $observation) {
-                $sqms[] = $observation->sqmavg;
+        for ($i = 1; $i <= $sel_length; $i++) {
+            $observation = $this->database->table('observations')
+                            ->where('location_id', $selection[$i]->id)->order('date DESC');
+
+
+            if ($observation->count('*') > 0) {
+                $sqms = [];
+                $pole[$i] = $selection[$i]->toArray();
+                foreach ($observation as $observation) {
+                    $sqms[] = $observation->sqmavg;
+                }
+                if (count($sqms) != 0) {
+                    $sqmavg = $this->numericalAverage($sqms);
+                    $pole[$i]['sqmavg'] = $sqmavg;
+                } else {
+                    $pole[$i]['sqmavg'] = NULL;
+                }
             }
-	    if(count($sqms)!=0){
-		$sqmavg = $this->numericalAverage($sqms);
-		$pole[$i]['sqmavg']=$sqmavg;
-	    }else{
-		$pole[$i]['sqmavg']=NULL;
-	    }	    
         }
+
 
 
         $source = new ArrayDataSource($pole);
@@ -119,8 +125,9 @@ class DatabasePresenter extends BasePresenter {
         $grid->setLocale('cs');
         $grid->setDataSource($source);
         $grid->addText('name', 'Název');
-        $grid->addNumber('sqmavg', 'Průměrný jas [MSA]')->setDecimals(2);
+        $grid->addNumber('sqmavg', 'Průměrný jas [MSA]')->setDecimals(2)->setAttribute('class', 'sqmGrid');
         $grid->addText('accessiblestand', 'Volně přístupné')
+                ->setAttribute('class', 'accstandGrid')
                 ->setCallback(function($row) {
                     if ($row['accessiblestand'] === 0) {
                         return 'ne';

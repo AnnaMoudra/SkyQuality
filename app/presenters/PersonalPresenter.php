@@ -61,11 +61,12 @@ class PersonalPresenter extends BasePresenter {
         $grid->setPrimaryKey($primarykey);
         $grid->setLocale('cs');
         $grid->setDataSource($source);
+        $grid->setDefaultOrder('date', 'DESC');
         $grid->addDate('date', 'Datum')
                 ->setFormat('d.m.y - H:i')
                 ->setOrdering(TRUE);
         $grid->addText('name', 'Lokalita');
-        $grid->addNumber('sqmavg', 'Průměrný jas [MSA]')->setDecimals(2);
+        $grid->addNumber('sqmavg', 'Průměrný jas [MSA]')->setDecimals(2)->setAttribute('class', 'sqmGrid');
         $action = $grid->addActions('');
         $action->addButton()
                 ->setType('btn-primary')
@@ -74,7 +75,9 @@ class PersonalPresenter extends BasePresenter {
                 ->setAttribute('href', new Link('Observation:show', array(
                     'observationId' => '{' . $primarykey . '}'
         )));
-        $grid->enablePager(20);
+        if ($selection->count('*') > 20) {
+            $grid->enablePager(20);
+        }
         $grid->enableExport($this->context->parameters['wwwDir'] . '/../temp/cache');
 
         return $grid;
@@ -113,11 +116,11 @@ class PersonalPresenter extends BasePresenter {
                 $bortles[] = $observation->bortle;
             }
         }
-	if(count($sqms) != 0){
-	    $sqmavg = $this->numericalAverage($sqms);
-	}else{
-	    $sqmavg=0;
-	}
+        if (count($sqms) != 0) {
+            $sqmavg = $this->numericalAverage($sqms);
+        } else {
+            $sqmavg = 0;
+        }
         if (count($bortles) !== 0) {
             $bortleavg = $this->numericalAverage($bortles);
         } else {

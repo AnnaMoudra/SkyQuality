@@ -45,6 +45,7 @@ class ObservationPresenter extends BasePresenter {
         $phosel = $this->database->table('photos')->where('observation.id', $observationId);
 
         $this->template->observation = $observation;
+        $this->template->users = $this->database->table('users');
         $this->template->comments = $observation->related('comment')->order('created_at');
         $this->template->sqm = $observation->related('sqm')->order('height DESC')->order('azimute ASC');
         $this->template->phosel = $phosel;
@@ -54,7 +55,8 @@ class ObservationPresenter extends BasePresenter {
             foreach ($phosel as $photos) {
                 $imgl[] = array(
                     'fotky' => Image::fromFile('http://skyquality.cz/www/images/photos/' . $photos->photo)->resize(600, NULL),
-                    'popisky' => ($photos->info)
+                    'popisky' => ($photos->info),
+                    'id' => ($photos->id)
                 );
             }
             $this->template->imgl = $imgl;
@@ -128,6 +130,21 @@ class ObservationPresenter extends BasePresenter {
         $b = $log / -0.4;
         return $b;
     }
+    
+    /**
+     * @author Anna Moudrá <anna.moudra@gmail.com>
+     * @description Konvertuje desetinne stupne geog. souradnic na stupne, minuty a vteriny.
+     * @memberOf ObservationPresenter 
+     * @param float, string
+     * @return string
+     */
+    public function converseToDMS($a, $hem) {
+        $d=  floor($a);
+	$m=  floor(60*($a-$d));
+	$s=  floor(3600*(($a-$d)-$m/60));
+        $str= $d.";".$m.";".$s.";".$hem;
+	return $str;
+    }
 
     /**
      * @author Anna Moudrá <anna.moudra@gmail.com>
@@ -178,6 +195,10 @@ class ObservationPresenter extends BasePresenter {
 
             if ($values['locationid'] === 'new') { // případ zadávání zcela nové lokality
                 $valuesLocation = $values['location']; // přebírá data z containeru
+		$valuesLocation['latituderaw']=$this
+			->converseToDMS($valuesLocation['latitude'],$valuesLocation['latitudehemisfera']);
+		$valuesLocation['longituderaw']=$this
+			->converseToDMS($valuesLocation['longitude'],$valuesLocation['longitudehemisfera']);
                 $valuesLocation['user_id'] = $this->user->id;
                 $this->database->table('location')->insert($valuesLocation);
                 $name = $valuesLocation['name'];
@@ -286,10 +307,15 @@ class ObservationPresenter extends BasePresenter {
          */ else {
             if ($values['locationid'] === 'new') { //v případě zadání nové lokality
                 $valuesLocation = $values['location'];
-                $valuesLocation['user_id'] = $this->user->id;
-                $this->database->table('location')->insert($valuesLocation);
-                $name = $valuesLocation['name'];
-                $valuesObservation['location_id'] = $this->database->table('location')->where('name', $name)->fetch('id');
+		//vycuc lathem
+		$valuesLocation['latituderaw']=$this
+			->converseToDMS($valuesLocation['latitude'],$valuesLocation['latitudehemisfera']);
+		$valuesLocation['longituderaw']=$this
+			->converseToDMS($valuesLocation['longitude'],$valuesLocation['longitudehemisfera']);
+		$valuesLocation['user_id'] = $this->user->id;
+		$this->database->table('location')->insert($valuesLocation);
+		$name = $valuesLocation['name'];
+		$valuesObservation['location_id'] = $this->database->table('location')->where('name', $name)->fetch('id');
             } else {
                 $valuesObservation['location_id'] = $values['locationid'];
             }
@@ -388,6 +414,15 @@ class ObservationPresenter extends BasePresenter {
         if (!$this->user->isLoggedIn()) {
             $this->redirect('Sign:in');
         }
+	else{
+	$userid=$this->user->id;
+        $observer = $this->database->table('users')
+		->where('id', $userid)->fetch('name');
+        $this['observationForm']['observation']['observer']->setValue($observer->name);
+        date_default_timezone_set('UTC');
+        $datetime=date('d.m.Y H:i');
+        $this['observationForm']['observation']['date']->setValue($datetime);
+	}
     }
 
     /**
@@ -467,7 +502,6 @@ class ObservationPresenter extends BasePresenter {
 
             $this['observationForm']['observation']->setDefaults($observation);
             $this['observationForm']['locationid']->setValue($location);
-            // $this['observationForm']['sqm']->setDefaults($observation);
             $this['observationForm']['equipmentid']->setValue($equipment);
             $this['observationForm']['sqm']->setDefaults($pole);
         }
