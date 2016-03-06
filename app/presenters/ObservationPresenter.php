@@ -130,7 +130,7 @@ class ObservationPresenter extends BasePresenter {
         $b = $log / -0.4;
         return $b;
     }
-    
+
     /**
      * @author Anna Moudrá <anna.moudra@gmail.com>
      * @description Konvertuje desetinne stupne geog. souradnic na stupne, minuty a vteriny.
@@ -139,11 +139,11 @@ class ObservationPresenter extends BasePresenter {
      * @return string
      */
     public function converseToDMS($a, $hem) {
-        $d=  floor($a);
-	$m=  floor(60*($a-$d));
-	$s=  floor(3600*(($a-$d)-$m/60));
-        $str= $d.";".$m.";".$s.";".$hem;
-	return $str;
+        $d = floor($a);
+        $m = floor(60 * ($a - $d));
+        $s = floor(3600 * (($a - $d) - $m / 60));
+        $str = $d . ";" . $m . ";" . $s . ";" . $hem;
+        return $str;
     }
 
     /**
@@ -157,7 +157,7 @@ class ObservationPresenter extends BasePresenter {
             $this->error('Pro vytvoření, nebo editování příspěvku se musíte přihlásit.'); //ověří, zda je uživatel přihlášen
         }
         //$userid=$this->user->id;
-        
+
         $form = (new \ObservationFormFactory($this->database))->create(); //vytvoří formulář za složky app/forms
         //$observer = $this->database->table('users')->where('id', $userid)->get('username');
         //$form['observation']['observer']->setValue($observer);
@@ -195,10 +195,10 @@ class ObservationPresenter extends BasePresenter {
 
             if ($values['locationid'] === 'new') { // případ zadávání zcela nové lokality
                 $valuesLocation = $values['location']; // přebírá data z containeru
-		$valuesLocation['latituderaw']=$this
-			->converseToDMS($valuesLocation['latitude'],$valuesLocation['latitudehemisfera']);
-		$valuesLocation['longituderaw']=$this
-			->converseToDMS($valuesLocation['longitude'],$valuesLocation['longitudehemisfera']);
+                $valuesLocation['latituderaw'] = $this
+                        ->converseToDMS($valuesLocation['latitude'], $valuesLocation['latitudehemisfera']);
+                $valuesLocation['longituderaw'] = $this
+                        ->converseToDMS($valuesLocation['longitude'], $valuesLocation['longitudehemisfera']);
                 $valuesLocation['user_id'] = $this->user->id;
                 $this->database->table('location')->insert($valuesLocation);
                 $name = $valuesLocation['name'];
@@ -214,7 +214,17 @@ class ObservationPresenter extends BasePresenter {
             } else {
                 $valuesObservation['equipment_id'] = $values['equipmentid'];
             }
+            
+            
+            if ($valuesObservation['nelm'] == 0) {
+                $valuesObservation['nelm'] = NULL;
+            }
+            if ($valuesObservation['nelmHD'] == 0) {
+                $valuesObservation['nelmHD'] = NULL;
+            }
             $observation->update($valuesObservation); //upraví data v tabulce observations
+
+
 
             /**
              * @description Tento cyklus vypočítává správné hodnoty sqm pro tabulku sqm.
@@ -307,15 +317,15 @@ class ObservationPresenter extends BasePresenter {
          */ else {
             if ($values['locationid'] === 'new') { //v případě zadání nové lokality
                 $valuesLocation = $values['location'];
-		//vycuc lathem
-		$valuesLocation['latituderaw']=$this
-			->converseToDMS($valuesLocation['latitude'],$valuesLocation['latitudehemisfera']);
-		$valuesLocation['longituderaw']=$this
-			->converseToDMS($valuesLocation['longitude'],$valuesLocation['longitudehemisfera']);
-		$valuesLocation['user_id'] = $this->user->id;
-		$this->database->table('location')->insert($valuesLocation);
-		$name = $valuesLocation['name'];
-		$valuesObservation['location_id'] = $this->database->table('location')->where('name', $name)->fetch('id');
+                //vycuc lathem
+                $valuesLocation['latituderaw'] = $this
+                        ->converseToDMS($valuesLocation['latitude'], $valuesLocation['latitudehemisfera']);
+                $valuesLocation['longituderaw'] = $this
+                        ->converseToDMS($valuesLocation['longitude'], $valuesLocation['longitudehemisfera']);
+                $valuesLocation['user_id'] = $this->user->id;
+                $this->database->table('location')->insert($valuesLocation);
+                $name = $valuesLocation['name'];
+                $valuesObservation['location_id'] = $this->database->table('location')->where('name', $name)->fetch('id');
             } else {
                 $valuesObservation['location_id'] = $values['locationid'];
             }
@@ -327,6 +337,13 @@ class ObservationPresenter extends BasePresenter {
             } else {
                 $valuesObservation['equipment_id'] = $values['equipmentid'];
             }
+            if ($valuesObservation['nelm'] == 0) {
+                $valuesObservation['nelm'] = NULL;
+            }
+            if ($valuesObservation['nelmHD'] == 0) {
+                $valuesObservation['nelmHD'] = NULL;
+            }
+
             $observation = $this->database->table('observations')
                     ->insert($valuesObservation);
 
@@ -413,16 +430,15 @@ class ObservationPresenter extends BasePresenter {
     public function actionCreate() {
         if (!$this->user->isLoggedIn()) {
             $this->redirect('Sign:in');
+        } else {
+            $userid = $this->user->id;
+            $observer = $this->database->table('users')
+                            ->where('id', $userid)->fetch('name');
+            $this['observationForm']['observation']['observer']->setDefaultValue($observer->name);
+            date_default_timezone_set('UTC');
+            $datetime = date('d.m.Y H:i');
+            $this['observationForm']['observation']['date']->setDefaultValue($datetime);
         }
-	else{
-	$userid=$this->user->id;
-        $observer = $this->database->table('users')
-		->where('id', $userid)->fetch('name');
-        $this['observationForm']['observation']['observer']->setValue($observer->name);
-        date_default_timezone_set('UTC');
-        $datetime=date('d.m.Y H:i');
-        $this['observationForm']['observation']['date']->setValue($datetime);
-	}
     }
 
     /**

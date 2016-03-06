@@ -43,12 +43,12 @@ class ObservationFormFactory extends \Nette\Application\UI\Form {
         $form = new Form;
         // Příprava hodnot pro jednotlivá políčka
         // lokality
-        $locationsarr = $this->database->table('location')->group('location.id')->having('COUNT(:observation.id) > 0')->fetchPairs('id', 'name');
+        $locationsarr = $this->database->table('location')->order('name ASC')->group('location.id')->having('COUNT(:observation.id) > 0')->fetchPairs('id', 'name');
         $locations = [];
         $locations['new'] = 'Zadat novou lokalitu';
         Arrays::insertAfter($locations, 'new', $locationsarr);
         // Zařízení
-        $equipmentarr = $this->database->table('equipment')->fetchPairs('id', 'name');
+        $equipmentarr = $this->database->table('equipment')->order('name ASC')->fetchPairs('id', 'name');
         $equipment = [];
         $equipment['new'] = 'Zadat nové zařízení';
         Arrays::insertAfter($equipment, 'new', $equipmentarr);
@@ -96,10 +96,10 @@ class ObservationFormFactory extends \Nette\Application\UI\Form {
                         ->src('../www/images/help.svg')
                         ->alt('Hodnoty vyplňujte ve formátu desetinného čísla (12.345678).')
                         ->title('Hodnoty vyplňujte ve formátu desetinného čísla (12.345678).'))
-                ->addRule(Form::FLOAT, 'Hodnoty musí být čísla: např 50.124578 či 45.5978')
-                ->addRule(Form::RANGE, 'Vyplňte hodnoty v rozsahu 00.00-90.00', array(0, 90))
                 ->addConditionOn($form['locationid'], Form::EQUAL, 'new', 'Zadat novou lokalitu')
-                ->setRequired();
+                ->setRequired()
+                ->addRule(Form::FLOAT, 'Hodnoty musí být čísla: např 50.124578 či 45.5978')
+                ->addRule(Form::RANGE, 'Vyplňte hodnoty v rozsahu 00.00-90.00', array(0, 90));
         $locationContainer->addSelect('latitudehemisfera', '', $latitude)
                 ->setOption('id', 'location-latitudehemisfera')
                 ->addConditionOn($form['locationid'], Form::EQUAL, 'new', 'Zadat novou lokalitu')
@@ -111,10 +111,10 @@ class ObservationFormFactory extends \Nette\Application\UI\Form {
                         ->src('../www/images/help.svg')
                         ->alt('Hodnoty vyplňujte ve formátu desetinného čísla (12.345678).')
                         ->title('Hodnoty vyplňujte ve formátu desetinného čísla (12.345678).'))
-                ->addRule(Form::FLOAT, 'Hodnoty musí být čísla: např 10.124578 či 15.5978')
-                ->addRule(Form::RANGE, 'Vyplňte hodnoty v rozsahu 00.00-180.00', array(0, 180))
                 ->addConditionOn($form['locationid'], Form::EQUAL, 'new', 'Zadat novou lokalitu')
-                ->setRequired();
+                ->setRequired()
+                 ->addRule(Form::FLOAT, 'Hodnoty musí být čísla: např 10.124578 či 15.5978')
+                ->addRule(Form::RANGE, 'Vyplňte hodnoty v rozsahu 00.00-180.00', array(0, 180));
         $locationContainer->addSelect('longitudehemisfera', '', $longitude)
                 ->setOption('id', 'location-longitudehemisfera')
                 ->addConditionOn($form['locationid'], Form::EQUAL, 'new', 'Zadat novou lokalitu')
@@ -282,7 +282,7 @@ class ObservationFormFactory extends \Nette\Application\UI\Form {
             3 => 'Průměrná',
             2 => 'Dobrá',
             1 => 'Vynikající');
-        $bortle = array(9, 8, 7, 6, 5, 4, 3, 2, 1);
+        $bortle = array(9 => 9, 8 => 8, 7 => 7, 6 => 6, 5 => 5, 4 => 4, 3 => 3, 2 => 2, 1 => 1);
         $bortlespec = array('lepší' => 'lepší', 'horší' => 'horší');
         $observationContainer->addSelect('transparency', 'Průzračnost', $transparency)
                 ->setAttribute('id', 'transparency')
