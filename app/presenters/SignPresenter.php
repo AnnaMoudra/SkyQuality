@@ -94,7 +94,7 @@ class SignPresenter extends BasePresenter {
     public function actionActivate() {
         $linkhash = $this->getHttpRequest()->getUrl()->getQueryParameter("hash"); // ziska linkhash z url
         $this->userManager->validate($linkhash);
-        $this->flashMessage('Váš účet byl aktivován. Nyní se můžete přihlásit');
+        $this->flashMessage('Váš účet byl aktivován. Nyní se můžete přihlásit.');
         $this->redirect('in');
     }
 

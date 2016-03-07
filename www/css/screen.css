@@ -571,6 +571,13 @@ input#frm-observationForm-send.sendbutton {
 
 /* Homepage Layout */
 
+.dulezite {
+    padding: .5em;
+    background-color:#fff1f1;
+    border-left: 3px solid #bc0012;
+    margin-bottom: 1.2em;
+}
+
 /* Sidebar Layout */
 
 .sidebar {
