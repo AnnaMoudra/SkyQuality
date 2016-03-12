@@ -21,7 +21,7 @@
             <tbody class="hptablebody">
             <div n:foreach="$observation as $observation">
                 <tr class="clickable" onclick="window.location.href ={link Observation:show $observation->id}">
-                    <td>{$observation->date|date:'d.m.Y — H:i'}</td>
+                    <td>{$observation->date|date:'d.m.Y —;H:i'|replace:';':"\xc2\xa0"}</td>
                     <td>{$observation->location['name']}</td>
                     <td align="center">{$observation->sqmavg|number:2}</td>                   
                     <td>{$observation->observer}</td>  

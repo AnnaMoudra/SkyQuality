@@ -166,6 +166,7 @@ h4 {
     max-width: 260px;
 }
 
+
 .sitedescr {
     font-size: .9em;
     color: #aaa;
@@ -173,6 +174,14 @@ h4 {
     vertical-align: bottom;
     margin-bottom: 0.2em;
 
+}
+@media (max-width: 1000px) {
+  .sitedescr {
+      display: none;
+  }
+  .logo img {
+      width: 100%;
+  }
 }
 
 .menu {
