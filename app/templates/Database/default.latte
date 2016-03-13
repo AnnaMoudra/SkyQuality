@@ -4,14 +4,15 @@
 <div class="page">
     <div style="margin-bottom:1em;">
         <a n:href="Database:locations" class="navbutton">přepnout do režimu lokalit</a>
+        <a n:href="Map:default" class="navbutton">zobrazit na mapě</a>
+        <div n:if="$user->loggedIn" style="margin-top:1.5em;">
+            <a n:href="Observation:create"  class="navbutton" >přidat měření</a>
+        </div>
     </div>
-    <div n:if="$user->loggedIn" style="margin-top:1.3em;">
-        <a n:href="Observation:create"  class="navbutton" >přidat měření</a>
-    </div>
-  
+
     <h3>Výpis databáze měření </h3>
     <div class="">
-	{control basicDataGrid}
+        {control basicDataGrid}
     </div>
- 
+
 </div>

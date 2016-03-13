@@ -17,12 +17,12 @@
 
     <div class="post">
         <div style="margin-bottom:2em;">
-            <span class="obsheadl">{$observation->date|date:'Y/m/d'} • {$observation->location->name}</span><span> - detail pozorování</span><br />
+            <span class="obsheadl">{$observation->date|date:'Y/m/d'} • {$observation->location->name}</span><span> &mdash; detail pozorování</span><br />
             <span class="date">Přidáno: {$observation->created_at|date:'d.m.y — H:i'}</span></div>
         <div class="container">
             <div class="row">
                 <div class="col otable">Datum a čas měření (UT)</div>
-                <div class="col atable">{$observation->date|date:'d.m.y — H:i'}</div>
+                <div class="col atable">{$observation->date|date:'d.m.Y — H:i'}</div>
             </div>
             <div class="row">
                 <div class="col otable">Pozorovatel</div>
@@ -71,6 +71,13 @@
                     <div class="col atable"><b>{$observation->nelm}</b> {if $observation->nelmHD} (použitá HD hvězda: {$observation->nelmHD}){/if}</div>
                 </div>
             {/if}
+            {if $observation->transparency != 0}
+                <div class="row">
+                    <div class="col otable">Průzračnost</div>
+                    <div class="col atable">{$observation->transparency|replace:6:'Neobvyklé podmínky',
+                        5:'Velmi špatná',4:'Špatná',3:'Průměrná',2:'Dobrá',1:'Vynikající'}</div>
+                </div>
+            {/if}
             {if $observation->disturbance}
                 <div class="row">
                     <div class="col otable">Rušení</div>
@@ -117,18 +124,20 @@
                                     <img src='{$imgl[$i]['fotky']|dataStream}' />
                                 </div>
                             </a>
+                            {if $user->id == $observation->user_id} 
+                                <a href="{link Observation:erasePhoto $imgl[$i]['id'], $observation->id}" class="ruzova">Smazat</a>
+                            {/if}
                         </div>
                         {if $i%6 == 5 || $i == ($phosel->count('*')-1)}</div>{/if}
                     {/for}
             </div>
         {/if}
 
-
         <div class="grafMereniLoc">
             <h3  class="h3" style="margin-bottom: 0.2em">Měření na této lokalitě</h3>
             <div class="date">Vybráním části grafu kurzorem lze graf přiblížit</div>
             <div>
-            {include graph.latte}
+                {include graph.latte}
             </div>
         </div>
 

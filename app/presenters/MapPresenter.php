@@ -48,8 +48,11 @@ class MapPresenter extends BasePresenter {
         $location = $this->database->table('location');
 
         foreach ($location as $location) {
-            $latitude[] = $location->latitude;
-            $longitude[] = $location->longitude;
+	    
+	    $a=$location->latitude;
+	    $b=$location->longitude;
+	    $latitude[] = ($location->latitudehemisfera=="N")?($a):(-$a);
+	    $longitude[] = ($location->longitudehemisfera=="E")?($b):(-$b);
             $name[] = $location->name;
             $altitude[] = $location->altitude;
             $id[] = $location->id;

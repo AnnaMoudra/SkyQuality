@@ -9,7 +9,8 @@ use Nette\Utils\Arrays;
 use Mesour\DataGrid,
     Mesour\DataGrid\Grid,
     Mesour\DataGrid\Extensions\Pager;
-use Mesour\DataGrid\NetteDbDataSource,
+use Mesour\DataGrid\ArrayDataSource,
+    Mesour\DataGrid\NetteDbDataSource,
     Mesour\DataGrid\Components\Button,
     Mesour\DataGrid\Components\Link;
 
@@ -32,6 +33,20 @@ class DatabasePresenter extends BasePresenter {
 
     /**
      * @author Anna Moudrá <anna.moudra@gmail.com>
+     * @description Počítá aritmetický průměr.
+     * @memberOf LocationPresenter 
+     * @param array
+     * @return float Aritmetický průměr
+     */
+    public function numericalAverage(array $array) {
+        $length = count($array);
+        $sum = array_sum($array);
+        $number = $sum / $length;
+        return $number;
+    }
+
+    /**
+     * @author Anna Moudrá <anna.moudra@gmail.com>
      * @description Vytváří tabulku s pozorováními.
      * @memberOf DatabasePresenter 
      * @param string Name
@@ -48,12 +63,13 @@ class DatabasePresenter extends BasePresenter {
         $grid->setPrimaryKey($primarykey);
         $grid->setLocale('cs');
         $grid->setDataSource($source);
+        $grid->setDefaultOrder('date', 'DESC');
         $grid->addDate('date', 'Datum')
-                ->setFormat('d.m.y - H:i')
+                ->setFormat('d.m.Y - H:i')
                 ->setOrdering(TRUE);
         $grid->addText('observer', 'Pozorovatel');
         $grid->addText('name', 'Lokalita');
-        $grid->addNumber('sqmavg', 'Průměrný jas [MSA]')->setDecimals(2);
+        $grid->addNumber('sqmavg', 'Průměrný jas [MSA]')->setDecimals(2)->setAttribute('class', 'sqmGrid');
         $action = $grid->addActions('');
         $action->addButton()
                 ->setType('btn-primary')
@@ -77,33 +93,41 @@ class DatabasePresenter extends BasePresenter {
      */
     protected function createComponentLocationsDataGrid($name) {
         $selection = $this->database->table('location');
+        $sel_length = $this->database->table('location')->count('*');
         $selection->select('id, name, latitude, altitude, longitude, accessiblestand');
-        /*$sel_array = iterator_to_array($selection, true);
-        $sel_length = count($sel_array);
-        for ($i=0; $i < $sel_length; $i++) {
-            $observation = $this->database->table('observations')
-                    ->where('location_id', $selection['id'][$i]);
 
-            $sqms = [];
-            foreach ($observation as $observation) {
-                if (count($sqms) != 0) {
+        for ($i = 1; $i <= $sel_length; $i++) {
+            $observation = $this->database->table('observations')
+                            ->where('location_id', $selection[$i]->id)->order('date DESC');
+
+
+            if ($observation->count('*') > 0) {
+                $sqms = [];
+                $pole[$i] = $selection[$i]->toArray();
+                foreach ($observation as $observation) {
                     $sqms[] = $observation->sqmavg;
                 }
+                if (count($sqms) != 0) {
+                    $sqmavg = $this->numericalAverage($sqms);
+                    $pole[$i]['sqmavg'] = $sqmavg;
+                } else {
+                    $pole[$i]['sqmavg'] = NULL;
+                }
             }
-            $sqmavg = $this->numericalAverage($sqms);
-            $selection['sqmavg'][$i] = $sqmavg;
         }
 
-*/
-        $source = new NetteDbDataSource($selection);
+
+
+        $source = new ArrayDataSource($pole);
         $grid = new Grid($this, $name);
         $primarykey = 'id';
         $grid->setPrimaryKey($primarykey);
         $grid->setLocale('cs');
         $grid->setDataSource($source);
         $grid->addText('name', 'Název');
-        $grid->addText('altitude', 'Výška m. n. m.');
+        $grid->addNumber('sqmavg', 'Průměrný jas [MSA]')->setDecimals(2)->setAttribute('class', 'sqmGrid');
         $grid->addText('accessiblestand', 'Volně přístupné')
+                ->setAttribute('class', 'accstandGrid')
                 ->setCallback(function($row) {
                     if ($row['accessiblestand'] === 0) {
                         return 'ne';

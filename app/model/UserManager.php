@@ -15,9 +15,10 @@ class UserManager extends Nette\Object implements Nette\Security\IAuthenticator
 	const
 		TABLE_NAME = 'users',
 		COLUMN_ID = 'id',
-		COLUMN_NAME = 'username',
+		COLUMN_USERNAME = 'username',
 		COLUMN_PASSWORD_HASH = 'password',
 		COLUMN_EMAIL = 'email',
+		COLUMN_NAME = 'name',
 		COLUMN_LINKHASH = 'linkhash',
 		COLUMN_ACTIVE = 'active',
 		COLUMN_ROLE = 'role',
@@ -43,7 +44,7 @@ class UserManager extends Nette\Object implements Nette\Security\IAuthenticator
 	{
 		list($username, $password) = $credentials;
 
-		$row = $this->database->table(self::TABLE_NAME)->where(self::COLUMN_NAME, $username)->fetch();
+		$row = $this->database->table(self::TABLE_NAME)->where(self::COLUMN_USERNAME, $username)->fetch();
 
 		if (!$row) {
 			throw new Nette\Security\AuthenticationException('The username is incorrect.', self::IDENTITY_NOT_FOUND);
@@ -69,12 +70,13 @@ class UserManager extends Nette\Object implements Nette\Security\IAuthenticator
 	 * @param  string
 	 * @return void
 	 */
-	public function add($username, $password, $email, $linkhash)
+	public function add($username, $password, $email, $name, $linkhash)
 	{
 		$this->database->table(self::TABLE_NAME)->insert(array(
-			self::COLUMN_NAME => $username,
+			self::COLUMN_USERNAME => $username,
 			self::COLUMN_PASSWORD_HASH => Passwords::hash($password),
 			self::COLUMN_EMAIL => $email,
+			self::COLUMN_NAME => $name,
 			self::COLUMN_LINKHASH => $linkhash
 		));
 	}
@@ -118,7 +120,7 @@ class UserManager extends Nette\Object implements Nette\Security\IAuthenticator
 	 * @params string Uživatel 
 	 */
 	public function isActive($username){
-	    $row = $this->database->table(self::TABLE_NAME)->where(self::COLUMN_NAME, $username)->fetch();
+	    $row = $this->database->table(self::TABLE_NAME)->where(self::COLUMN_USERNAME, $username)->fetch();
 	    if(!$row)
 	    {
 		throw new Nette\Security\AuthenticationException('Such user was not found in the database', self::IDENTITY_NOT_FOUND);

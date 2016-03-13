@@ -1,25 +1,29 @@
 
 
 /* Základní layout pro celý web */
-@font-face {
-font-family: 'Myriad Pro Bold';
-font-style: normal;
-font-weight: normal;
-src: local('Myriad Pro Bold'), url('../fonts/MYRIADPRO-SEMIBOLD.woff') format('woff');
+@-ms-viewport { 
+  width: device-width; 
 }
 
 @font-face {
-font-family: 'Open Sans';
-font-style: normal;
-font-weight: normal;
-src: local('Open Sans'), url('../fonts/OpenSans-Regular.woff') format('woff');
+    font-family: 'Myriad Pro Bold';
+    font-style: normal;
+    font-weight: normal;
+    src: local('Myriad Pro Bold'), url('../fonts/MYRIADPRO-SEMIBOLD.woff') format('woff');
+}
+
+@font-face {
+    font-family: 'Open Sans';
+    font-style: normal;
+    font-weight: normal;
+    src: local('Open Sans'), url('../fonts/OpenSans-Regular.woff') format('woff');
 } 
 
 @font-face {
-font-family: 'Myriad Pro Regular';
-font-style: normal;
-font-weight: normal;
-src: local('Myriad Pro Regular'), url('../fonts/MYRIADPRO-REGULAR.woff') format('woff');
+    font-family: 'Myriad Pro Regular';
+    font-style: normal;
+    font-weight: normal;
+    src: local('Myriad Pro Regular'), url('../fonts/MYRIADPRO-REGULAR.woff') format('woff');
 }
 
 body {
@@ -162,6 +166,7 @@ h4 {
     max-width: 260px;
 }
 
+
 .sitedescr {
     font-size: .9em;
     color: #aaa;
@@ -169,6 +174,14 @@ h4 {
     vertical-align: bottom;
     margin-bottom: 0.2em;
 
+}
+@media (max-width: 1000px) {
+  .sitedescr {
+      display: none;
+  }
+  .logo img {
+      width: 100%;
+  }
 }
 
 .menu {
@@ -229,8 +242,9 @@ h4 {
 
 .help {
     vertical-align: middle;
-    margin-left: .1em;
+    margin-left: .2em;
     margin-bottom: .2em;
+    margin-right: 1.2em;
 }
 
 
@@ -255,7 +269,7 @@ form tr {
 
 label {
     font-weight: normal;
-    vertical-align: middle;
+    vertical-align: top;
     margin:0;
 }
 
@@ -265,32 +279,10 @@ legend {
     border: none;
 }
 
-.required label {
-    font-weight: bold;
-}
 
 form .error {
     color: #D00;
     font-weight: bold;
-}
-
-.button {
-    border: solid 1px #888;
-    border-radius: 2px;
-    background-image: none;
-    background-color: #fff;
-    padding: .4em 1em .3em 1em;
-    margin-top: .2em;
-
-}
-
-input#frm-observationForm-send.button {
-    margin-top: 1em;
-    background-color: #00010D;
-    color:#fff;
-    font-weight: 600;
-    padding: .6em 1em .3em 1em
-
 }
 
 fieldset {
@@ -299,14 +291,6 @@ fieldset {
     border-top: none;
 
 }
-
-.sqmvalues td input {
-    width: 4em;
-    font-size: .95em;
-    padding: .3em;
-
-}
-
 
 form table {
     border-collapse: collapse;
@@ -335,12 +319,11 @@ form table .required td textarea {
 form table .required td input {
     background-color: #FFFFFF;
     border-top: 1px solid #E0E0E0;
-    border-left: 3px solid #E00000; 
+    border-left: 3px solid #bc0012; 
     border-bottom: 1px solid #E0E0E0; 
     border-right: 1px solid #E0E0E0;
     padding-left: 5px;
 }
-
 
 input#signincheck {
     margin-left: 1.6em;
@@ -364,11 +347,245 @@ input#signincheck {
     display: inline;
 }
 
+.observationform2 {
+    width: 100%; 
+}
+
+.observationform2 h2 {
+    font-size: 2em;
+    color: #222;
+    text-align: left;
+    font-weight: 400;
+}
+
+.observationform2 table th {
+    vertical-align: top;
+    text-align: left;
+    width: 10em;
+}
+
+.observationform2 td {
+    vertical-align: middle;
+    text-align: left;
+}
+
+.obsform_loc table, .obsform_equip table, obsform_photos table {
+    border-left: 1px solid #CCC; 
+    margin-top: .8em;
+    margin-bottom: .8em;
+}
+
+.obsform_loc table th, .obsform_equip table th {
+    padding-left: 1.1em;
+}
+
+.obsform_equip {
+    margin-top: 0.4em;
+}
+
+.obsform_equip select {
+    margin-right: .4em;
+}
+
+.obsform_info label,.obsform_info input {
+    margin: 0.3em .4em 0.2em 0;
+}
+
+#bortle .help, #transparency .help {
+    margin-left: .5em;
+}
+
+input#frm-observationForm-observation-nelm {
+    margin-left: .6em;
+    margin-right: 1em;
+}
+
+.obsform_photos label,.obsform_photos select,.obsform_photos input {
+    margin: 0.3em 1em 0.2em 0;
+}
+
+.observationform2 .obsform_photos input[type=file]{
+    padding: 0;
+    border: none;
+}
+
+.observationform2 input[type=datetime-local]{
+    line-height: normal;
+    padding: .1em .2em;
+    width: 15em;
+}
+
+input#frm-observationForm-observation-observer {
+    width: 15em;
+}
+
+.observationform2 select {
+    padding: .1em .2em;
+    border: 1px solid #E0E0E0;
+}
+
+th #locinfo {
+    vertical-align:top;
+}
+
+#locinfo textarea {
+    width: 23em;
+    height: 10em;
+}
+
+.observationform2 input[type="checkbox"] {
+    display: none;
+}
 
 
+.observationform2 input[type="checkbox"] + label span {
+    display:inline-block;
+    width: 15px;
+    height: 15px;
+    margin: .2em .4em .6em 0;
+    vertical-align: middle;
+    border: 1px solid #E0E0E0;
+    background:url(../images/lite_blue_check.png) left top no-repeat;
+    cursor:pointer;
+}
+.observationform2 input[type="checkbox"]:checked + label span {
+    background:url(../images/lite_blue_check.png) -15px top no-repeat;
+}
 
+.sqmvalues input[type=text] {
+    width: 3.5em;
+    font-size: .95em;
+    padding: .1em;
+    background-color: #FFFFFF;
+    border: 1px solid #E0E0E0;
+    margin-right: .2em;
+}
+
+.observationform2 input[type=text],.observationform2 textarea {
+    background-color: #FFFFFF;
+    border: 1px solid #E0E0E0;
+    padding: .1em .2em;
+}
+
+.observationform2 label {
+    vertical-align: middle;
+}
+
+.observationform2 h3 {
+    margin-bottom: 1em;
+}
+
+.height {
+    margin-top: .8em;
+    margin-bottom: .6em;
+}
+
+.sqmMeasurement {
+    margin-bottom: 1em;
+    padding: .3em 0 .3em 1.8em;
+    border-left: 1px solid #CCC;
+}
+
+#azimute {
+    margin-left: 1.2em;
+}
+
+.obsform_sqm label {
+    margin-right: 1.3em;
+}
+
+#removeSqm {
+    margin-left: 3em;
+}
+
+.azimute {
+    margin-left: 2em;
+}
+
+#weather input {
+    width: 30em;
+}
+
+#disturbance input {
+    width: 24.9em;
+}
+
+#frm-observationForm-observation-nelm {
+    width: 3em;
+}
+
+#frm-observationForm-observation-nelmHD {
+    width: 5em;
+}
+
+#info textarea {
+    width: 46.1em;
+    height: 10em;
+}
+
+#obsspec, bortle {
+    margin-top: .4em;
+    margin-bottom: .2em;
+}
+
+#transparency label {
+    margin-left: .65em;
+}
+
+#info {
+    margin-top: 1em;
+}
+.observationform2 p {
+    font-size: .9em;
+    text-align: justify;
+    margin-bottom: 1.5em;
+}
+
+.obsform_photos input[type=checkbox] label {
+    margin: .2em .4em;
+}
+
+.required input[type=text],.required select, .required textarea {
+    background-color: #FFFFFF;
+    border-top: 1px solid #E0E0E0;
+    border-left: 3px solid #bc0012; 
+    border-bottom: 1px solid #E0E0E0; 
+    border-right: 1px solid #E0E0E0;
+    padding-left: 5px;
+}
+
+.button {
+    border: solid 1px #888;
+    border-radius: 2px;
+    background-image: none;
+    background-color: #fff;
+    padding: .4em 1em .3em 1em;
+    margin-top: .2em;
+}
+
+input#frm-observationForm-send.sendbutton {
+    border: solid 3px #bc0012;
+    font-weight: bold;
+    border-radius: 3px;
+    background-image: none;
+    background-color: #fff;
+    padding: .4em 1em .3em 1em;
+    margin-top: 2em;
+}
+
+
+.required label {
+    font-weight: bold;
+}
 
 /* Homepage Layout */
+
+.dulezite {
+    padding: .5em;
+    background-color:#fff1f1;
+    border-left: 3px solid #bc0012;
+    margin-bottom: 1.2em;
+}
 
 /* Sidebar Layout */
 
@@ -432,10 +649,6 @@ input#signincheck {
     margin-top: .4em; 
 }
 
-// .tpage h3:first-of-type  {
-//    margin-top: .7em;
-// }
-
 .news {
     height: 100px;
     background-color: #eff;
@@ -467,9 +680,10 @@ input#signincheck {
 
 
 .hptablebody tr:hover{
-    background-color: #666;
+    background-color: #FAFAFA;
     cursor: pointer;
-    color: #fff;
+    color: #222;
+    font-weight: bold;
 }
 
 .hptablebody td {
@@ -507,16 +721,52 @@ input#signincheck {
 }
 
 .tpageb {
-    margin: 1.5em 0;
+    margin-top: 3em;
+    margin-bottom: 1.5em;
+    padding-top: 1.5em;
     width: 100%;
     float: left;
+    border-top: 1px solid #CCC;
 } 
 
 .tpagebdiv {
-    width: 30%;
-    border: 1px solid #666;
-    margin: 1em 1em 1em 1em;
+    width: 30.5%;
+    margin: 1em 4% 1em 0em;
     float: left;
+    text-align: justify;
+    color: #333;
+    font-size: .9em;
+}
+
+.tpagediv-last {
+    margin: 1em 0;
+}
+
+.tpagebtext {
+    z-index: 100;
+    position: relative;
+}
+
+.tpagebimg {
+    width: 99%;
+    z-index: 0;
+    margin-top: -9.8em;
+    position: relative;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.tpagebimgdiv {
+    width: 100%;
+    position: relative;
+    height: 10em;
+    z-index: 50; 
+    margin-top: -0.1em;
+   /* Permalink - use to edit and share this gradient: http://colorzilla.com/gradient-editor/#ffffff+4,ffffff+99&1+4,1+4,0+99 */
+background: -moz-linear-gradient(top,  rgba(255,255,255,1) 4%, rgba(255,255,255,0) 99%); /* FF3.6-15 */
+background: -webkit-linear-gradient(top,  rgba(255,255,255,1) 4%,rgba(255,255,255,0) 99%); /* Chrome10-25,Safari5.1-6 */
+background: linear-gradient(to bottom,  rgba(255,255,255,1) 4%,rgba(255,255,255,0) 99%); /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
+filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#ffffff', endColorstr='#00ffffff',GradientType=0 ); /* IE6-9 */
 }
 
 .footer {
@@ -579,7 +829,6 @@ input#signincheck {
 .comment {
     padding-bottom: 1.5em;
     padding-top: 1.5em;
-        
     border-top: 1px solid #eee;
 }
 
@@ -590,6 +839,11 @@ input#signincheck {
 .commentForm {
     margin-bottom: 4em;
     margin-top: 1em;
+}
+
+.commentForm textarea {
+    width: 30em;
+    height: 10em;
 }
 
 .commenter {
@@ -605,13 +859,28 @@ input#signincheck {
 
 .commentObs {
     font-style: italic;
-  
+
     padding-left: 1em;
 }
 
 
 
 /* Ruzne */
+
+#personaltable {
+    width: 40em;
+}
+
+#personaltable td {
+    font-weight: 400;
+    font-size: larger;
+    padding-top: 1em; 
+    text-align: center;
+}
+
+#personaltable th {
+    text-align: center;
+}
 
 .highcharts-tooltip {
     text-align: center;
@@ -629,8 +898,8 @@ input#signincheck {
 }
 
 .grafMereniLoc {
-    
-    
+
+
 }
 
 .locationName {
@@ -688,9 +957,6 @@ input#signincheck {
     margin: 0;
 } 
 
-.observationform {
-    width: 60%; 
-}
 
 .description{
     font-size: 0.6em;
@@ -735,6 +1001,11 @@ input#signincheck {
     border-color: #003380;
 }
 
+.sqmGrid, .accstandGrid, .grid-column-accessiblestand, .grid-column-sqmavg {
+    text-align: center;
+}
+
+
 .obsheadl {
     margin-bottom: 0; 
     font-size: 1.8em; 
@@ -767,7 +1038,7 @@ input#signincheck {
 /* Fotografie */
 
 .photodiv {
-    
+
     overflow: hidden;
     height: 10em;
     width: 10em;
@@ -844,19 +1115,19 @@ input#signincheck {
 
 
 .flag-bortle {
-    background: #ff6699;
+    background: #007acc;
 }
 
 .flag-info {
-    background: #660066;
+    background: #cc0066;
 }
 
-.flag-weather {
-    background: #9999ff;
+.flag-transparency {
+    background: #8585ad;
 }
 
 .flag-photo {
-    background: #6600ff;
+    background: #ccff33;
 }
 
 
@@ -878,5 +1149,17 @@ input#signincheck {
     margin-right: 0.4em;
     vertical-align: -5%;
 }
+
+
+
+.h2 {
+    font-size: 2em;
+    color: #222;
+    text-align: left;
+    font-weight: 400;
+    margin-top: 0;
+}
+
+
 
 

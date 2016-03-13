@@ -8,33 +8,27 @@
         <span class="date"> Pokud si přejete změnit e-mail či uživatelské jméno, prosím <a n:href="Project:">kontaktujte administrátora</a>.</span>
         <br />
         <br />
-        <table width="100%">
+        <table id="personaltable">
             <tr>
-                <td>Počet pozorování:</td>
-                <td>SQM průměr ze všech pozorování:</td>
-                <td>Bortle průměr ze všech pozorování:</td>
+                <th>Počet pozorování</th>
+                <th>Průměrný jas [MSA]</th>
+                <th>Bortle průměr</th>
             </tr>
             <tr>
                 <td>
-                    <h3>
                         {if $a->related('observations')->count('*') == 0} 0 
                         {else} {$a->related('observations')->count('*')}
                         {/if}
-                    </h3>
                 </td>
                 <td> 
-                    <h3>
                         {if $a->related('observations')->count('*') < 2} Příliš málo pozorování
                         {else}{$sqmavg|number:2} MSA
                         {/if}
-                    </h3>
                 </td>
                 <td>
-                    <h3>
                         {if $a->related('observations')->count('*') < 2} Příliš málo pozorování
                         {else}{$bortle|number:2}
                         {/if}
-                    </h3>
                 </td>
             </tr>
         </table>
@@ -46,7 +40,7 @@
         <a n:href="Observation:create" class="navbutton">Přidat měření</a>
 
         <div class="mydata">
-            <h4>Vámi spravovaná měření</h4>
+            <h3>Vámi spravovaná měření</h3>
             {control myObsGrid}
         </div>
 

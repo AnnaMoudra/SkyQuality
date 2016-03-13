@@ -102,12 +102,7 @@ class PasswordPresenter extends BasePresenter {
 
         $form->addPassword('password1', 'Heslo:')
                 ->setRequired('Zadejte nové heslo.')
-                ->addRule(Form::MIN_LENGTH, 'Heslo musí mít alespoň %d znaků', 6)
-                ->setOption('description', Html::el('img')
-                        ->class('help')
-                        ->src('../www/images/help.svg')
-                        ->alt('Heslo musí mít alespoň 6 znaků')
-                        ->title('Heslo musí mít alespoň 6 znaků'));
+                ->addRule(Form::MIN_LENGTH, 'Heslo musí mít alespoň %d znaků', 6);
 
         $form->addPassword('password2', 'Potvrďte heslo:')
                 ->setRequired('Potvrďte heslo.')
