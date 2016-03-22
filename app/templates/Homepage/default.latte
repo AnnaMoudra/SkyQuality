@@ -1,53 +1,98 @@
 {block content}
 
-<div class="tpage">
-    <p class="pblok">SkyQuality.com je projekt zaměřený na <strong>objektivní posuzování kvality noční oblohy</strong> v&nbsp;nejrůznějších lokalitách (s&nbsp;důrazem na ty, které představují vhodná stanoviště pro amatérské astronomy). Pro maximální objektivitu je základní používanou metrikou jas oblohy v&nbsp;magnitudách na čtvereční úhlovou vteřinu, doplňkovou pak Bortle ohodnocení a&nbsp;MHV.</p>
-    <p class="pblok dulezite"><strong>Důležité</strong> &ndash; před zapojením se do projektu prosím věnujte pozornost <strong><a n:href="Info:default">metodice měření</a></strong>.</p>
-    {*<div class="news" align="center">
-      <p style="padding-top:15px;">Novinky</p>
-    </div>*}
-    <div>
-        <h3 class="newMeash3">Nejnovější měření</h3>
-        <table class="hptable" cellspacing="0" rules="all">
-            <thead class="hptablehead" align="left">
-                <tr>
-                    <th width="26%">Datum (UTC)</th>
-                    <th width="30%">Lokalita</th>              
-                    <th width="13%" style="text-align: center;">Jas<sup style="font-size: .7em">1</sup></th>
-                    <th width="20%">Pozorovatel</th>
-                    <th width="11%"></th>
-                </tr>
-            </thead>
-            <tbody class="hptablebody">
-            <div n:foreach="$observation as $observation">
-                <tr class="clickable" onclick="window.location.href ={link Observation:show $observation->id}">
+{if $user->loggedIn}
+    <a class="btn--add" n:href="Observation:create">
+        Vložit pozorování
+    </a>
+{else}
+    <a n:href="Sign:in" class="btn--add">
+        Vložit pozorování
+    </a>
+{/if}   
+
+
+<div class="content--homepage">
+    <p>SkyQuality.com je projekt zaměřený na <strong>objektivní posuzování kvality noční oblohy</strong> v&nbsp;nejrůznějších lokalitách (s&nbsp;důrazem na ty, které představují vhodná stanoviště pro amatérské astronomy). Pro maximální objektivitu je základní používanou metrikou jas oblohy v&nbsp;magnitudách na čtvereční úhlovou vteřinu, doplňkovou pak Bortle ohodnocení a&nbsp;MHV.</p>
+
+    <p class="highlight"><strong>Důležité</strong> &ndash; před zapojením se do projektu prosím věnujte pozornost <strong><a n:href="Info:default">metodice měření</a></strong>.</p>
+    
+    <h3>Nejnovější měření</h3>
+    <table class="table table--homepage">
+        <thead class="table__head">
+            <tr>
+                <th class="table__date">Datum (UTC)</th>
+                <th class="table__location">Lokalita</th>              
+                <th class="table__brightness">Jas<sup style="font-size: .7em">1</sup></th>
+                <th class="table__observer">Pozorovatel</th>
+                <th class="table__flags"></th>
+            </tr>
+        </thead>
+        <tbody class="table__body">
+            <div n:foreach="$tabobservation as $observation">
+                <tr class="table__row" onclick="window.location.href={link Observation:show $observation->id}">
                     <td>{$observation->date|date:'d.m.Y —;H:i'|replace:';':"\xc2\xa0"}</td>
                     <td>{$observation->location['name']}</td>
-                    <td align="center">{$observation->sqmavg|number:2}</td>                   
+                    <td>{$observation->sqmavg|number:2}</td>                   
                     <td>{$observation->observer}</td>  
-                    <td>
-                        {if $observation->equipment->type == 'SQM'}<span class="flag flag-sqmw" title="Obsahuje SQM-W měření"></span>{else}<span class="flag flag-sqml" title="Obsahuje SQM-L měření"></span>{/if}{if $observation->bortle}<span class="flag flag-bortle" title="Obsahuje Bortle odhad"></span>{/if}{if $observation->transparency}<span class="flag flag-transparency" title="Obsahuje popis průzračnosti"></span>{/if}{if $observation->info}<span class="flag flag-info" title="Obsahuje podrobnější popis"></span>{/if}{if $observation->related('photos.observation_id')->count('*')>0}<span class="flag flag-photo" title="Obsahuje fotografie"></span>{/if} 
-                    </td>
+                    <td>{if $observation->equipment->type == 'SQM'}<span class="flag flag--sqmw" title="Obsahuje SQM-W měření"></span>{else}<span class="flag flag--sqml" title="Obsahuje SQM-L měření"></span>{/if}{if $observation->bortle}<span class="flag flag--bortle" title="Obsahuje Bortle odhad"></span>{/if}{if $observation->transparency}<span class="flag flag--transparency" title="Obsahuje popis průzračnosti"></span>{/if}{if $observation->info}<span class="flag flag--info" title="Obsahuje podrobnější popis"></span>{/if}{if $observation->related('photos.observation_id')->count('*')>0}<span class="flag flag--photo" title="Obsahuje fotografie"></span>{/if}</td>
                 </tr>
             </div>
-            </tbody>
-        </table>
-    </div>
-    <p class="smallnote"><sup>1</sup>ø hodnota v mag/arcsec²</p>
-    <div class="tabLegend">
-        <div>Pozorování obsahuje</div>
-        <span class="tabspan"><span class="flag flag-sqmw" title="Obsahuje SQM-W měření"></span><span class="spanLegend">SQM-W měření</span></span>
-        <span class="tabspan"><span class="flag flag-sqml" title="Obsahuje SQM-L měření"></span><span class="spanLegend">SQM-L měření</span></span>
-        <span class="tabspan"><span class="flag flag-bortle" title="Obsahuje Bortle odhad"></span><span class="spanLegend">Bortle odhad</span></span>
-        <span class="tabspan"><span class="flag flag-transparency" title="Obsahuje popis průzračnosti"></span><span class="spanLegend">průzračnost</span></span>
-        <span class="tabspan"><span class="flag flag-info" title="Obsahuje podrobnější popis"></span><span class="spanLegend">podrobný popis</span></span>
-        <span class="tabspan"><span class="flag flag-photo" title="Obsahuje fotografie"></span><span class="spanLegend">fotografie</span></span>
-    </div>
-</div>
-{include sidebar}
+        </tbody>
+    </table>
 
-<div class="tpageb" align="center">
-    <div class="tpagebdiv"><div class="tpagebtext">Pojem <strong>světelné znečištění</strong> označuje nežádoucí jevy provázející umělé venkovní osvětlení. Dopady světelného znečištění jsou rozmanité a postihují téměř všechny obyvatele vyspělého světa. Světelné znečištění představuje <strong>riziko bezpečnostní, zdravotní i&nbsp;ekologické,</strong> ochuzuje nás o&nbsp;pohled na hvězdnou oblohu a&nbsp;stojí mnoho peněz i&nbsp;energie<strong><a href="http://www.svetelneznecisteni.cz"> ... více na www.svetelneznecisteni.cz</a></strong></div><div class="tpagebimgdiv"> </div><div class="tpagebimg"><img src="./images/light.jpg" width="100%" /></div></div>
-    <div class="tpagebdiv"><div class="tpagebtext"><strong>Je možné světelné znečištění omezit?</strong> Ano! Na rozdíl od jiných způsobů, kterými lidé zatěžují životní prostředí, je možné nežádoucí důsledky umělého osvětlování poměrně snadno omezit dodržováním zásady: "<strong>Sviťme jen tehdy, kdy je potřeba, pouze tolik, kolik je potřeba a&nbsp;jen tam, kam je potřeba.</strong> Sviťme na zem, ne do nebe a&nbsp;ostatním do očí." Podívejte se na náš <strong><a href="http://svetelneznecisteni.cz/svitme-spravne/">průvodce správným svícením</a></strong>.</div><div class="tpagebimgdiv"> </div><div class="tpagebimg"><img src="./images/verejne.jpg" width="100%" /></div></div>
-    <div class="tpagebdiv tpagediv-last"><div class="tpagebtext">Chcete se také <strong>zapojit do monitorování stavu nočního životního prostředí?</strong> Je to jednoduché&nbsp;–&nbsp;stačí vám přístroj na měření jasu oblohy, tzv. <strong><a href="http://www.supra-dalekohledy.cz/ostatni-pristroje/jasomery/">Sky Quality Meter</a></strong> (SQM), se kterým budete měřit podle <strong><a n:href="Info:">metodiky</a></strong>. Pokud přístroj nemáte, můžete se s&nbsp;námi <strong>domluvit na jeho <a n:href="Project:">zapůjčení</a></strong>. Poskytujeme také komplexnější mapování vybraných lokalit pomocí celooblohového snímání.</div><div class="tpagebimgdiv"> </div><div class="tpagebimg"><img src="./images/allsky2.jpg" width="100%" /></div></div>
+    <p class="smallnote"><sup>1</sup>ø hodnota v mag/arcsec²</p>
+    <p>Pozorování obsahuje<p>
+        <span class="table__legend"><span class="flag flag--sqmw" title="Obsahuje SQM-W měření"></span><span class="legend__description">SQM-W měření</span></span>
+        <span class="table__legend"><span class="flag flag--sqml" title="Obsahuje SQM-L měření"></span><span class="legend__description">SQM-L měření</span></span>
+        <span class="table__legend"><span class="flag flag--bortle" title="Obsahuje Bortle odhad"></span><span class="legend__description">Bortle odhad</span></span>
+        <span class="table__legend"><span class="flag flag--transparency" title="Obsahuje popis průzračnosti"></span><span class="legend__description">průzračnost</span></span>
+        <span class="table__legend"><span class="flag flag--info" title="Obsahuje podrobnější popis"></span><span class="legend__description">podrobný popis</span></span>
+        <span class="table__legend"><span class="flag flag--photo" title="Obsahuje fotografie"></span><span class="legend__description">fotografie</span></span>
+</div>
+
+
+
+<div class="statistics">
+    Databáze obsahuje: 
+    <a n:href="Database:default"><b>{$locationcount}</b> lokalit</a>
+    <a n:href="Database:locations"><b>{$obscount}</b> pozorování</a>
+    <b>{$sqmcount}</b> měření
+    <b>{$photoscount}</b> fotografií
+</div>
+
+
+<div class="homepage__map">
+ {include map.latte}
+</div>
+
+
+
+<div class="bottom-links">
+    <div class="bottom-link">
+        <div class="bottom-link__text">
+            Pojem <strong>světelné znečištění</strong> označuje nežádoucí jevy provázející umělé venkovní osvětlení. Dopady světelného znečištění jsou rozmanité a postihují téměř všechny obyvatele vyspělého světa. Světelné znečištění představuje <strong>riziko bezpečnostní, zdravotní i&nbsp;ekologické,</strong> ochuzuje nás o&nbsp;pohled na hvězdnou oblohu a&nbsp;stojí mnoho peněz i&nbsp;energie<strong><a href="http://www.svetelneznecisteni.cz"> ... více na www.svetelneznecisteni.cz</a></strong>
+        </div>
+        <div class="bottom-link__gradient"></div>
+        <div class="bottom-link__picture">
+            <img src="./images/light.jpg" width="100%" />
+        </div>
+    </div>
+    <div class="bottom-link">
+        <div class="bottom-link__text">
+            <strong>Je možné světelné znečištění omezit?</strong> Ano! Na rozdíl od jiných způsobů, kterými lidé zatěžují životní prostředí, je možné nežádoucí důsledky umělého osvětlování poměrně snadno omezit dodržováním zásady: "<strong>Sviťme jen tehdy, kdy je potřeba, pouze tolik, kolik je potřeba a&nbsp;jen tam, kam je potřeba.</strong> Sviťme na zem, ne do nebe a&nbsp;ostatním do očí." Podívejte se na náš <strong><a href="http://svetelneznecisteni.cz/svitme-spravne/">průvodce správným svícením</a></strong>.
+        </div>
+        <div class="bottom-link__gradient"> </div>
+        <div class="bottom-link__picture">
+            <img src="./images/verejne.jpg" />
+        </div>
+    </div>
+    <div class="bottom-link bottom-link--last">
+        <div class="bottom-link__text">
+            Chcete se také <strong>zapojit do monitorování stavu nočního životního prostředí?</strong> Je to jednoduché&nbsp;–&nbsp;stačí vám přístroj na měření jasu oblohy, tzv. <strong><a href="http://www.supra-dalekohledy.cz/ostatni-pristroje/jasomery/">Sky Quality Meter</a></strong> (SQM), se kterým budete měřit podle <strong><a n:href="Info:">metodiky</a></strong>. Pokud přístroj nemáte, můžete se s&nbsp;námi <strong>domluvit na jeho <a n:href="Project:">zapůjčení</a></strong>. Poskytujeme také komplexnější mapování vybraných lokalit pomocí celooblohového snímání.
+        </div>
+        <div class="bottom-link__gradient"> </div>
+        <div class="bottom-link__picture">
+            <img src="./images/allsky2.jpg" />
+        </div>
+    </div>
 </div> 

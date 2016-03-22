@@ -12,22 +12,21 @@
         <meta charset="utf-8">
         <meta name="description" content="">
         <meta name="robots" content="{$robots}" n:ifset="$robots">
-        <meta property="og:image" content="http://www.skyquality.cz/www/images/Earthlights_dmsp_web5.jpg">
+
+        {* Twitter and Facebook sharing images *}
+        <meta property="og:image" content="{$basePath}/www/images/Earthlights_dmsp_web5.jpg">
         <meta name="twitter:card" content="summary">
-        {* <meta name="viewport" content="width=device-width, initial-scale=1"> *}
-
-        <title>{block title|striptags}SkyQuality Project{/block}</title>
 
 
-        <link rel="stylesheet" media="screen,projection,tv" href="{$basePath}/css/grid.css">
-        <link rel="stylesheet" media="screen,projection,tv" href="{$basePath}/css/bootstrap.min.css">
-        <link rel="stylesheet" media="screen,projection,tv" href="{$basePath}/css/grid_filter.css">
-        <link rel="stylesheet" media="print" href="{$basePath}/css/print.css">
-        <link rel="shortcut icon" href="{$basePath}/favicon2.ico">
+        {* Stylesheets *}
+
         <link rel="stylesheet" href="{$basePath}/fancybox/source/jquery.fancybox.css?v=2.1.5" media="screen" />
+        <link rel="stylesheet" href="{$basePath}/fancybox/source/helpers/jquery.fancybox-buttons.css?v=1.0.5" type="text/css" media="screen" />
+        <link rel="stylesheet" href="{$basePath}/fancybox/source/helpers/jquery.fancybox-thumbs.css?v=1.0.7" type="text/css" media="screen" />
+        <link rel="stylesheet" media="print" href="{$basePath}/css/print.css">
         <link rel="stylesheet" type="text/css" media="screen,projection,tv" href="{$basePath}/css/screen.css">
 
-        {* favicony *}
+        {* Favicons *}
 
         <link rel="apple-touch-icon" sizes="57x57" href="http://www.skyquality.cz/www/images/apple-touch-icon-57x57.png?v=QEEyRGjv38">
         <link rel="apple-touch-icon" sizes="60x60" href="http://www.skyquality.cz/www/images/apple-touch-icon-60x60.png?v=QEEyRGjv38">
@@ -57,19 +56,11 @@
         <script src="{$basePath}/js/highcharts.js"></script>
         <script src="{$basePath}/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
         <script src="{$basePath}/fancybox/lib/jquery.mousewheel-3.0.6.pack.js"></script>
-        <link rel="stylesheet" href="{$basePath}/fancybox/source/helpers/jquery.fancybox-buttons.css?v=1.0.5" type="text/css" media="screen" />
         <script type="text/javascript" src="{$basePath}/fancybox/source/helpers/jquery.fancybox-buttons.js?v=1.0.5"></script>
         <script type="text/javascript" src="{$basePath}/fancybox/source/helpers/jquery.fancybox-media.js?v=1.0.6"></script>
-
-        <link rel="stylesheet" href="{$basePath}/fancybox/source/helpers/jquery.fancybox-thumbs.css?v=1.0.7" type="text/css" media="screen" />
         <script type="text/javascript" src="{$basePath}/fancybox/source/helpers/jquery.fancybox-thumbs.js?v=1.0.7"></script>
-        {*   <script src="{$basePath}/js/nette.ajax.js"></script>
-        <script type="text/javascript" src="/js/themes/gray.js"></script>
-        <script src="{$basePath}/js/bootstrap.min.js"></script>*}
-        <script src="{$basePath}/js/bootstrap.js"></script>
-        {*<script src="{$basePath}/js/npm.js"></script>
-        <script src="{$basePath}/js/grid.js"></script>
-        <script src="{$basePath}/js/grid_pager.js"></script>*}
+        
+        <script> document.documentElement.className += 'js';</script>
 
         {* Google Analytics *}
         <script>
@@ -88,103 +79,67 @@
 
             ga('create', 'UA-52805995-3', 'auto');
             ga('send', 'pageview');
-
         </script>
+        
         {/block}
-
-        {block head}{/block}
-
-        <script> document.documentElement.className += 'js';</script>
 
     </head>
 
+
+
+
     <body>
-
-
-
-        <div  n:foreach="$flashes as $flash" class="flash {$flash->type}">{$flash->message}</div>
 
         <div class="logo">
             <a n:href="Homepage:default">
-                <img src="{$basePath}/images/siteLogo.png" title="SkyQuality.com" alt="SkyQuality.com" />
-                <span class="sitedescr">projekt mapování jasu noční oblohy</span></a>
-
+                <img src="{$basePath}/images/siteLogo.png" title="SkyQuality Project" alt="SkyQuality Project" class="logo__img" />
+                <div class="logo__description">projekt mapování jasu noční oblohy</div>
+            </a>
         </div>
 
-        <div class="menu">
-            <div class="hpagelogin">
+        <nav>
+            <div class="nav nav--user">
                 <ul>        
                     {if $user->loggedIn}
                         <li><a n:href="Personal:">Můj účet</a></li> 
                         <li><a n:href="Observation:create">Přidat měření</a></li>
                         <li><a n:href="Sign:out">Odhlásit se</a></li>
-                        {else}
+                    {else}
                         <li><a n:href="Sign:in">Přihlásit</a></li>
-                        {/if}
+                    {/if}
                 </ul>
             </div>
-            <ul class="navig">
-                <li><a n:href="Database:">Databáze</a></li>
-                <li><a n:href="Info:">Metodika</a></li> 
-                <li><a n:href="Project:">O projektu</a></li>
-            </ul> 
-        </div>
-        <div class="cistichead">
-        </div>
-        <div class="wpage">
+
+            <div class="nav nav--main">
+                <ul>
+                    <li><a n:href="Database:">Databáze</a></li>
+                    <li><a n:href="Info:">Metodika</a></li> 
+                    <li><a n:href="Project:">O projektu</a></li>
+                </ul> 
+            </div>
+        </nav>
+
+        <div class="cistichead"></div>
+
+
+        <div class="content">
+            <div  n:foreach="$flashes as $flash" class="flash {$flash->type}">{$flash->message}</div>
+            
             {include content}
-        </div>
-        {define sidebar}
-        <div class="sidebar">
-            {if $user->loggedIn}
-                <a n:href="Observation:create">
-                    <div class="sidebaradd" n:href="Observation:create">
-                        Vložit pozorování
-                    </div>
-                </a>
-            {else}
-                <a n:href="Sign:in">
-                    <div class="sidebaradd" n:href="Sign:in">
-                        Vložit pozorování
-                    </div>
-                </a>
-            {/if} 
-
-
-
-            <div class="sidebarstats">
-                <h4> Statistiky</h4>
-                <div class="sidebarstatsContent">
-                    Databáze obsahuje: 
-                    <div style="margin-left: 2em; margin-top: .9em;">
-                        <a n:href="Database:default"><b>{$location}</b> lokalit</a><br />
-                        <a n:href="Database:locations"><b>{$obscount}</b> pozorování</a><br />
-                        <b>{$sqm}</b> měření<br />
-                        <b>{$photos}</b> fotografií<br />
-                    </div>
-                </div>
-
-            </div>
-
-            <h4> Mapa měření</h4>
-            <div class="sidebarmap">
-                <a n:href="Map:"><img src="{$basePath}/images/mapa.png" width="100%"/></a>
-            </div>
-
-
-
+        
         </div>
 
-        <div class="cistic">
-        </div>      
-        {/define}
+
 
         {block footer}
-        <div class="footer">
+        <footer>
             ©Skyquality <br />
             <a n:href="Project:">kontakt</a>
-        </div>
+        </footer>
         {/block}
+
+
+
         <!-- Placed at the end of the document so the pages load faster -->
         <script src="{$basePath}/js/jquery.cookie.js"></script>
         <script src="{$basePath}/js/jquery.nette.js"></script>
@@ -192,7 +147,6 @@
         <!-- Latest compiled and minified JavaScript -->
         <script src="{$basePath}/js/bootstrap.min.js"></script>
         <script src="{$basePath}/js/main.js"></script>
-
 
     </body>
 </html>
