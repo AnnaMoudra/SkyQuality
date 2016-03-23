@@ -89,38 +89,38 @@
 
 
     <body>
-
-        <div class="logo">
-            <a n:href="Homepage:default">
-                <img src="{$basePath}/images/siteLogo.png" title="SkyQuality Project" alt="SkyQuality Project" class="logo__img" />
-                <div class="logo__description">projekt mapování jasu noční oblohy</div>
-            </a>
-        </div>
-
-        <nav>
-            <div class="nav nav--user">
-                <ul>        
-                    {if $user->loggedIn}
-                        <li><a n:href="Personal:">Můj účet</a></li> 
-                        <li><a n:href="Observation:create">Přidat měření</a></li>
-                        <li><a n:href="Sign:out">Odhlásit se</a></li>
-                    {else}
-                        <li><a n:href="Sign:in">Přihlásit</a></li>
-                    {/if}
-                </ul>
+        <header>
+            <div class="logo">
+                <a n:href="Homepage:default">
+                    <img src="{$basePath}/images/siteLogo.png" title="SkyQuality Project" alt="SkyQuality Project" class="logo__img" />
+                    <span class="logo__description">projekt mapování jasu noční oblohy</span>
+                </a>
             </div>
 
-            <div class="nav nav--main">
-                <ul>
-                    <li><a n:href="Database:">Databáze</a></li>
-                    <li><a n:href="Info:">Metodika</a></li> 
-                    <li><a n:href="Project:">O projektu</a></li>
-                </ul> 
-            </div>
-        </nav>
+            <nav>
+                <div class="nav--user">
+                    <ul>        
+                        {if $user->loggedIn}
+                            <li><a n:href="Personal:">Můj účet</a></li> 
+                            <li><a n:href="Observation:create">Přidat měření</a></li>
+                            <li><a n:href="Sign:out">Odhlásit se</a></li>
+                        {else}
+                            <li><a n:href="Sign:in">Přihlásit</a></li>
+                        {/if}
+                    </ul>
+                </div>
 
-        <div class="cistichead"></div>
+                <div class="nav--main">
+                    <ul>
+                        <li><a n:href="Database:">Databáze</a></li>
+                        <li><a n:href="Info:">Metodika</a></li> 
+                        <li><a n:href="Project:">O projektu</a></li>
+                    </ul> 
+                </div>
+            </nav>
 
+            <div class="cistichead"></div>
+        </header>
 
         <div class="content">
             <div  n:foreach="$flashes as $flash" class="flash {$flash->type}">{$flash->message}</div>

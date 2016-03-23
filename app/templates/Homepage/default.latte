@@ -1,21 +1,27 @@
 {block content}
 
-{if $user->loggedIn}
-    <a class="btn--add" n:href="Observation:create">
-        Vložit pozorování
-    </a>
-{else}
-    <a n:href="Sign:in" class="btn--add">
-        Vložit pozorování
-    </a>
-{/if}   
-
-
 <div class="content--homepage">
-    <p>SkyQuality.com je projekt zaměřený na <strong>objektivní posuzování kvality noční oblohy</strong> v&nbsp;nejrůznějších lokalitách (s&nbsp;důrazem na ty, které představují vhodná stanoviště pro amatérské astronomy). Pro maximální objektivitu je základní používanou metrikou jas oblohy v&nbsp;magnitudách na čtvereční úhlovou vteřinu, doplňkovou pak Bortle ohodnocení a&nbsp;MHV.</p>
+    <div class="homepage__description">
+        <p>SkyQuality.com je projekt zaměřený na <strong>objektivní posuzování kvality noční oblohy</strong> v&nbsp;nejrůznějších lokalitách (s&nbsp;důrazem na ty, které představují vhodná stanoviště pro amatérské astronomy). Pro maximální objektivitu je základní používanou metrikou jas oblohy v&nbsp;magnitudách na čtvereční úhlovou vteřinu, doplňkovou pak Bortle ohodnocení a&nbsp;MHV.</p>
 
-    <p class="highlight"><strong>Důležité</strong> &ndash; před zapojením se do projektu prosím věnujte pozornost <strong><a n:href="Info:default">metodice měření</a></strong>.</p>
-    
+        <p class="highlight"><strong>Důležité</strong> &ndash; před zapojením se do projektu prosím věnujte pozornost <strong><a n:href="Info:default">metodice měření</a></strong>.</p>
+    </div>
+    <div class="homepage__btn">
+        {if $user->loggedIn}
+            <div class="btn--add">
+                <a n:href="Observation:create">
+                    Vložit pozorování
+                </a>
+            </div>
+        {else}
+            <div class="btn--add">
+                <a  n:href="Sign:in">
+                    Vložit pozorování
+                </a>
+            </div>
+        {/if} 
+    </div>
+    <div class="cistic"></div>
     <h3>Nejnovější měření</h3>
     <table class="table table--homepage">
         <thead class="table__head">
@@ -52,7 +58,7 @@
 
 
 
-<div class="statistics">
+<div class="homepage__statistics">
     Databáze obsahuje: 
     <a n:href="Database:default"><b>{$locationcount}</b> lokalit</a>
     <a n:href="Database:locations"><b>{$obscount}</b> pozorování</a>
@@ -67,7 +73,7 @@
 
 
 
-<div class="bottom-links">
+<div class="homepage__bottom-links">
     <div class="bottom-link">
         <div class="bottom-link__text">
             Pojem <strong>světelné znečištění</strong> označuje nežádoucí jevy provázející umělé venkovní osvětlení. Dopady světelného znečištění jsou rozmanité a postihují téměř všechny obyvatele vyspělého světa. Světelné znečištění představuje <strong>riziko bezpečnostní, zdravotní i&nbsp;ekologické,</strong> ochuzuje nás o&nbsp;pohled na hvězdnou oblohu a&nbsp;stojí mnoho peněz i&nbsp;energie<strong><a href="http://www.svetelneznecisteni.cz"> ... více na www.svetelneznecisteni.cz</a></strong>

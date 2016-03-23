@@ -1,0 +1,271 @@
+@import url("normalize.css");
+
+
+@background-color: #ffffff; 
+@color: #333333;
+@link-color: #003380;
+@line-color: #eeeeee;
+@note-color: #aaaaaa;
+@menu-color: #444444;
+@highlight: #bc0012;
+@btn-bgcolor: #003380;
+@btn-color: #ffffff;
+
+
+@desktop:   ~"only screen and (min-width: 960px) and (max-width: 1199px)";
+@tablet:    ~"only screen and (min-width: 720px) and (max-width: 959px)";
+
+@-ms-viewport { 
+  width: device-width; 
+}
+
+@font-face {
+    font-family: 'Myriad Pro Bold';
+    font-style: normal;
+    font-weight: normal;
+    src: local('Myriad Pro Bold'), url('../fonts/MYRIADPRO-SEMIBOLD.woff') format('woff');
+}
+
+@font-face {
+    font-family: 'Open Sans';
+    font-style: normal;
+    font-weight: normal;
+    src: local('Open Sans'), url('../fonts/OpenSans-Regular.woff') format('woff');
+} 
+
+@font-face {
+    font-family: 'Myriad Pro Regular';
+    font-style: normal;
+    font-weight: normal;
+    src: local('Myriad Pro Regular'), url('../fonts/MYRIADPRO-REGULAR.woff') format('woff');
+}
+
+*, *:before, *:after {
+  	-webkit-box-sizing: inherit;
+  	-moz-box-sizing: inherit;
+  	box-sizing: inherit;
+}
+
+html {
+    background-image: url(../images/Earthlights_dmsp_web5.jpg);  
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+	background-color: @background-color;
+  	-webkit-box-sizing: border-box;
+  	-moz-box-sizing: border-box;
+  	box-sizing: border-box;
+}
+
+body {
+	font-size: 1.4rem;
+    font-family: "Open Sans", Georgia, sans-serif;
+    margin: 1.5rem auto;
+    width: 75%;
+    max-width: 1200px;
+    color: @color;        
+}
+
+footer {
+	background-color: @background-color;
+	width: 100%;
+    clear: both;
+}
+
+a, a:hover, a:visited, a:active {
+	color: @link-color;
+	text-decoration: none;
+}
+
+p {
+	font-size: .9rem;
+	text-align: justify;
+	line-height: 150%;	
+}
+
+.cistic {
+    clear: both;
+    height: 1px;
+    border: none;
+    margin: -1rem 0 0 0;
+    visibility: hidden;
+}
+
+/* Logo and Navigation Layout */
+
+header {
+	background-color: @background-color;
+	border-radius: 2px;
+	padding: 1rem 2rem;
+}
+
+nav {
+	float: right;
+	@media (max-width: 840px) {
+		float: none;
+		margin-left: auto;
+		margin-right: auto;
+		text-align: center;
+	}
+	@media (max-width: 650px) {
+		float: none;
+	}
+}
+
+nav ul {
+	margin: 0;
+	padding: 0;
+}
+
+nav li {
+	display: inline;
+	@media (max-width: 650px) {
+		display: block;
+	}
+}
+
+.logo {
+	float: left;
+	margin-top: .9rem;
+	@media (max-width: 840px) {
+		float: none;
+		margin-left: auto;
+		margin-right: auto;
+		text-align: center;
+	}
+}
+
+.logo__description {
+    font-size: .8rem;
+    color: @note-color;
+    margin-left: -0.5rem;
+    vertical-align: 35%;
+    @media (max-width: 1200px) {
+      display: none;
+  	}
+}
+
+.nav--user {
+    font-family: "Myriad Pro Regular";
+    font-size: .9rem;
+	text-align: right;
+    margin-top: .2rem;
+    margin-bottom: 1.2rem;
+    padding: 0;
+    & li {
+    	margin: 0 0 0 1.1rem;
+    	padding: 0;
+    	@media (max-width: 940px) {
+    		margin-left: .3rem;
+    	}
+    }
+    @media (max-width: 840px) {
+		text-align: center;
+    }
+}
+
+.nav--main {
+    font-weight: bold;
+    font-family: "Myriad Pro Bold";
+    text-align: center;
+	margin: .2rem 0;
+    padding: 0;
+    & li {
+    	margin: 0 0 0 1.8rem;
+    	padding: 0;
+    	@media (max-width: 940px) {
+    		margin-left: .7rem;
+    	}
+    	@media (max-width: 840px) {
+    		margin-top: .4rem;
+    	}
+    }
+    & a {
+    	font-size: 1.2rem;
+    	font-weight: 900;
+    	color: @menu-color;
+    }
+}
+
+.cistichead {
+    clear: both;
+    height: 1px;
+    border-bottom: solid 1px @line-color;
+    margin: 0 0 0 0;   
+}
+
+/* Homepage Layout */
+.content--homepage {
+	background-color: @background-color;
+	border-radius: 2px;
+	margin-bottom: 2rem;
+	padding: 1rem 2rem;
+}
+
+.homepage__btn {
+	float: right;
+	display: inline;
+	width: 27%;
+	padding-left: 2rem;
+	@media (max-width: 1200px) {
+	  	display: block;
+	  	float: none;
+	  	width: 100%;
+	  	padding: 0;
+	}
+}
+
+.btn--add {
+    width: 90%;
+    padding: 1rem;
+    margin: .9rem auto;
+	text-align: center;
+    font-size: 1.1rem;
+    font-weight: bold;
+    background-color: @btn-bgcolor;
+    border: solid 1px @btn-bgcolor;
+    border-radius: 2px;
+    box-shadow: #333 4px 6px 30px; 
+    & a {
+    color: @btn-color;
+    }
+}
+
+.homepage__description {
+	display: inline;
+	float: left;
+	width: 73%;
+	padding-right: 1rem;
+	@media (max-width: 1200px) {
+  		display: block;
+  		float: none;
+  		width: 100%;
+  		padding: 0;
+  		margin-top: 1rem;
+  }
+}
+
+.homepage__statistics {
+	background-color: @background-color;
+	border-radius: 2px;
+	margin-bottom: 2rem;
+}
+
+.homepage__map {
+	background-color: @background-color;
+	border-radius: 2px;
+	margin-bottom: 2rem;
+	padding: 1rem 0;
+}
+
+.homepage__bottom-links {
+	background-color: @background-color;
+}
+
+.highlight {
+	padding: .5rem;
+    background-color:#fff1f1;
+    border-left: 3px solid @highlight;
+    margin-bottom: 1.2rem;
+}
+
+
