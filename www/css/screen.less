@@ -227,6 +227,12 @@ footer {
     padding: 0 1rem 1rem 1rem;
     margin-top: -0.5rem;
     box-shadow: @box-shadow-bottom, @box-shadow-left, @box-shadow-right;
+    -webkit-border-bottom-right-radius: 2px;
+	-webkit-border-bottom-left-radius: 2px;
+	-moz-border-radius-bottomright: 2px;
+	-moz-border-radius-bottomleft: 2px;
+	border-bottom-right-radius: 2px;
+	border-bottom-left-radius: 2px;
 }
 
 .footer {
@@ -240,17 +246,23 @@ footer {
 /*	------	*/
 
 /* Main content */
-.content--homepage {
+
+.content {
 	background-color: @background-color;
-	-webkit-border-bottom-right-radius: 2px;
-	-webkit-border-bottom-left-radius: 2px;
-	-moz-border-radius-bottomright: 2px;
-	-moz-border-radius-bottomleft: 2px;
-	border-bottom-right-radius: 2px;
-	border-bottom-left-radius: 2px;
-	margin-bottom: 1.3rem;
-	padding: 1rem 2rem 1rem 2rem;
-   	box-shadow: @box-shadow-bottom, @box-shadow-left, @box-shadow-right; 
+	padding: 1rem 2rem;
+	box-shadow: @box-shadow-left, @box-shadow-right; 
+	&--homepage {
+		background-color: @background-color;
+		-webkit-border-bottom-right-radius: 2px;
+		-webkit-border-bottom-left-radius: 2px;
+		-moz-border-radius-bottomright: 2px;
+		-moz-border-radius-bottomleft: 2px;
+		border-bottom-right-radius: 2px;
+		border-bottom-left-radius: 2px;
+		margin-bottom: 1.3rem;
+		padding: 1rem 2rem;
+	   	box-shadow: @box-shadow-bottom, @box-shadow-left, @box-shadow-right; 
+	}
 }
 
 .homepage__btn {

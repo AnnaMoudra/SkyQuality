@@ -1,21 +1,18 @@
 {* Latte template *}
 
 {block content}
-<div class="tpage">
-    {*<div n:foreach="$info as $a">
-        <h3>{$a->title}</h3><br>
-        {$a->content}</div>*}
-    <h2 class="h2">Metodika měření</h2>
+<div class="content content--methodics">
+    <h1>Metodika měření</h1>
 
-    <h3>Pár slov úvodem</h3>
+    <h2>Pár slov úvodem</h2>
 
-    <p class="pblok">Cílem projektu je umožnit objektivní porovnání jasu noční oblohy na různých místech. Zapojit se může každý, kdo má vhodný přístroj. Primárně je počítáno s používáním Sky Quality Meteru od Unihedronu, jelikož se jedná o jednoduché, dostupné a již poměrně rozšířené zařízení, které kromě správného zacházení nevyžaduje žádné další zpracování naměřených dat. Je ovšem možné použít i libovolný jiný přístroj – digitální fotoaparát, CCD kameru, fotometr… V takovém případě je ale nutné vhodné zpracování dat tak, aby byla porovnatelná s daty pořízenými pomocí SQM.</p>
+    <p>Cílem projektu je umožnit objektivní porovnání jasu noční oblohy na různých místech. Zapojit se může každý, kdo má vhodný přístroj. Primárně je počítáno s používáním Sky Quality Meteru od Unihedronu, jelikož se jedná o jednoduché, dostupné a již poměrně rozšířené zařízení, které kromě správného zacházení nevyžaduje žádné další zpracování naměřených dat. Je ovšem možné použít i libovolný jiný přístroj – digitální fotoaparát, CCD kameru, fotometr… V takovém případě je ale nutné vhodné zpracování dat tak, aby byla porovnatelná s daty pořízenými pomocí SQM.</p>
 
-    <p class="pblok">Z logiky věci vyplývá, že nejpodstatnějším údajem charakterizujícím nějaké místo je průměrný jas oblohy (v určitém ročním období). Extrémní údaje (za svitu Měsíce skrz vysokou oblačnost nebo naopak při výjimečně průzračné atmosféře) jsou nepochybně zajímavé, nicméně obtížně porovnatelné a proto by měla být větší váha přikládána těm měřením, která byla pořízena za „běžných“ podmínek. Velmi vhodné je pořizovat měření během více nocí, čímž se eliminují případné výstřelky oběma směry. Databáze je na to připravená a umožňuje vypočítávat průměrnou hodnotu.</p>
+    <p>Z logiky věci vyplývá, že nejpodstatnějším údajem charakterizujícím nějaké místo je průměrný jas oblohy (v určitém ročním období). Extrémní údaje (za svitu Měsíce skrz vysokou oblačnost nebo naopak při výjimečně průzračné atmosféře) jsou nepochybně zajímavé, nicméně obtížně porovnatelné a proto by měla být větší váha přikládána těm měřením, která byla pořízena za „běžných“ podmínek. Velmi vhodné je pořizovat měření během více nocí, čímž se eliminují případné výstřelky oběma směry. Databáze je na to připravená a umožňuje vypočítávat průměrnou hodnotu.</p>
 
-    <h3>Vlastní měření</h3>
+    <h2>Vlastní měření</h2>
 
-    <p class="pblok">Provést měření pomocí SQM je velmi jednoduché a nenáročné. Stačí namířit zařízení do požadovaného směru, stisknout spoušť a nehybně zařízení držet po celou dobu měření. Je zapotřebí vyvarovat se:</p>
+    <p>Provést měření pomocí SQM je velmi jednoduché a nenáročné. Stačí namířit zařízení do požadovaného směru, stisknout spoušť a nehybně zařízení držet po celou dobu měření. Je zapotřebí vyvarovat se:</p>
 
     <ul>
         <li>přítomnosti překážek v zorném poli senzoru (pozorovatel, blízká budova, strom…)</li>
@@ -24,31 +21,29 @@
         <li>zaznamenávání prvních naměřených hodnot</li>
     </ul>
 
-    <p class="pblok">Poznámka k poslednímu bodu: prvních několik měření SQM <strong>vykazuje „tmavší“ hodnoty, než jaké odpovídají skutečnosti</strong>. Proto doporučujeme první 3 měření ignorovat. </p>
+    <p>Poznámka k poslednímu bodu: prvních několik měření SQM <strong>vykazuje „tmavší“ hodnoty, než jaké odpovídají skutečnosti</strong>. Proto doporučujeme první 3 měření ignorovat. </p>
 
-    <p class="pblok">Pro větší objektivitu doporučujeme každý zvolený směr proměřit právě pětkrát – vstupní formulář je přesně na taková pozorování navržen.</p>
+    <p>Pro větší objektivitu doporučujeme každý zvolený směr proměřit právě pětkrát – vstupní formulář je přesně na taková pozorování navržen.</p>
 
     <h3>SQM, SQM -L a volba směrů</h3>
 
-    <p class="pblok">Vzhledem k odlišnosti SQM (zorné pole cca 84°) a SQM -L (zorné pole cca 20°) má měření s&nbsp; každým z těchto přístrojů jistá specifika.</p>
+    <p>Vzhledem k odlišnosti SQM (zorné pole cca 84°) a SQM -L (zorné pole cca 20°) má měření s&nbsp; každým z těchto přístrojů jistá specifika.</p>
 
-    <p class="pblok"><strong>SQM</strong> má schopnost jednou hodnotou popsat velkou části oblohy. Je méně náchylné na zkreslení naměřených hodnot Mléčnou dráhou či zvířetníkovým světlem, ale na druhou stranu zase neumožňuje (bez modifikace) detailně proměřit kvalitu oblohu v jejích různých částech. Důležité je vědět, že při měření s SQM je <strong>dostačující proměřovat pouze zenit</strong>.</p>
+    <p><strong>SQM</strong> má schopnost jednou hodnotou popsat velkou části oblohy. Je méně náchylné na zkreslení naměřených hodnot Mléčnou dráhou či zvířetníkovým světlem, ale na druhou stranu zase neumožňuje (bez modifikace) detailně proměřit kvalitu oblohu v jejích různých částech. Důležité je vědět, že při měření s SQM je <strong>dostačující proměřovat pouze zenit</strong>.</p>
 
-    <p class="pblok">Naproti tomu <strong>SQM-L</strong> schopnost detailně proměřit kvalitu oblohy v různých směrech má. Toho je zapotřebí využívat a je důležité vědět, že při měření s SQM-L <strong>není dostačující proměřovat pouze zenit</strong>. Samotné zenitové měření může být velmi zavádějící, protože místa se stejným zenitovým jasem mohou být ve skutečnosti velmi odlišná. Jako ideální se v případě SQM-L ukázalo proměřovat <strong>zenit a všechny čtyři světové strany ve výšce 60°</strong> – měřme tak. Takto provedené měření se po zprůměrování hodnot ze všech směrů velmi dobře shoduje s hodnotou naměřenou širokoúhlým SQM (experimentálně ověřeno).</p>
+    <p>Naproti tomu <strong>SQM-L</strong> schopnost detailně proměřit kvalitu oblohy v různých směrech má. Toho je zapotřebí využívat a je důležité vědět, že při měření s SQM-L <strong>není dostačující proměřovat pouze zenit</strong>. Samotné zenitové měření může být velmi zavádějící, protože místa se stejným zenitovým jasem mohou být ve skutečnosti velmi odlišná. Jako ideální se v případě SQM-L ukázalo proměřovat <strong>zenit a všechny čtyři světové strany ve výšce 60°</strong> – měřme tak. Takto provedené měření se po zprůměrování hodnot ze všech směrů velmi dobře shoduje s hodnotou naměřenou širokoúhlým SQM (experimentálně ověřeno).</p>
 
-    <p class="pblok">Obecně lze říci, že SQM se hodí spíše do lokalit s kvalitnější oblohou, zatímco SQM-L je velmi užitečné v lokalitách výrazněji zasažených světelným znečištěním.</p>
+    <p>Obecně lze říci, že SQM se hodí spíše do lokalit s kvalitnější oblohou, zatímco SQM-L je velmi užitečné v lokalitách výrazněji zasažených světelným znečištěním.</p>
 
-    <p class="pblok">Měření v souladu s výše uvedenými zásadami budou považována za objektivní a&nbsp;zejména ve finální verzi projektu budou zvýhodněna.</p>
+    <p>Měření v souladu s výše uvedenými zásadami budou považována za objektivní a&nbsp;zejména ve finální verzi projektu budou zvýhodněna.</p>
 
-    <h3>Bortle stupně a MHV</h3>
+    <h2>Bortle stupně a MHV</h2>
 
-    <p class="pblok">Pro maximální objektivitu je vhodné doplnit pozorování o&nbsp;ještě alespoň jedno nezávislé posouzení kvality oblohy jinou metrikou. Vstupní formulář umožňuje zadat ohodnocení oblohy metodou sestavenou Johnem Bortlem (viz <a href="http://www.skyandtelescope.com/astronomy-resources/light-pollution-and-astronomy-the-bortle-dark-sky-scale/">originální článek</a> či <a n:href="scales">překlad s komentářem</a>) a&nbsp;metodou určení MHV. Při určování MHV doporučujeme používat následující mapku s&nbsp;výběrem vhodných hvězd a&nbsp;je vhodné uvádět v odpovídající položce i katalogové číslo nejslabší hvězdy, která byla spatřena: </p>
+    <p>Pro maximální objektivitu je vhodné doplnit pozorování o&nbsp;ještě alespoň jedno nezávislé posouzení kvality oblohy jinou metrikou. Vstupní formulář umožňuje zadat ohodnocení oblohy metodou sestavenou Johnem Bortlem (viz <a href="http://www.skyandtelescope.com/astronomy-resources/light-pollution-and-astronomy-the-bortle-dark-sky-scale/">originální článek</a> či <a n:href="scales">překlad s komentářem</a>) a&nbsp;metodou určení MHV. Při určování MHV doporučujeme používat následující mapku s&nbsp;výběrem vhodných hvězd a&nbsp;je vhodné uvádět v odpovídající položce i katalogové číslo nejslabší hvězdy, která byla spatřena: </p>
 
     <a href="/www/images/uma_stars.png"><img src="/www/images/uma_stars.png" title="Mapa hvězd Velké medvědice a okolí"  width="100%" /></a> 
 
-    <h3>Co byste ještě měli vědět</h3>
+    <h2>Co byste ještě měli vědět</h2>
 
-    <p class="pblok">Rovněž je třeba vzít v úvahu proměnlivé jevy, které svojí povahou ovlivňují jas oblohy, ale mají přirozený původ (a tedy nesouvisí se světelným znečištěním). Jedná se zejména o&nbsp;průzračnost atmosféry (<a n:href="scales#transparency">popis stupnice</a>), přítomnost Mléčné dráhy, zvířetníkové světlo a&nbsp;velmi jasné nebeské objekty (Venuše, Jupiter). Pokud je to možné, snažte se vliv těchto okolností co možná nejvíce omezit (majitelé SQM-L mohou např. namířit mimo Mléčnou dráhu) a&nbsp;vše co možná nejlépe zdokumentovat (čas měření, meteorologické podmínky, polohu Mléčné dráhy...).</p>
+    <p>Rovněž je třeba vzít v úvahu proměnlivé jevy, které svojí povahou ovlivňují jas oblohy, ale mají přirozený původ (a tedy nesouvisí se světelným znečištěním). Jedná se zejména o&nbsp;průzračnost atmosféry (<a n:href="scales#transparency">popis stupnice</a>), přítomnost Mléčné dráhy, zvířetníkové světlo a&nbsp;velmi jasné nebeské objekty (Venuše, Jupiter). Pokud je to možné, snažte se vliv těchto okolností co možná nejvíce omezit (majitelé SQM-L mohou např. namířit mimo Mléčnou dráhu) a&nbsp;vše co možná nejlépe zdokumentovat (čas měření, meteorologické podmínky, polohu Mléčné dráhy...).</p>
 </div>
-{include sidebar}
-
