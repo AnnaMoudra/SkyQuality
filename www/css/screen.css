@@ -1,4 +1,5 @@
 @import url("normalize.css");
+/* General */
 @-ms-viewport {
   width: device-width;
 }
@@ -31,7 +32,7 @@ html {
   background-image: url(../images/Earthlights_dmsp_web5.jpg);
   background-repeat: no-repeat;
   background-attachment: fixed;
-  background-color: #ffffff;
+  background-color: #001133;
   -webkit-box-sizing: border-box;
   -moz-box-sizing: border-box;
   box-sizing: border-box;
@@ -44,11 +45,6 @@ body {
   max-width: 1200px;
   color: #333333;
 }
-footer {
-  background-color: #ffffff;
-  width: 100%;
-  clear: both;
-}
 a,
 a:hover,
 a:visited,
@@ -56,23 +52,36 @@ a:active {
   color: #003380;
   text-decoration: none;
 }
+h3 {
+  font-size: 1.1rem;
+  margin-top: .9rem;
+}
 p {
   font-size: .9rem;
   text-align: justify;
   line-height: 150%;
 }
+table {
+  border-collapse: collapse;
+}
 .cistic {
   clear: both;
   height: 1px;
   border: none;
-  margin: -1rem 0 0 0;
+  margin: 0 0 0 0;
   visibility: hidden;
 }
 /* Logo and Navigation Layout */
 header {
   background-color: #ffffff;
-  border-radius: 2px;
-  padding: 1rem 2rem;
+  -webkit-border-top-right-radius: 2px;
+  -webkit-border-top-left-radius: 2px;
+  -moz-border-radius-topright: 2px;
+  -moz-border-radius-topleft: 2px;
+  border-top-right-radius: 2px;
+  border-top-left-radius: 2px;
+  padding: 1rem 2rem 0 2rem;
+  box-shadow: -12px 0px 10px -6px rgba(20, 20, 20, 0.5), 12px 0px 10px -6px rgba(20, 20, 20, 0.5), 0px -12px 10px -6px rgba(20, 20, 20, 0.5);
 }
 nav {
   float: right;
@@ -179,12 +188,35 @@ nav li {
   border-bottom: solid 1px #eeeeee;
   margin: 0 0 0 0;
 }
-/* Homepage Layout */
+/* Footer Layout */
+footer {
+  background-color: #ffffff;
+  width: 100%;
+  clear: both;
+  text-align: center;
+  font-size: .7rem;
+  padding: 0 1rem 1rem 1rem;
+  margin-top: -0.5rem;
+  box-shadow: 0px 12px 10px -6px rgba(20, 20, 20, 0.5), -12px 0px 10px -6px rgba(20, 20, 20, 0.5), 12px 0px 10px -6px rgba(20, 20, 20, 0.5);
+}
+.footer {
+  border-top: 1px solid #cccccc;
+  padding-top: 1rem;
+}
+/* HOMEPAGE */
+/*	------	*/
+/* Main content */
 .content--homepage {
   background-color: #ffffff;
-  border-radius: 2px;
-  margin-bottom: 2rem;
-  padding: 1rem 2rem;
+  -webkit-border-bottom-right-radius: 2px;
+  -webkit-border-bottom-left-radius: 2px;
+  -moz-border-radius-bottomright: 2px;
+  -moz-border-radius-bottomleft: 2px;
+  border-bottom-right-radius: 2px;
+  border-bottom-left-radius: 2px;
+  margin-bottom: 1.3rem;
+  padding: 1rem 2rem 1rem 2rem;
+  box-shadow: 0px 12px 10px -6px rgba(20, 20, 20, 0.5), -12px 0px 10px -6px rgba(20, 20, 20, 0.5), 12px 0px 10px -6px rgba(20, 20, 20, 0.5);
 }
 .homepage__btn {
   float: right;
@@ -207,10 +239,11 @@ nav li {
   text-align: center;
   font-size: 1.1rem;
   font-weight: bold;
+  cursor: pointer;
   background-color: #003380;
   border: solid 1px #003380;
   border-radius: 2px;
-  box-shadow: #333 4px 6px 30px;
+  box-shadow: 0px 5px 20px 3px rgba(15, 15, 15, 0.5), 0px 1px 5px 1px rgba(10, 10, 10, 0.5);
 }
 .btn--add a {
   color: #ffffff;
@@ -227,26 +260,290 @@ nav li {
     float: none;
     width: 100%;
     padding: 0;
-    margin-top: 1rem;
   }
-}
-.homepage__statistics {
-  background-color: #ffffff;
-  border-radius: 2px;
-  margin-bottom: 2rem;
-}
-.homepage__map {
-  background-color: #ffffff;
-  border-radius: 2px;
-  margin-bottom: 2rem;
-  padding: 1rem 0;
-}
-.homepage__bottom-links {
-  background-color: #ffffff;
 }
 .highlight {
   padding: .5rem;
   background-color: #fff1f1;
   border-left: 3px solid #bc0012;
   margin-bottom: 1.2rem;
+}
+/* Table of Latest Measurements */
+.table {
+  width: 100%;
+  font-size: .95rem;
+  line-height: 180%;
+  border-bottom: 1px solid #ddd;
+}
+.table th {
+  font-size: .9rem;
+  text-align: left;
+  background-color: #fafafa;
+  border-bottom: 1px solid #ddd;
+  border-top: 1px solid #ddd;
+  padding: .4rem 1.4rem .2rem 1.4rem;
+}
+.table th.table__brightness {
+  text-align: center;
+}
+.table .table__row {
+  border-top: 1px solid #ddd;
+}
+.table .table__row:hover {
+  background-color: #fafafa;
+  cursor: pointer;
+  color: #222;
+  font-weight: bold;
+}
+.table td {
+  padding: .4rem .4rem .2rem 1.4rem;
+}
+.table td.table__brightness {
+  text-align: center;
+  padding-right: 1.4rem;
+}
+@media (max-width: 840px) {
+  .table table,
+  .table thead,
+  .table tbody,
+  .table th,
+  .table td,
+  .table tr {
+    display: block;
+  }
+  .table thead tr {
+    position: absolute;
+    top: -9999px;
+    left: -9999px;
+  }
+  .table th.table__brightness {
+    text-align: left;
+  }
+  .table tr {
+    border: 1px solid 1px solid #ddd;
+  }
+  .table td {
+    border: none;
+    border-bottom: 2px solid 1px solid #ddd;
+    position: relative;
+    padding-left: 50%;
+  }
+  .table td:before {
+    position: absolute;
+    top: 6px;
+    left: 6px;
+    width: 45%;
+    padding-right: 10px;
+    white-space: nowrap;
+  }
+  .table td.table__brightness {
+    text-align: left;
+  }
+  .table td:nth-of-type(1):before {
+    content: "Datum (UTC)";
+  }
+  .table td:nth-of-type(2):before {
+    content: "Lokalita";
+  }
+  .table td:nth-of-type(3):before {
+    content: "Jas (MSA)";
+  }
+  .table td:nth-of-type(4):before {
+    content: "Pozorovatel";
+  }
+  .table td:nth-of-type(5):before {
+    content: "Obsahuje";
+  }
+}
+.latest__legend {
+  color: #999;
+  font-size: .8rem;
+  margin-top: .5rem;
+  margin-bottom: .5rem;
+  margin-left: 1.4rem;
+}
+.latest__legend .flag {
+  margin-right: .5rem;
+  margin-left: .9rem;
+  vertical-align: 0%;
+}
+.latest__legend p {
+  margin-top: .3rem;
+  margin-bottom: .2rem;
+  font-size: .8rem;
+}
+.latest__legend .smallnote {
+  font-size: .7rem;
+  color: #aaaaaa;
+}
+.latest__legend__item {
+  display: inline-block;
+  margin-right: .9rem;
+}
+.latest__legend__item--last {
+  margin-left: 0;
+}
+/* Flags */
+.flag {
+  display: inline-block;
+  height: 10px;
+  width: 7px;
+  font-size: 0;
+  vertical-align: middle;
+  background: #ccc;
+  cursor: help;
+  padding: 0;
+  margin: 0;
+}
+.flag--sqmw {
+  background: #6cb300;
+}
+.flag--sqml {
+  background: #ffad33;
+}
+.flag--bortle {
+  background: #007acc;
+}
+.flag--info {
+  background: #cc0066;
+}
+.flag--transparency {
+  background: #8585ad;
+}
+.flag--photo {
+  background: #ccff33;
+}
+/* Statistics */
+.homepage__statistics {
+  background-color: #ffffff;
+  border-radius: 2px;
+  margin-bottom: 1.3rem;
+  padding: 1rem 2rem;
+  text-align: center;
+  color: #333333;
+  font-size: 1.3rem;
+  box-shadow: 0px 12px 10px -6px rgba(20, 20, 20, 0.5), -12px 0px 10px -6px rgba(20, 20, 20, 0.5), 12px 0px 10px -6px rgba(20, 20, 20, 0.5), 0px -12px 10px -6px rgba(20, 20, 20, 0.5);
+}
+.statistics__item {
+  margin-left: 1.6rem;
+  display: inline-block;
+}
+/* Map */
+.homepage__map {
+  background-color: #ffffff;
+  border-radius: 2px;
+  margin-bottom: 1.3rem;
+  padding: 1rem 0;
+  text-align: center;
+  color: #333333;
+  box-shadow: 0px 12px 10px -6px rgba(20, 20, 20, 0.5), -12px 0px 10px -6px rgba(20, 20, 20, 0.5), 12px 0px 10px -6px rgba(20, 20, 20, 0.5), 0px -12px 10px -6px rgba(20, 20, 20, 0.5);
+}
+.homepage__map p {
+  text-align: center;
+  font-size: 1rem;
+  margin-bottom: 0;
+  margin-top: .5rem;
+}
+#map-canvas {
+  border-top: 2px solid #777;
+  border-bottom: 2px solid #777;
+  height: 40rem;
+  margin: 0px;
+  padding: 0px;
+}
+.map__legend {
+  margin-top: .9rem;
+  font-size: 1rem;
+}
+.map__legend__item {
+  display: inline-block;
+  margin-right: 1.2rem;
+}
+.map__legend__item--last {
+  margin-right: 0;
+}
+.map__legend__item img {
+  margin-right: 0.5rem;
+}
+/* Bottom links */
+.homepage__bottom-links {
+  background-color: #ffffff;
+  box-shadow: -12px 0px 10px -6px rgba(20, 20, 20, 0.5), 12px 0px 10px -6px rgba(20, 20, 20, 0.5), 0px -12px 10px -6px rgba(20, 20, 20, 0.5);
+  -webkit-border-top-left-radius: 2px;
+  -webkit-border-top-right-radius: 2px;
+  -moz-border-radius-topleft: 2px;
+  -moz-border-radius-topright: 2px;
+  border-top-left-radius: 2px;
+  border-top-right-radius: 2px;
+  width: 100%;
+  float: left;
+  padding: 1rem .8rem;
+}
+.bottom-link {
+  float: left;
+  width: 33.3%;
+  padding: 0 1.2rem;
+  background-color: #ffffff;
+}
+.bottom-link__text {
+  z-index: 100;
+  position: relative;
+}
+.bottom-link__text p {
+  font-size: .8rem;
+}
+.bottom-link__gradient {
+  width: 100%;
+  position: relative;
+  height: 8.5rem;
+  z-index: 50;
+  margin-top: -1rem;
+  /* Permalink - use to edit and share this gradient: http://colorzilla.com/gradient-editor/#ffffff+4,ffffff+99&1+4,1+4,0+99 */
+  background: -moz-linear-gradient(top, #ffffff 4%, rgba(255, 255, 255, 0) 99%);
+  /* FF3.6-15 */
+  background: -webkit-linear-gradient(top, #ffffff 4%, rgba(255, 255, 255, 0) 99%);
+  /* Chrome10-25,Safari5.1-6 */
+  background: linear-gradient(to bottom, #ffffff 4%, rgba(255, 255, 255, 0) 99%);
+  /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
+  filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#ffffff', endColorstr='#00ffffff', GradientType=0);
+  /* IE6-9 */
+}
+.bottom-link__picture {
+  width: 100%;
+  z-index: 0;
+  margin-top: -8.5rem;
+  position: relative;
+}
+.bottom-link img {
+  width: 100%;
+}
+@media (max-width: 1200px) {
+  .bottom-link {
+    float: none;
+    width: 100%;
+    padding-bottom: 1rem;
+    border-bottom: 1px solid #cccccc;
+    margin-bottom: 1.5rem;
+  }
+  .bottom-link--last {
+    border-bottom: none;
+    margin-bottom: 0;
+    padding-bottom: 0;
+  }
+}
+@media (min-width: 840px) and (max-width: 1200px) {
+  .bottom-link__gradient {
+    height: 20rem;
+  }
+  .bottom-link__picture {
+    margin-top: -20rem;
+  }
+}
+@media (min-width: 640px) and (max-width: 840px) {
+  .bottom-link__gradient {
+    height: 14rem;
+  }
+  .bottom-link__picture {
+    margin-top: -14rem;
+  }
 }

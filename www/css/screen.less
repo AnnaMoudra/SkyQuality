@@ -1,20 +1,33 @@
 @import url("normalize.css");
 
+// Variables
 
 @background-color: #ffffff; 
 @color: #333333;
 @link-color: #003380;
 @line-color: #eeeeee;
+@delimiter-color: #cccccc;
 @note-color: #aaaaaa;
 @menu-color: #444444;
 @highlight: #bc0012;
 @btn-bgcolor: #003380;
 @btn-color: #ffffff;
+@sqmw-color: #6cb300;
+@sqml-color: #ffad33;
+@bortle-color: #007acc;
+@info-color: #cc0066;
+@transparency-color: #8585ad;
+@photo-color: #ccff33;
+@th-color: #fafafa;
+
+@box-shadow-right: 12px 0px 10px -6px rgba(20, 20, 20, .5); 
+@box-shadow-left: -12px 0px 10px -6px rgba(20, 20, 20, .5); 
+@box-shadow-top: 0px -12px 10px -6px rgba(20, 20, 20, .5); 
+@box-shadow-bottom: 0px 12px 10px -6px rgba(20, 20, 20, .5);
+@table-border-dark: 1px solid #ddd;
 
 
-@desktop:   ~"only screen and (min-width: 960px) and (max-width: 1199px)";
-@tablet:    ~"only screen and (min-width: 720px) and (max-width: 959px)";
-
+/* General */
 @-ms-viewport { 
   width: device-width; 
 }
@@ -50,7 +63,7 @@ html {
     background-image: url(../images/Earthlights_dmsp_web5.jpg);  
     background-repeat: no-repeat;
     background-attachment: fixed;
-	background-color: @background-color;
+	background-color: #001133;
   	-webkit-box-sizing: border-box;
   	-moz-box-sizing: border-box;
   	box-sizing: border-box;
@@ -62,18 +75,17 @@ body {
     margin: 1.5rem auto;
     width: 75%;
     max-width: 1200px;
-    color: @color;        
-}
-
-footer {
-	background-color: @background-color;
-	width: 100%;
-    clear: both;
+    color: @color;     
 }
 
 a, a:hover, a:visited, a:active {
 	color: @link-color;
 	text-decoration: none;
+}
+
+h3 {
+	font-size: 1.1rem;
+	margin-top: .9rem;
 }
 
 p {
@@ -82,11 +94,15 @@ p {
 	line-height: 150%;	
 }
 
+table {
+	border-collapse: collapse;
+}
+
 .cistic {
     clear: both;
     height: 1px;
     border: none;
-    margin: -1rem 0 0 0;
+    margin: 0 0 0 0;
     visibility: hidden;
 }
 
@@ -94,8 +110,14 @@ p {
 
 header {
 	background-color: @background-color;
-	border-radius: 2px;
-	padding: 1rem 2rem;
+	-webkit-border-top-right-radius: 2px;
+	-webkit-border-top-left-radius: 2px;
+	-moz-border-radius-topright: 2px;
+	-moz-border-radius-topleft: 2px;
+	border-top-right-radius: 2px;
+	border-top-left-radius: 2px;
+	padding: 1rem 2rem 0 2rem;
+	box-shadow: @box-shadow-left, @box-shadow-right, @box-shadow-top;
 }
 
 nav {
@@ -193,12 +215,42 @@ nav li {
     margin: 0 0 0 0;   
 }
 
-/* Homepage Layout */
+/* Footer Layout */
+
+
+footer {
+	background-color: @background-color;
+	width: 100%;
+    clear: both;
+    text-align: center;
+    font-size: .7rem;
+    padding: 0 1rem 1rem 1rem;
+    margin-top: -0.5rem;
+    box-shadow: @box-shadow-bottom, @box-shadow-left, @box-shadow-right;
+}
+
+.footer {
+	border-top: 1px solid @delimiter-color;
+	padding-top: 1rem;
+}
+
+
+
+/* HOMEPAGE */
+/*	------	*/
+
+/* Main content */
 .content--homepage {
 	background-color: @background-color;
-	border-radius: 2px;
-	margin-bottom: 2rem;
-	padding: 1rem 2rem;
+	-webkit-border-bottom-right-radius: 2px;
+	-webkit-border-bottom-left-radius: 2px;
+	-moz-border-radius-bottomright: 2px;
+	-moz-border-radius-bottomleft: 2px;
+	border-bottom-right-radius: 2px;
+	border-bottom-left-radius: 2px;
+	margin-bottom: 1.3rem;
+	padding: 1rem 2rem 1rem 2rem;
+   	box-shadow: @box-shadow-bottom, @box-shadow-left, @box-shadow-right; 
 }
 
 .homepage__btn {
@@ -221,12 +273,14 @@ nav li {
 	text-align: center;
     font-size: 1.1rem;
     font-weight: bold;
+    cursor: pointer;
     background-color: @btn-bgcolor;
     border: solid 1px @btn-bgcolor;
     border-radius: 2px;
-    box-shadow: #333 4px 6px 30px; 
+    box-shadow: 0px 5px 20px 3px rgba(15, 15, 15, 0.5),
+    			0px 1px 5px 1px rgba(10, 10, 10, 0.5);
     & a {
-    color: @btn-color;
+    	color: @btn-color;
     }
 }
 
@@ -240,26 +294,10 @@ nav li {
   		float: none;
   		width: 100%;
   		padding: 0;
-  		margin-top: 1rem;
+  		//margin-top: 1rem;
   }
 }
 
-.homepage__statistics {
-	background-color: @background-color;
-	border-radius: 2px;
-	margin-bottom: 2rem;
-}
-
-.homepage__map {
-	background-color: @background-color;
-	border-radius: 2px;
-	margin-bottom: 2rem;
-	padding: 1rem 0;
-}
-
-.homepage__bottom-links {
-	background-color: @background-color;
-}
 
 .highlight {
 	padding: .5rem;
@@ -268,4 +306,280 @@ nav li {
     margin-bottom: 1.2rem;
 }
 
+/* Table of Latest Measurements */
+
+.table {
+	width: 100%;
+	font-size: .95rem;
+	line-height: 180%;
+	border-bottom: @table-border-dark;
+	& th {
+		font-size: .9rem;
+    	text-align: left;
+    	background-color: @th-color;
+		border-bottom: @table-border-dark;
+		border-top: @table-border-dark;
+    	padding: .4rem 1.4rem .2rem 1.4rem;
+    	&.table__brightness {
+			text-align: center;
+		}
+	}
+	& .table__row {
+		border-top: @table-border-dark;
+		&:hover {
+		    background-color: @th-color;
+		    cursor: pointer;
+		    color: #222;
+		    font-weight: bold;
+		}
+	}
+	& td {
+    	padding: .4rem .4rem .2rem 1.4rem;
+		&.table__brightness {
+			text-align: center;
+			padding-right: 1.4rem;
+		}
+	}
+	@media (max-width: 840px) {
+		table, thead, tbody, th, td, tr {
+			display: block;
+		}
+		thead tr { 
+			position: absolute;
+			top: -9999px;
+			left: -9999px;
+		}
+		
+		& th.table__brightness {
+			text-align: left;
+		}
+
+		tr { 
+			border: 1px solid @table-border-dark; 
+		}
+		
+		& td { 
+			border: none;
+			border-bottom: 2px solid @table-border-dark; 
+			position: relative;
+			padding-left: 50%;
+			&:before { 
+				position: absolute;
+				top: 6px;
+				left: 6px;
+				width: 45%; 
+				padding-right: 10px; 
+				white-space: nowrap;
+			}
+			&.table__brightness {
+				text-align: left;
+			}
+		}
+		td:nth-of-type(1):before { content: "Datum (UTC)"; }
+		td:nth-of-type(2):before { content: "Lokalita"; }
+		td:nth-of-type(3):before { content: "Jas (MSA)"; }
+		td:nth-of-type(4):before { content: "Pozorovatel"; }
+		td:nth-of-type(5):before { content: "Obsahuje"; }
+	}
+}
+
+.latest__legend {
+	color: #999;
+	font-size: .8rem;
+	margin-top: .5rem;
+	margin-bottom: .5rem;
+	margin-left: 1.4rem;
+	& .flag {
+		margin-right: .5rem;
+		margin-left: .9rem;
+		vertical-align: 0%;
+	}
+	& p {
+		margin-top: .3rem;
+		margin-bottom: .2rem;		
+		font-size: .8rem;
+	}
+	& .smallnote {
+		font-size: .7rem;
+		color: @note-color;
+	}
+	&__item {
+		display: inline-block;
+		margin-right: .9rem; 
+		&--last {
+			margin-left: 0;
+		}
+	}
+}
+
+
+/* Flags */
+
+.flag {
+    display: inline-block;
+    height: 10px;
+    width: 7px;
+    font-size: 0;
+    vertical-align: middle;
+    background: #ccc;
+    cursor: help;
+    padding: 0;
+    margin: 0;
+    &--sqmw {
+    	background: @sqmw-color;
+	}
+	&--sqml {
+    	background: @sqml-color;
+	}
+	&--bortle {
+	    background: @bortle-color;
+	}
+	&--info {
+	    background: @info-color;
+	}
+	&--transparency {
+	    background: @transparency-color;
+	}
+	&--photo {
+	    background: @photo-color;
+	}
+}
+
+/* Statistics */
+
+.homepage__statistics {
+	background-color: @background-color;
+	border-radius: 2px;
+	margin-bottom: 1.3rem;
+	padding: 1rem 2rem;
+	text-align: center;
+	color: @color;
+	font-size: 1.3rem;
+	box-shadow: @box-shadow-bottom, @box-shadow-left, @box-shadow-right, @box-shadow-top;
+}
+
+.statistics__item {
+	margin-left: 1.6rem;
+	display: inline-block;
+}
+
+/* Map */
+
+.homepage__map {
+	background-color: @background-color;
+	border-radius: 2px;
+	margin-bottom: 1.3rem;
+	padding: 1rem 0;
+	text-align: center;
+	color: @color;
+ 	box-shadow: @box-shadow-bottom, @box-shadow-left, @box-shadow-right, @box-shadow-top;;
+   	& p {
+   		text-align: center;
+	 	font-size: 1rem;
+	 	margin-bottom: 0;
+	 	margin-top: .5rem;
+   	}
+}
+
+#map-canvas {
+	border-top: 2px solid #777;
+	border-bottom: 2px solid #777;
+	height: 40rem;
+    margin: 0px;
+    padding: 0px; 
+}
+
+.map__legend {
+	margin-top: .9rem;
+	font-size: 1rem;
+	&__item {
+		display: inline-block;
+		margin-right: 1.2rem;
+		&--last {
+			margin-right: 0;
+		}
+		& img {
+			margin-right: 0.5rem;
+		}
+	}
+}
+
+/* Bottom links */
+
+.homepage__bottom-links {
+	background-color: @background-color;
+   	box-shadow: @box-shadow-left, @box-shadow-right, @box-shadow-top; 
+	-webkit-border-top-left-radius: 2px;
+	-webkit-border-top-right-radius: 2px;
+	-moz-border-radius-topleft: 2px;
+	-moz-border-radius-topright: 2px;
+	border-top-left-radius: 2px;
+	border-top-right-radius: 2px;
+   	width: 100%;
+   	float: left;
+   	padding: 1rem .8rem;
+}
+
+.bottom-link {
+	float: left;
+	width: 33.3%;
+	padding: 0 1.2rem;
+	background-color: @background-color;
+	&__text {
+	    z-index: 100;
+	    position: relative;
+	    & p {
+	    	font-size: .8rem;
+		}
+	}
+	&__gradient {
+		width: 100%;
+	    position: relative;
+	    height: 8.5rem;
+	    z-index: 50; 
+	    margin-top: -1rem;
+	    /* Permalink - use to edit and share this gradient: http://colorzilla.com/gradient-editor/#ffffff+4,ffffff+99&1+4,1+4,0+99 */
+		background: -moz-linear-gradient(top,  rgba(255,255,255,1) 4%, rgba(255,255,255,0) 99%); /* FF3.6-15 */
+		background: -webkit-linear-gradient(top,  rgba(255,255,255,1) 4%,rgba(255,255,255,0) 99%); /* Chrome10-25,Safari5.1-6 */
+		background: linear-gradient(to bottom,  rgba(255,255,255,1) 4%,rgba(255,255,255,0) 99%); /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
+		filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#ffffff', endColorstr='#00ffffff',GradientType=0 ); /* IE6-9 */
+	}
+	&__picture {
+		width: 100%;
+	    z-index: 0;
+	    margin-top: -8.5rem;
+	    position: relative;
+	}
+	& img {
+		width: 100%;
+	}
+	@media (max-width:1200px) {
+		float: none;
+		width: 100%;
+		padding-bottom: 1rem;
+		border-bottom: 1px solid @delimiter-color;
+		margin-bottom: 1.5rem;
+		&--last {
+			border-bottom: none;
+			margin-bottom: 0;
+			padding-bottom: 0;
+		}
+	}
+	@media (min-width:840px) and (max-width:1200px) {
+		&__gradient	 {
+			height: 20rem;
+		}
+		&__picture {
+			margin-top: -20rem;
+		} 
+	}
+	@media (min-width:640px) and (max-width:840px) {
+		&__gradient	 {
+			height: 14rem;
+		}
+		&__picture {
+			margin-top: -14rem;
+		} 
+	}
+}
 
