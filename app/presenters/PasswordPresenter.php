@@ -45,12 +45,7 @@ class PasswordPresenter extends BasePresenter {
         $form->addText('email', '')
                 ->setDefaultValue('@')
                 ->setRequired('Zadejte email:')
-                ->addRule(Form::EMAIL, 'Zadaná adresa není platná.')
-                ->setOption('description', Html::el('img')
-                        ->class('help')
-                        ->src('../www/images/help.svg')
-                        ->alt('Zadejte e-mail, pod kterým jste zaregistrován/a')
-                        ->title('Zadejte e-mail, pod kterým jste zaregistrován/a'));
+                ->addRule(Form::EMAIL, 'Zadaná adresa není platná.');
        
         $form->addHidden('newpass', Strings::random(10)); //vytvoří náhodný string pro ověření uživatele při změně hesla
 

@@ -69,7 +69,7 @@
     <span class="statistics__item"><b>{$photoscount}</b> fotografií</span>
 </div>
 
-
+<a name="map"></a>
 <div class="homepage__map">
  {include map.latte}
 </div>
@@ -83,7 +83,7 @@
         </div>
         <div class="bottom-link__gradient"></div>
         <div class="bottom-link__picture">
-            <img src="./images/light.jpg" width="100%" />
+            <img src="{$basePath}/images/layout/light_large.jpg" srcset="{$basePath}/images/layout/light_small.jpg 250w, {$basePath}/images/layout/light_medium.jpg 500w, {$basePath}/images/layout/light_large.jpg 800w, {$basePath}/images/layout/light_largex2.jpg 1500w" sizes="(max-width: 1200px) 90vw, 30vw" />
         </div>
     </div>
     <div class="bottom-link">
@@ -92,16 +92,16 @@
         </div>
         <div class="bottom-link__gradient"></div>
         <div class="bottom-link__picture">
-            <img src="./images/verejne.jpg" />
+            <img src="{$basePath}/images/layout/verejne_large.png" srcset="{$basePath}/images/layout/verejne_small.png 250w, {$basePath}/images/layout/verejne_medium.png 500w, {$basePath}/images/layout/verejne_large.png 788w" sizes="(max-width: 1200px) 90vw, 30vw" />
         </div>
     </div>
     <div class="bottom-link bottom-link--last">
         <div class="bottom-link__text">
-            <p>Chcete se také <strong>zapojit do monitorování stavu nočního životního prostředí?</strong> Je to jednoduché&nbsp;–&nbsp;stačí vám přístroj na měření jasu oblohy, tzv. <strong><a href="http://www.supra-dalekohledy.cz/ostatni-pristroje/jasomery/">Sky Quality Meter</a></strong> (SQM), se kterým budete měřit podle <strong><a n:href="Info:">metodiky</a></strong>. Pokud přístroj nemáte, můžete se s&nbsp;námi <strong>domluvit na jeho <a n:href="Project:">zapůjčení</a></strong>. Poskytujeme také komplexnější mapování vybraných lokalit pomocí celooblohového snímání.</p>
+            <p>Chcete se také <strong>zapojit do monitorování stavu nočního životního prostředí?</strong> Je to jednoduché&nbsp;–&nbsp;stačí vám přístroj na měření jasu oblohy, tzv. <strong><a href="http://www.supra-dalekohledy.cz/ostatni-pristroje/jasomery/">Sky Quality Meter</a></strong> (SQM), se kterým budete měřit podle <strong><a n:href="Info:">metodiky</a></strong>. Pokud přístroj nemáte, můžete se s&nbsp;námi <strong>domluvit na jeho <a n:href="Project:">zapůjčení</a></strong>. Poskytujeme také komplexnější mapování vybraných lokalit (např. chráněných území) pomocí celooblohového snímání.</p>
         </div>
         <div class="bottom-link__gradient"></div>
         <div class="bottom-link__picture">
-            <img src="./images/allsky2.jpg" />
+            <img src="{$basePath}/images/layout/allsky_large.jpg" srcset="{$basePath}/images/layout/allsky_small.jpg 250w, {$basePath}/images/layout/allsky_medium.jpg 500w, {$basePath}/images/layout/allsky_large.jpg 591w" sizes="(max-width: 1200px) 90vw, 30vw" />
         </div>
     </div>
 </div> 

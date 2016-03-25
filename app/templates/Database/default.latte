@@ -3,14 +3,14 @@
 {block content}
 <div class="content">
     <div>
-        <a n:href="Database:locations" class="navbutton">přepnout do režimu lokalit</a>
-        <a n:href="Map:default" class="navbutton">zobrazit na mapě</a>
+        <a n:href="Database:locations" class="button">přepnout do režimu lokalit</a>
+        <a n:href="Map:default" class="button">zobrazit na mapě</a>
         <div n:if="$user->loggedIn">
-            <a n:href="Observation:create"  class="navbutton" >přidat měření</a>
+            <a n:href="Observation:create"  class="button" >přidat měření</a>
         </div>
     </div>
 
-    <h3>Výpis databáze měření </h3>
+    <h2>Výpis databáze měření </h2>
     <div>
         {control basicDataGrid}
     </div>

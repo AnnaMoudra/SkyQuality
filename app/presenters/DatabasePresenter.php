@@ -65,11 +65,11 @@ class DatabasePresenter extends BasePresenter {
         $grid->setDataSource($source);
         $grid->setDefaultOrder('date', 'DESC');
         $grid->addDate('date', 'Datum')
-                ->setFormat('d.m.Y - H:i')
+                ->setFormat('d. m. Y —&\nb\sp;H:i')
                 ->setOrdering(TRUE);
-        $grid->addText('observer', 'Pozorovatel');
         $grid->addText('name', 'Lokalita');
-        $grid->addNumber('sqmavg', 'Průměrný jas [MSA]')->setDecimals(2)->setAttribute('class', 'sqmGrid');
+        $grid->addNumber('sqmavg', 'Jas')->setDecimals(2)->setAttribute('class', 'sqmGrid');
+        $grid->addText('observer', 'Pozorovatel');
         $action = $grid->addActions('');
         $action->addButton()
                 ->setType('btn-primary')

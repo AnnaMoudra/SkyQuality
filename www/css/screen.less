@@ -19,6 +19,8 @@
 @transparency-color: #8585ad;
 @photo-color: #ccff33;
 @th-color: #fafafa;
+@btn-bgcolor-light: #fff;
+@btn-bdcolor: #888;
 
 @box-shadow-right: 12px 0px 10px -6px rgba(20, 20, 20, .5); 
 @box-shadow-left: -12px 0px 10px -6px rgba(20, 20, 20, .5); 
@@ -60,7 +62,7 @@
 }
 
 html {
-    background-image: url(../images/Earthlights_dmsp_web5.jpg);  
+    background-image: url('../images/layout/Earthlights_dmsp_web5.jpg');  
     background-repeat: no-repeat;
     background-attachment: fixed;
 	background-color: #001133;
@@ -83,15 +85,35 @@ a, a:hover, a:visited, a:active {
 	text-decoration: none;
 }
 
+h1 {
+	font-size: 1.5rem;
+	margin-top: 1.3rem;
+	margin-bottom: 0;
+	&:first-of-type {
+		margin-top: 0;
+	}
+}
+
+h2 {
+	font-size: 1.2rem;
+	margin-top: 1.2rem;
+	margin-bottom: 0;
+}
+
 h3 {
-	font-size: 1.1rem;
-	margin-top: .9rem;
+	font-size: 1rem;
+	margin-top: 1.2rem;
+	margin-bottom: 0;
 }
 
 p {
 	font-size: .9rem;
 	text-align: justify;
 	line-height: 150%;	
+}
+
+ul {
+	font-size: .9rem;
 }
 
 table {
@@ -261,7 +283,11 @@ footer {
 		border-bottom-left-radius: 2px;
 		margin-bottom: 1.3rem;
 		padding: 1rem 2rem;
-	   	box-shadow: @box-shadow-bottom, @box-shadow-left, @box-shadow-right; 
+	   	box-shadow: @box-shadow-bottom, @box-shadow-left, @box-shadow-right;
+	   	& h3 {
+	   		margin-bottom: 1rem;
+	   		margin-top: 1rem;
+	   	} 
 	}
 }
 
@@ -337,7 +363,6 @@ footer {
 		}
 	}
 	& .table__row {
-		border-top: @table-border-dark;
 		&:hover {
 		    background-color: @th-color;
 		    cursor: pointer;
@@ -475,6 +500,7 @@ footer {
 	display: inline-block;
 }
 
+
 /* Map */
 
 .homepage__map {
@@ -595,8 +621,190 @@ footer {
 	}
 }
 
+/* Datagrid */
+
+.data-grid {
+	margin-top: 1.8rem;
+	& .table {
+		& th.grid-column-sqmavg {
+			text-align: center;
+		}
+		& td.sqmGrid {
+			text-align: center;
+			padding-left: 0;
+			padding-right: 0;
+		}
+	}
+	& thead tr {
+		font-size: .9rem;
+	}
+	& tbody tr {
+		&:hover {
+		    background-color: @th-color;
+		    cursor: pointer;
+		    color: #222;
+		    font-weight: bold;
+		}		
+	}
+}
+
+.pagination {
+	margin-top: 1.2rem;
+	& li {
+		display: inline;
+	}
+	& .arrow {
+		
+	}
+	
+}
+
+/* Other Pages */
+/* 	--------   */
+
+.content--scales {
+	& div {
+		margin-top: 1.8rem;
+		& p {
+			margin-top: .5rem;
+			margin-bottom: .5rem;
+		}
+	}
+}
 
 
+.userforms {
+	text-align:center;
+	margin-top: 3rem; 
+	margin-bottom: 2rem;
+	font-size: .9rem;
+}
+
+/* Sign in */
+
+.sign-in {
+   & form {
+   		width: 47%; 
+   		margin-top: 2.5rem; 
+   		margin-bottom: 2.3rem; 
+	 	margin-left: auto; 
+	 	margin-right: auto; 
+  		text-align: justify;
+ 	}
+}
+
+input#signincheck {
+    margin-left: 1.6rem;
+}
+
+#signinsubmit {
+    margin-left: 2.75rem;
+}
+
+/* Passwords */
+
+.password {
+ 	&-lost {
+		& form {
+			width: 28.5%;
+		 	margin-left: auto; 
+		 	margin-right: auto; 
+		 	margin-top: 2.5rem;
+		 	margin-bottom: 2.3rem;
+		}
+	}
+	&-change {
+		& form {
+			width: 50%;
+			margin-left: auto;
+			margin-right: auto;
+			margin-top: 2rem;
+		}
+	}
+}
+
+/* Registration */
+
+.registration {
+	& form {
+		width: 46%;
+		margin-left: auto;
+		margin-right: auto;
+		text-align: justify;
+		margin-top: 2rem; 
+		margin-bottom: 1rem;
+	}
+}
+
+#registersubmit {
+    margin-left: 1.8rem;
+}
+
+
+
+/* Forms */
+
+form table {
+	& td {
+		padding: .4rem .8rem;
+		font-size: .9rem;
+	}
+	& label {
+		font-size: .9rem;
+		vertical-align: middle;
+		padding-bottom: .6rem;
+	}
+	& input {
+		&[type="checkbox"] {
+			margin: .4rem;
+		}
+		&[type="radio"] {
+			margin: .4rem;
+		}
+		&[type="text"] {
+			margin-right: .4rem;
+		}
+		&[type="password"] {
+			margin-right: .4rem;
+		}
+	}
+
+}
+
+
+.required  {
+	& td input {
+	    background-color: #FFFFFF;
+	    border-top: 1px solid #E0E0E0;
+	    border-left: 3px solid #bc0012; 
+	    border-bottom: 1px solid #E0E0E0; 
+	    border-right: 1px solid #E0E0E0;
+	    padding-left: 5px;
+	}
+	& label {
+    	font-weight: bold;
+	}
+}
+
+.help {
+    vertical-align: middle;
+    margin-left: .2rem;
+    margin-bottom: .2rem;
+    margin-right: 1.2rem;
+}
+
+.button {
+    border: solid 1px @btn-bdcolor;
+    border-radius: 2px;
+    background-image: none;
+    background-color: @btn-bgcolor-light;
+    padding: .4rem 1rem .3rem 1rem;
+    margin-top: .2rem;
+    font-size: .9rem;
+}
+
+
+/* Highchart Graphs */
 
 #graph__location {
 	width: 100%;

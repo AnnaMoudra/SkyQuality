@@ -53,49 +53,49 @@
 
                 if (markers[i][3] < 18) {
                     var image = {
-                        url: basePath + '/images/circle_red.svg',
+                        url: basePath + '/images/markers/circle_red.svg',
                         origin: new google.maps.Point(0, 0),
                         anchor: new google.maps.Point(7, 7)
                     };
                 }
                 else if (markers[i][3] >= 18 && markers[i][3] < 19) {
                     var image = {
-                        url: basePath + '/images/circle_yellow.svg',
+                        url: basePath + '/images/markers/circle_yellow.svg',
                         origin: new google.maps.Point(0, 0),
                         anchor: new google.maps.Point(7, 7)
                     };
                 }
                 else if (markers[i][3] >= 19 && markers[i][3] < 20) {
                     var image = {
-                        url: basePath + '/images/circle_green.svg',
+                        url: basePath + '/images/markers/circle_green.svg',
                         origin: new google.maps.Point(0, 0),
                         anchor: new google.maps.Point(7, 7)
                     };
                 }
                 else if (markers[i][3] >= 20 && markers[i][3] < 20.5) {
                     var image = {
-                        url: basePath + '/images/circle_turqoise.svg',
+                        url: basePath + '/images/markers/circle_turqoise.svg',
                         origin: new google.maps.Point(0, 0),
                         anchor: new google.maps.Point(7, 7)
                     };
                 }
                 else if (markers[i][3] >= 20.5 && markers[i][3] < 21) {
                     var image = {
-                        url: basePath + '/images/circle_lightblue2.svg',
+                        url: basePath + '/images/markers/circle_lightblue2.svg',
                         origin: new google.maps.Point(0, 0),
                         anchor: new google.maps.Point(7, 7)
                     };
                 }
                 else if (markers[i][3] >= 21 && markers[i][3] < 21.5) {
                     var image = {
-                        url: basePath + '/images/circle_darkblue2.svg',
+                        url: basePath + '/images/markers/circle_darkblue2.svg',
                         origin: new google.maps.Point(0, 0),
                         anchor: new google.maps.Point(7, 7)
                     };
                 }
                 else if (markers[i][3] >= 21.5 && markers[i][3] <= 22) {
                     var image = {
-                        url: basePath + '/images/circle_black.svg',
+                        url: basePath + '/images/markers/circle_black.svg',
                         origin: new google.maps.Point(0, 0),
                         anchor: new google.maps.Point(7, 7)
                     };
@@ -131,13 +131,13 @@
     {* Vykreslení mapy *}
     <div id="map-canvas"></div>
     <div  class="map__legend">
-        <span class="map__legend__item"><img src="{$basePath}/images/circle_red.svg" alt="Průměrný jas na lokalitě je < 18.0 MSA"/>< 18</span>
-        <span class="map__legend__item"><img src="{$basePath}/images/circle_yellow.svg" alt="Průměrný jas na lokalitě je mezi 18 a 19 MSA"/>18&ndash;19</span>
-        <span class="map__legend__item"><img src="{$basePath}/images/circle_green.svg" alt="Průměrný jas na lokalitě je mezi 19 a 20 MSA"/>19&ndash;20</span>
-        <span class="map__legend__item"><img src="{$basePath}/images/circle_turqoise.svg" alt="Průměrný jas na lokalitě je mezi 20 a 20.5 MSA"/>20&ndash;20.5</span>
-        <span class="map__legend__item"><img src="{$basePath}/images/circle_lightblue2.svg" alt="Průměrný jas na lokalitě jemezi 20.5 a 21 MSA"/>20.5&ndash;21</span>
-        <span class="map__legend__item"><img src="{$basePath}/images/circle_darkblue2.svg" alt="Průměrný jas na lokalitě je mezi 21 a 21.5 MSA"/>21&ndash;21.5</span>
-        <span class="map__legend__item map__legend__item--last"><img src="{$basePath}/images/circle_black.svg" alt="Průměrný jas na lokalitě je > 21.5 MSA"/>> 21.5</span>
+        <span class="map__legend__item"><img src="{$basePath}/images/markers/circle_red.svg" alt="Průměrný jas na lokalitě je < 18.0 MSA"/>< 18</span>
+        <span class="map__legend__item"><img src="{$basePath}/images/markers/circle_yellow.svg" alt="Průměrný jas na lokalitě je mezi 18 a 19 MSA"/>18&ndash;19</span>
+        <span class="map__legend__item"><img src="{$basePath}/images/markers/circle_green.svg" alt="Průměrný jas na lokalitě je mezi 19 a 20 MSA"/>19&ndash;20</span>
+        <span class="map__legend__item"><img src="{$basePath}/images/markers/circle_turqoise.svg" alt="Průměrný jas na lokalitě je mezi 20 a 20.5 MSA"/>20&ndash;20.5</span>
+        <span class="map__legend__item"><img src="{$basePath}/images/markers/circle_lightblue2.svg" alt="Průměrný jas na lokalitě jemezi 20.5 a 21 MSA"/>20.5&ndash;21</span>
+        <span class="map__legend__item"><img src="{$basePath}/images/markers/circle_darkblue2.svg" alt="Průměrný jas na lokalitě je mezi 21 a 21.5 MSA"/>21&ndash;21.5</span>
+        <span class="map__legend__item map__legend__item--last"><img src="{$basePath}/images/markers/circle_black.svg" alt="Průměrný jas na lokalitě je > 21.5 MSA"/>> 21.5</span>
         <p>Průměrný jas oblohy na lokalitě v MSA</p>
     </div>
 </body>

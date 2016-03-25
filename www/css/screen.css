@@ -29,7 +29,7 @@
   box-sizing: inherit;
 }
 html {
-  background-image: url(../images/Earthlights_dmsp_web5.jpg);
+  background-image: url('../images/layout/Earthlights_dmsp_web5.jpg');
   background-repeat: no-repeat;
   background-attachment: fixed;
   background-color: #001133;
@@ -52,14 +52,31 @@ a:active {
   color: #003380;
   text-decoration: none;
 }
+h1 {
+  font-size: 1.5rem;
+  margin-top: 1.3rem;
+  margin-bottom: 0;
+}
+h1:first-of-type {
+  margin-top: 0;
+}
+h2 {
+  font-size: 1.2rem;
+  margin-top: 1.2rem;
+  margin-bottom: 0;
+}
 h3 {
-  font-size: 1.1rem;
-  margin-top: .9rem;
+  font-size: 1rem;
+  margin-top: 1.2rem;
+  margin-bottom: 0;
 }
 p {
   font-size: .9rem;
   text-align: justify;
   line-height: 150%;
+}
+ul {
+  font-size: .9rem;
 }
 table {
   border-collapse: collapse;
@@ -229,6 +246,10 @@ footer {
   padding: 1rem 2rem;
   box-shadow: 0px 12px 10px -6px rgba(20, 20, 20, 0.5), -12px 0px 10px -6px rgba(20, 20, 20, 0.5), 12px 0px 10px -6px rgba(20, 20, 20, 0.5);
 }
+.content--homepage h3 {
+  margin-bottom: 1rem;
+  margin-top: 1rem;
+}
 .homepage__btn {
   float: right;
   display: inline;
@@ -296,9 +317,6 @@ footer {
 }
 .table th.table__brightness {
   text-align: center;
-}
-.table .table__row {
-  border-top: 1px solid #ddd;
 }
 .table .table__row:hover {
   background-color: #fafafa;
@@ -558,6 +576,138 @@ footer {
     margin-top: -14rem;
   }
 }
+/* Datagrid */
+.data-grid {
+  margin-top: 1.8rem;
+}
+.data-grid .table th.grid-column-sqmavg {
+  text-align: center;
+}
+.data-grid .table td.sqmGrid {
+  text-align: center;
+  padding-left: 0;
+  padding-right: 0;
+}
+.data-grid thead tr {
+  font-size: .9rem;
+}
+.data-grid tbody tr:hover {
+  background-color: #fafafa;
+  cursor: pointer;
+  color: #222;
+  font-weight: bold;
+}
+.pagination {
+  margin-top: 1.2rem;
+}
+.pagination li {
+  display: inline;
+}
+/* Other Pages */
+/* 	--------   */
+.content--scales div {
+  margin-top: 1.8rem;
+}
+.content--scales div p {
+  margin-top: .5rem;
+  margin-bottom: .5rem;
+}
+.userforms {
+  text-align: center;
+  margin-top: 3rem;
+  margin-bottom: 2rem;
+  font-size: .9rem;
+}
+/* Sign in */
+.sign-in form {
+  width: 47%;
+  margin-top: 2.5rem;
+  margin-bottom: 2.3rem;
+  margin-left: auto;
+  margin-right: auto;
+  text-align: justify;
+}
+input#signincheck {
+  margin-left: 1.6rem;
+}
+#signinsubmit {
+  margin-left: 2.75rem;
+}
+/* Passwords */
+.password-lost form {
+  width: 28.5%;
+  margin-left: auto;
+  margin-right: auto;
+  margin-top: 2.5rem;
+  margin-bottom: 2.3rem;
+}
+.password-change form {
+  width: 50%;
+  margin-left: auto;
+  margin-right: auto;
+  margin-top: 2rem;
+}
+/* Registration */
+.registration form {
+  width: 46%;
+  margin-left: auto;
+  margin-right: auto;
+  text-align: justify;
+  margin-top: 2rem;
+  margin-bottom: 1rem;
+}
+#registersubmit {
+  margin-left: 1.8rem;
+}
+/* Forms */
+form table td {
+  padding: .4rem .8rem;
+  font-size: .9rem;
+}
+form table label {
+  font-size: .9rem;
+  vertical-align: middle;
+  padding-bottom: .6rem;
+}
+form table input[type="checkbox"] {
+  margin: .4rem;
+}
+form table input[type="radio"] {
+  margin: .4rem;
+}
+form table input[type="text"] {
+  margin-right: .4rem;
+}
+form table input[type="password"] {
+  margin-right: .4rem;
+}
+.required td input {
+  background-color: #FFFFFF;
+  border-top: 1px solid #E0E0E0;
+  border-left: 3px solid #bc0012;
+  border-bottom: 1px solid #E0E0E0;
+  border-right: 1px solid #E0E0E0;
+  padding-left: 5px;
+}
+.required label {
+  font-weight: bold;
+}
+.help {
+  vertical-align: middle;
+  margin-left: .2rem;
+  margin-bottom: .2rem;
+  margin-right: 1.2rem;
+}
+.button {
+  border: solid 1px #888;
+  border-radius: 2px;
+  background-image: none;
+  background-color: #fff;
+  padding: .4rem 1rem .3rem 1rem;
+  margin-top: .2rem;
+  font-size: .9rem;
+}
+/* Highchart Graphs */
 #graph__location {
   width: 100%;
   height: 450px;
