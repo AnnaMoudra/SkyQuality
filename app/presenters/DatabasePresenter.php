@@ -96,22 +96,24 @@ class DatabasePresenter extends BasePresenter {
         $sel_length = $this->database->table('location')->count('*');
         $selection->select('id, name, latitude, altitude, longitude, accessiblestand');
 
-        for ($i = 1; $i <= $sel_length; $i++) {
-            $observation = $this->database->table('observations')
-                            ->where('location_id', $selection[$i]->id)->order('date DESC');
+        for ($i = 1; $i <= $sel_length+21; $i++) {
+            if ($i < 240 || $i > 260) {         // Vyhazuje 21 nepridelenych ID (vzi sel_lenght+21)
+                $observation = $this->database->table('observations')
+                                ->where('location_id', $selection[$i]->id)->order('date DESC');
 
 
-            if ($observation->count('*') > 0) {
-                $sqms = [];
-                $pole[$i] = $selection[$i]->toArray();
-                foreach ($observation as $observation) {
-                    $sqms[] = $observation->sqmavg;
-                }
-                if (count($sqms) != 0) {
-                    $sqmavg = $this->numericalAverage($sqms);
-                    $pole[$i]['sqmavg'] = $sqmavg;
-                } else {
-                    $pole[$i]['sqmavg'] = NULL;
+                if ($observation->count('*') > 0) {
+                    $sqms = [];
+                    $pole[$i] = $selection[$i]->toArray();
+                    foreach ($observation as $observation) {
+                        $sqms[] = $observation->sqmavg;
+                    }
+                    if (count($sqms) != 0) {
+                        $sqmavg = $this->numericalAverage($sqms);
+                        $pole[$i]['sqmavg'] = $sqmavg;
+                    } else {
+                        $pole[$i]['sqmavg'] = NULL;
+                    }
                 }
             }
         }

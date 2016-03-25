@@ -2,16 +2,16 @@
 
 {block content}
 <div class="content">
-    <div style="margin-bottom:1em;">
+    <div>
         <a n:href="Database:locations" class="navbutton">přepnout do režimu lokalit</a>
         <a n:href="Map:default" class="navbutton">zobrazit na mapě</a>
-        <div n:if="$user->loggedIn" style="margin-top:1.5em;">
+        <div n:if="$user->loggedIn">
             <a n:href="Observation:create"  class="navbutton" >přidat měření</a>
         </div>
     </div>
 
     <h3>Výpis databáze měření </h3>
-    <div class="">
+    <div>
         {control basicDataGrid}
     </div>
 
