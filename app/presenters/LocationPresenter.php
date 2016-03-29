@@ -15,7 +15,8 @@ use Mesour\DataGrid,
     Mesour\DataGrid\Components\Button,
     Mesour\DataGrid\Render,
     Mesour\DataGrid\NetteDbDataSource;
-use Nette\Utils\Arrays;
+use Nette\Utils\Arrays,
+    Nette\Utils\Html;
 
 /**
  * @class LocationPresenter.
@@ -143,7 +144,7 @@ class LocationPresenter extends BasePresenter {
     protected function createComponentBasicDataGrid($name) {
         $location_id = $this->getHttpRequest()->getUrl()->getQueryParameter('locationId');
         $selection = $this->database->table('observations')->where('location.id', $location_id);
-        $selection->select('observations.id, date, observer, sqmavg, ' . 'location.name');
+        $selection->select('observations.id, equipment_id, date, observer, bortle, observations.info, sqmavg, transparency, ' . 'location.name');
 
         $source = new NetteDbDataSource($selection);
         $grid = new Grid($this, $name);
@@ -153,10 +154,48 @@ class LocationPresenter extends BasePresenter {
         $grid->setLocale('cs');
         $grid->setDataSource($source);
         $grid->addDate('date', 'Datum')
-                ->setFormat('d.m.Y - H:i')
+                ->setFormat('d. m. Y —&\nb\sp;H:i')
                 ->setOrdering(TRUE);
-        $grid->addNumber('sqmavg', 'Průměrné sqm')->setDecimals(2)->setAttribute('class', 'sqmGrid');
+        $grid->addNumber('sqmavg', 'Jas')->setDecimals(2)->setAttribute('class', 'data-grid__sqm');
         $grid->addText('observer', 'Pozorovatel');
+        $grid->addText('flags', '')
+             ->setAttribute('class', 'data-grid__flags')
+             ->setOrdering(FALSE)
+             ->setCallback(function($row) {
+                if ($this->database->table('equipment')->where('id',$row['equipment_id'])->fetch()->type == 'SQM') {
+                        return HTML::el('span')->class("flag flag--sqmw");
+                    }
+                else {
+                    return HTML::el('span')->class("flag flag--sqml");
+                }});
+        $grid->addText('flags', '')
+             ->setAttribute('class', 'data-grid__flags')
+             ->setOrdering(FALSE)
+             ->setCallback(function($row) {
+                if ($row['bortle']) {
+                        return HTML::el('span')->class("flag flag--bortle");
+                    }});
+        $grid->addText('flags', '')
+             ->setAttribute('class', 'data-grid__flags') 
+             ->setOrdering(FALSE)
+             ->setCallback(function($row) {
+                if ($row['transparency']) {
+                        return HTML::el('span')->class("flag flag--transparency");
+                    }});
+        $grid->addText('flags', '')
+             ->setAttribute('class', 'data-grid__flags') 
+             ->setOrdering(FALSE)
+             ->setCallback(function($row) {
+                if ($row['info']) {
+                        return HTML::el('span')->class("flag flag--info");
+                    }});
+        $grid->addText('flags', '')
+             ->setOrdering(FALSE)
+             ->setAttribute('class', 'data-grid__flags') 
+             ->setCallback(function($row) {
+                if ($this->database->table('photos')->where('observation_id',$row['id'])->count('*') > 0) {
+                        return HTML::el('span')->class("flag flag--photo");
+                    }});
         if ($selection->count('*') > 10) {
             $grid->enablePager(10);
         }
@@ -164,8 +203,9 @@ class LocationPresenter extends BasePresenter {
         $actions = $grid->addActions('');
         $actions->addButton()
                 ->setType('btn-primary')
-                ->setText('detail pozorování')
+                ->setText('detail')
                 ->setTitle('detail')
+                ->setAttribute('class', 'data-grid__detail')
                 ->setAttribute('href', new Link('Observation:show', array(
                     'observationId' => '{' . $primarykey . '}'
         )));

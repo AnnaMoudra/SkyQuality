@@ -5,7 +5,8 @@ namespace App\Presenters;
 use Nette,
     App\Model;
 use Nette\Database\Table\Selection;
-use Nette\Utils\Arrays;
+use Nette\Utils\Arrays,
+    Nette\Utils\Html;
 use Mesour\DataGrid,
     Mesour\DataGrid\Grid,
     Mesour\DataGrid\Extensions\Pager;
@@ -13,6 +14,7 @@ use Mesour\DataGrid\ArrayDataSource,
     Mesour\DataGrid\NetteDbDataSource,
     Mesour\DataGrid\Components\Button,
     Mesour\DataGrid\Components\Link;
+
 
 /**
  * @class DatabasePresenter.
@@ -54,8 +56,9 @@ class DatabasePresenter extends BasePresenter {
      */
     protected function createComponentBasicDataGrid($name) {
         $selection = $this->database->table('observations');
-        $selection->select('observations.id, date, observer, sqmavg, ' .
+        $selection->select('observations.id, equipment_id, date, observer, bortle, observations.info, sqmavg, transparency, ' .
                 'location.name');
+        $photos = $this->database->table('photos');
 
         $source = new NetteDbDataSource($selection);
         $grid = new Grid($this, $name);
@@ -68,16 +71,56 @@ class DatabasePresenter extends BasePresenter {
                 ->setFormat('d. m. Y —&\nb\sp;H:i')
                 ->setOrdering(TRUE);
         $grid->addText('name', 'Lokalita');
-        $grid->addNumber('sqmavg', 'Jas')->setDecimals(2)->setAttribute('class', 'sqmGrid');
+        $grid->addNumber('sqmavg', 'Jas')
+             ->setDecimals(2)
+             ->setAttribute('class', 'data-grid__sqm');
         $grid->addText('observer', 'Pozorovatel');
+        $grid->addText('flags', '')
+             ->setAttribute('class', 'data-grid__flags')
+             ->setOrdering(FALSE)
+             ->setCallback(function($row) {
+                if ($this->database->table('equipment')->where('id',$row['equipment_id'])->fetch()->type == 'SQM') {
+                        return HTML::el('span')->class("flag flag--sqmw");
+                    }
+                else {
+                    return HTML::el('span')->class("flag flag--sqml");
+                }});
+        $grid->addText('flags', '')
+             ->setAttribute('class', 'data-grid__flags')
+             ->setOrdering(FALSE)
+             ->setCallback(function($row) {
+                if ($row['bortle']) {
+                        return HTML::el('span')->class("flag flag--bortle");
+                    }});
+        $grid->addText('flags', '')
+             ->setAttribute('class', 'data-grid__flags') 
+             ->setOrdering(FALSE)
+             ->setCallback(function($row) {
+                if ($row['transparency']) {
+                        return HTML::el('span')->class("flag flag--transparency");
+                    }});
+        $grid->addText('flags', '')
+             ->setAttribute('class', 'data-grid__flags') 
+             ->setOrdering(FALSE)
+             ->setCallback(function($row) {
+                if ($row['info']) {
+                        return HTML::el('span')->class("flag flag--info");
+                    }});
+        $grid->addText('flags', '')
+             ->setOrdering(FALSE)
+             ->setAttribute('class', 'data-grid__flags') 
+             ->setCallback(function($row) {
+                if ($this->database->table('photos')->where('observation_id',$row['id'])->count('*') > 0) {
+                        return HTML::el('span')->class("flag flag--photo");
+                    }});
         $action = $grid->addActions('');
         $action->addButton()
-                ->setType('btn-primary')
-                ->setText('detail pozorování')
-                ->setTitle('detail')
-                ->setAttribute('href', new Link('Observation:show', array(
+               ->setType('btn-primary')
+               ->setText('detail')
+               ->setTitle('detail')
+               ->setAttribute('href', new Link('Observation:show', array(
                     'observationId' => '{' . $primarykey . '}'
-        )));
+        ))); 
 
         $grid->enablePager(20);
         $grid->enableExport($this->context->parameters['wwwDir'] . '/../temp/cache');
@@ -97,7 +140,7 @@ class DatabasePresenter extends BasePresenter {
         $selection->select('id, name, latitude, altitude, longitude, accessiblestand');
 
         for ($i = 1; $i <= $sel_length+21; $i++) {
-            if ($i < 240 || $i > 260) {         // Vyhazuje 21 nepridelenych ID (vzi sel_lenght+21)
+            if ($i < 240 || $i > 260) {         // Vyhazuje 21 nepridelenych ID (viz sel_lenght+21)
                 $observation = $this->database->table('observations')
                                 ->where('location_id', $selection[$i]->id)->order('date DESC');
 
@@ -126,10 +169,13 @@ class DatabasePresenter extends BasePresenter {
         $grid->setPrimaryKey($primarykey);
         $grid->setLocale('cs');
         $grid->setDataSource($source);
-        $grid->addText('name', 'Název');
-        $grid->addNumber('sqmavg', 'Průměrný jas [MSA]')->setDecimals(2)->setAttribute('class', 'sqmGrid');
+        $grid->addText('name', 'Název')
+             ->setAttribute('class', 'data-grid__name');
+        $grid->addNumber('sqmavg', 'Jas')
+             ->setDecimals(2)
+             ->setAttribute('class', 'data-grid__sqm');
         $grid->addText('accessiblestand', 'Volně přístupné')
-                ->setAttribute('class', 'accstandGrid')
+                ->setAttribute('class', 'data-grid__access')
                 ->setCallback(function($row) {
                     if ($row['accessiblestand'] === 0) {
                         return 'ne';
@@ -140,7 +186,7 @@ class DatabasePresenter extends BasePresenter {
         $action = $grid->addActions('');
         $action->addButton()
                 ->setType('btn-primary')
-                ->setText('detail lokality')
+                ->setText('detail')
                 ->setTitle('detail')
                 ->setAttribute('href', new Link('Location:show', array(
                     'locationId' => '{' . $primarykey . '}'

@@ -128,6 +128,38 @@ table {
     visibility: hidden;
 }
 
+.smallnote {
+	font-size: .8rem;
+	color: @note-color;
+}
+
+div.flash {
+    color: black;
+    font-size: .9rem;
+    background: #FFF9D7;
+    border: 1px solid #E2C822;
+    -webkit-border-radius: 2px;
+            border-radius: 2px;
+    padding: 1rem;
+    margin: .5rem 1rem;
+}
+
+.error  {
+	width: 90%;
+	margin-left: auto;
+	margin-right: auto;
+	& li {
+		font-weight: bold;
+		display: inline;
+		color: @highlight;
+	}
+}
+
+.large-bold {
+	font-size: 1.1rem;
+	font-weight: bold;
+}
+
 /* Logo and Navigation Layout */
 
 header {
@@ -138,7 +170,7 @@ header {
 	-moz-border-radius-topleft: 2px;
 	border-top-right-radius: 2px;
 	border-top-left-radius: 2px;
-	padding: 1rem 2rem 0 2rem;
+	padding: 1rem 2rem;
 	box-shadow: @box-shadow-left, @box-shadow-right, @box-shadow-top;
 }
 
@@ -273,6 +305,7 @@ footer {
 	background-color: @background-color;
 	padding: 1rem 2rem;
 	box-shadow: @box-shadow-left, @box-shadow-right; 
+	font-size: .9rem;
 	&--homepage {
 		background-color: @background-color;
 		-webkit-border-bottom-right-radius: 2px;
@@ -623,16 +656,102 @@ footer {
 
 /* Datagrid */
 
+div.data-grid {
+	padding-bottom: 1rem;
+}
+
 .data-grid {
 	margin-top: 1.8rem;
-	& .table {
-		& th.grid-column-sqmavg {
-			text-align: center;
+	padding-bottom: 1rem;
+	& div.pager-form {
+		font-size: .8rem;
+		display: block;
+		position: static;
+		top: auto;
+		right: auto;
+		width: 20rem;
+		margin-top: 1.2rem;	
+		margin-left: auto;
+		margin-right: auto;
+		& input[type="text"] {
+			width: 5rem;
+			line-height: 150%;
+			padding: .2rem;
+			border: 1px solid #ddd;
+			-webkit-border-radius: 2px;
+			        border-radius: 2px;
 		}
-		& td.sqmGrid {
-			text-align: center;
-			padding-left: 0;
-			padding-right: 0;
+		& #frm-basicDataGrid-pager-pageForm-to_page {
+			border: solid 1px #ddd;
+			color: @link-color;
+	    	border-radius: 2px;
+		    background-image: none;
+		    background-color: @btn-bgcolor-light;
+		    padding: .2rem 1rem;
+		    margin-top: .2rem;
+			line-height: 150%;
+			margin-left: .2rem;
+			&:hover {
+				color: #fff;
+				background-color: @link-color;
+			}
+		}
+	}
+	& .table {
+		& th {
+			&.grid-column-date {
+				min-width: 22%;
+			}
+			&.grid-column-name {
+				min-width: 32%;
+			}
+			&.grid-column-sqmavg {
+				text-align: center;
+				min-width: 10%;
+				padding-left: .9rem;
+				padding-right: .3rem;
+			}
+			&.grid-column-flags {
+				padding: 0;
+				width: 0px;	
+				&:nth-of-type(1) {
+					padding-left: 1rem;
+				}
+			}
+			&.grid-column-accessiblestand {
+				text-align: center;
+				padding-left: 3.5rem;
+			}
+			&.with-actions {
+				min-width: 10%;
+			}
+		}
+		& td {
+			&.button-component {
+				& a {
+					padding-left: 2rem;
+				}
+			}
+			&.data-grid {
+				&__sqm {
+					text-align: center;
+					padding-left: 0;
+					padding-right: 0;
+				}
+				&__access {
+					text-align: center;
+				}
+				&__flags {
+					padding: 0;	
+					width: 7px;
+					&:nth-of-type(1) {
+						padding-left: 2rem;
+					}
+				}
+				&__detail {
+					text-align: center;
+				}
+			}
 		}
 	}
 	& thead tr {
@@ -646,21 +765,135 @@ footer {
 		    font-weight: bold;
 		}		
 	}
+	& a.btn {
+		border: none;
+		padding: 0;
+	}
+	& hr {
+		margin: 0;
+	}
 }
 
-.pagination {
-	margin-top: 1.2rem;
-	& li {
-		display: inline;
+.datagrid-bottom {
+	& .pagination-outer {
+		margin-top: .7rem; 
+		margin-bottom: .3rem; 
 	}
-	& .arrow {
-		
+	& ul {
+		display: block;
+		margin-bottom: .3rem;
 	}
-	
+	& .pagination {
+			& li {
+			font-size: .8rem;
+			width: 3rem;
+			margin: 0;
+			display: inline;
+			color:@btn-bgcolor;
+			& a {
+				width: 100%;
+				padding: .5rem .7rem .5rem .8rem;
+				font-weight: bold;
+				&:hover {
+					background-color: #eee;
+				}
+			}
+			&.active {
+				& a {
+					color: #fff;
+					background-color: @btn-bgcolor;
+				}
+			}
+			&.disabled {
+				& a {
+					color: #ccc;
+				}
+			}
+		}
+	}
+	& .export {
+		padding-right: 1rem;
+		margin-top: 1rem;
+		& .btn {
+			font-size: .8rem;
+		}
+	}
 }
+
+
+/* Glyphicons */
+
+ @font-face {
+ 	font-family:'Glyphicons Halflings';
+ 	src:url(../fonts/glyphicons-halflings-regular.eot);
+ 	src:url(../fonts/glyphicons-halflings-regular.eot?#iefix) format('embedded-opentype'),url(../fonts/glyphicons-halflings-regular.woff2) format('woff2'),url(../fonts/glyphicons-halflings-regular.woff) format('woff'),url(../fonts/glyphicons-halflings-regular.ttf) format('truetype'),url(../fonts/glyphicons-halflings-regular.svg#glyphicons_halflingsregular) format('svg')
+ 	}
+ .glyphicon {
+ 	position:relative;
+ 	top:1px;display:
+ 	inline-block;
+ 	font-family:'Glyphicons Halflings';
+ 	font-style:normal;
+ 	font-weight:400;
+ 	line-height:1;
+ 	-webkit-font-smoothing:antialiased;
+ 	-moz-osx-font-smoothing:grayscale
+ }
+ 
+ .glyphicon-sort:before{content:"\e150"}
+ .glyphicon-sort-by-alphabet:before{content:"\e151"}
+ .glyphicon-sort-by-alphabet-alt:before{content:"\e152"}
+ .glyphicon-sort-by-order:before{content:"\e153"}
+ .glyphicon-sort-by-order-alt:before{content:"\e154"}
+ .glyphicon-sort-by-attributes:before{content:"\e155"}
+ .glyphicon-sort-by-attributes-alt:before{content:"\e156"}
+
 
 /* Other Pages */
 /* 	--------   */
+
+/* Database pages */
+div.db__links {
+		display: inline;
+		float: right;
+		& .btn, .button {
+			margin-left: .3rem;
+		}
+		&--left {
+			display: inline;
+			float: left;
+		} 
+	}
+
+.content--db {
+	& h2 {
+		display: inline;
+	}
+}
+
+/* Personal Page */
+.content--personal {
+	& h2 {
+		margin-bottom: 1rem;
+	}
+	& h3 {
+		display: inline;
+	}
+	& .person span {
+		margin-right: 2rem;
+	}
+}
+
+.personal__table {
+	& td {
+		text-align: center;
+		padding: .3rem 4rem;
+	}
+	margin-bottom: 2rem;	
+	margin-top: 1rem;
+}
+
+/* Methodics */
 
 .content--scales {
 	& div {
@@ -793,7 +1026,7 @@ form table {
     margin-right: 1.2rem;
 }
 
-.button {
+.button, .btn {
     border: solid 1px @btn-bdcolor;
     border-radius: 2px;
     background-image: none;
@@ -801,6 +1034,132 @@ form table {
     padding: .4rem 1rem .3rem 1rem;
     margin-top: .2rem;
     font-size: .9rem;
+    font-weight: bold;
+}
+
+
+/* Observation and Location Pages */
+.content--observation {
+	& h2 { 
+		font-size: 1.5rem;
+	}
+	& h3 {
+		font-size: 1.1rem;
+		margin-top: 1.7rem;
+		margin-bottom: .7rem;
+	}
+}
+
+.observation__title {
+	margin-top: 1rem;
+	margin-bottom: 1rem;
+	& h2 {
+		display: inline;
+	}
+}
+
+.location {
+	& h2 {
+		display: inline;
+	}
+	&__title {
+		margin-bottom: 1rem;
+		margin-top: 1.7rem;
+	}
+	&__access--yes {
+		color: #009900;
+		font-weight: 400; 
+		font-style: italic;
+	}
+	&__access--no {
+		color: #990000;
+		font-weight: 400; 
+		font-style: italic;
+	}
+}
+
+.container {
+    margin: 0 0 0 .5rem;
+    width: 100%;
+} 
+
+.row {
+    display:table-row;
+    margin: 0;
+    width: 100%;
+}
+
+.col {
+    display: table-cell; 
+    margin: 0;
+    vertical-align: middle;
+	&--first {
+	    padding: .6rem .8rem;
+	    text-align: left;
+	    font-weight: bold;
+	    vertical-align: text-top;
+	    border-left: 2px solid #330080;
+	    width: 15%;
+	}
+	&--second {
+	    padding: .6rem .8rem ;
+	    text-align: left;
+	    margin: 0;
+	} 
+}
+
+.graph__location {
+	& h3 {
+		margin-top: 2rem;
+		margin-bottom: .3rem;
+	}
+}
+
+/* Photos */
+
+.photodiv {
+    overflow: hidden;
+    height: 10rem;
+    width: 10rem;
+} 
+
+.photodiv img {
+    object-fit: cover;
+    object-position: 50% 50%;
+    height: 9rem;
+    width: 9rem;
+}
+
+.row--photos { 
+    display: table-row;
+}
+
+.col--photos {
+    border:none;
+    display: inline-block;
+    float: left;
+    width: 9rem;
+    margin-right: 0.2rem;
+    margin-bottom: 0;
+}
+
+.photos {
+    margin-bottom: 2em;
+    margin-top: 1em;
+    text-align: center;
+}
+
+
+
+.fancybox-title-float-wrap .child {
+    display: block;
+    white-space: normal;
+    margin-top: 2em;
+}
+
+
+.fancybox-title-float-wrap {
+    bottom: -4em;
 }
 
 
@@ -814,4 +1173,40 @@ form table {
 #graph__observation {
 	width: 100%;
 	height: 450px;
+}
+
+
+/* Comments */
+
+.comments {
+    font-size: .9em;
+    border-top: 1px solid @line-color;
+    margin-top: 1rem;
+	&__form {
+		margin-bottom: 4rem;
+		margin-top: 1rem;
+		& textarea {
+			width: 30rem;
+			height: 10rem;
+		}
+	}
+}
+
+.comment {
+    padding-bottom: 1.5rem;
+    padding-top: 1.5rem;
+    border-top: 1px solid #eee;
+    & .comment__user {
+    	font-weight: 600;
+    	padding-right: 1rem;
+	}
+	& .comment__date {
+	    font-weight: lighter;
+	    padding-left: 1rem;
+	    padding-right: 1rem;
+	}
+	& .comment__obs {
+	    font-style: italic;
+    	padding-left: 1em;
+	}
 }
