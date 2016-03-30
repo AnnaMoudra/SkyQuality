@@ -34,7 +34,7 @@
             </table>
             <div class="observation__new-location">
                 {formContainer location}
-                    <table id="new-location">
+                    <table id="newlocation">
                         <tr class="required">
                             <th>{label name /}</th>
                             <td>{input name}</td>            
@@ -68,9 +68,9 @@
                     <td><div class="select">{input equipmentid}</div></td>            
                 </tr>
             </table>
-            <div class="observation__equipment">
+            <div class="observation__new-equipment">
                 {formContainer equipment}
-                    <table id="new-equipment" class="required">
+                    <table id="newequipment" class="required">
                         <tr>
                             <th>{label name /}</th>
                             <td>{input name}{$form['equipment']['name']->getOption('description')}</td>
@@ -113,11 +113,11 @@
                     <div class="required" id="weather">{label weather /}{input weather}</div>
                     <div id="disturbance">{label disturbance /}{input disturbance}</div>
                     <div id="obsspec"><span id="mhv">{label nelm /}{input nelm}{label nelmHD /}{input nelmHD}{$form['observation']['nelmHD']->getOption('description')}</span><span id="transparency">{label transparency /}<span class="select">{input transparency}</span>{$form['observation']['transparency']->getOption('description')}</span></div>
-                    <div id="bortle">{label bortle /}{input bortle}{input bortlespec}{$form['observation']['bortle']->getOption('description')}<span style="vertical-align: middle;"><a n:href="Info:scales" target="_blank">popis Bortleovy stupnice a průzračnosti</a></span></div>    
+                    <div id="bortle">{label bortle /}{input bortle}{input bortlespec}{$form['observation']['bortle']->getOption('description')}<span><a n:href="Info:scales" target="_blank">popis Bortleovy stupnice a průzračnosti</a></span></div>    
                     <div id="info">{label info /}<br />{input info}</div>
                     {/formContainer}
             </div>
-            <div class="obsform_photos">
+            <div class="observation__new-photos">
                 {formContainer photos}
                     {input addphotos:}<label for="frm-observationForm-photos-addphotos"><span></span>Přidat fotografie</label><br />
                     {formContainer photo1}

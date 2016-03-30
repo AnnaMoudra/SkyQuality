@@ -1,11 +1,9 @@
 {* Latte template *}
 
 {block content}
-<div class="content content--observation">
-    <h3>Upravit příspěvek</h3>
-
-    <div class="observationform2">
-        <h2>Nové měření</h2>
+<div class="content content--create-form">
+    <div class="observation__create">
+        <h2>Upravit měření</h2>>
         <h3>Základní informace</h3>
         {form observationForm}
             {formContainer observation}
@@ -26,7 +24,7 @@
                     <td>{input locationid}</td>            
                 </tr>
             </table>
-            <div class="obsform_loc">
+            <div class="observation__new-location">
                 {formContainer location}
                     <table id="newlocation">
                         <tr class="required">
@@ -62,7 +60,7 @@
                     <td><div class="select">{input equipmentid}</div></td>            
                 </tr>
             </table>
-            <div class="obsform_equip">
+            <div class="observation__new-equipment">
                 {formContainer equipment}
                     <table id="newequipment" class="required">
                         <tr>
@@ -85,100 +83,88 @@
                 {/formContainer}
             </div>
             <h3>Naměřené hodnoty</h3>
-            <div class="obsform_sqm">
+            <div class="observation___sqm">
                 <p>Pět vstupních polí naměřené jasy oblohy představuje prostor pro až pět po sobě provedených měření v daném směru – provedení více měření přispívá k větší přesnosti dat. Výsledná, v přehledu a na mapách prezentovaná hodnota, bude automaticky určena jejich průměrnou hodnotou. Pro zadání sady dalších měření provedených z dané lokality v ten samý čas (ale v jiném směru či výšce) klikněte na odkaz další měření.</p>
 
-                <div n:foreach="$form['sqm']->containers as $id => $sqm" class="sqmMeasurement">
-                   {* {if  $iterator->getCounter()> 1} *}
-                        <div class="sqmvalues"><span class="required"><label>Naměřené jasy oblohy [mag/arcsec²]</label>{input sqm-$id-value1}</span>{input sqm-$id-value2}{input sqm-$id-value3}{input sqm-$id-value4}{input sqm-$id-value5}<span id="removeSqm">{$sqm['removeMultisqm']->control}</span></div>
-                        <div class="height" class="required">{label sqm-$id-height /}{input sqm-$id-height}
-                            <span class="heightspec required" id="{$sqm->name}-heightspec">{input sqm-$id-heightspec}{$sqm['heightspec']->getOption('description')}</span>
-                            <span class="azimute" id="{$sqm->name}-azimute">{label sqm-$id-azimute /}{input sqm-$id-azimute}</span>
+                <div n:foreach="$form['sqm']->containers as $id => $sqm" class="sqm__measurement">
+                        <div class="sqm__values"><span class="required"><label>Naměřené jasy oblohy [mag/arcsec²]</label>{input sqm-$id-value1}</span>{input sqm-$id-value2}{input sqm-$id-value3}{input sqm-$id-value4}{input sqm-$id-value5}<span id="removeSqm">{$sqm['removeMultisqm']->control}</span></div>
+                        <div class="sqm__height" class="required">{label sqm-$id-height /}{input sqm-$id-height}
+                            <span class="sqm__heightspec required" id="{$sqm->name}-heightspec">{input sqm-$id-heightspec}{$sqm['heightspec']->getOption('description')}</span>
+                            <span class="sqm__azimute" id="{$sqm->name}-azimute">{label sqm-$id-azimute /}{input sqm-$id-azimute}</span>
                         </div>
+                    </div>
 
-                        {formContainer sqm}{input add}
-                        {/formContainer}
-
-                 {*   {/if} *}
-                </div>
-
-                <h3>Doplňující informace</h3>
-                <div class="obsform_info">
-                    {formContainer observation}
-                        <div class="required" id="weather">{label weather /}{input weather}</div>
-                        <div id="disturbance">{label disturbance /}{input disturbance}</div>
-                        <div id="obsspec"><span id="mhv">{label nelm /}{input nelm}{label nelmHD /}{input nelmHD}{$form['observation']['nelmHD']->getOption('description')}</span><span id="transparency">{label transparency /}<span class="select">{input transparency}</span>{$form['observation']['transparency']->getOption('description')}</span></div>
-                        <div id="bortle">{label bortle /}{input bortle}{input bortlespec}{$form['observation']['bortle']->getOption('description')}<span style="vertical-align: middle;"><a n:href="Info:scales" target="_blank">popis Bortleovy stupnice a průzračnosti</a></span></div>    
-                        <div id="info">{label info /}<br />{input info}</div>
-                        {/formContainer}
-                </div>
-                <div class="obsform_photos">
-                    {formContainer photos}
-                        {input addphotos:}<label for="frm-observationForm-photos-addphotos"><span></span>Přidat fotografie</label><br />
-                                {formContainer photo1}
-                            <table>
-                                <tr id="newphoto1">
-                                    <th>{label photo /}</th>
-                                    <td>{input photo}</td>
-                                </tr>
-                                <tr id="newinfo1">
-                                    <th>{label info /}</th>
-                                    <td>{input info}</td>
-                                </tr>
-                            </table>
-                        {/formContainer}
-                        {formContainer photo2}
-                            <table>
-                                <tr id="newphoto2">
-                                    <th>{label photo /}</th>
-                                    <td>{input photo}</td>
-                                </tr>
-                                <tr id="newinfo2">
-                                    <th>{label info /}</th>
-                                    <td>{input info}</td>
-                                </tr>
-                            </table>
-                        {/formContainer}
-                        {formContainer photo3}
-                            <table>
-                                <tr id="newphoto3">
-                                    <th>{label photo /}</th>
-                                    <td>{input photo}</td>
-                                </tr>
-                                <tr id="newinfo3">
-                                    <th>{label info /}</th>
-                                    <td>{input info}</td>
-                                </tr>
-                            </table>
-                        {/formContainer}
-                        {formContainer photo4}
-                            <table>
-                                <tr id="newphoto4">
-                                    <th>{label photo /}</th>
-                                    <td>{input photo}</td>
-                                </tr>
-                                <tr id="newinfo4">
-                                    <th>{label info /}</th>
-                                    <td>{input info}</td>
-                                </tr>
-                            </table>
-                        {/formContainer}
+                    {formContainer sqm}{input add}
                     {/formContainer}
-                </div>
-                <div>
-                    {input send}
-                </div>
-            {/form}
-        </div>
+          
+            </div>
 
-
-
-
+            <h3>Doplňující informace</h3>
+            <div class="obsrvation__info">
+                {formContainer observation}
+                    <div class="required" id="weather">{label weather /}{input weather}</div>
+                    <div id="disturbance">{label disturbance /}{input disturbance}</div>
+                    <div id="obsspec"><span id="mhv">{label nelm /}{input nelm}{label nelmHD /}{input nelmHD}{$form['observation']['nelmHD']->getOption('description')}</span><span id="transparency">{label transparency /}<span class="select">{input transparency}</span>{$form['observation']['transparency']->getOption('description')}</span></div>
+                    <div id="bortle">{label bortle /}{input bortle}{input bortlespec}{$form['observation']['bortle']->getOption('description')}<span><a n:href="Info:scales" target="_blank">popis Bortleovy stupnice a průzračnosti</a></span></div>    
+                    <div id="info">{label info /}<br />{input info}</div>
+                    {/formContainer}
+            </div>
+            <div class="observation__new-photos">
+                {formContainer photos}
+                    {input addphotos:}<label for="frm-observationForm-photos-addphotos"><span></span>Přidat fotografie</label><br />
+                            {formContainer photo1}
+                        <table>
+                            <tr id="newphoto1">
+                                <th>{label photo /}</th>
+                                <td>{input photo}</td>
+                            </tr>
+                            <tr id="newinfo1">
+                                <th>{label info /}</th>
+                                <td>{input info}</td>
+                            </tr>
+                        </table>
+                    {/formContainer}
+                    {formContainer photo2}
+                        <table>
+                            <tr id="newphoto2">
+                                <th>{label photo /}</th>
+                                <td>{input photo}</td>
+                            </tr>
+                            <tr id="newinfo2">
+                                <th>{label info /}</th>
+                                <td>{input info}</td>
+                            </tr>
+                        </table>
+                    {/formContainer}
+                    {formContainer photo3}
+                        <table>
+                            <tr id="newphoto3">
+                                <th>{label photo /}</th>
+                                <td>{input photo}</td>
+                            </tr>
+                            <tr id="newinfo3">
+                                <th>{label info /}</th>
+                                <td>{input info}</td>
+                            </tr>
+                        </table>
+                    {/formContainer}
+                    {formContainer photo4}
+                        <table>
+                            <tr id="newphoto4">
+                                <th>{label photo /}</th>
+                                <td>{input photo}</td>
+                            </tr>
+                            <tr id="newinfo4">
+                                <th>{label info /}</th>
+                                <td>{input info}</td>
+                            </tr>
+                        </table>
+                    {/formContainer}
+                {/formContainer}
+            </div>
+            <div>
+                {input send}
+            </div>
+        {/form}
     </div>
-
-    {*
-    location name
-    equipment name drop down list
-    hodnoty observation
-    photos - po jedne
-    *}
+</div>
