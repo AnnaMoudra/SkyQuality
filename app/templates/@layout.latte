@@ -6,7 +6,7 @@
         <meta name="robots" content="{$robots}" n:ifset="$robots">
 
         {* Twitter and Facebook sharing images *}
-        <meta property="og:image" content="{$basePath}/www/images/Earthlights_dmsp_web5.jpg">
+        <meta property="og:image" content="{$basePath}/www/images/layout/Earthlights_dmsp_web5.jpg">
         <meta name="twitter:card" content="summary">
 
 
@@ -29,17 +29,17 @@
         <link rel="apple-touch-icon" sizes="144x144" href="{$basePath}/www/images/favicons/apple-touch-icon-144x144.png?v=QEEyRGjv38">
         <link rel="apple-touch-icon" sizes="152x152" href="{$basePath}/www/images/favicons/apple-touch-icon-152x152.png?v=QEEyRGjv38">
         <link rel="apple-touch-icon" sizes="180x180" href="{$basePath}/www/images/favicons/apple-touch-icon-180x180.png?v=QEEyRGjv38">
-        <link rel="icon" type="image/png" href="{$basePath]/www/images/favicons/favicon-32x32.png?v=QEEyRGjv38" sizes="32x32">
-        <link rel="icon" type="image/png" href="{$basePath]/www/images/favicons/favicon-194x194.png?v=QEEyRGjv38" sizes="194x194">
-        <link rel="icon" type="image/png" href="{$basePath]/www/images/favicons/favicon-96x96.png?v=QEEyRGjv38" sizes="96x96">
-        <link rel="icon" type="image/png" href="{$basePath]/www/images/favicons/android-chrome-192x192.png?v=QEEyRGjv38" sizes="192x192">
-        <link rel="icon" type="image/png" href="{$basePath]/www/images/favicons/favicon-16x16.png?v=QEEyRGjv38" sizes="16x16">
-        <link rel="manifest" href="{$basePath]/www/images/favicons/manifest.json?v=QEEyRGjv38">
-        <link rel="mask-icon" href="{$basePath]/www/images/favicons/safari-pinned-tab.svg?v=QEEyRGjv38" color="#5bbad5">
-        <link rel="shortcut icon" href="{$basePath]/www/images/favicons/favicon.ico?v=QEEyRGjv38">
+        <link rel="icon" type="image/png" href="{$basePath}/images/favicons/favicon-32x32.png?v=QEEyRGjv38" sizes="32x32">
+        <link rel="icon" type="image/png" href="{$basePath}/images/favicons/favicon-194x194.png?v=QEEyRGjv38" sizes="194x194">
+        <link rel="icon" type="image/png" href="{$basePath}/images/favicons/favicon-96x96.png?v=QEEyRGjv38" sizes="96x96">
+        <link rel="icon" type="image/png" href="{$basePath}/images/favicons/android-chrome-192x192.png?v=QEEyRGjv38" sizes="192x192">
+        <link rel="icon" type="image/png" href="{$basePath}/images/favicons/favicon-16x16.png?v=QEEyRGjv38" sizes="16x16">
+        <link rel="manifest" href="{$basePath}/images/favicons/manifest.json?v=QEEyRGjv38">
+        <link rel="mask-icon" href="{$basePath}/images/favicons/safari-pinned-tab.svg?v=QEEyRGjv38" color="#5bbad5">
+        <link rel="shortcut icon" href="{$basePath}/images/favicons/favicon.ico?v=QEEyRGjv38">
         <meta name="msapplication-TileColor" content="#da532c">
-        <meta name="msapplication-TileImage" content="{$basePath]/www/images/mstile-144x144.png?v=QEEyRGjv38">
-        <meta name="msapplication-config" content="{$basePath]/www/images/favicons/browserconfig.xml?v=QEEyRGjv38">
+        <meta name="msapplication-TileImage" content="{$basePath}/images/mstile-144x144.png?v=QEEyRGjv38">
+        <meta name="msapplication-config" content="{$basePath}/images/favicons/browserconfig.xml?v=QEEyRGjv38">
         <meta name="theme-color" content="#ffffff">
 
         {block scripts}
@@ -111,11 +111,12 @@
                 </div>
             </nav>
 
-            <div class="cistichead"></div>
+            <div class="cistic"></div>
 
             <div  n:foreach="$flashes as $flash" class="flash {$flash->type}">
                 {$flash->message}
             </div>
+            <div class="cistichead"></div>
         </header>
 
         {include content}
@@ -124,7 +125,7 @@
         {block footer}
         <footer>
             <div class="footer">
-            ©Skyquality <br />
+            ©SkyQuality <br />
             <a n:href="Project:">kontakt</a>
             </div>
         </footer>

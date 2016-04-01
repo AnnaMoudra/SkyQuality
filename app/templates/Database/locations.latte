@@ -4,15 +4,17 @@
 
 <div class="content content--db">
 	<div class="db__links">
-        <a n:href="Database:" class="btn">přepnout na jednotlivá pozorování</a>
-        <a href="../#map" class="btn">zobrazit na mapě</a>
+        <a n:href="Database:" class="button">přepnout na jednotlivá pozorování</a>
+        <a href="../#map" class="button">zobrazit na mapě</a>
         {if $user->loggedIn}
-            <a n:href="Observation:create" class="btn">přidat měření</a>
+            <a n:href="Observation:create" class="button">přidat měření</a>
         {/if}
    	</div>
 
-    <h2>Výpis databáze lokalit </h2> 
-    {control locationsDataGrid} 
+    <h2>Výpis databáze lokalit </h2>
+    <div class="data-grid--locations"> 
+    {control locationsDataGrid}
+    </div> 
     <div class="latest__legend">
         <p class="smallnote">Jas:ø hodnota v mag/arcsec²</p>
         <p>Pozorování obsahuje:

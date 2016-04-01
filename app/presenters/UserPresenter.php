@@ -46,7 +46,7 @@ class UserPresenter extends BasePresenter {
                 ->setRequired('Zadejte vaše uživatelské jméno.')
                 ->setOption('description', Html::el('img')
                         ->class('help')
-                        ->src('../../www/images/icons/help.svg')
+                        ->src('http://www.skyquality.cz/images/icons/help.svg')
                         ->alt('Jméno, email nebo přezdívka, pod kterou se budete přihlašovat')
                         ->title('Jméno, email nebo přezdívka, pod kterou se budete přihlašovat'));
 
@@ -54,7 +54,7 @@ class UserPresenter extends BasePresenter {
                 ->setRequired('Zadejte jméno, které se bude zobrazovat u Vašich pozorování.')
                 ->setOption('description', Html::el('img')
                         ->class('help')
-                        ->src('../../www/images/icons/help.svg')
+                        ->src('http://www.skyquality.cz/images/icons/help.svg')
                         ->alt('Jméno, které se bude předvyplňovat u Vašich pozorování')
                         ->title('Jméno, které se bude předvyplňovat u Vašich pozorování'));
 
@@ -67,7 +67,7 @@ class UserPresenter extends BasePresenter {
                 ->addRule(Form::MIN_LENGTH, 'Heslo musí mít alespoň %d znaků', 6)
                 ->setOption('description', Html::el('img style="margin-left: 0.1em;"')
                         ->class('help')
-                        ->src('../../www/images/icons/help.svg')
+                        ->src('http://www.skyquality.cz/images/icons/help.svg')
                         ->alt('Heslo musí mít aspoň 6 znaků')
                         ->title('Heslo musí mít aspoň 6 znaků'));
 

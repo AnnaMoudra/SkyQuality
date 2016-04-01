@@ -125,7 +125,7 @@ header {
   -moz-border-radius-topleft: 2px;
   border-top-right-radius: 2px;
   border-top-left-radius: 2px;
-  padding: 1rem 2rem;
+  padding: 1rem 2rem 0rem 2rem;
   box-shadow: -12px 0px 10px -6px rgba(20, 20, 20, 0.5), 12px 0px 10px -6px rgba(20, 20, 20, 0.5), 0px -12px 10px -6px rgba(20, 20, 20, 0.5);
 }
 nav {
@@ -196,9 +196,15 @@ nav li {
     margin-left: .3rem;
   }
 }
+@media (max-width: 650px) {
+  .nav--user li {
+    margin-top: .3rem;
+  }
+}
 @media (max-width: 840px) {
   .nav--user {
     text-align: center;
+    margin-top: .7rem;
   }
 }
 .nav--main {
@@ -361,32 +367,31 @@ footer {
   padding-right: 1.4rem;
 }
 @media (max-width: 840px) {
-  .table table,
-  .table thead,
-  .table tbody,
-  .table th,
-  .table td,
-  .table tr {
+  .table--homepage table,
+  .table--homepage thead,
+  .table--homepage tbody,
+  .table--homepage th,
+  .table--homepage td,
+  .table--homepage tr {
     display: block;
   }
-  .table thead tr {
+  .table--homepage thead tr {
     position: absolute;
     top: -9999px;
     left: -9999px;
   }
-  .table th.table__brightness {
+  .table--homepage th.table__brightness {
     text-align: left;
   }
-  .table tr {
-    border: 1px solid 1px solid #ddd;
+  .table--homepage tr {
+    border-top: 1px solid #ddd;
   }
-  .table td {
+  .table--homepage td {
     border: none;
-    border-bottom: 2px solid 1px solid #ddd;
     position: relative;
     padding-left: 50%;
   }
-  .table td:before {
+  .table--homepage td:before {
     position: absolute;
     top: 6px;
     left: 6px;
@@ -394,22 +399,22 @@ footer {
     padding-right: 10px;
     white-space: nowrap;
   }
-  .table td.table__brightness {
+  .table--homepage td.table__brightness {
     text-align: left;
   }
-  .table td:nth-of-type(1):before {
+  .table--homepage td:nth-of-type(1):before {
     content: "Datum (UTC)";
   }
-  .table td:nth-of-type(2):before {
+  .table--homepage td:nth-of-type(2):before {
     content: "Lokalita";
   }
-  .table td:nth-of-type(3):before {
+  .table--homepage td:nth-of-type(3):before {
     content: "Jas (MSA)";
   }
-  .table td:nth-of-type(4):before {
+  .table--homepage td:nth-of-type(4):before {
     content: "Pozorovatel";
   }
-  .table td:nth-of-type(5):before {
+  .table--homepage td:nth-of-type(5):before {
     content: "Obsahuje";
   }
 }
@@ -659,6 +664,12 @@ div.data-grid {
   padding-left: .9rem;
   padding-right: .3rem;
 }
+@media (max-width: 1200px) {
+  .data-grid .table th.grid-column-sqmavg {
+    min-width: 20%;
+    padding: 0;
+  }
+}
 .data-grid .table th.grid-column-flags {
   padding: 0;
   width: 0px;
@@ -670,19 +681,41 @@ div.data-grid {
   text-align: center;
   padding-left: 3.5rem;
 }
+@media (max-width: 1200px) {
+  .data-grid .table th.grid-column-accessiblestand {
+    padding-left: 2rem;
+    padding-right: 0;
+  }
+}
 .data-grid .table th.with-actions {
   min-width: 10%;
 }
 .data-grid .table td.button-component a {
   padding-left: 2rem;
 }
+@media (max-width: 940px) {
+  .data-grid .table td.button-component a {
+    padding-left: 0;
+  }
+}
 .data-grid .table td.data-grid__sqm {
   text-align: center;
   padding-left: 0;
   padding-right: 0;
 }
+@media (max-width: 940px) {
+  .data-grid .table td.data-grid__sqm {
+    text-align: left;
+    padding-left: 50%;
+  }
+}
 .data-grid .table td.data-grid__access {
   text-align: center;
+}
+@media (max-width: 840px) {
+  .data-grid .table td.data-grid__access {
+    text-align: left;
+  }
 }
 .data-grid .table td.data-grid__flags {
   padding: 0;
@@ -690,6 +723,12 @@ div.data-grid {
 }
 .data-grid .table td.data-grid__flags:nth-of-type(1) {
   padding-left: 2rem;
+}
+@media (max-width: 940px) {
+  .data-grid .table td.data-grid__flags {
+    width: 100%;
+    padding-left: 50%;
+  }
 }
 .data-grid .table td.data-grid__detail {
   text-align: center;
@@ -710,6 +749,242 @@ div.data-grid {
 .data-grid hr {
   margin: 0;
 }
+@media (max-width: 840px) {
+  .data-grid--locations table,
+  .data-grid--locations thead,
+  .data-grid--locations tbody,
+  .data-grid--locations th,
+  .data-grid--locations td,
+  .data-grid--locations tr {
+    display: block;
+  }
+  .data-grid--locations thead tr {
+    position: absolute;
+    top: -9999px;
+    left: -9999px;
+  }
+  .data-grid--locations tr {
+    border-top: 1px solid #ddd;
+  }
+  .data-grid--locations td {
+    border: none;
+    position: relative;
+    padding-left: 50%;
+  }
+  .data-grid--locations td:before {
+    position: absolute;
+    top: 6px;
+    left: 6px;
+    width: 40%;
+    padding-right: 10px;
+    white-space: nowrap;
+  }
+  .data-grid--locations td.button-component a.btn {
+    margin: 0;
+    float: none;
+  }
+  .data-grid--locations td:nth-of-type(1):before {
+    content: "Název";
+  }
+  .data-grid--locations td:nth-of-type(2):before {
+    content: "Jas";
+  }
+  .data-grid--locations td:nth-of-type(3):before {
+    content: "Volně přístupné";
+  }
+  .data-grid--locations td:nth-of-type(4):before {
+    content: "Odkaz";
+  }
+}
+@media (max-width: 940px) {
+  .data-grid--observations table,
+  .data-grid--observations thead,
+  .data-grid--observations tbody,
+  .data-grid--observations th,
+  .data-grid--observations td,
+  .data-grid--observations tr {
+    display: block;
+  }
+  .data-grid--observations thead tr {
+    position: absolute;
+    top: -9999px;
+    left: -9999px;
+  }
+  .data-grid--observations tr {
+    border-top: 1px solid #ddd;
+  }
+  .data-grid--observations td {
+    border: none;
+    position: relative;
+    padding-left: 50%;
+    min-height: 2.1rem;
+  }
+  .data-grid--observations td:before {
+    position: absolute;
+    top: 6px;
+    left: 6px;
+    width: 40%;
+    padding-right: 10px;
+    white-space: nowrap;
+  }
+  .data-grid--observations td.button-component a.btn {
+    margin: 0;
+    float: none;
+  }
+  .data-grid--observations td:nth-of-type(1):before {
+    content: "Datum a čas (UTC)";
+  }
+  .data-grid--observations td:nth-of-type(2):before {
+    content: "Lokalita";
+  }
+  .data-grid--observations td:nth-of-type(3):before {
+    content: "Jas";
+  }
+  .data-grid--observations td:nth-of-type(4):before {
+    content: "Pozorovatel";
+  }
+  .data-grid--observations td:nth-of-type(5):before {
+    content: "SQM-W/SQM-L";
+  }
+  .data-grid--observations td:nth-of-type(6):before {
+    content: "Bortle odhad";
+  }
+  .data-grid--observations td:nth-of-type(7):before {
+    content: "průzračnost";
+  }
+  .data-grid--observations td:nth-of-type(8):before {
+    content: "popis";
+  }
+  .data-grid--observations td:nth-of-type(9):before {
+    content: "fotografie";
+  }
+  .data-grid--observations td:nth-of-type(10):before {
+    content: "Odkaz";
+  }
+}
+@media (max-width: 940px) {
+  .data-grid--personal table,
+  .data-grid--personal thead,
+  .data-grid--personal tbody,
+  .data-grid--personal th,
+  .data-grid--personal td,
+  .data-grid--personal tr {
+    display: block;
+  }
+  .data-grid--personal thead tr {
+    position: absolute;
+    top: -9999px;
+    left: -9999px;
+  }
+  .data-grid--personal tr {
+    border-top: 1px solid #ddd;
+  }
+  .data-grid--personal td {
+    border: none;
+    position: relative;
+    padding-left: 50%;
+    min-height: 2.1rem;
+  }
+  .data-grid--personal td:before {
+    position: absolute;
+    top: 6px;
+    left: 6px;
+    width: 40%;
+    padding-right: 10px;
+    white-space: nowrap;
+  }
+  .data-grid--personal td.button-component a.btn {
+    margin: 0;
+    float: none;
+  }
+  .data-grid--personal td:nth-of-type(1):before {
+    content: "Datum a čas (UTC)";
+  }
+  .data-grid--personal td:nth-of-type(2):before {
+    content: "Lokalita";
+  }
+  .data-grid--personal td:nth-of-type(3):before {
+    content: "Jas";
+  }
+  .data-grid--personal td:nth-of-type(4):before {
+    content: "SQM-W/SQM-L";
+  }
+  .data-grid--personal td:nth-of-type(5):before {
+    content: "Bortle odhad";
+  }
+  .data-grid--personal td:nth-of-type(6):before {
+    content: "průzračnost";
+  }
+  .data-grid--personal td:nth-of-type(7):before {
+    content: "popis";
+  }
+  .data-grid--personal td:nth-of-type(8):before {
+    content: "fotografie";
+  }
+  .data-grid--personal td:nth-of-type(9):before {
+    content: "Odkaz";
+  }
+}
+@media (max-width: 940px) {
+  .data-grid--locobservations table,
+  .data-grid--locobservations thead,
+  .data-grid--locobservations tbody,
+  .data-grid--locobservations th,
+  .data-grid--locobservations td,
+  .data-grid--locobservations tr {
+    display: block;
+  }
+  .data-grid--locobservations thead tr {
+    position: absolute;
+    top: -9999px;
+    left: -9999px;
+  }
+  .data-grid--locobservations tr {
+    border-top: 1px solid #ddd;
+  }
+  .data-grid--locobservations td {
+    border: none;
+    position: relative;
+    padding-left: 50%;
+    min-height: 2.1rem;
+  }
+  .data-grid--locobservations td:before {
+    position: absolute;
+    top: 6px;
+    left: 6px;
+    width: 40%;
+    padding-right: 10px;
+    white-space: nowrap;
+  }
+  .data-grid--locobservations td.button-component a.btn {
+    margin: 0;
+    float: none;
+  }
+  .data-grid--locobservations td:nth-of-type(1):before {
+    content: "Datum a čas (UTC)";
+  }
+  .data-grid--locobservations td:nth-of-type(2):before {
+    content: "Jas";
+  }
+  .data-grid--locobservations td:nth-of-type(3):before {
+    content: "SQM-W/SQM-L";
+  }
+  .data-grid--locobservations td:nth-of-type(4):before {
+    content: "Bortle odhad";
+  }
+  .data-grid--locobservations td:nth-of-type(5):before {
+    content: "průzračnost";
+  }
+  .data-grid--locobservations td:nth-of-type(6):before {
+    content: "popis";
+  }
+  .data-grid--locobservations td:nth-of-type(7):before {
+    content: "fotografie";
+  }
+  .data-grid--locobservations td:nth-of-type(8):before {
+    content: "Odkaz";
+  }
+}
 .datagrid-bottom .pagination-outer {
   margin-top: .7rem;
   margin-bottom: .3rem;
@@ -720,9 +995,8 @@ div.data-grid {
 }
 .datagrid-bottom .pagination li {
   font-size: .8rem;
-  width: 3rem;
   margin: 0;
-  display: inline;
+  display: inline-block;
   color: #003380;
 }
 .datagrid-bottom .pagination li a {
@@ -739,6 +1013,17 @@ div.data-grid {
 }
 .datagrid-bottom .pagination li.disabled a {
   color: #ccc;
+}
+@media (max-width: 1200px) {
+  .datagrid-bottom .pagination li {
+    display: inline-block;
+    margin-bottom: 1rem;
+  }
+}
+@media (max-width: 1200px) {
+  .datagrid-bottom .pagination {
+    padding-left: 0;
+  }
 }
 .datagrid-bottom .export {
   padding-right: 1rem;
@@ -800,8 +1085,54 @@ div.db__links--left {
   display: inline;
   float: left;
 }
+@media (max-width: 1200px) {
+  div.db__links--left {
+    display: block;
+    float: none;
+    width: 95%;
+    text-align: center;
+    margin-left: auto;
+    margin-right: auto;
+    margin-bottom: 2rem;
+  }
+}
+@media (max-width: 840px) {
+  div.db__links--left .button {
+    display: block;
+    width: 80%;
+    margin-left: auto;
+    margin-right: auto;
+    margin-top: .5rem;
+  }
+}
+@media (max-width: 1200px) {
+  div.db__links {
+    display: block;
+    float: none;
+    width: 95%;
+    text-align: center;
+    margin-left: auto;
+    margin-right: auto;
+    margin-bottom: 2rem;
+  }
+}
+@media (max-width: 840px) {
+  div.db__links .button {
+    display: block;
+    width: 80%;
+    margin-left: auto;
+    margin-right: auto;
+    margin-top: .5rem;
+  }
+}
 .content--db h2 {
   display: inline;
+}
+@media (max-width: 1200px) {
+  .content--db h2 {
+    display: block;
+    text-align: center;
+  }
 }
 /* Personal Page */
 .content--personal h2 {
@@ -809,6 +1140,12 @@ div.db__links--left {
 }
 .content--personal h3 {
   display: inline;
+}
+@media (max-width: 1200px) {
+  .content--personal h3 {
+    display: block;
+    text-align: center;
+  }
 }
 .content--personal .person span {
   margin-right: 2rem;
@@ -820,6 +1157,16 @@ div.db__links--left {
 .personal__table td {
   text-align: center;
   padding: .3rem 4rem;
+}
+@media (max-width: 720px) {
+  .personal__table td {
+    padding: .3rem 1rem;
+  }
+}
+@media (max-width: 720px) {
+  .personal__table th {
+    padding: 0rem 1rem;
+  }
 }
 /* Methodics */
 .content--scales div {
@@ -884,10 +1231,10 @@ form table td {
 form table label {
   font-size: .9rem;
   vertical-align: middle;
-  padding-bottom: .6rem;
 }
 form table input[type="checkbox"] {
   margin: .4rem;
+  background-color: #FFF;
 }
 form table input[type="radio"] {
   margin: .4rem;
@@ -919,8 +1266,10 @@ form table input[type="password"] {
 .observation__create {
   width: 100%;
 }
-.observation__create table th {
+.observation__create table #locinfo {
   vertical-align: top;
+}
+.observation__create table th {
   width: 10rem;
   text-align: left;
 }
@@ -973,6 +1322,7 @@ form table input[type="password"] {
 }
 .observation__create label {
   vertical-align: middle;
+  margin-right: 1rem;
 }
 .observation__create p {
   font-size: .75rem;
@@ -1072,8 +1422,18 @@ form table input[type="password"] {
 #weather input {
   width: 30rem;
 }
+@media (max-width: 1075px) {
+  #weather input {
+    width: 100%;
+  }
+}
 #disturbance input {
   width: 25.4rem;
+}
+@media (max-width: 1075px) {
+  #disturbance input {
+    width: 100%;
+  }
 }
 #bortle {
   margin-top: .4rem;
@@ -1082,11 +1442,27 @@ form table input[type="password"] {
 #bortle .help {
   margin-left: .5em;
 }
+#bortle a {
+  display: inline-block;
+}
+#transparency {
+  display: inline-block;
+}
 #transparency label {
   margin-left: .65rem;
 }
+@media (max-width: 925px) {
+  #transparency label {
+    margin-left: 0;
+  }
+}
 #transparency .help {
   margin-left: .5em;
+}
+@media (max-width: 925px) {
+  #transparency {
+    margin-top: .4rem;
+  }
 }
 #obsspec {
   margin-top: .4rem;
@@ -1104,6 +1480,11 @@ form table input[type="password"] {
 #info textarea {
   width: 43.8rem;
   height: 10rem;
+}
+@media (max-width: 1075px) {
+  #info textarea {
+    width: 100%;
+  }
 }
 #info {
   margin-top: 1rem;
@@ -1166,6 +1547,11 @@ input#frm-observationForm-send.sendbutton {
 }
 .observation__title h2 {
   display: inline;
+}
+@media (max-width: 940px) {
+  .observation__title h2 {
+    display: block;
+  }
 }
 .location h2 {
   display: inline;
@@ -1273,6 +1659,11 @@ input#frm-observationForm-send.sendbutton {
 .comments__form textarea {
   width: 30rem;
   height: 10rem;
+}
+@media (max-width: 940px) {
+  .comments__form textarea {
+    width: 100%;
+  }
 }
 .comment {
   padding-bottom: 1.5rem;
