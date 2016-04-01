@@ -1,145 +1,147 @@
 <!DOCTYPE html>
 <html>
-    <head>
-        <meta charset="utf-8">
-        <meta name="description" content="">
-        <meta name="robots" content="{$robots}" n:ifset="$robots">
+  <head>
+    <meta charset="utf-8">
+    <meta name="description" content="">
+    <meta name="robots" content="{$robots}" n:ifset="$robots">
 
-        {* Twitter and Facebook sharing images *}
-        <meta property="og:image" content="{$basePath}/www/images/layout/Earthlights_dmsp_web5.jpg">
-        <meta name="twitter:card" content="summary">
-
-
-        {* Stylesheets *}
-
-        <link rel="stylesheet" href="{$basePath}/fancybox/source/jquery.fancybox.css?v=2.1.5" media="screen" />
-        <link rel="stylesheet" href="{$basePath}/fancybox/source/helpers/jquery.fancybox-buttons.css?v=1.0.5" type="text/css" media="screen" />
-        <link rel="stylesheet" href="{$basePath}/fancybox/source/helpers/jquery.fancybox-thumbs.css?v=1.0.7" type="text/css" media="screen" />
-        <link rel="stylesheet" media="print" href="{$basePath}/css/print.css">
-        <link rel="stylesheet" type="text/css" media="screen,projection,tv" href="{$basePath}/css/screen.css">
-
-        {* Favicons *}
-
-        <link rel="apple-touch-icon" sizes="57x57" href="{$basePath}/www/images/favicons/apple-touch-icon-57x57.png?v=QEEyRGjv38">
-        <link rel="apple-touch-icon" sizes="60x60" href="{$basePath}/www/images/favicons/apple-touch-icon-60x60.png?v=QEEyRGjv38">
-        <link rel="apple-touch-icon" sizes="72x72" href="{$basePath}/www/images/favicons/apple-touch-icon-72x72.png?v=QEEyRGjv38">
-        <link rel="apple-touch-icon" sizes="76x76" href="{$basePath}/www/images/favicons/apple-touch-icon-76x76.png?v=QEEyRGjv38">
-        <link rel="apple-touch-icon" sizes="114x114" href="{$basePath}/www/images/favicons/apple-touch-icon-114x114.png?v=QEEyRGjv38">
-        <link rel="apple-touch-icon" sizes="120x120" href="{$basePath}/www/images/favicons/apple-touch-icon-120x120.png?v=QEEyRGjv38">
-        <link rel="apple-touch-icon" sizes="144x144" href="{$basePath}/www/images/favicons/apple-touch-icon-144x144.png?v=QEEyRGjv38">
-        <link rel="apple-touch-icon" sizes="152x152" href="{$basePath}/www/images/favicons/apple-touch-icon-152x152.png?v=QEEyRGjv38">
-        <link rel="apple-touch-icon" sizes="180x180" href="{$basePath}/www/images/favicons/apple-touch-icon-180x180.png?v=QEEyRGjv38">
-        <link rel="icon" type="image/png" href="{$basePath}/images/favicons/favicon-32x32.png?v=QEEyRGjv38" sizes="32x32">
-        <link rel="icon" type="image/png" href="{$basePath}/images/favicons/favicon-194x194.png?v=QEEyRGjv38" sizes="194x194">
-        <link rel="icon" type="image/png" href="{$basePath}/images/favicons/favicon-96x96.png?v=QEEyRGjv38" sizes="96x96">
-        <link rel="icon" type="image/png" href="{$basePath}/images/favicons/android-chrome-192x192.png?v=QEEyRGjv38" sizes="192x192">
-        <link rel="icon" type="image/png" href="{$basePath}/images/favicons/favicon-16x16.png?v=QEEyRGjv38" sizes="16x16">
-        <link rel="manifest" href="{$basePath}/images/favicons/manifest.json?v=QEEyRGjv38">
-        <link rel="mask-icon" href="{$basePath}/images/favicons/safari-pinned-tab.svg?v=QEEyRGjv38" color="#5bbad5">
-        <link rel="shortcut icon" href="{$basePath}/images/favicons/favicon.ico?v=QEEyRGjv38">
-        <meta name="msapplication-TileColor" content="#da532c">
-        <meta name="msapplication-TileImage" content="{$basePath}/images/mstile-144x144.png?v=QEEyRGjv38">
-        <meta name="msapplication-config" content="{$basePath}/images/favicons/browserconfig.xml?v=QEEyRGjv38">
-        <meta name="theme-color" content="#ffffff">
-
-        {block scripts}
-        <script src="{$basePath}/js/jquery.js"></script>
-        <script src="{$basePath}/js/jquery.ui.js"></script>
-        <script src="{$basePath}/js/highcharts.js"></script>
-        <script src="{$basePath}/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
-        <script src="{$basePath}/fancybox/lib/jquery.mousewheel-3.0.6.pack.js"></script>
-        <script type="text/javascript" src="{$basePath}/fancybox/source/helpers/jquery.fancybox-buttons.js?v=1.0.5"></script>
-        <script type="text/javascript" src="{$basePath}/fancybox/source/helpers/jquery.fancybox-media.js?v=1.0.6"></script>
-        <script type="text/javascript" src="{$basePath}/fancybox/source/helpers/jquery.fancybox-thumbs.js?v=1.0.7"></script>
-        
-        <script> document.documentElement.className += 'js';</script>
-
-        {* Google Analytics *}
-        <script>
-            (function(i, s, o, g, r, a, m) {
-                i['GoogleAnalyticsObject'] = r;
-                i[r] = i[r] || function() {
-                    (i[r].q = i[r].q || []).push(arguments)
-                }, i[r].l = 1 * new Date();
-                a = s.createElement(o),
-                        m = s.getElementsByTagName(o)[0];
-                a.async = 1;
-                a.src = g;
-                m.parentNode.insertBefore(a, m)
-            }
-            )(window, document, 'script', '//www.google-analytics.com/analytics.js', 'ga');
-
-            ga('create', 'UA-52805995-3', 'auto');
-            ga('send', 'pageview');
-        </script>
-        
-        {/block}
-
-    </head>
+    {* Twitter and Facebook sharing images *}
+    <meta property="og:image" content="{$basePath}/www/images/layout/Earthlights_dmsp_web5.jpg">
+    <meta name="twitter:card" content="summary">
 
 
+    {* Stylesheets *}
 
+    <link rel="stylesheet" href="{$basePath}/fancybox/source/jquery.fancybox.css?v=2.1.5" media="screen" />
+    <link rel="stylesheet" href="{$basePath}/fancybox/source/helpers/jquery.fancybox-buttons.css?v=1.0.5" type="text/css" media="screen" />
+    <link rel="stylesheet" href="{$basePath}/fancybox/source/helpers/jquery.fancybox-thumbs.css?v=1.0.7" type="text/css" media="screen" />
+    <link rel="stylesheet" media="print" href="{$basePath}/css/print.css">
+    <link rel="stylesheet" type="text/css" media="screen,projection,tv" href="{$basePath}/css/screen.css">
 
-    <body>
-        <header>
-            <div class="logo" role="banner">
-                <a n:href="Homepage:default">
-                    <img src="{$basePath}/images/layout/siteLogo.png" title="SkyQuality Project" alt="SkyQuality Project" class="logo__img" />
-                    <span class="logo__description">projekt mapování jasu noční oblohy</span>
-                </a>
-            </div>
+    {* Favicons *}
 
-            <nav role="navigation">
-                <div class="nav--user">
-                    <ul>        
-                        {if $user->loggedIn}
-                            <li><a n:href="Personal:">Můj účet</a></li> 
-                            <li><a n:href="Observation:create">Přidat měření</a></li>
-                            <li><a n:href="Sign:out">Odhlásit se</a></li>
-                        {else}
-                            <li><a n:href="Sign:in">Přihlásit</a></li>
-                        {/if}
-                    </ul>
-                </div>
+    <link rel="apple-touch-icon" sizes="57x57" href="{$basePath}/www/images/favicons/apple-touch-icon-57x57.png?v=QEEyRGjv38">
+    <link rel="apple-touch-icon" sizes="60x60" href="{$basePath}/www/images/favicons/apple-touch-icon-60x60.png?v=QEEyRGjv38">
+    <link rel="apple-touch-icon" sizes="72x72" href="{$basePath}/www/images/favicons/apple-touch-icon-72x72.png?v=QEEyRGjv38">
+    <link rel="apple-touch-icon" sizes="76x76" href="{$basePath}/www/images/favicons/apple-touch-icon-76x76.png?v=QEEyRGjv38">
+    <link rel="apple-touch-icon" sizes="114x114" href="{$basePath}/www/images/favicons/apple-touch-icon-114x114.png?v=QEEyRGjv38">
+    <link rel="apple-touch-icon" sizes="120x120" href="{$basePath}/www/images/favicons/apple-touch-icon-120x120.png?v=QEEyRGjv38">
+    <link rel="apple-touch-icon" sizes="144x144" href="{$basePath}/www/images/favicons/apple-touch-icon-144x144.png?v=QEEyRGjv38">
+    <link rel="apple-touch-icon" sizes="152x152" href="{$basePath}/www/images/favicons/apple-touch-icon-152x152.png?v=QEEyRGjv38">
+    <link rel="apple-touch-icon" sizes="180x180" href="{$basePath}/www/images/favicons/apple-touch-icon-180x180.png?v=QEEyRGjv38">
+    <link rel="icon" type="image/png" href="{$basePath}/images/favicons/favicon-32x32.png?v=QEEyRGjv38" sizes="32x32">
+    <link rel="icon" type="image/png" href="{$basePath}/images/favicons/favicon-194x194.png?v=QEEyRGjv38" sizes="194x194">
+    <link rel="icon" type="image/png" href="{$basePath}/images/favicons/favicon-96x96.png?v=QEEyRGjv38" sizes="96x96">
+    <link rel="icon" type="image/png" href="{$basePath}/images/favicons/android-chrome-192x192.png?v=QEEyRGjv38" sizes="192x192">
+    <link rel="icon" type="image/png" href="{$basePath}/images/favicons/favicon-16x16.png?v=QEEyRGjv38" sizes="16x16">
+    <link rel="manifest" href="{$basePath}/images/favicons/manifest.json?v=QEEyRGjv38">
+    <link rel="mask-icon" href="{$basePath}/images/favicons/safari-pinned-tab.svg?v=QEEyRGjv38" color="#5bbad5">
+    <link rel="shortcut icon" href="{$basePath}/images/favicons/favicon.ico?v=QEEyRGjv38">
+    <meta name="msapplication-TileColor" content="#da532c">
+    <meta name="msapplication-TileImage" content="{$basePath}/images/mstile-144x144.png?v=QEEyRGjv38">
+    <meta name="msapplication-config" content="{$basePath}/images/favicons/browserconfig.xml?v=QEEyRGjv38">
+    <meta name="theme-color" content="#ffffff">
 
-                <div class="nav--main">
-                    <ul>
-                        <li><a n:href="Database:">Databáze</a></li>
-                        <li><a n:href="Info:">Metodika</a></li> 
-                        <li><a n:href="Project:">O projektu</a></li>
-                    </ul> 
-                </div>
-            </nav>
+    {block scripts}
+    <script src="{$basePath}/js/jquery.js"></script>
+    <script src="{$basePath}/js/jquery.ui.js"></script>
+    <script src="{$basePath}/js/highcharts.js"></script>
+    <script src="{$basePath}/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+    <script src="{$basePath}/fancybox/lib/jquery.mousewheel-3.0.6.pack.js"></script>
+    <script type="text/javascript" src="{$basePath}/fancybox/source/helpers/jquery.fancybox-buttons.js?v=1.0.5"></script>
+    <script type="text/javascript" src="{$basePath}/fancybox/source/helpers/jquery.fancybox-media.js?v=1.0.6"></script>
+    <script type="text/javascript" src="{$basePath}/fancybox/source/helpers/jquery.fancybox-thumbs.js?v=1.0.7"></script>
+    
+    <script> document.documentElement.className += 'js';</script>
 
-            <div class="cistic"></div>
+    {* Google Analytics *}
+    <script>
+      (function(i, s, o, g, r, a, m) {
+          i['GoogleAnalyticsObject'] = r;
+          i[r] = i[r] || function() {
+              (i[r].q = i[r].q || []).push(arguments)
+          }, i[r].l = 1 * new Date();
+          a = s.createElement(o),
+                  m = s.getElementsByTagName(o)[0];
+          a.async = 1;
+          a.src = g;
+          m.parentNode.insertBefore(a, m)
+      }
+      )(window, document, 'script', '//www.google-analytics.com/analytics.js', 'ga');
 
-            <div  n:foreach="$flashes as $flash" class="flash {$flash->type}">
-                {$flash->message}
-            </div>
-            <div class="cistichead"></div>
-        </header>
+      ga('create', 'UA-52805995-3', 'auto');
+      ga('send', 'pageview');
+    </script>
+    
+    {/block}
 
-        {include content}
-
-
-        {block footer}
-        <footer>
-            <div class="footer">
-            ©SkyQuality <br />
-            <a n:href="Project:">kontakt</a>
-            </div>
-        </footer>
-        {/block}
+  </head>
 
 
 
-        <!-- Placed at the end of the document so the pages load faster -->
-        <script src="{$basePath}/js/jquery.cookie.js"></script>
-        <script src="{$basePath}/js/jquery.nette.js"></script>
-        <script src="{$basePath}/js/netteForms.js"></script>
-        <!-- Latest compiled and minified JavaScript -->
-        <script src="{$basePath}/js/bootstrap.min.js"></script>
-        <script src="{$basePath}/js/main.js"></script>
 
-    </body>
+  <body>
+    <header>
+      <div class="logo" role="banner">
+        <a n:href="Homepage:default">
+          <img src="{$basePath}/images/layout/siteLogo.png" title="SkyQuality Project" alt="SkyQuality Project" class="logo__img" />
+          <span class="logo__description">projekt mapování jasu noční oblohy</span>
+        </a>
+      </div>
+
+      <nav role="navigation">
+        <div class="nav--user">
+          <ul>        
+            {if $user->loggedIn}
+              <li><a n:href="Personal:">Můj účet</a></li> 
+              <li><a n:href="Observation:create">Přidat měření</a></li>
+              <li><a n:href="Sign:out">Odhlásit se</a></li>
+            {else}
+               <li><a n:href="Sign:in">Přihlásit</a></li>
+            {/if}
+          </ul>
+        </div>
+
+        <div class="nav--main">
+          <ul>
+            <li><a n:href="Database:">Databáze</a></li>
+            <li><a n:href="Info:">Metodika</a></li> 
+            <li><a n:href="Project:">O projektu</a></li>
+          </ul> 
+        </div>
+      </nav>
+
+      <div class="cistic"></div>
+
+      <div  n:foreach="$flashes as $flash" class="flash {$flash->type}">
+         {$flash->message}
+      </div>
+
+      <div class="cistichead"></div>
+
+    </header>
+
+    <div role="main">
+      {include content}
+  	</div>
+
+    {block footer}
+	    <footer>
+        <div class="footer" role="contentinfo">
+	        ©SkyQuality <br />
+	        <a n:href="Project:">kontakt</a>
+        </div>
+	    </footer>
+    {/block}
+
+
+    <!-- Placed at the end of the document so the pages load faster -->
+    <script src="{$basePath}/js/jquery.cookie.js"></script>
+    <script src="{$basePath}/js/jquery.nette.js"></script>
+    <script src="{$basePath}/js/netteForms.js"></script>
+    <!-- Latest compiled and minified JavaScript -->
+    <script src="{$basePath}/js/bootstrap.min.js"></script>
+    <script src="{$basePath}/js/main.js"></script>
+
+  </body>
 </html>
