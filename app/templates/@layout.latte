@@ -1,12 +1,16 @@
 <!DOCTYPE html>
 <html>
   <head>
+    <title>SkyQuality</title>
     <meta charset="utf-8">
-    <meta name="description" content="">
+    <meta name="description" content="Projekt mapování jasu noční oblohy">
     <meta name="robots" content="{$robots}" n:ifset="$robots">
 
-    {* Twitter and Facebook sharing images *}
-    <meta property="og:image" content="{$basePath}/www/images/layout/Earthlights_dmsp_web5.jpg">
+    {* Twitter and Facebook sharing images and texts *}
+    <meta property="og:image" content="http://www.skyquality.cz/images/layout/Earthlights_dmsp_web5.jpg">
+    <meta property="og:title" content="SkyQuality">
+    <meta property="og:description" content="Projekt mapování jasu noční oblohy">
+    <meta property="og:url" content="http://www.skyquality.cz/">
     <meta name="twitter:card" content="summary">
 
 
@@ -20,27 +24,30 @@
 
     {* Favicons *}
 
-    <link rel="apple-touch-icon" sizes="57x57" href="{$basePath}/www/images/favicons/apple-touch-icon-57x57.png?v=QEEyRGjv38">
-    <link rel="apple-touch-icon" sizes="60x60" href="{$basePath}/www/images/favicons/apple-touch-icon-60x60.png?v=QEEyRGjv38">
-    <link rel="apple-touch-icon" sizes="72x72" href="{$basePath}/www/images/favicons/apple-touch-icon-72x72.png?v=QEEyRGjv38">
-    <link rel="apple-touch-icon" sizes="76x76" href="{$basePath}/www/images/favicons/apple-touch-icon-76x76.png?v=QEEyRGjv38">
-    <link rel="apple-touch-icon" sizes="114x114" href="{$basePath}/www/images/favicons/apple-touch-icon-114x114.png?v=QEEyRGjv38">
-    <link rel="apple-touch-icon" sizes="120x120" href="{$basePath}/www/images/favicons/apple-touch-icon-120x120.png?v=QEEyRGjv38">
-    <link rel="apple-touch-icon" sizes="144x144" href="{$basePath}/www/images/favicons/apple-touch-icon-144x144.png?v=QEEyRGjv38">
-    <link rel="apple-touch-icon" sizes="152x152" href="{$basePath}/www/images/favicons/apple-touch-icon-152x152.png?v=QEEyRGjv38">
-    <link rel="apple-touch-icon" sizes="180x180" href="{$basePath}/www/images/favicons/apple-touch-icon-180x180.png?v=QEEyRGjv38">
-    <link rel="icon" type="image/png" href="{$basePath}/images/favicons/favicon-32x32.png?v=QEEyRGjv38" sizes="32x32">
-    <link rel="icon" type="image/png" href="{$basePath}/images/favicons/favicon-194x194.png?v=QEEyRGjv38" sizes="194x194">
-    <link rel="icon" type="image/png" href="{$basePath}/images/favicons/favicon-96x96.png?v=QEEyRGjv38" sizes="96x96">
-    <link rel="icon" type="image/png" href="{$basePath}/images/favicons/android-chrome-192x192.png?v=QEEyRGjv38" sizes="192x192">
-    <link rel="icon" type="image/png" href="{$basePath}/images/favicons/favicon-16x16.png?v=QEEyRGjv38" sizes="16x16">
-    <link rel="manifest" href="{$basePath}/images/favicons/manifest.json?v=QEEyRGjv38">
-    <link rel="mask-icon" href="{$basePath}/images/favicons/safari-pinned-tab.svg?v=QEEyRGjv38" color="#5bbad5">
-    <link rel="shortcut icon" href="{$basePath}/images/favicons/favicon.ico?v=QEEyRGjv38">
-    <meta name="msapplication-TileColor" content="#da532c">
-    <meta name="msapplication-TileImage" content="{$basePath}/images/mstile-144x144.png?v=QEEyRGjv38">
-    <meta name="msapplication-config" content="{$basePath}/images/favicons/browserconfig.xml?v=QEEyRGjv38">
-    <meta name="theme-color" content="#ffffff">
+     <link rel="apple-touch-icon" sizes="57x57" href="/images/favicons/apple-touch-icon-57x57.png?v=JyyXYN4a6P">
+<link rel="apple-touch-icon" sizes="60x60" href="/images/favicons/apple-touch-icon-60x60.png?v=JyyXYN4a6P">
+<link rel="apple-touch-icon" sizes="72x72" href="/images/favicons/apple-touch-icon-72x72.png?v=JyyXYN4a6P">
+<link rel="apple-touch-icon" sizes="76x76" href="/images/favicons/apple-touch-icon-76x76.png?v=JyyXYN4a6P">
+<link rel="apple-touch-icon" sizes="114x114" href="/images/favicons/apple-touch-icon-114x114.png?v=JyyXYN4a6P">
+<link rel="apple-touch-icon" sizes="120x120" href="/images/favicons/apple-touch-icon-120x120.png?v=JyyXYN4a6P">
+<link rel="apple-touch-icon" sizes="144x144" href="/images/favicons/apple-touch-icon-144x144.png?v=JyyXYN4a6P">
+<link rel="apple-touch-icon" sizes="152x152" href="/images/favicons/apple-touch-icon-152x152.png?v=JyyXYN4a6P">
+<link rel="apple-touch-icon" sizes="180x180" href="/images/favicons/apple-touch-icon-180x180.png?v=JyyXYN4a6P">
+<link rel="icon" type="image/png" href="/images/favicons/favicon-32x32.png?v=JyyXYN4a6P" sizes="32x32">
+<link rel="icon" type="image/png" href="/images/favicons/favicon-194x194.png?v=JyyXYN4a6P" sizes="194x194">
+<link rel="icon" type="image/png" href="/images/favicons/favicon-96x96.png?v=JyyXYN4a6P" sizes="96x96">
+<link rel="icon" type="image/png" href="/images/favicons/android-chrome-192x192.png?v=JyyXYN4a6P" sizes="192x192">
+<link rel="icon" type="image/png" href="/images/favicons/favicon-16x16.png?v=JyyXYN4a6P" sizes="16x16">
+<link rel="manifest" href="/images/favicons/manifest.json?v=JyyXYN4a6P">
+<link rel="mask-icon" href="/images/favicons/safari-pinned-tab.svg?v=JyyXYN4a6P" color="#003380">
+<link rel="shortcut icon" href="/images/favicons/favicon.ico?v=JyyXYN4a6P">
+<meta name="apple-mobile-web-app-title" content="SkyQuality">
+<meta name="application-name" content="SkyQuality">
+<meta name="msapplication-TileColor" content="#003380">
+<meta name="msapplication-TileImage" content="/images/favicons/mstile-144x144.png?v=JyyXYN4a6P">
+<meta name="msapplication-config" content="/images/favicons/browserconfig.xml?v=JyyXYN4a6P">
+<meta name="theme-color" content="#ffffff">
+    
 
     {block scripts}
     <script src="{$basePath}/js/jquery.js"></script>

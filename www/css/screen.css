@@ -572,10 +572,12 @@ footer {
   /* IE6-9 */
 }
 .bottom-link__picture {
-  width: 100%;
+  width: 99%;
   z-index: 0;
-  margin-top: -8.5rem;
+  margin-top: -8.4rem;
   position: relative;
+  margin-left: auto;
+  margin-right: auto;
 }
 .bottom-link img {
   width: 100%;
@@ -1182,6 +1184,9 @@ div.db__links--left {
   margin-bottom: 2rem;
   font-size: .9rem;
 }
+.userforms th {
+  text-align: right;
+}
 /* Sign in */
 .sign-in form {
   width: 47%;
@@ -1206,7 +1211,7 @@ input#signincheck {
   margin-bottom: 2.3rem;
 }
 .password-change form {
-  width: 50%;
+  width: 47%;
   margin-left: auto;
   margin-right: auto;
   margin-top: 2rem;

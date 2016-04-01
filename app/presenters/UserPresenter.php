@@ -59,6 +59,7 @@ class UserPresenter extends BasePresenter {
                         ->title('Jméno, které se bude předvyplňovat u Vašich pozorování'));
 
         $form->addText('email', 'Email')
+                ->settype('email')
                 ->setRequired('Zadejte platnou emailovou adresu.')
                 ->addRule(Form::EMAIL, 'Zadaná adresa není platná');
 
