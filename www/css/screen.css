@@ -285,6 +285,9 @@ footer {
   margin-bottom: 1rem;
   margin-top: 1rem;
 }
+.content a {
+  font-weight: bold;
+}
 .homepage__btn {
   float: right;
   display: inline;
