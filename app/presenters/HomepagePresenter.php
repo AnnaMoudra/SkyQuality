@@ -61,7 +61,7 @@ class HomepagePresenter extends BasePresenter
 					
         $this->template->sqm = $this->database->table('sqm');
 
-        $location = $this->database->table('location');
+        $location = $this->database->table('location')->group('location.id')->having('COUNT(:observation.id)>0');
 
         foreach ($location as $location) {
 	    
