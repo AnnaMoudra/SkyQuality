@@ -55,7 +55,7 @@ class DatabasePresenter extends BasePresenter {
      * @return grid
      */
     protected function createComponentBasicDataGrid($name) {
-        $selection = $this->database->table('observations');
+        $selection = $this->database->table('observations')->order('observations.id DESC');
         $selection->select('observations.id, equipment_id, date, observer, bortle, observations.info, sqmavg, transparency, ' .
                 'location.name');
         $photos = $this->database->table('photos');
@@ -66,7 +66,7 @@ class DatabasePresenter extends BasePresenter {
         $grid->setPrimaryKey($primarykey);
         $grid->setLocale('cs');
         $grid->setDataSource($source);
-        $grid->setDefaultOrder('date', 'DESC');
+        $grid->setDefaultOrder('id', 'DESC');
         $grid->addDate('date', 'Datum a čas (UTC)')
                 ->setFormat('d. m. Y —&\nb\sp;H:i')
                 ->setOrdering(TRUE);
