@@ -49,7 +49,8 @@ class EquipmentPresenter extends BasePresenter {
         $grid->setPrimaryKey($primarykey);
         $grid->setLocale('cs');
         $grid->setDataSource($source);
-        $grid->addDate('date', 'Datum')
+        $grid->setDefaultOrder('date', 'ASC');
+        $grid->addDate('date', 'Datum a čas (UTC)')
                 ->setFormat('d. m. Y —&\nb\sp;H:i')
                 ->setOrdering(TRUE);
         $grid->addText('name', 'Lokalita');
