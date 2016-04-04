@@ -690,6 +690,7 @@ div.data-grid {
 .data-grid .table th.grid-column-flags {
   padding: 0;
   width: 0px;
+  max-width: 0px;
 }
 .data-grid .table th.grid-column-flags:nth-of-type(1) {
   padding-left: 1rem;
@@ -744,6 +745,7 @@ div.data-grid {
 .data-grid .table td.data-grid__flags {
   padding: 0;
   width: 7px;
+  max-width: 7px;
 }
 .data-grid .table td.data-grid__flags:nth-of-type(1) {
   padding-left: 2rem;
