@@ -67,7 +67,7 @@ class DatabasePresenter extends BasePresenter {
         $grid->setLocale('cs');
         $grid->setDataSource($source);
         $grid->setDefaultOrder('date', 'DESC');
-        $grid->addDate('date', 'Datum')
+        $grid->addDate('date', 'Datum a čas (UTC)')
                 ->setFormat('d. m. Y —&\nb\sp;H:i')
                 ->setOrdering(TRUE);
         $grid->addText('name', 'Lokalita');
@@ -148,6 +148,7 @@ class DatabasePresenter extends BasePresenter {
                 if ($observation->count('*') > 0) {
                     $sqms = [];
                     $pole[$i] = $selection[$i]->toArray();
+                    $pole[$i]['obscount'] = $observation->count('*');
                     foreach ($observation as $observation) {
                         $sqms[] = $observation->sqmavg;
                     }
@@ -169,10 +170,13 @@ class DatabasePresenter extends BasePresenter {
         $grid->setPrimaryKey($primarykey);
         $grid->setLocale('cs');
         $grid->setDataSource($source);
+        $grid->setDefaultOrder('name', 'ASC');
         $grid->addText('name', 'Název')
              ->setAttribute('class', 'data-grid__name');
         $grid->addNumber('sqmavg', 'Jas')
              ->setDecimals(2)
+             ->setAttribute('class', 'data-grid__sqm');
+        $grid->addNumber('obscount', 'Měření')
              ->setAttribute('class', 'data-grid__sqm');
         $grid->addText('accessiblestand', 'Volně přístupné')
                 ->setAttribute('class', 'data-grid__access')

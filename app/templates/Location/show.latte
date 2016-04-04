@@ -53,7 +53,12 @@
                 </div> 
                 <div class="row">
                     <div class="col col--first">Bortle průměr</div>
-                    <div class="col col--second"><span class="large-bold">{$bortle |number:1}</span> (ø {$bortlecount} odhadů)</div>
+                    <div class="col col--second">
+                        {if $bortlecount >=3 }
+                        <span class="large-bold">{$bortle |number:1}</span> (ø {$bortlecount} odhadů)
+                        {else}
+                        <span class="smallnote">Příliš málo údajů</span>
+                        {/if}</div>
                 </div>
             </div>
 
@@ -86,12 +91,28 @@
 
             <div class="graph__location">
                 <h3>Měření z této lokality</h3>
+                {if $sqmcount >=3 }
                 <div class="smallnote">Vybráním části grafu kurzorem lze graf přiblížit</div>
                 {include 'graph.latte'}
-            </div>
+                </div>
+                {else}
+                <div class="graph__call">Na této lokalitě je příliš málo měření.<br />{if $user->loggedIn}<a n:href="Observation:create">
+                    Přidejte další měření</a>{else}<a  n:href="Sign:in">Přidejte další měření</a>{/if} pro zobrazení grafu.</div>
+                {/if}
             <h3>Poslední pozorování</h3>
             <div class="data-grid--locobservations">
             {control basicDataGrid}
+            <div class="latest__legend">
+                <p class="smallnote">Jas:ø hodnota v mag/arcsec²</p>
+                <p>Pozorování obsahuje:
+                    <span class="latest__legend__item"><span class="flag flag--sqmw" title="Obsahuje SQM-W měření"></span><span class="legend__description">SQM-W měření</span></span>
+                    <span class="latest__legend__item"><span class="flag flag--sqml" title="Obsahuje SQM-L měření"></span><span class="legend__description">SQM-L měření</span></span>
+                    <span class="latest__legend__item"><span class="flag flag--bortle" title="Obsahuje Bortle odhad"></span><span class="legend__description">Bortle odhad</span></span>
+                    <span class="latest__legend__item"><span class="flag flag--transparency" title="Obsahuje popis průzračnosti"></span><span class="legend__description">průzračnost</span></span>
+                    <span class="latest__legend__item"><span class="flag flag--info" title="Obsahuje podrobnější popis"></span><span class="legend__description">podrobný popis</span></span>
+                    <span class="latest__legend__item latest__legend__item--last"><span class="flag flag--photo" title="Obsahuje fotografie"></span><span class="legend__description">fotografie</span></span>
+                </p>
+            </div>
             </div>
 
 

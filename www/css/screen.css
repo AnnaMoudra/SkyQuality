@@ -514,6 +514,15 @@ footer {
   margin: 0px;
   padding: 0px;
 }
+.info_content {
+  padding-bottom: 1rem;
+}
+.info_content a {
+  font-weight: bold;
+}
+.info_content p:nth-of-type(2) {
+  text-align: justify;
+}
 .map__legend {
   margin-top: .9rem;
   font-size: 1rem;
@@ -678,6 +687,10 @@ div.data-grid {
 }
 .data-grid .table th.grid-column-flags:nth-of-type(1) {
   padding-left: 1rem;
+}
+.data-grid .table th.grid-column-obscount {
+  text-align: center;
+  padding-left: 2.3rem;
 }
 .data-grid .table th.grid-column-accessiblestand {
   text-align: center;
@@ -972,18 +985,21 @@ div.data-grid {
     content: "SQM-W/SQM-L";
   }
   .data-grid--locobservations td:nth-of-type(4):before {
-    content: "Bortle odhad";
+    content: "SQM-W/SQM-L";
   }
   .data-grid--locobservations td:nth-of-type(5):before {
-    content: "průzračnost";
+    content: "Bortle odhad";
   }
   .data-grid--locobservations td:nth-of-type(6):before {
-    content: "popis";
+    content: "průzračnost";
   }
   .data-grid--locobservations td:nth-of-type(7):before {
-    content: "fotografie";
+    content: "popis";
   }
   .data-grid--locobservations td:nth-of-type(8):before {
+    content: "fotografie";
+  }
+  .data-grid--locobservations td:nth-of-type(9):before {
     content: "Odkaz";
   }
 }
@@ -1605,6 +1621,14 @@ input#frm-observationForm-send.sendbutton {
 .graph__location h3 {
   margin-top: 2rem;
   margin-bottom: .3rem;
+}
+.graph__call {
+  text-align: center;
+  font-size: 1.1rem;
+  color: #bbb;
+  font-weight: bold;
+  margin-top: 4rem;
+  margin-bottom: 8rem;
 }
 /* Photos */
 .photodiv {
