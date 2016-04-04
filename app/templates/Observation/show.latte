@@ -139,10 +139,14 @@
 
         <div class="graph__location">
             <h3>Měření na této lokalitě</h3>
-            <div class="smallnote">Vybráním části grafu kurzorem lze graf přiblížit</div>
-            <div>
-                {include graph.latte}
-            </div>
+            {if $sqmcount >=3 }
+                <div class="smallnote">Vybráním části grafu kurzorem lze graf přiblížit</div>
+                {include 'graph.latte'}
+                </div>
+                {else}
+                <div class="graph__call">Na této lokalitě je příliš málo měření.<br />{if $user->loggedIn}<a n:href="Observation:create">
+                    Přidejte další měření</a>{else}<a  n:href="Sign:in">Přidejte další měření</a>{/if} pro zobrazení grafu.</div>
+                {/if}
         </div>
 
     </div>

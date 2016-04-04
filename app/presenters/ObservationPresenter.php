@@ -48,6 +48,7 @@ class ObservationPresenter extends BasePresenter {
         $this->template->users = $this->database->table('users');
         $this->template->comments = $observation->related('comment')->order('created_at');
         $this->template->sqm = $observation->related('sqm')->order('height DESC')->order('azimute ASC');
+        $this->template->sqmcount = $observation->location->related('observations')->where('sqmavg')->count('*');
         $this->template->phosel = $phosel;
 
 
