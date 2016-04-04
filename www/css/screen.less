@@ -723,13 +723,16 @@ div.data-grid {
 		& th {
 			&.grid-column-date {
 				min-width: 22%;
+				width: 22%;
+				padding-right: .3rem;
 			}
 			&.grid-column-name {
 				min-width: 32%;
 			}
 			&.grid-column-sqmavg {
 				text-align: center;
-				min-width: 10%;
+				min-width: 11%;
+				width: 11%;
 				padding-left: .9rem;
 				padding-right: .3rem;
 				@media(max-width: 1200px) {
@@ -755,6 +758,9 @@ div.data-grid {
 					padding-left: 2rem;
 					padding-right: 0;
 				}
+			}
+			&.grid-column-observer{
+				max-width: 20%;
 			}
 			&.with-actions {
 				min-width: 10%;
