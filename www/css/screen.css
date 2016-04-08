@@ -356,6 +356,9 @@ footer {
 .table th.table__brightness {
   text-align: center;
 }
+.table th.table__location {
+  width: 35%;
+}
 .table .table__row:hover {
   background-color: #fafafa;
   cursor: pointer;
