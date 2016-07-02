@@ -21,7 +21,6 @@
                     {$location->longituderaw|replaceRE:'/(\w+);(\w+);(\w+);(\w+)/':'$1° $2′ $3″ $4'}
                     ({$location->latitude} {$location->latitudehemisfera}, {$location->longitude} {$location->longitudehemisfera}) ― <a href="http://www.mapy.cz/?query={if $location->latitudehemisfera==S}-{/if}{$location->latitude},{if $location->longitudehemisfera==W}-{/if}{$location->longitude}" target="_blank" title="zobrazit lokalitu na mapy.cz">zobrazit na Mapy.cz</a> / <a href="https://www.google.com/maps/place/{if $location->latitudehemisfera==S}-{/if}{$location->latitude},{if $location->longitudehemisfera==W}-{/if}{$location->longitude}" target="_blank" title="zobrazit lokalitu na maps.google.com">Google Mapách</a> </div>
             </div> 
-            {* /[0-9]{2};[0-9]{2};[0-9]{2};[EN]/ *}
             <div class="row">
                 <div class="col col--first">Nadm. výška</div>
                 <div class="col col--second">{$location->altitude} m. n. m.</div>
@@ -73,19 +72,18 @@
             {if $phosel->count('*') > 0}
                 <h3>Fotky</h3>
                 <div class="container photos" align="center">
-                    {for $i = 0; $i < $phosel->count('*'); $i++}                                   
-                        {if $i%6 == 0 || $i == 0}<div class="row--photos">{/if}
-                            <div class="col--photos">
-                                <a class="fancybox" rel="group" 
-                                   href='{$img[$i]['fotky']|dataStream}' 
-                                   title='{$img[$i]['popisky']}'>
-                                    <div class="photodiv">
-                                        <img src='{$img[$i]['fotky']|dataStream}' />
-                                    </div>
-                                </a>
-                            </div>
-                            {if $i%6 == 5 || $i == ($phosel->count('*')-1)}</div>{/if}
-                        {/for}
+                  <div class="row--photos">
+                  {for $i = 0; $i < $phosel->count('*'); $i++}
+                    <div class="col--photos">
+                      <a class="fancybox" rel="group" 
+                         href='{$img[$i]['fotky']|dataStream}' title='{$img[$i]['popisky']}'>
+                        <div class="photodiv">
+                          <img src='{$img[$i]['fotky']|dataStream}' />
+                        </div>
+                      </a>
+                    </div>
+                   {/for}
+                  </div>
                 </div>
             {/if}	   
 

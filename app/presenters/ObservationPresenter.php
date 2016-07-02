@@ -55,7 +55,7 @@ class ObservationPresenter extends BasePresenter {
         if ($phosel->count() > 0) {
             foreach ($phosel as $photos) {
                 $imgl[] = array(
-                    'fotky' => Image::fromFile('http://skyquality.cz/www/images/photos/' . $photos->photo)->resize(600, NULL),
+                    'fotky' => Image::fromFile('http://skyquality.cz/www/images/photos/' . $photos->photo)->resize(1280, NULL, Image::SHRINK_ONLY),
                     'popisky' => ($photos->info),
                     'id' => ($photos->id)
                 );

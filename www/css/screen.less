@@ -555,7 +555,7 @@ footer {
 	padding: 1rem 0;
 	text-align: center;
 	color: @color;
- 	box-shadow: @box-shadow-bottom, @box-shadow-left, @box-shadow-right, @box-shadow-top;;
+ 	box-shadow: @box-shadow-bottom, @box-shadow-left, @box-shadow-right, @box-shadow-top;
    	& p {
    		text-align: center;
 	 	font-size: 1rem;
@@ -594,6 +594,26 @@ footer {
 		& img {
 			margin-right: 0.5rem;
 		}
+	}
+}
+
+/* Homepage Last Comments */
+.homepage__comments {
+	background-color: @background-color;
+	border-radius: 2px;
+	margin-bottom: 1.3rem;
+	font-size: .9rem;
+	padding: 1rem 2rem;
+	color: @color;
+ 	box-shadow: @box-shadow-bottom, @box-shadow-left, @box-shadow-right, @box-shadow-top;
+ 	& .comment {
+	 	&:nth-of-type(1) {
+	 		border: none;
+	 		margin-top: .3rem;
+	 	}
+	 	&:last-of-type {
+	 		margin-bottom: 1.3rem;
+	 	}
 	}
 }
 
@@ -1776,10 +1796,12 @@ input#frm-observationForm-send.sendbutton {
 .comments {
     font-size: .9em;
     border-top: 1px solid @line-color;
-    margin-top: 1rem;
+    padding: 1rem 2rem;
+    background-color: #fff;
 	&__form {
-		margin-bottom: 4rem;
-		margin-top: 1rem;
+		padding-bottom: 4rem;
+		padding-top: 1rem;
+		background-color: #fff;
 		& textarea {
 			width: 30rem;
 			height: 10rem;
@@ -1791,20 +1813,22 @@ input#frm-observationForm-send.sendbutton {
 }
 
 .comment {
-    padding-bottom: 1.5rem;
-    padding-top: 1.5rem;
+    padding-bottom: .5rem;
+    padding-top: .3rem;
     border-top: 1px solid #eee;
-    & .comment__user {
+    font-size: .9rem;
+ 	&__user {
     	font-weight: 600;
     	padding-right: 1rem;
 	}
-	& .comment__date {
+	&__date {
 	    font-weight: lighter;
 	    padding-left: 1rem;
 	    padding-right: 1rem;
 	}
-	& .comment__obs {
+	&__obs {
 	    font-style: italic;
-    	padding-left: 1em;
+	    font-size: .75rem;
+    	padding-left: 1rem;
 	}
 }

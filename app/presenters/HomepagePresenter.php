@@ -49,6 +49,9 @@ class HomepagePresenter extends BasePresenter
 	
 	public function renderDefault()
 	{	
+        $this->template->comments = $this->database->table('comments')->order('id DESC')->limit(5);
+
+
 		/* Příprava pro tabulku */	
 	    $this->template->tabobservation = $this->database->table('observations')
 						->order('id DESC')->limit(10);

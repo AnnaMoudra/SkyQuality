@@ -116,25 +116,25 @@
         {/block}
 
         {if $observation->related('photos')->count('*') > 0}
-            <h3 class="h3">Fotky</h3>
-            <div class="container photos" align="center">
-                {for $i = 0; $i < $phosel->count('*'); $i++}                                   
-                    {if $i%6 == 0 || $i == 0 }<div class="row--photos">{/if}
-                        <div class="col--photos">
-                            <a class="fancybox" rel="group" 
-                               href='{$imgl[$i]['fotky']|dataStream}' 
-                               title='{$imgl[$i]['popisky']}'>
-                                <div class="photodiv">
-                                    <img src='{$imgl[$i]['fotky']|dataStream}' />
-                                </div>
-                            </a>
-                            {if $user->id == $observation->user_id} 
-                                <a href="{link Observation:erasePhoto $imgl[$i]['id'], $observation->id}">Smazat</a>
-                            {/if}
-                        </div>
-                        {if $i%6 == 5 || $i == ($phosel->count('*')-1)}</div>{/if}
-                    {/for}
+	        <h3 class="h3">Fotky</h3>
+	        <div class="container photos" align="center">
+            <div class="row--photos">
+            {for $i = 0; $i < $phosel->count('*'); $i++}
+              <div class="col--photos">
+                <a class="fancybox" rel="group" 
+                   href='{$imgl[$i]['fotky']|dataStream}' 
+                   title='{$imgl[$i]['popisky']}'>
+                  <div class="photodiv">
+                    <img src='{$imgl[$i]['fotky']|dataStream}' />
+                  </div>
+                </a>
+                {if $user->id == $observation->user_id} 
+                  <a href="{link Observation:erasePhoto $imgl[$i]['id'], $observation->id}">Smazat</a>
+                {/if}
+              </div>
+          	{/for}
             </div>
+	        </div>
         {/if}
 
         <div class="graph__location">

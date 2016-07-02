@@ -543,6 +543,23 @@ footer {
 .map__legend__item img {
   margin-right: 0.5rem;
 }
+/* Homepage Last Comments */
+.homepage__comments {
+  background-color: #ffffff;
+  border-radius: 2px;
+  margin-bottom: 1.3rem;
+  font-size: .9rem;
+  padding: 1rem 2rem;
+  color: #333333;
+  box-shadow: 0px 12px 10px -6px rgba(20, 20, 20, 0.5), -12px 0px 10px -6px rgba(20, 20, 20, 0.5), 12px 0px 10px -6px rgba(20, 20, 20, 0.5), 0px -12px 10px -6px rgba(20, 20, 20, 0.5);
+}
+.homepage__comments .comment:nth-of-type(1) {
+  border: none;
+  margin-top: .3rem;
+}
+.homepage__comments .comment:last-of-type {
+  margin-bottom: 1.3rem;
+}
 /* Bottom links */
 .homepage__bottom-links {
   background-color: #ffffff;
@@ -1693,11 +1710,13 @@ input#frm-observationForm-send.sendbutton {
 .comments {
   font-size: .9em;
   border-top: 1px solid #eeeeee;
-  margin-top: 1rem;
+  padding: 1rem 2rem;
+  background-color: #fff;
 }
 .comments__form {
-  margin-bottom: 4rem;
-  margin-top: 1rem;
+  padding-bottom: 4rem;
+  padding-top: 1rem;
+  background-color: #fff;
 }
 .comments__form textarea {
   width: 30rem;
@@ -1709,20 +1728,22 @@ input#frm-observationForm-send.sendbutton {
   }
 }
 .comment {
-  padding-bottom: 1.5rem;
-  padding-top: 1.5rem;
+  padding-bottom: .5rem;
+  padding-top: .3rem;
   border-top: 1px solid #eee;
+  font-size: .9rem;
 }
-.comment .comment__user {
+.comment__user {
   font-weight: 600;
   padding-right: 1rem;
 }
-.comment .comment__date {
+.comment__date {
   font-weight: lighter;
   padding-left: 1rem;
   padding-right: 1rem;
 }
-.comment .comment__obs {
+.comment__obs {
   font-style: italic;
-  padding-left: 1em;
+  font-size: .75rem;
+  padding-left: 1rem;
 }

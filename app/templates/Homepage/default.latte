@@ -3,7 +3,7 @@
 <div class="content--homepage">
     <div class="homepage__description">
         <p>SkyQuality.com je projekt zaměřený na <strong>objektivní posuzování kvality noční oblohy</strong> v&nbsp;nejrůznějších lokalitách (s&nbsp;důrazem na ty, které představují vhodná stanoviště pro amatérské astronomy). Pro maximální objektivitu je základní používanou metrikou jas oblohy v&nbsp;magnitudách na čtvereční úhlovou vteřinu, doplňkovou pak Bortle ohodnocení a&nbsp;MHV.</p>
-        <p class="highlight"><strong>Důležité</strong> &ndash; současná verze je v&nbsp;rané fázi běhu a&nbsp;přenos na SkyQuality.com proběhne v&nbsp;několika příštích týdnech. Budeme velice rádi, pokud nám jakékoliv problémy nebo chyby, nahlásíte na milada.moudra(zavináč)gmail.com.</p>
+        <p class="highlight"><strong>Důležité</strong> &ndash; současná verze je v&nbsp;rané fázi běhu a&nbsp;přenos na SkyQuality.com proběhne v&nbsp;několika příštích týdnech. Budeme velice rádi, pokud nám jakékoliv problémy nebo chyby nahlásíte na milada.moudra(zavináč)gmail.com.</p>
         
    {*    <p class="highlight"><strong>Důležité</strong> &ndash; před zapojením se do projektu prosím věnujte pozornost <strong><a n:href="Info:default">metodice měření</a></strong>.</p>
          *}
@@ -74,6 +74,27 @@
 <div class="homepage__map">
  {include map.latte}
 </div>
+
+<div class="homepage__comments">
+<h2>Nejnovější komentáře</h2>
+  {foreach $comments as $comment}
+    <div class="comment">
+      <p><span class="comment__user">
+            {$comment->name}
+        </span>
+        •
+        <span class="comment__date">
+            {$comment->created_at|date:'d.m.Y — H:i'}
+        </span>
+        •
+        <span class="comment__obs">
+            <a n:href="Observation:show $comment->observation->id">Měření z lokality <strong>{$comment->observation->location->name}</strong></a>
+        </span>
+      </p>
+      <div class="comment__content">{$comment->content}</div>
+    </div>
+  {/foreach}
+</div> 
 
 
 
