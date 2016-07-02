@@ -360,10 +360,9 @@ footer {
   width: 35%;
 }
 .table .table__row:hover {
-  background-color: #fafafa;
+  background-color: #eaf0fc;
   cursor: pointer;
-  color: #222;
-  font-weight: bold;
+  color: #000;
 }
 .table td {
   padding: .4rem .4rem .2rem 1.4rem;
@@ -652,6 +651,71 @@ div.data-grid {
   margin-top: 1.8rem;
   padding-bottom: 1rem;
 }
+.data-grid div#snippet-basicDataGrid-filter-filter {
+  margin-bottom: 0;
+  width: 100%;
+  background-color: #fafafa;
+  padding-top: .4rem;
+  padding-bottom: .4rem;
+  font-size: .75rem;
+  color: #444;
+  border-top: 1px solid #;
+}
+.data-grid div.panel-default {
+  display: flex;
+  -webkit-justify-content: space-between;
+  justify-content: space-between;
+}
+.data-grid div.panel-heading {
+  display: none;
+}
+.data-grid div.panel-body {
+  display: inline-block;
+  width: 100%;
+  padding-left: 1.4rem;
+}
+.data-grid .form-inline {
+  display: flex;
+  -webkit-justify-content: space-between;
+  justify-content: space-between;
+  width: 100%;
+}
+.data-grid .form-group {
+  display: inline-block;
+}
+.data-grid .form-group label {
+  font-weight: bold;
+  margin-right: .3rem;
+}
+.data-grid .form-group input[type="text"] {
+  width: 5rem;
+  padding: .1rem .2rem;
+  border: 1px solid #ddd;
+  -webkit-border-radius: 3px;
+  border-radius: 3px;
+}
+.data-grid .form-group #frm-obsFilter-sqmavg_gt {
+  width: 3rem;
+}
+.data-grid .form-group #frm-obsFilter-sqmavg_lt {
+  width: 3rem;
+}
+.data-grid .form-group #frm-obsFilter-filter {
+  color: #fff;
+  border-color: #206020;
+  background-color: #206020;
+  padding: .1rem .7rem;
+  font-size: .75rem;
+  margin-top: 0;
+}
+.data-grid .form-group #frm-obsFilter-reset {
+  color: #fff;
+  border-color: #990000;
+  background-color: #990000;
+  padding: .1rem .7rem;
+  font-size: .75rem;
+  margin-top: 0;
+}
 .data-grid div.pager-form {
   font-size: .8rem;
   display: block;
@@ -783,10 +847,12 @@ div.data-grid {
   font-size: .9rem;
 }
 .data-grid tbody tr:hover {
-  background-color: #fafafa;
+  background-color: #eaf0fc;
   cursor: pointer;
-  color: #222;
-  font-weight: bold;
+  color: #000;
+}
+.data-grid tbody tr:hover .btn {
+  background-color: #eaf0fc;
 }
 .data-grid a.btn {
   border: none;

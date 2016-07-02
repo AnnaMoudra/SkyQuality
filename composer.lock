@@ -1,10 +1,11 @@
 {
     "_readme": [
         "This file locks the dependencies of your project to a known state",
-        "Read more about it at http://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
+        "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
     "hash": "8cecb87b58111c6a7526679fb3766d57",
+    "content-hash": "170d68c5328fff000c49fb7fd77acf09",
     "packages": [
         {
             "name": "dg/adminer-custom",
@@ -155,16 +156,16 @@
         },
         {
             "name": "mesour/datagrid",
-            "version": "v2.0.5",
+            "version": "v2.0.7.2",
             "source": {
                 "type": "git",
                 "url": "https://github.com/mesour/DataGrid.git",
-                "reference": "8c7ecffe0bfc4664800d24cc2156be749c8bc99c"
+                "reference": "64545148248b03561708104fa39ff06ebacaaf2d"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/mesour/DataGrid/zipball/8c7ecffe0bfc4664800d24cc2156be749c8bc99c",
-                "reference": "8c7ecffe0bfc4664800d24cc2156be749c8bc99c",
+                "url": "https://api.github.com/repos/mesour/DataGrid/zipball/64545148248b03561708104fa39ff06ebacaaf2d",
+                "reference": "64545148248b03561708104fa39ff06ebacaaf2d",
                 "shasum": ""
             },
             "require": {
@@ -203,7 +204,7 @@
                 "grid",
                 "nette"
             ],
-            "time": "2015-03-07 20:31:20"
+            "time": "2016-04-28 09:37:21"
         },
         {
             "name": "nette/application",
@@ -372,17 +373,20 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/nette/component-model.git",
-                "reference": "8f5dc0409df2adaf909c61d20ca58cc14f81902d"
+                "reference": "b519ac6ddaf03c04d7772068af44d25b461b9649"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/nette/component-model/zipball/8f5dc0409df2adaf909c61d20ca58cc14f81902d",
-                "reference": "8f5dc0409df2adaf909c61d20ca58cc14f81902d",
+                "url": "https://api.github.com/repos/nette/component-model/zipball/b519ac6ddaf03c04d7772068af44d25b461b9649",
+                "reference": "b519ac6ddaf03c04d7772068af44d25b461b9649",
                 "shasum": ""
             },
             "require": {
                 "nette/utils": "~2.2",
                 "php": ">=5.3.1"
+            },
+            "conflict": {
+                "nette/nette": "<2.2"
             },
             "require-dev": {
                 "nette/tester": "~1.0"
@@ -411,7 +415,7 @@
             ],
             "description": "Nette Component Model",
             "homepage": "http://nette.org",
-            "time": "2014-05-11 16:36:32"
+            "time": "2014-06-24 11:25:37"
         },
         {
             "name": "nette/database",
@@ -518,17 +522,20 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/nette/finder.git",
-                "reference": "04be9fa88a3b7ec66624fe3d7a5dc965e10b4fdf"
+                "reference": "ab0d08478952e754f21b2e325d6703aa77d61b72"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/nette/finder/zipball/04be9fa88a3b7ec66624fe3d7a5dc965e10b4fdf",
-                "reference": "04be9fa88a3b7ec66624fe3d7a5dc965e10b4fdf",
+                "url": "https://api.github.com/repos/nette/finder/zipball/ab0d08478952e754f21b2e325d6703aa77d61b72",
+                "reference": "ab0d08478952e754f21b2e325d6703aa77d61b72",
                 "shasum": ""
             },
             "require": {
                 "nette/utils": "~2.2",
                 "php": ">=5.3.1"
+            },
+            "conflict": {
+                "nette/nette": "<2.2"
             },
             "require-dev": {
                 "nette/tester": "~1.0"
@@ -557,7 +564,7 @@
             ],
             "description": "Nette Finder: Files Searching",
             "homepage": "http://nette.org",
-            "time": "2014-05-11 16:43:26"
+            "time": "2014-06-24 11:22:41"
         },
         {
             "name": "nette/forms",
@@ -616,20 +623,26 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/nette/http.git",
-                "reference": "964849997fd43590014fcddf811634c5ded373cb"
+                "reference": "8986405412161fdfc9b96b5501ef4d6f991a676f"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/nette/http/zipball/964849997fd43590014fcddf811634c5ded373cb",
-                "reference": "964849997fd43590014fcddf811634c5ded373cb",
+                "url": "https://api.github.com/repos/nette/http/zipball/8986405412161fdfc9b96b5501ef4d6f991a676f",
+                "reference": "8986405412161fdfc9b96b5501ef4d6f991a676f",
                 "shasum": ""
             },
             "require": {
                 "nette/utils": "~2.2",
                 "php": ">=5.3.1"
             },
+            "conflict": {
+                "nette/nette": "<2.2"
+            },
             "require-dev": {
                 "nette/tester": "~1.0"
+            },
+            "suggest": {
+                "ext-fileinfo": "to detect type of uploaded files"
             },
             "type": "library",
             "autoload": {
@@ -655,7 +668,7 @@
             ],
             "description": "Nette HTTP Component",
             "homepage": "http://nette.org",
-            "time": "2014-05-11 16:46:44"
+            "time": "2014-06-24 11:19:07"
         },
         {
             "name": "nette/mail",
@@ -842,17 +855,20 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/nette/php-generator.git",
-                "reference": "0172174ed9892df991517d09c60de92f1ebf88be"
+                "reference": "f19807f83930f09bce8b42c9e714297be7f701d6"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/nette/php-generator/zipball/0172174ed9892df991517d09c60de92f1ebf88be",
-                "reference": "0172174ed9892df991517d09c60de92f1ebf88be",
+                "url": "https://api.github.com/repos/nette/php-generator/zipball/f19807f83930f09bce8b42c9e714297be7f701d6",
+                "reference": "f19807f83930f09bce8b42c9e714297be7f701d6",
                 "shasum": ""
             },
             "require": {
                 "nette/utils": "~2.2",
                 "php": ">=5.3.1"
+            },
+            "conflict": {
+                "nette/nette": "<2.2"
             },
             "require-dev": {
                 "nette/tester": "~1.0"
@@ -881,7 +897,7 @@
             ],
             "description": "Nette PHP Generator",
             "homepage": "http://nette.org",
-            "time": "2014-05-11 16:52:29"
+            "time": "2014-06-24 11:11:07"
         },
         {
             "name": "nette/reflection",
@@ -889,18 +905,22 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/nette/reflection.git",
-                "reference": "d49797878f4c8258476aa9f3969c90e9c76ae92c"
+                "reference": "419708adda0e74e935381e887928c978881108f1"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/nette/reflection/zipball/d49797878f4c8258476aa9f3969c90e9c76ae92c",
-                "reference": "d49797878f4c8258476aa9f3969c90e9c76ae92c",
+                "url": "https://api.github.com/repos/nette/reflection/zipball/419708adda0e74e935381e887928c978881108f1",
+                "reference": "419708adda0e74e935381e887928c978881108f1",
                 "shasum": ""
             },
             "require": {
+                "ext-tokenizer": "*",
                 "nette/caching": "~2.2",
                 "nette/utils": "~2.2",
                 "php": ">=5.3.1"
+            },
+            "conflict": {
+                "nette/nette": "<2.2"
             },
             "require-dev": {
                 "nette/tester": "~1.0"
@@ -929,7 +949,7 @@
             ],
             "description": "Nette PHP Reflection Component",
             "homepage": "http://nette.org",
-            "time": "2014-05-11 16:53:31"
+            "time": "2014-06-24 11:09:56"
         },
         {
             "name": "nette/robot-loader",
@@ -1035,17 +1055,20 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/nette/security.git",
-                "reference": "9bd11f5d11e37f995c0b382748aa66a592002249"
+                "reference": "fee7533d0b2a47f18648f0ca4b961a6551a8e3e2"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/nette/security/zipball/9bd11f5d11e37f995c0b382748aa66a592002249",
-                "reference": "9bd11f5d11e37f995c0b382748aa66a592002249",
+                "url": "https://api.github.com/repos/nette/security/zipball/fee7533d0b2a47f18648f0ca4b961a6551a8e3e2",
+                "reference": "fee7533d0b2a47f18648f0ca4b961a6551a8e3e2",
                 "shasum": ""
             },
             "require": {
                 "nette/utils": "~2.2",
                 "php": ">=5.3.1"
+            },
+            "conflict": {
+                "nette/nette": "<2.2"
             },
             "require-dev": {
                 "nette/tester": "~1.0"
@@ -1074,7 +1097,7 @@
             ],
             "description": "Nette Security: Access Control Component",
             "homepage": "http://nette.org",
-            "time": "2014-05-11 16:57:53"
+            "time": "2014-06-24 11:08:00"
         },
         {
             "name": "nette/tokenizer",

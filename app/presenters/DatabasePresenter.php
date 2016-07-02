@@ -3,7 +3,8 @@
 namespace App\Presenters;
 
 use Nette,
-    App\Model;
+    App\Model,
+    Nette\Application\UI\Form;
 use Nette\Database\Table\Selection;
 use Nette\Utils\Arrays,
     Nette\Utils\Html;
@@ -65,11 +66,31 @@ class DatabasePresenter extends BasePresenter {
         $primarykey = 'id';
         $grid->setPrimaryKey($primarykey);
         $grid->setLocale('cs');
-        $grid->setDataSource($source);
+        $grid->setDataSource($source);        
+        $grid->enableFilter($this['obsFilter']);
+        $filter_values = $grid->getFilterValues();
+
+        if (empty($filter_values) === FALSE) {
+            if (isset($filter_values['date_time']) && !empty($filter_values['date_time'])) {
+                $source->where('date LIKE ?', '%' . $filter_values['date_time'] . '%');
+            }
+            if (isset($filter_values['location']) && !empty($filter_values['location'])) {
+                $source->where('location.name LIKE ?', '%' . $filter_values['location'] . '%');
+            }
+            if (isset($filter_values['observer_name']) && !empty($filter_values['observer_name'])) {
+                $source->where('observer LIKE ?', '%' . $filter_values['observer_name'] . '%');
+            }
+            if (isset($filter_values['sqmavg_gt']) && !empty($filter_values['sqmavg_gt'])) {
+                $source->where('sqmavg >= ?', $filter_values['sqmavg_gt']);
+            }
+            if (isset($filter_values['sqmavg_lt']) && !empty($filter_values['sqmavg_lt'])) {
+                $source->where('sqmavg <= ?', $filter_values['sqmavg_lt']);
+            }
+        }
+
         $grid->setDefaultOrder('id', 'DESC');
         $grid->addDate('date', 'Datum a čas (UTC)')
-                ->setFormat('d. m. Y —&\nb\sp;H:i')
-                ->setOrdering(TRUE);
+             ->setFormat('d. m. Y —&\nb\sp;H:i');
         $grid->addText('name', 'Lokalita');
         $grid->addNumber('sqmavg', 'Jas')
              ->setDecimals(2)
@@ -127,6 +148,29 @@ class DatabasePresenter extends BasePresenter {
         return $grid;
     }
 
+        /**
+     * @author Milada Moudrá <milada.moudra@gmail.com>
+     * @description Vytváří filtrovaci formular.
+     * @memberOf DatabasePresenter 
+     * @param none
+     * @return form
+     */
+
+    protected function createComponentObsFilter() {
+        $form = new Form;
+        $form->addText('date_time', 'Datum a čas');
+        $form->addText('location', 'Lokalita');
+        $form->addText('sqmavg_lt', 'Jas <');
+        $form->addText('sqmavg_gt', 'Jas > ');
+        $form->addText('observer_name', 'Pozorovatel');
+     
+        $form->addSubmit('filter', 'Filtrovat'); // required button with name filter
+        $form->addSubmit('reset', 'Reset') // required button with name reset
+            ->setAttribute('class', 'btn btn-danger');
+     
+        return $form;
+    }
+
     /**
      * @author Anna Moudrá <anna.moudra@gmail.com>
      * @description Vytváří tabulku s lokalitami.
@@ -170,6 +214,7 @@ class DatabasePresenter extends BasePresenter {
         $grid->setPrimaryKey($primarykey);
         $grid->setLocale('cs');
         $grid->setDataSource($source);
+        
         $grid->setDefaultOrder('name', 'ASC');
         $grid->addText('name', 'Název')
              ->setAttribute('class', 'data-grid__name');
@@ -200,6 +245,7 @@ class DatabasePresenter extends BasePresenter {
         $grid->enableExport($this->context->parameters['wwwDir'] . '/../temp/cache');
         return $grid;
     }
+
 
     /**
      * @author Anna Moudrá <anna.moudra@gmail.com>

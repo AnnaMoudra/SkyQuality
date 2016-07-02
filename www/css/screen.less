@@ -19,6 +19,7 @@
 @transparency-color: #8585ad;
 @photo-color: #ccff33;
 @th-color: #fafafa;
+@th-color-hover: #eaf0fc;
 @btn-bgcolor-light: #fff;
 @btn-bdcolor: #888;
 
@@ -407,10 +408,9 @@ footer {
 	}
 	& .table__row {
 		&:hover {
-		    background-color: @th-color;
+		    background-color: @th-color-hover;
 		    cursor: pointer;
-		    color: #222;
-		    font-weight: bold;
+		    color: #000;
 		}
 	}
 	& td {
@@ -708,6 +708,71 @@ div.data-grid {
 .data-grid {
 	margin-top: 1.8rem;
 	padding-bottom: 1rem;
+	& div#snippet-basicDataGrid-filter-filter {
+		margin-bottom: 0;
+		width: 100%;
+		background-color: @th-color;
+		padding-top: .4rem;
+		padding-bottom: .4rem;
+		font-size: .75rem;
+		color: #444;
+		border-top: 1px solid #;
+	}
+	& div.panel-default {
+		display: flex;
+		-webkit-justify-content: space-between;
+		        justify-content: space-between;
+	}
+	& div.panel-heading {
+		display: none;	
+	}
+	& div.panel-body {
+		display: inline-block;	
+		width: 100%;
+		padding-left: 1.4rem;
+	}
+	& .form-inline {
+		display: flex;
+		-webkit-justify-content: space-between;
+		        justify-content: space-between;
+		width: 100%;
+	}
+	& .form-group {
+		display: inline-block;
+		& label {
+			font-weight: bold;
+			margin-right: .3rem;
+		}
+		& input[type="text"] {
+			width: 5rem;
+			padding: .1rem .2rem;
+			border: 1px solid #ddd;
+			-webkit-border-radius: 3px;
+			        border-radius: 3px;
+		}
+		& #frm-obsFilter-sqmavg_gt {
+				width: 3rem;
+		}
+		& #frm-obsFilter-sqmavg_lt {
+				width: 3rem;
+		}
+		& #frm-obsFilter-filter {
+			color: #fff;
+			border-color: #206020;
+			background-color: #206020;
+			padding: .1rem .7rem;
+			font-size: .75rem;
+			margin-top: 0;
+		}
+		& #frm-obsFilter-reset {
+			color: #fff;
+			border-color: #990000;
+			background-color: #990000;
+			padding: .1rem .7rem;
+			font-size: .75rem;
+			margin-top: 0;
+		}
+	}
 	& div.pager-form {
 		font-size: .8rem;
 		display: block;
@@ -838,10 +903,12 @@ div.data-grid {
 	}
 	& tbody tr {
 		&:hover {
-		    background-color: @th-color;
+		    background-color: @th-color-hover;
 		    cursor: pointer;
-		    color: #222;
-		    font-weight: bold;
+		    color: #000;
+		    & .btn {
+		    	background-color: @th-color-hover;	
+		    }
 		}		
 	}
 	& a.btn {

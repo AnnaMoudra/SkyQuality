@@ -6,7 +6,7 @@
 
 return array(
     'Date filters'  =>  'Filtry datumu',
-    'Reset filter'  =>  'Vymazat filtr',
+    'Reset'         =>  'Vymazat',
     'Edit filter'   =>  'Upravit filtr',
     'Equal to'      =>  'Rovná se',
     'Time period'   =>  'Časový úsek',
@@ -36,7 +36,7 @@ return array(
     'Ok'            =>  'Ok',
     'Storno'        =>  'Storno',
     'Selected'      =>  'Vybrané',
-    'Export to csv' =>  'Exportovat do csv',
+    'Export to csv' =>  'Export do csv',
     'first'         =>  'první',
     'prev'          =>  'předchozí',
     'next'          =>  'následujcí',
@@ -79,5 +79,8 @@ return array(
     'close all' => 'zavřít vše',
     'Page' => 'Strana',
     'Go!' => 'Přejít!',
-    'Inverse selection' => 'Obrátit pořadí'
+    'Inverse selection' => 'Obrátit pořadí',
+    'true'            =>  'pravda',
+    'false'             =>  'nepravda',
+    'empty'          =>  'prázdný',
 );

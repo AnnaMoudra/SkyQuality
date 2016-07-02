@@ -2,8 +2,6 @@
 
 {block content}
 <div class="content content--observation">
-    <div class="db__links--left"><a n:href="Database:" class="button">zpět na databázi pozorování</a></div>
-
     <div class="db__links">
         {if $user->id == $observation->user_id}
             <a n:href="edit $observation->id" class="
