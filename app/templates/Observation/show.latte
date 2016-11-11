@@ -1,59 +1,61 @@
 {* Latte template *}
 
 {block content}
-<div class="page">
-    <div style="float:left;"><a n:href="Database:" class="navbutton">zpět na databázi pozorování</a></div>
-
-    <div style="float:right;">
+<div class="content content--observation">
+    <div class="db__links">
         {if $user->id == $observation->user_id}
-            <a n:href="edit $observation->id" class="navbutton">Editovat pozorování</a> &nbsp;
-            <a n:href="delete $observation->id" class="navbutton">Smazat pozorování</a>
+            <a n:href="edit $observation->id" class="
+    button">Editovat pozorování</a> &nbsp;
+            <a n:href="delete $observation->id" class="
+    button">Smazat pozorování</a>
         {/if}
     </div>
-    <div class="cistic" style="margin-bottom:2em;">
+    <div class="cistic">
     </div>
 
-
-
-    <div class="post">
-        <div style="margin-bottom:2em;">
-            <span class="obsheadl">{$observation->date|date:'Y/m/d'} • {$observation->location->name}</span><span> &mdash; detail pozorování</span><br />
-            <span class="date">Přidáno: {$observation->created_at|date:'d.m.y — H:i'}</span></div>
+    <div class="observation">
+        <div class="observation__title">
+            <h2>{$observation->date|date:'d/m/Y'} • {$observation->location->name}</h2><span> &mdash; detail pozorování</span>
+            <br />
+            <span class="smallnote">
+                Přidáno: {$observation->created_at|date:'d.m.y — H:i'}
+            </span>
+        </div>
         <div class="container">
             <div class="row">
-                <div class="col otable">Datum a čas měření (UT)</div>
-                <div class="col atable">{$observation->date|date:'d.m.Y — H:i'}</div>
+                <div class="col col--first">Datum a čas měření (UT)</div>
+                <div class="col col--second">{$observation->date|date:'d.m.Y — H:i'}</div>
             </div>
             <div class="row">
-                <div class="col otable">Pozorovatel</div>
-                <div class="col atable">{$observation->observer}</div>
+                <div class="col col--first">Pozorovatel</div>
+                <div class="col col--second">{$observation->observer}</div>
             </div> 
             <div class="row">
-                <div class="col otable">Lokalita</div>
-                <div class="col atable"><a href={link Location:show $observation->location->id} class="ruzova">{$observation->location->name}</a></div>
+                <div class="col col--first">Lokalita</div>
+                <div class="col col--second"><a href={link Location:show $observation->location->id}>{$observation->location->name}</a></div>
             </div>
         </div>
         {if $observation->weather}
-            <h3 class="h3">Počasí</h3>
+            <h3>Počasí</h3>
             <div class="container">
                 <div class="row">
-                    <div class="col otable">Popis počasí</div>
-                    <div class="col atable">{$observation->weather}</div>
+                    <div class="col col--first">Popis počasí</div>
+                    <div class="col col--second">{$observation->weather}</div>
                 </div>
             </div>
         {/if}
 
-        <h3 class="h3">Kvalita oblohy</h3>
+        <h3>Kvalita oblohy</h3>
         <div class="container qual">
             <div class="row">
-                <div class="col otable">SQM hodnota</div>
-                <div class="col atable"><span class="zvyrazneni">{$observation->sqmavg|number:2}</span></div>
+                <div class="col col--first">Průměrný jas</div>
+                <div class="col col--second"><span class="large-bold">{$observation->sqmavg|number:2}</span> <span class="smallnote">[mag/arsec<sup>2</sup>]</span></div>
             </div>
             <div class="row">
-                <div class="col otable">Detaily SQM</div>
-                <div class="col atable">
+                <div class="col col--first">Detaily měření</div>
+                <div class="col col--second">
                     {foreach $sqm as $sqm}
-                        <div><strong>{$sqm->valueavg|number:2}</strong> • výška: {$sqm->height}°{if $sqm->height != '90'}, azimut: {$sqm->azimute}°{/if} • [{$sqm->value1|number:2}{if $sqm->value2} – {$sqm->value2|number:2}{/if}{if $sqm->value3} – {$sqm->value3|number:2}{/if}{if $sqm->value4} – {$sqm->value4|number:2}{/if}{if $sqm->value5} – {$sqm->value5|number:2}{/if}]
+                        <div><strong>{$sqm->valueavg|number:2}</strong> • výška: {$sqm->height}°{if $sqm->height != '90'}, azimut: {$sqm->azimute}°{/if} • [{$sqm->value1|number:2}{if $sqm->value2} – {$sqm->value2|number:2}{/if}{if $sqm->value3} – {$sqm->value3|number:2}{/if}{if $sqm->value4} – {$sqm->value4|number:2}{/if}{if $sqm->value5} – {$sqm->value5|number:2}{/if}] <span class="smallnote">[mag/arsec<sup>2</sup>]</span>
                         </div>
 
                     {/foreach}
@@ -61,38 +63,38 @@
             </div> 
             {if $observation->bortle}
                 <div class="row">
-                    <div class="col otable">Bortle</div>
-                    <div class="col atable"><span class="zvyrazneni">{$observation->bortle}{if $observation->bortlespec}{$observation->bortlespec|replace:'horší':'-'|replace:'lepší':'+'}{/if}</span></div>
+                    <div class="col col--first">Bortle</div>
+                    <div class="col col--second"><span class="large-bold">{$observation->bortle}{if $observation->bortlespec}{$observation->bortlespec|replace:'horší':'−'|replace:'lepší':'+'}{/if}</span></div>
                 </div> 
             {/if}
             {if $observation->nelm}
                 <div class="row">
-                    <div class="col otable">MHV</div>
-                    <div class="col atable"><b>{$observation->nelm}</b> {if $observation->nelmHD} (použitá HD hvězda: {$observation->nelmHD}){/if}</div>
+                    <div class="col col--first">MHV</div>
+                    <div class="col col--second"><b>{$observation->nelm}</b> {if $observation->nelmHD} (použitá HD hvězda: {$observation->nelmHD}){/if}</div>
                 </div>
             {/if}
             {if $observation->transparency != 0}
                 <div class="row">
-                    <div class="col otable">Průzračnost</div>
-                    <div class="col atable">{$observation->transparency|replace:6:'Neobvyklé podmínky',
+                    <div class="col col--first">Průzračnost</div>
+                    <div class="col col--second">{$observation->transparency|replace:6:'Neobvyklé podmínky',
                         5:'Velmi špatná',4:'Špatná',3:'Průměrná',2:'Dobrá',1:'Vynikající'}</div>
                 </div>
             {/if}
             {if $observation->disturbance}
                 <div class="row">
-                    <div class="col otable">Rušení</div>
-                    <div class="col atable">{$observation->disturbance}</div>
+                    <div class="col col--first">Rušení</div>
+                    <div class="col col--second">{$observation->disturbance}</div>
                 </div>
             {/if}
             {if $observation->info}
                 <div class="row">
-                    <div class="col otable">Popis</div>
-                    <div class="col atable">{$observation->info}</div>
+                    <div class="col col--first">Popis</div>
+                    <div class="col col--second">{$observation->info}</div>
                 </div>
             {/if}
             <div class="row">
-                <div class="col otable">Měřící zařízení</div>
-                <div class="col atable"><a href={link Equipment:default $observation->equipment->id}>{$observation->equipment->name}</a> (typ: {if $observation->equipment->type == NULL} SQM-L {else} {$observation->equipment->type}{/if}, model: {$observation->equipment->model})</div>
+                <div class="col col--first">Měřící zařízení</div>
+                <div class="col col--second"><a href={link Equipment:default $observation->equipment->id}>{$observation->equipment->name}</a> (typ: {if $observation->equipment->type == NULL} SQM-L {else} {$observation->equipment->type}{/if}, model: {$observation->equipment->model})</div>
             </div> 
         </div>  
 
@@ -112,33 +114,37 @@
         {/block}
 
         {if $observation->related('photos')->count('*') > 0}
-            <h3 class="h3">Fotky</h3>
-            <div class="container photos" align="center">
-                {for $i = 0; $i < $phosel->count('*'); $i++}                                   
-                    {if $i%6 == 0 || $i == 0 }<div class="rowphotos">{/if}
-                        <div class="colphotos">
-                            <a class="fancybox" rel="group" 
-                               href='{$imgl[$i]['fotky']|dataStream}' 
-                               title='{$imgl[$i]['popisky']}'>
-                                <div class="photodiv">
-                                    <img src='{$imgl[$i]['fotky']|dataStream}' />
-                                </div>
-                            </a>
-                            {if $user->id == $observation->user_id} 
-                                <a href="{link Observation:erasePhoto $imgl[$i]['id'], $observation->id}" class="ruzova">Smazat</a>
-                            {/if}
-                        </div>
-                        {if $i%6 == 5 || $i == ($phosel->count('*')-1)}</div>{/if}
-                    {/for}
+	        <h3 class="h3">Fotky</h3>
+	        <div class="container photos" align="center">
+            <div class="row--photos">
+            {for $i = 0; $i < $phosel->count('*'); $i++}
+              <div class="col--photos">
+                <a class="fancybox" rel="group" 
+                   href='{$imgl[$i]['fotky']|dataStream}' 
+                   title='{$imgl[$i]['popisky']}'>
+                  <div class="photodiv">
+                    <img src='{$imgl[$i]['fotky']|dataStream}' />
+                  </div>
+                </a>
+                {if $user->id == $observation->user_id} 
+                  <a href="{link Observation:erasePhoto $imgl[$i]['id'], $observation->id}">Smazat</a>
+                {/if}
+              </div>
+          	{/for}
             </div>
+	        </div>
         {/if}
 
-        <div class="grafMereniLoc">
-            <h3  class="h3" style="margin-bottom: 0.2em">Měření na této lokalitě</h3>
-            <div class="date">Vybráním části grafu kurzorem lze graf přiblížit</div>
-            <div>
-                {include graph.latte}
-            </div>
+        <div class="graph__location">
+            <h3>Měření na této lokalitě</h3>
+            {if $sqmcount >=3 }
+                <div class="smallnote">Vybráním části grafu kurzorem lze graf přiblížit</div>
+                {include 'graph.latte'}
+                </div>
+                {else}
+                <div class="graph__call">Na této lokalitě je příliš málo měření.<br />{if $user->loggedIn}<a n:href="Observation:create">
+                    Přidejte další měření</a>{else}<a  n:href="Sign:in">Přidejte další měření</a>{/if} pro zobrazení grafu.</div>
+                {/if}
         </div>
 
     </div>
@@ -147,14 +153,20 @@
 
 
     <div class="comments">
-        <h3  class="h3">Vložte komentář</h3>
+        <h3>Vložte komentář</h3>
 
-        <div class="commentForm">{control commentForm}</div>
+        <div class="comments__form">{control commentForm}</div>
 
         {foreach $comments as $comment}
             <div class="comment">
-                <p><span class="commenter">{$comment->name}</span> • <span class="commentDate">{$comment->created_at|date:'d.m.Y — H:i'}</span></p>
-                <div class="commentContent">{$comment->content}</div>
+                <p>
+                <span class="comment__user">
+                    {$comment->name}
+                </span> • <span class="comment__date">
+                    {$comment->created_at|date:'d.m.Y — H:i'}
+                </span>
+                </p>
+                <div class="comment__content">{$comment->content}</div>
             </div>
         {/foreach}
 

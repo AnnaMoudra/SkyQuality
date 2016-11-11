@@ -42,37 +42,38 @@ class UserPresenter extends BasePresenter {
      */
     protected function createComponentRegisterForm() {
         $form = new Nette\Application\UI\Form;
-        $form->addText('username', 'Uživatelské jméno:')
+        $form->addText('username', 'Uživatelské jméno')
                 ->setRequired('Zadejte vaše uživatelské jméno.')
                 ->setOption('description', Html::el('img')
                         ->class('help')
-                        ->src('../www/images/help.svg')
+                        ->src('http://www.skyquality.cz/images/icons/help.svg')
                         ->alt('Jméno, email nebo přezdívka, pod kterou se budete přihlašovat')
                         ->title('Jméno, email nebo přezdívka, pod kterou se budete přihlašovat'));
 
-        $form->addText('name', 'Jméno:')
+        $form->addText('name', 'Jméno')
                 ->setRequired('Zadejte jméno, které se bude zobrazovat u Vašich pozorování.')
                 ->setOption('description', Html::el('img')
                         ->class('help')
-                        ->src('../www/images/help.svg')
+                        ->src('http://www.skyquality.cz/images/icons/help.svg')
                         ->alt('Jméno, které se bude předvyplňovat u Vašich pozorování')
                         ->title('Jméno, které se bude předvyplňovat u Vašich pozorování'));
 
-        $form->addText('email', 'Email:')
+        $form->addText('email', 'Email')
+                ->settype('email')
                 ->setRequired('Zadejte platnou emailovou adresu.')
                 ->addRule(Form::EMAIL, 'Zadaná adresa není platná');
 
-        $form->addPassword('password1', 'Heslo:')
+        $form->addPassword('password1', 'Heslo')
                 ->setRequired('Zadejte heslo.')
                 ->addRule(Form::MIN_LENGTH, 'Heslo musí mít alespoň %d znaků', 6)
                 ->setOption('description', Html::el('img style="margin-left: 0.1em;"')
                         ->class('help')
-                        ->src('../www/images/help.svg')
+                        ->src('http://www.skyquality.cz/images/icons/help.svg')
                         ->alt('Heslo musí mít aspoň 6 znaků')
                         ->title('Heslo musí mít aspoň 6 znaků'));
 
 
-        $form->addPassword('password2', 'Potvrďte heslo:')
+        $form->addPassword('password2', 'Potvrďte heslo')
                 ->setRequired('Potvrďte heslo.')
                 ->addRule(Form::EQUAL, 'Hesla se neshodují.', $form['password1']);
 

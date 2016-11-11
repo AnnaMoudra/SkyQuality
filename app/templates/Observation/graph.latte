@@ -1,9 +1,7 @@
 {* Latte template *}
 
 {block js}
-<br>
-<div align="center">
-    <div id="graf2" style="width:100%; height: 450px;"></div></div>
+<div id="graf__observation"></div>
 <script type='text/javascript' src='/../../vendor/highcharts/js/highcharts.js'></script>
 
 <script type="text/javascript">
@@ -11,10 +9,8 @@ var pole2 = {$data2};
 var pole3 = {$data3};
 var pole4 = {$data4};
 
-
-
 $(function () {
-    $('#graf2').highcharts({
+    $('#graf__observation').highcharts({
         chart: {
             type: 'scatter',
             zoomType: 'xy'

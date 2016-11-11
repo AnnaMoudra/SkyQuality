@@ -5,6 +5,7 @@ namespace App\Presenters;
 use Nette,
     App\Model;
 use Nette\Database\Table\Selection;
+use Nette\Utils\Html;
 use Mesour\DataGrid,
     Mesour\DataGrid\Grid,
     Mesour\DataGrid\Extensions\Pager,
@@ -53,7 +54,7 @@ class PersonalPresenter extends BasePresenter {
      */
     protected function createComponentMyObsGrid($name) {
         $selection = $this->database->table('observations')->where('user.id', $this->user->id);
-        $selection->select('observations.id, date, observer, sqmavg,' . 'location.name');
+        $selection->select('observations.id, date, observations.info, bortle, transparency, equipment_id, observer, sqmavg,' . 'location.name');
 
         $source = new NetteDbDataSource($selection);
         $grid = new Grid($this, $name);
@@ -62,16 +63,55 @@ class PersonalPresenter extends BasePresenter {
         $grid->setLocale('cs');
         $grid->setDataSource($source);
         $grid->addDate('date', 'Datum')
-                ->setFormat('d.m.Y - H:i')
+                ->setFormat('d.m.Y —&\nb\sp;H:i')
                 ->setOrdering(TRUE);
         $grid->addText('name', 'Lokalita');
-        $grid->addNumber('sqmavg', 'Průměrný jas [MSA]')->setDecimals(2)->setAttribute('class', 'sqmGrid');
+        $grid->addNumber('sqmavg', 'Jas')->setDecimals(2)->setAttribute('class', 'data-grid__sqm');
+        $grid->addText('flags', '')
+             ->setAttribute('class', 'data-grid__flags')
+             ->setOrdering(FALSE)
+             ->setCallback(function($row) {
+                if ($this->database->table('equipment')->where('id',$row['equipment_id'])->fetch()->type == 'SQM') {
+                        return HTML::el('span')->class("flag flag--sqmw")->title("Obsahuje SQM-W měření");
+                    }
+                else {
+                    return HTML::el('span')->class("flag flag--sqml")->title("Obsahuje SQM-L měření");
+                }});
+        $grid->addText('flags', '')
+             ->setAttribute('class', 'data-grid__flags')
+             ->setOrdering(FALSE)
+             ->setCallback(function($row) {
+                if ($row['bortle']) {
+                        return HTML::el('span')->class("flag flag--bortle")->title("Obsahuje Bortle odhad");
+                    }});
+        $grid->addText('flags', '')
+             ->setAttribute('class', 'data-grid__flags') 
+             ->setOrdering(FALSE)
+             ->setCallback(function($row) {
+                if ($row['transparency']) {
+                        return HTML::el('span')->class("flag flag--transparency")->title("Obsahuje odhad průzračnosti");
+                    }});
+        $grid->addText('flags', '')
+             ->setAttribute('class', 'data-grid__flags') 
+             ->setOrdering(FALSE)
+             ->setCallback(function($row) {
+                if ($row['info']) {
+                        return HTML::el('span')->class("flag flag--info")->title("Obsahuje podrobnější popis");
+                    }});
+        $grid->addText('flags', '')
+             ->setOrdering(FALSE)
+             ->setAttribute('class', 'data-grid__flags') 
+             ->setCallback(function($row) {
+                if ($this->database->table('photos')->where('observation_id',$row['id'])->count('*') > 0) {
+                        return HTML::el('span')->class("flag flag--photo")->title("Obsahuje fotografie");
+                    }});
         $action = $grid->addActions('');
         $grid->setDefaultOrder('date', 'DESC');
         $action->addButton()
                 ->setType('btn-primary')
-                ->setText('detail pozorování')
-                ->setTitle('detail')
+                ->setText('detail')
+                ->setTitle('detail')                
+                ->setAttribute('class', 'data-grid__detail')
                 ->setAttribute('href', new Link('Observation:show', array(
                     'observationId' => '{' . $primarykey . '}'
         )));

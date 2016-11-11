@@ -43,14 +43,10 @@ class PasswordPresenter extends BasePresenter {
         $form = new Nette\Application\UI\Form;
 
         $form->addText('email', '')
-                ->setDefaultValue('@')
-                ->setRequired('Zadejte email:')
-                ->addRule(Form::EMAIL, 'Zadaná adresa není platná.')
-                ->setOption('description', Html::el('img')
-                        ->class('help')
-                        ->src('../www/images/help.svg')
-                        ->alt('Zadejte e-mail, pod kterým jste zaregistrován/a')
-                        ->title('Zadejte e-mail, pod kterým jste zaregistrován/a'));
+                ->setType('email')
+                ->setAttribute('placeholder', 'E-mail')
+                ->setRequired('Zadejte email')
+                ->addRule(Form::EMAIL, 'Zadaná adresa není platná.');
        
         $form->addHidden('newpass', Strings::random(10)); //vytvoří náhodný string pro ověření uživatele při změně hesla
 
@@ -100,11 +96,11 @@ class PasswordPresenter extends BasePresenter {
     protected function createComponentChangePasswordForm() {
         $form = new Nette\Application\UI\Form;
 
-        $form->addPassword('password1', 'Heslo:')
+        $form->addPassword('password1', 'Heslo')
                 ->setRequired('Zadejte nové heslo.')
                 ->addRule(Form::MIN_LENGTH, 'Heslo musí mít alespoň %d znaků', 6);
 
-        $form->addPassword('password2', 'Potvrďte heslo:')
+        $form->addPassword('password2', 'Potvrďte heslo')
                 ->setRequired('Potvrďte heslo.')
                 ->addRule(Form::EQUAL, 'Hesla se neshodují.', $form['password1']);
 

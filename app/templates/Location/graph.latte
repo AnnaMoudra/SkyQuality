@@ -1,16 +1,14 @@
 {* Latte template *}
 
 {block js}
-<br>
-<div align="center">
-    <div id="graf2" style="width:100%; height: 450px;"></div></div>
+<div id="graph__location" style="width:100%; height: 450px;"></div>
 <script type='text/javascript' src='/../../vendor/highcharts/js/highcharts.js'></script>
 
 <script type="text/javascript">
     var pole2 = {$data2};
     var pole3 = {$data3};
     $(function() {
-        $('#graf2').highcharts({
+        $('#graph__location').highcharts({
             chart: {
                 type: 'scatter',
                 zoomType: 'xy'

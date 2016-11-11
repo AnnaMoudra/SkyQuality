@@ -48,13 +48,14 @@ class ObservationPresenter extends BasePresenter {
         $this->template->users = $this->database->table('users');
         $this->template->comments = $observation->related('comment')->order('created_at');
         $this->template->sqm = $observation->related('sqm')->order('height DESC')->order('azimute ASC');
+        $this->template->sqmcount = $observation->location->related('observations')->where('sqmavg')->count('*');
         $this->template->phosel = $phosel;
 
 
         if ($phosel->count() > 0) {
             foreach ($phosel as $photos) {
                 $imgl[] = array(
-                    'fotky' => Image::fromFile('http://skyquality.cz/www/images/photos/' . $photos->photo)->resize(600, NULL),
+                    'fotky' => Image::fromFile('http://skyquality.cz/www/images/photos/' . $photos->photo)->resize(1280, NULL, Image::SHRINK_ONLY),
                     'popisky' => ($photos->info),
                     'id' => ($photos->id)
                 );

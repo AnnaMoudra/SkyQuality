@@ -32,13 +32,12 @@ abstract class BasePresenter extends Nette\Application\UI\Presenter
      * @memberOf BasePresenter
      * 
      */
-    protected function beforeRender()
-    {
-	parent::beforeRender();
-	$this->template->location = $this->database->table('location')->count('*');
-	$this->template->sqm = $this->database->table('sqm')->count('*');
-	$this->template->obscount = $this->database->table('observations')->count('*');
-        $this->template->photos = $this->database->table('photos')->count('*'); 	
+   protected function beforeRender(){
+	   parent::beforeRender();
+	   $this->template->location = $this->database->table('location')->count('*');
+	   $this->template->sqm = $this->database->table('sqm')->count('*');
+	   $this->template->obscount = $this->database->table('observations')->count('*');
+     $this->template->photos = $this->database->table('photos')->count('*'); 	
     }
 
 }

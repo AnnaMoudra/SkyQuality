@@ -2,45 +2,28 @@
 
 {block content}
 
-<div class="page">
+<div class="content content--db">
+	<div class="db__links">
+        <a n:href="Database:" class="button">přepnout na jednotlivá pozorování</a>
+        <a href="../#map" class="button">zobrazit na mapě</a>
+        {if $user->loggedIn}
+            <a n:href="Observation:create" class="button">přidat měření</a>
+        {/if}
+   	</div>
 
-    <div style="margin-top: 1em;">
-        <a n:href="Database:" class="navbutton">přepnout na jednotlivá pozorování</a>
-        <a n:href="Map:default" class="navbutton">zobrazit na mapě</a>
-        <div n:if="$user->loggedIn" style="margin-top: 1.5em;">
-            <a n:href="Observation:create" class="navbutton">přidat měření</a>
-        </div>
+    <h2>Výpis databáze lokalit </h2>
+    <div class="data-grid--locations"> 
+    {control locationsDataGrid}
+    </div> 
+    <div class="latest__legend">
+        <p class="smallnote">Jas:ø hodnota v mag/arcsec²</p>
+        <p>Pozorování obsahuje:
+            <span class="latest__legend__item"><span class="flag flag--sqmw" title="Obsahuje SQM-W měření"></span><span class="legend__description">SQM-W měření</span></span>
+            <span class="latest__legend__item"><span class="flag flag--sqml" title="Obsahuje SQM-L měření"></span><span class="legend__description">SQM-L měření</span></span>
+            <span class="latest__legend__item"><span class="flag flag--bortle" title="Obsahuje Bortle odhad"></span><span class="legend__description">Bortle odhad</span></span>
+            <span class="latest__legend__item"><span class="flag flag--transparency" title="Obsahuje popis průzračnosti"></span><span class="legend__description">průzračnost</span></span>
+            <span class="latest__legend__item"><span class="flag flag--info" title="Obsahuje podrobnější popis"></span><span class="legend__description">podrobný popis</span></span>
+            <span class="latest__legend__item latest__legend__item--last"><span class="flag flag--photo" title="Obsahuje fotografie"></span><span class="legend__description">fotografie</span></span>
+        </p>
     </div>
-
-
-
-    <h3>Výpis databáze lokalit </h3> 
-    {control locationsDataGrid} 
-    {* <table class="dtable" width="80%" cellspacing="0">
-         <thead class="dtablehead" align="left">
-             <tr>
-             <th>Poslední měření</th>
-             <th>Lokalita</th>
-             <th>Nadm. výška</th>                                 
-             <th>SQM</th>
-             <th>Záznamů</th>
-             <th>Foto</th>
-             <th>Volně přístupné</th></tr>
-         </thead>
-         <tbody class="dtablebody">
-           <div n:foreach="$selection as $location">
-             <tr class="clickable" onclick="window.location.href={link Location:show $location->id}">
-                         <td>{$location->related('observations')->order('id DESC')->limit(1)->max('date')}</td>   
-                   <td>{$location->name|truncate:20}</td>
-               <td>{$location->altitude|truncate:40}</td>
-               <td>{$location->related('observations')->max(':sqm.value1')}</td>
-               <td>{$location->related('observations')->count('*')}</td>
-               <td>{$location->related('observations')->count(':photos.id')|replace:0:' '}</td>
-               <td>{$location->accessiblestand|replace:1:ano|replace:0:ne}</td>
-              </tr>
-           </div>
-         </tbody>
-     </table>
-    *}
-
 </div>

@@ -1,22 +1,29 @@
 {* Latte template *}
 
 {block content}
-<div class="page">
-    <div n:foreach="$equipment as $a" class="personal">
-        <h3>Pozorování přístroje {$a->name}</h3>
+<div class="content content--equipment">
+    <div n:foreach="$equipment as $a">
+        <h2>Pozorování přístroje {$a->name}</h2>
         <p>Typ: 
             {if $a->type == NULL}
-                SQM-L
-            {else}
-                {$a->type}
-            {/if}
-            , Model: {$a->model}, SN: {$a->SN}, Celkový počet pozorování: {if $a->related('observations')->count('*') == 0} 0 
-                        {else} {$a->related('observations')->count('*')}
+                <strong>SQM-L</strong>{else}<strong>{$a->type}</strong>{/if}, Model: <strong>{$a->model}</strong>, SN: <strong>{$a->SN}</strong>, Celkový počet pozorování: {if $a->related('observations')->count('*') == 0} <strong>0</strong> 
+                        {else} <strong>{$a->related('observations')->count('*')}</strong>
                         {/if}</p>
     </div>
     <div>
-            {control equipObsGrid}
-       
-
+        <div class="data-grid--observations"> 
+                {control equipObsGrid}   
+        </div>
+        <div class="latest__legend">
+        <p class="smallnote">Jas: ø hodnota v mag/arcsec²</p>
+            <p>Pozorování obsahuje:
+                <span class="latest__legend__item"><span class="flag flag--sqmw" title="Obsahuje SQM-W měření"></span><span class="legend__description">SQM-W měření</span></span>
+                <span class="latest__legend__item"><span class="flag flag--sqml" title="Obsahuje SQM-L měření"></span><span class="legend__description">SQM-L měření</span></span>
+                <span class="latest__legend__item"><span class="flag flag--bortle" title="Obsahuje Bortle odhad"></span><span class="legend__description">Bortle odhad</span></span>
+                <span class="latest__legend__item"><span class="flag flag--transparency" title="Obsahuje popis průzračnosti"></span><span class="legend__description">průzračnost</span></span>
+                <span class="latest__legend__item"><span class="flag flag--info" title="Obsahuje podrobnější popis"></span><span class="legend__description">podrobný popis</span></span>
+                <span class="latest__legend__item latest__legend__item--last"><span class="flag flag--photo" title="Obsahuje fotografie"></span><span class="legend__description">fotografie</span></span>
+            </p>
+        </div> 
     </div>
 </div>
